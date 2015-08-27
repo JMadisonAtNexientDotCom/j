@@ -1,6 +1,7 @@
 package com.myPak.hello;
 import javax.servlet.*;
 import java.io.*;
+import javax.servlet.annotation.WebServlet; //--------tomcat/lib/servlet-api.jar
 import javax.servlet.http.HttpServletResponse; //-----tomcat/lib/servlet-api.jar
 import javax.servlet.http.HttpServlet; //-------------tomcat/lib/servlet-api.jar
 import javax.servlet.http.HttpServletRequest; //------tomcat/lib/servlet-api.jar
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletRequest; //------tomcat/lib/servlet-api.jar
  * SOURCE: http://www.wellho.net/resources/ex.php4?item=j906/HelloServlet.java
  * 
  * @author jmadison **/
+
+@WebServlet(name = "HelloServlet",urlPatterns = {"/HelloServlet/*"})
 public class HelloServlet extends HttpServlet {
 
 @Override
