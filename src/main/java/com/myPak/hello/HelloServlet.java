@@ -1,10 +1,16 @@
 package com.myPak.hello;
 import javax.servlet.*;
 import java.io.*;
+
+//OPEN SHIFT servlet tutorial wants you to use this annotation.
+//https://forums.openshift.com/how-to-upload-and-serve-files-using-java-servlets-on-openshift
+import javax.servlet.annotation.MultipartConfig; 
+
 import javax.servlet.annotation.WebServlet; //--------tomcat/lib/servlet-api.jar
 import javax.servlet.http.HttpServletResponse; //-----tomcat/lib/servlet-api.jar
 import javax.servlet.http.HttpServlet; //-------------tomcat/lib/servlet-api.jar
 import javax.servlet.http.HttpServletRequest; //------tomcat/lib/servlet-api.jar
+
 /**
  * Cool news! The 3 javax.servlet imports were done with my auto-hotkey script!
  * AKA: My autohotkey stuff is paying off. As I did this in Netbeans.
@@ -18,6 +24,7 @@ import javax.servlet.http.HttpServletRequest; //------tomcat/lib/servlet-api.jar
  * @author jmadison **/
 
 @WebServlet(name = "HelloServlet",urlPatterns = {"/HelloServlet/*"})
+@MultipartConfig
 public class HelloServlet extends HttpServlet {
 
 @Override
