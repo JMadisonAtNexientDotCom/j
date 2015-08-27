@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest; //------tomcat/lib/servlet-api.jar
  * @author jmadison **/
 public class HelloServlet extends HttpServlet {
 
+@Override
 public void doGet(HttpServletRequest incoming,
     HttpServletResponse outgoing)
     throws ServletException, IOException {
