@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest; //------tomcat/lib/servlet-api.jar
  * 
  * @author jmadison **/
 
-@WebServlet(name = "HelloServlet",urlPatterns = {"/HelloServlet/*"})
+@WebServlet(name = "HelloServlet",urlPatterns = {"/hey"})
 @MultipartConfig
 public class HelloServlet extends HttpServlet {
 
