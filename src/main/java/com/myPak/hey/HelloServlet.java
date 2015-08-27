@@ -1,4 +1,4 @@
-package com.myPak.hey;
+package main.java.com.myPak.hey;
 import javax.servlet.*;
 import java.io.*;
 

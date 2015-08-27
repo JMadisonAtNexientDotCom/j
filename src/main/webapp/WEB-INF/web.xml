@@ -12,14 +12,14 @@
     
 
     <servlet>
-        <servlet-name>HelloServlet</servlet-name>
+        <servlet-name>MyServletsName</servlet-name>
         <servlet-class>main.java.com.myPak.hey.Hello</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>HelloServlet</servlet-name>
-        <url-pattern>/hello</url-pattern>
+        <servlet-name>MyServletsName</servlet-name>
+        <url-pattern>/hi</url-pattern>
     </servlet-mapping>
 		
     
