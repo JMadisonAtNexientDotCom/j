@@ -39,4 +39,13 @@ public void doGet(HttpServletRequest incoming,
     out.println("</body></html>");
     out.close();
     }
+
+    //You might need this empty init() method for servlet to work.
+    //SOURCES:
+    //https://github.com/gssOpenShiftsupportExamples/Tomcat_Example/blob/master/src/main/java/BaseServlet.java
+    //http://stackoverflow.com/questions/809775/what-does-the-servlet-load-on-startup-value-of-0-zero-signify
+    public void init(ServletConfig config) throws ServletException
+    {
+    }
+
 }
