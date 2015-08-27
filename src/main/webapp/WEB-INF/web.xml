@@ -6,19 +6,8 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          metadata-complete="false">
 
-    <!-- The basic hello-servlet code that goes in web.xml -->
-    <!-- Ripped out of the the tomcat sample.war file.     -->
-    <!-- ################################################# -->
-    <servlet>
-        <servlet-name>HelloServlet</servlet-name>
-        <servlet-class>com.myPak.hello.HelloServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>HelloServlet</servlet-name>
-        <url-pattern>/hello</url-pattern>
-    </servlet-mapping>
-   <!-- ################################################# -->
+    <!-- Keeping blank while I try and figure out the annotation based config tutorial. -->
+    <!-- https://forums.openshift.com/how-to-upload-and-serve-files-using-java-servlets-on-openshift -->
     
 </web-app>
 
