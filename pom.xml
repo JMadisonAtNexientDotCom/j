@@ -121,13 +121,14 @@
                 <!-- WILL HAVE TO INCLUDE ACTUAL .JAR file for OPENSHIFT -->
                 <!-- Something about this dependency import is crashing -->
                 <!-- The open-shift application. -->
-                <!--
+                <!-- trying the exact version that comes with hibernate. -->
                 <dependency>
                         <groupId>org.javassist</groupId>
                         <artifactId>javassist</artifactId>
-                        <version>3.20.0-GA</version>
+                        <!-- <version>3.20.0-GA</version> -->
+                        <version>3.18.1-GA</version>
                 </dependency>
-                -->
+                
                 <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
                 
                 <!-- HIBERNATE_RELEASE/lib/required #08 of 10 -->
