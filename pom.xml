@@ -53,7 +53,20 @@
 			<scope>provided</scope>
 		</dependency>
                 
-                
+                <!-- I found 10 .jar files the my hibernate installation directory.          -->
+                <!-- ( That directory being: <hibernate_release>/lib/required  )             -->
+                <!-- I added these jars to the build path to get my                          -->
+                <!-- hibernate project working.                                              -->
+                <!-- The following 10 Maven dependencies                                     -->
+                <!-- should download those 10 jars for us.                                   -->
+                <!--HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH-->
+                <!-- HIBERNATE_RELEASE/lib/required #01 of 10 -->
+                <!-- Core. Self-explanatory for why you need this import for Hibernate. -->
+                <dependency>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate-core</artifactId>
+                        <version>5.0.0.Final</version>
+                </dependency>
      
                 
                 
