@@ -189,6 +189,22 @@
 			<build>
 				<finalName>j</finalName>
 				<plugins>
+                                    
+                                        <!-- Dependency #7 "javassist" is crashing my open shift app. -->
+                                        <!-- Added so that hibernate dependency #7 does not crash openshift application. -->
+                                        <!-- http://stackoverflow.com/questions/31176283/openshift-with-lombok-issue -->
+                                        <plugin>
+                                            <groupId>org.apache.maven.plugins</groupId>
+                                            <artifactId>maven-compiler-plugin</artifactId>
+                                            <version>3.3</version>
+                                            <configuration>
+                                                <compilerVersion>1.8</compilerVersion>
+                                                <source>1.8</source>
+                                                <target>1.8</target>
+                                            </configuration>
+                                        </plugin>
+                                    
+                                    
 					<plugin>
 						<artifactId>maven-war-plugin</artifactId>
 						<version>2.1.1</version>
