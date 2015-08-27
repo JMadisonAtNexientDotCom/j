@@ -12,6 +12,6 @@ package com.myPak;
  */
 public class SomeEntryPoint {
     public SomeEntryPoint(){
-        System.out.println("Hello there");
+        //System.out.println("Hello there");
     }
 }
