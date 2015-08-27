@@ -9,5 +9,19 @@
     <!-- Keeping blank while I try and figure out the annotation based config tutorial. -->
     <!-- https://forums.openshift.com/how-to-upload-and-serve-files-using-java-servlets-on-openshift -->
     
+    
+
+    <servlet>
+        <servlet-name>HelloServlet</servlet-name>
+        <servlet-class>main.java.com.myPak.hey.Hello</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>HelloServlet</servlet-name>
+        <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+		
+    
 </web-app>
 

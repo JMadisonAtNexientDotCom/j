@@ -1,12 +1,12 @@
-package com.myPak.hello;
+package com.myPak.hey;
 import javax.servlet.*;
 import java.io.*;
 
 //OPEN SHIFT servlet tutorial wants you to use this annotation.
 //https://forums.openshift.com/how-to-upload-and-serve-files-using-java-servlets-on-openshift
-import javax.servlet.annotation.MultipartConfig; 
+//import javax.servlet.annotation.MultipartConfig; 
 
-import javax.servlet.annotation.WebServlet; //--------tomcat/lib/servlet-api.jar
+//import javax.servlet.annotation.WebServlet; //--------tomcat/lib/servlet-api.jar
 import javax.servlet.http.HttpServletResponse; //-----tomcat/lib/servlet-api.jar
 import javax.servlet.http.HttpServlet; //-------------tomcat/lib/servlet-api.jar
 import javax.servlet.http.HttpServletRequest; //------tomcat/lib/servlet-api.jar
@@ -23,8 +23,7 @@ import javax.servlet.http.HttpServletRequest; //------tomcat/lib/servlet-api.jar
  * 
  * @author jmadison **/
 
-@WebServlet(name = "HelloServlet",urlPatterns = {"/hey"})
-@MultipartConfig
+//@WebServlet(name = "HelloServlet",urlPatterns = {"/hey"})
 public class HelloServlet extends HttpServlet {
 
 @Override
