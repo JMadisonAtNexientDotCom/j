@@ -26,51 +26,18 @@ import javax.servlet.http.HttpServletRequest; //------tomcat/lib/servlet-api.jar
 //@WebServlet(name = "HelloServlet",urlPatterns = {"/hey"})
 public class HelloServlet extends HttpServlet {
 
-    /*
-@Override
-public void doGet(HttpServletRequest incoming,
-    HttpServletResponse outgoing)
-    throws ServletException, IOException {
-
-    outgoing.setContentType("text/html");
-
-    PrintWriter out = outgoing.getWriter();
-    out.println("<html><head><title>Hello!</title></head>");
-    out.println("<body bgcolor=\"white\"><h1>Hello Servlet World</h1>");
-    out.println("</body></html>");
-    out.close();
-    }
-}
-    */
-    
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse res)
-			throws ServletException, IOException {
-		res.setContentType("text/html");
-		PrintWriter out = res.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 "
-				+ "Transitional//EN\">\n");
+    public void doGet(HttpServletRequest incoming,
+        HttpServletResponse outgoing)
+        throws ServletException, IOException {
 
-		
-		out.println("<html>");
-		out.println("<body>");
-		
+        outgoing.setContentType("text/html");
 
-                out.println("<p> HEY!!!! </p>");
-                
-		out.println("</body>");
-		out.println("</html>");
-		out.close();
-	}
-
-
-    //You might need this empty init() method for servlet to work.
-    //SOURCES:
-    //https://github.com/gssOpenShiftsupportExamples/Tomcat_Example/blob/master/src/main/java/BaseServlet.java
-    //http://stackoverflow.com/questions/809775/what-does-the-servlet-load-on-startup-value-of-0-zero-signify
-    @Override
-    public void init(ServletConfig config) throws ServletException
-    {
-
+        PrintWriter out = outgoing.getWriter();
+        out.println("<html><head><title>Hello!</title></head>");
+        out.println("<body bgcolor=\"white\"><h1>Hello Servlet World</h1>");
+        out.println("</body></html>");
+        out.close();
     }
+
 }//CLASS::END
