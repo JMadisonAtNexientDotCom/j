@@ -68,7 +68,44 @@
                         <version>5.0.0.Final</version>
                 </dependency>
      
-                
+                <!-- HIBERNATE_RELEASE/lib/required #02 of 10 -->
+                <!-- Enables annotation configuration option for project. -->
+                <!-- Without this, you are stuck with XML annotations. -->
+                <!-- Unless org.hibernate.javax.persistence brings in annotations too?? -->
+                <dependency>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate-commons-annotations</artifactId>
+                        <version>3.2.0.Final</version>
+                </dependency>
+
+                <!-- HIBERNATE_RELEASE/lib/required #03 of 10 -->
+                <!-- Library description for antlr?????? (Unknown) -->
+                <!-- MVN REPO URL: http://mvnrepository.com/artifact/antlr/antlr/2.7.7 -->
+                <!-- JAR FILE NAME: 2.7.7/antlr-2.7.7.jar -->
+                <dependency>
+                        <groupId>antlr</groupId>
+                        <artifactId>antlr</artifactId>
+                        <version>2.7.7</version>
+                </dependency>
+
+                <!-- HIBERNATE_RELEASE/lib/required #04 of 10 -->
+                <!-- dom4j: the flexible XML framework for Java -->
+                <!-- MVN Repo URL: http://mvnrepository.com/artifact/dom4j/dom4j/1.6.1 -->
+                <dependency>
+                        <groupId>dom4j</groupId>
+                        <artifactId>dom4j</artifactId>
+                        <version>1.6.1</version>
+                </dependency>
+
+                <!-- HIBERNATE_RELEASE/lib/required #05 of 10 -->
+                <!-- Hibernate definition of the Java Persistence 2.0 (JSR 317) API.      -->
+                <!-- MVN Repo URL: http://mvnrepository.com/artifact/org.hibernate.javax. -->
+                <!--               persistence/hibernate-jpa-2.0-api/1.0.1.Final          -->
+                <dependency>
+                        <groupId>org.hibernate.javax.persistence</groupId>
+                        <artifactId>hibernate-jpa-2.0-api</artifactId>
+                        <version>1.0.1.Final</version>
+                </dependency>
                 
 	</dependencies>
 	<profiles>
