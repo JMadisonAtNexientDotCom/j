@@ -13,7 +13,7 @@
 
     <servlet>
         <servlet-name>MyServletsName</servlet-name>
-        <servlet-class>com.myPak.hey.Hello</servlet-class>
+        <servlet-class>com.myPak.hey.HelloServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
