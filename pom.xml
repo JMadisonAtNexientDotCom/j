@@ -202,6 +202,7 @@
                                             <version>3.3</version>
                                             <configuration>
                                                 <compilerVersion>1.8</compilerVersion>
+                                                
                                                 <source>1.8</source>
                                                 <target>1.8</target>
                                             </configuration>
@@ -212,6 +213,14 @@
 						<artifactId>maven-war-plugin</artifactId>
 						<version>2.1.1</version>
 						<configuration>
+                                                    
+                                                    <!-- !!!! Nowhere is ingoreWebxml specified as true. -->
+                                                    <!-- https://issues.apache.org/jira/browse/MWAR-248 -->
+                                                    <failOnMissingWebXml>true</failOnMissingWebXml>
+                                                    <ignoreWebxml>false</ignoreWebxml>
+                                                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+                                                    <packagingIncludes>WEB-INF/web.xml</packagingIncludes>
+                                                    
 							<outputDirectory>webapps</outputDirectory>
 							<warName>ROOT</warName>
 						</configuration>

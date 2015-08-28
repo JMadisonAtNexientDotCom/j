@@ -9,7 +9,12 @@
     <!-- Keeping blank while I try and figure out the annotation based config tutorial. -->
     <!-- https://forums.openshift.com/how-to-upload-and-serve-files-using-java-servlets-on-openshift -->
     
-    
+    <!--
+    CHECK TO SEE IF THIS EXISTS IN YOUR .WAR FILE!!!
+        Building war: C:\DEV\REPO\GIT\j\target\j-1.0.war
+        Warning: selected war files include a WEB-INF/web.xml which will be ignored 
+        (webxml attribute is missing from war task, or ignoreWebxml attribute is specified as 'true')
+    -->
 
     <servlet>
         <servlet-name>MyServletsName</servlet-name>
