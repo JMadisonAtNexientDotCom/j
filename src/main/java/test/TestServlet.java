@@ -34,7 +34,7 @@ public class TestServlet extends HttpServlet{
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
 		out.println("<body>");
-		out.println("<h1>Hello Servlet Get</h1>");
+		out.println("<h1>" + getTestConfigMSG() + "</h1>");
 		out.println("</body>");
 		out.println("</html>");	
             }catch(IOException e){
@@ -42,5 +42,9 @@ public class TestServlet extends HttpServlet{
                 System.out.println(e);
             }
        
+     }
+     
+     private static String getTestConfigMSG(){
+         return TestConfig.testVar01;
      }
 }
