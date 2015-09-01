@@ -13,6 +13,10 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import test.MyError;
 import org.hibernate.cfg.Configuration;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+
+
 //import org.hibernate.cfg.Configuration;
 
 /**
@@ -122,7 +126,12 @@ public class HibernateUtil {
         //http://stackoverflow.com/questions/20063330/how-to-load-hibernate-cfg-xml-from-different-location
         log("about to set file reference:");
        // File f = new File("D:\\fax\\hibernate.cfg.xml");
-        File f = new File("..\\resources\\hbm.cfg.xml");
+        // File f = new File("..\\resources\\hbm.cfg.xml");
+        Path p = FileSystems.getDefault().getPath("resources", "hbm.cfg.xml");
+        Path absPath = p.toAbsolutePath();
+        String absolutePathAsString = absPath.toString();
+        File f = new File(absolutePathAsString);
+       
         if(false == f.exists())
         { 
             log("file reference is INVALID PATH");
