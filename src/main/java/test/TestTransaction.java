@@ -26,8 +26,8 @@ public class TestTransaction {
     public static void doTestTransaction(){
         
         //http://wiki.apache.org/tomcat/FAQ/Logging#Q6
-        System.out.println("Is this a tomcat log?");
-        LogDemo.doIt();
+        //System.out.println("Is this a tomcat log?");
+        //LogDemo.doIt();
         
         //Attempt to throw custom error:
         //MyError me = new MyError("Oh noooo!!");
