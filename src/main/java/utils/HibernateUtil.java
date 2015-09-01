@@ -127,15 +127,17 @@ public class HibernateUtil {
         log("about to set file reference:");
        // File f = new File("D:\\fax\\hibernate.cfg.xml");
         // File f = new File("..\\resources\\hbm.cfg.xml");
-        Path p = FileSystems.getDefault().getPath("resources", "hbm.cfg.xml");
-        Path absPath = p.toAbsolutePath();
+        Path relativePath = FileSystems.getDefault().
+                                            getPath("resources", "hbm.cfg.xml");
+        Path absPath = relativePath.toAbsolutePath();
         String absolutePathAsString = absPath.toString();
         File f = new File(absolutePathAsString);
        
         if(false == f.exists())
         { 
             log("file reference is INVALID PATH");
-            throw new MyError("File path is invalid!");
+            throw new MyError("Path is invalid!:" +
+                    "absolutePathAsString==[" + absolutePathAsString + "]");
         }
         log("file reference for hbm.cfg.xml was valid!");
         
