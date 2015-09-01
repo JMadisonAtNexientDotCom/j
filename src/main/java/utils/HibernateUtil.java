@@ -119,8 +119,14 @@ public class HibernateUtil {
         //Configuring using a FILE REFERENCE looks like a good idea to me.
         //Will probably allow me to know if the reference is bad.
         //http://stackoverflow.com/questions/20063330/how-to-load-hibernate-cfg-xml-from-different-location
+        log("about to set file reference:");
         File f = new File("D:\\fax\\hibernate.cfg.xml");
-        if(false == f.exists()){ throw new MyError("File path is invalid!");}
+        if(false == f.exists())
+        { 
+            log("file reference is INVALID PATH");
+            throw new MyError("File path is invalid!");
+        }
+        log("file reference for hbm.cfg.xml was valid!");
         
 	final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
 			.configure(f) // configures settings from hibernate.cfg.xml
