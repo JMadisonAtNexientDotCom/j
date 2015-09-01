@@ -81,6 +81,7 @@ public class HibernateUtil {
     }
 
     /** This way on stack overflow seems more sensible. **/
+    /*
     //Have NOT found a way to validate the configuration path. So put
     //resources folder  under java folder as a huntch. Then will just try
     //my other setUp() method and put hbm.cfg.xml at root of project or
@@ -105,16 +106,17 @@ public class HibernateUtil {
              _hasSessionFactory = false;
          }
     }//setUp
+    */
     
     //SOURCE: http://docs.jboss.org/hibernate/orm/5.0/quickstart/html/
     //Example 4. Obtaining the org.hibernate.SessionFactory
     //JMadison note: IF session factory is set up once for an application...
     //Why is this example method non-static??? I am going to change that.
-    protected static void setUpOld() throws Exception {
+    protected static void setUp() {
 	// A SessionFactory is set up once for an application!
         
 	final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-			.configure("resources//hbm.cfg.xml") // configures settings from hibernate.cfg.xml
+			.configure() // configures settings from hibernate.cfg.xml
 			.build();
 	try {
 		_sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
