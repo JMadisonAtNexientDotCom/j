@@ -18,6 +18,9 @@ import test.MyError;
  * @author jmadison
  */
 public class HibernateUtil {
+    
+    private static Boolean _debug_hasSetupBeenCalled = false;
+    private static Boolean _debug_hasStaticInitBeenCalled = false;
 
     //Static initializer for class:
     static{/////////////////////////////////////////////////////////////////////
@@ -49,9 +52,13 @@ public class HibernateUtil {
     public static SessionFactory getSessionFactory() {
         
         //Make sure getter crashes here if trying to return null.
+        //If null, ask if we failed to call the static initializer:
         if(null==sessionFactory)
         {
-            MyError me = new MyError("null==sessionFactory");
+            MyError me;
+            String msg = "null==sessionFactory,";
+            msg += (_debug_hasStaticInitBeenCalled ? "INIT_YES" : "NO_INIT" );
+            me = new MyError(msg);
             throw me;
         }
         
@@ -82,9 +89,19 @@ public class HibernateUtil {
 		// so destroy it manually.
 		StandardServiceRegistryBuilder.destroy( registry );
 	}
+        
+        if(null == sessionFactory)
+        {
+            throw new MyError("setUp() about to exit with NULL sessionFactory");
+        }
+        
     }//FUNC:setUp:END
     
     private static void doStaticInit() throws Exception{
+        
+        _debug_hasStaticInitBeenCalled = true;
+        _debug_hasSetupBeenCalled = false;
         setUp();
+        _debug_hasSetupBeenCalled = true;
     }
 }//CLASS::END
