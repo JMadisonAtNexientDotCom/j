@@ -141,6 +141,13 @@ public class HibernateUtil {
         }
         log("file reference for hbm.cfg.xml was valid!");
         
+        //HACK: Throw error no matter what to see what that absolute path is!!
+        if(true)
+        {
+            throw new MyError("Path is VALID!:" +
+                    "absolutePathAsString==[" + absolutePathAsString + "]");
+        }
+        
 	final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
 			.configure(f) // configures settings from hibernate.cfg.xml
 			.build();
