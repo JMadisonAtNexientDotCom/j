@@ -54,7 +54,8 @@ public class HibernateUtil {
         
         if(false == _hasSessionFactory)
         { 
-            try{ setUp();}catch(Exception e){System.out.println(e);}
+            //try{ setUp();}catch(Exception e){System.out.println(e);}
+            setUp();
         }
         testSessionFactoryReferenceIntegrity();
         
