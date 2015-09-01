@@ -15,10 +15,10 @@ public class LogDemo
 {
     private static Log logger = LogFactory.getLog(LogDemo.class);
 
-		public static void main(String[] args)
+    public static void doIt()
     {
-				logger.info("Test info");
-				logger.debug("Test info");
+	logger.info("Test info");
+	logger.debug("Test info");
 
     }
 }

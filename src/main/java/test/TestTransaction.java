@@ -22,6 +22,8 @@ public class TestTransaction {
     //Example 5. Saving entities
     public static void doTestTransaction(){
         
+        LogDemo.doIt();
+        
         /*
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session   = sf.openSession();
