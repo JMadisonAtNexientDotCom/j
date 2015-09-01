@@ -22,11 +22,15 @@ public class HibernateUtil {
     //declare all static variables BEFORE the static initializer.
     //will this help?
     private static Boolean _debug_hasSetupBeenCalled = false;
-    private static Boolean _debug_hasStaticInitBeenCalled = false;
+   // private static Boolean _debug_hasStaticInitBeenCalled = false;
     private static String _debug_class_state_msg = "No msg set.";
     private static String _debug_log = "debug_log:";
-    private static SessionFactory sessionFactory;
+    private static SessionFactory _sessionFactory    = null;
+    private static Boolean        _hasSessionFactory = false;
 
+    /*
+    Thinking it is a a bad idea to try to access hibernate configuration within
+    static initializer.
     //Static initializer for class:
     static{/////////////////////////////////////////////////////////////////////
         log("entering static{} initializer block");
@@ -40,19 +44,25 @@ public class HibernateUtil {
         }
         log("exiting static{} initializer block");
     }///////////////////////////////////////////////////////////////////////////
-    
+    */
    
 
 
     public static SessionFactory getSessionFactory() {
         
+        if(false == _hasSessionFactory)
+        { 
+            try{ setUp();}catch(Exception e){System.out.println(e);}
+        }
+        testSessionFactoryReferenceIntegrity();
+        
         //Make sure getter crashes here if trying to return null.
         //If null, ask if we failed to call the static initializer:
-        if(null==sessionFactory)
+        if(null==_sessionFactory)
         {
             MyError me;
-            String msg = "null==sessionFactory,";
-            msg += (_debug_hasStaticInitBeenCalled ? "INIT_YES" : "NO_INIT" );
+            String msg = "getSessionFactory() FAILED! :: null==_sessionFactory,";
+            //msg += (_debug_hasStaticInitBeenCalled ? "INIT_YES" : "NO_INIT" );
             msg += ":_debug_class_state_msg==" + _debug_class_state_msg;
             msg += "log:::::";
             msg += _debug_log;
@@ -60,7 +70,7 @@ public class HibernateUtil {
             throw me;
         }
         
-        return sessionFactory;
+        return _sessionFactory;
     }
 
     public static void shutdown() {
@@ -80,30 +90,49 @@ public class HibernateUtil {
 			.configure() // configures settings from hibernate.cfg.xml
 			.build();
 	try {
-		sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+		_sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+                _hasSessionFactory = true;
 	}
 	catch (Exception e) {
 		// The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
 		// so destroy it manually.
+                _hasSessionFactory = false;
+                _sessionFactory    = null;
 		StandardServiceRegistryBuilder.destroy( registry );
-                throw e;
+                
 	}
         
-        //TEST: Make sure sessionFactory within this scope is not null: ////////
-        if(null == sessionFactory)
-        {
-            throw new MyError("setUp() about to exit with NULL sessionFactory");
-        }///////////////////////////////////////////////////////////////////////
-        //TEST:
-        //before we exit, test to make sure getSessionFactory() 
-        //is not returning null; ///////////////////////////////////////////////
-        _debug_class_state_msg = "in setUp, testing getSessionFactory";
-        SessionFactory sf = getSessionFactory();
-        if(null == sf){ throw new MyError("sf == null!!");}
-        ////////////////////////////////////////////////////////////////////////
+        testSessionFactoryReferenceIntegrity();
         
     }//FUNC:setUp:END
+   
+    /** TEST FUNCTION: Will crash on error. **/
+    private static void testSessionFactoryReferenceIntegrity(){
+        
+        //This guard is here because setUp() is allowed to fail.
+        //If setup fails, _hasSessionFactory == false, and setUp()
+        //Will be called again when trying to use the getSessionFactory()
+        //method.
+        if(_hasSessionFactory)
+        {
+            //TEST: Make sure _sessionFactory within this scope is not null: ///
+            if(null == _sessionFactory)
+            {
+                throw new MyError("setUp() about to exit with +" + 
+                                                        "NULL _sessionFactory");
+            }///////////////////////////////////////////////////////////////////
+            //TEST:
+            //before we exit, test to make sure getSessionFactory() 
+            //is not returning null; ///////////////////////////////////////////
+            _debug_class_state_msg = "in setUp, testing getSessionFactory";
+            SessionFactory sf = getSessionFactory();
+            if(null == sf){ throw new MyError("sf == null!!");}
+            ////////////////////////////////////////////////////////////////////
+        }//_hasSessionFactory?
+    }//FUNC::END
     
+    /*
+    //thinking this was a bad idea:
     private static void doStaticInit() throws Exception{
         
         _debug_hasStaticInitBeenCalled = true;
@@ -111,6 +140,7 @@ public class HibernateUtil {
         setUp();
         _debug_hasSetupBeenCalled = true;
     }
+    */
     
     private static void log(String inMSG){
         _debug_log += inMSG + "\n";
