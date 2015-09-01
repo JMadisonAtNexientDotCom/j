@@ -19,10 +19,13 @@ import test.MyError;
  */
 public class HibernateUtil {
     
+    //declare all static variables BEFORE the static initializer.
+    //will this help?
     private static Boolean _debug_hasSetupBeenCalled = false;
     private static Boolean _debug_hasStaticInitBeenCalled = false;
     private static String _debug_class_state_msg = "No msg set.";
     private static String _debug_log = "debug_log:";
+    private static SessionFactory sessionFactory;
 
     //Static initializer for class:
     static{/////////////////////////////////////////////////////////////////////
@@ -38,7 +41,7 @@ public class HibernateUtil {
         log("exiting static{} initializer block");
     }///////////////////////////////////////////////////////////////////////////
     
-    private static SessionFactory sessionFactory;
+   
 
 
     public static SessionFactory getSessionFactory() {
