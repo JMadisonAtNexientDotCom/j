@@ -248,6 +248,13 @@
                         <version>3.1</version>
                 </dependency>
 
+                <!-- found while searched for: hibernate reflection imports maven -->
+                <!-- No clue what it is for... When do the imports stop??? -->
+                <dependency>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate-envers</artifactId>
+                        <version>3.6.4.Final</version>
+                </dependency>
                 
                 
                 <!--HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH-->
