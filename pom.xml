@@ -122,9 +122,19 @@
                 <dependency>
                     <groupId>hibernate-commons-annotations</groupId>
                     <artifactId>hibernate-commons-annotations</artifactId>
+                    <version>3.5.6-Final</version>
+                </dependency>
+                
+                
+                <!-- This version of hibernate-commons-annotations allows build to SUCCEED. -->
+                <!-- But the app will crash. -->
+                <!--
+                <dependency>
+                    <groupId>hibernate-commons-annotations</groupId>
+                    <artifactId>hibernate-commons-annotations</artifactId>
                     <version>3.0.0.GA</version>
                 </dependency>
-
+                -->
                     
                     
 
