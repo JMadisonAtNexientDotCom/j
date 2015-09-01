@@ -22,15 +22,20 @@ public class HibernateUtil {
     private static Boolean _debug_hasSetupBeenCalled = false;
     private static Boolean _debug_hasStaticInitBeenCalled = false;
     private static String _debug_class_state_msg = "No msg set.";
+    private static String _debug_log = "debug_log:";
 
     //Static initializer for class:
     static{/////////////////////////////////////////////////////////////////////
+        log("entering static{} initializer block");
         try {
+            log("about to try: doStaticInit()");
             doStaticInit();
         } catch (Exception ex) {
+            log("failed to doStaticInit, catching exception");
             Logger.getLogger(HibernateUtil.class.getName()).log(Level.
                                                               SEVERE, null, ex);
         }
+        log("exiting static{} initializer block");
     }///////////////////////////////////////////////////////////////////////////
     
     private static SessionFactory sessionFactory;
@@ -46,6 +51,8 @@ public class HibernateUtil {
             String msg = "null==sessionFactory,";
             msg += (_debug_hasStaticInitBeenCalled ? "INIT_YES" : "NO_INIT" );
             msg += ":_debug_class_state_msg==" + _debug_class_state_msg;
+            msg += "log:::::";
+            msg += _debug_log;
             me = new MyError(msg);
             throw me;
         }
@@ -78,12 +85,11 @@ public class HibernateUtil {
 		StandardServiceRegistryBuilder.destroy( registry );
 	}
         
-        //TEST: Make sure sessionFactory is not null:
+        //TEST: Make sure sessionFactory within this scope is not null: ////////
         if(null == sessionFactory)
         {
             throw new MyError("setUp() about to exit with NULL sessionFactory");
-        }
-        
+        }///////////////////////////////////////////////////////////////////////
         //TEST:
         //before we exit, test to make sure getSessionFactory() 
         //is not returning null; ///////////////////////////////////////////////
@@ -100,5 +106,9 @@ public class HibernateUtil {
         _debug_hasSetupBeenCalled = false;
         setUp();
         _debug_hasSetupBeenCalled = true;
+    }
+    
+    private static void log(String inMSG){
+        _debug_log += inMSG + "\n";
     }
 }//CLASS::END
