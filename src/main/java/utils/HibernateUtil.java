@@ -81,10 +81,15 @@ public class HibernateUtil {
     }
 
     /** This way on stack overflow seems more sensible. **/
+    //Have NOT found a way to validate the configuration path. So put
+    //resources folder  under java folder as a huntch. Then will just try
+    //my other setUp() method and put hbm.cfg.xml at root of project or
+    //root of WEB-INF 
+    //http://stackoverflow.com/questions/4934330/org-hibernate-hibernateexception-hibernate-cfg-xml-not-found
     protected static void setUp(){
          Configuration configuration = new Configuration();
-         //configuration.configure("resources//hbm.cfg.xml");
-          configuration.configure("sfdsfdsfdsf//sfdjslfj//hbm.cfg.xml");
+         configuration.configure("resources//hbm.cfg.xml");
+         //configuration.configure("sfdsfdsfdsf//sfdjslfj//hbm.cfg.xml");
          StandardServiceRegistryBuilder ssrb = 
             new StandardServiceRegistryBuilder().applySettings(configuration
                                                               .getProperties());
