@@ -15,6 +15,7 @@ import test.MyError;
 import org.hibernate.cfg.Configuration;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import org.hibernate.boot.Metadata;
 
 
 //import org.hibernate.cfg.Configuration;
@@ -142,7 +143,7 @@ public class HibernateUtil {
         log("file reference for hbm.cfg.xml was valid!");
         
         //HACK: Throw error no matter what to see what that absolute path is!!
-        if(true)
+        if(false)
         {
             throw new MyError("Path is VALID!:" +
                     "absolutePathAsString==[" + absolutePathAsString + "]");
@@ -152,7 +153,10 @@ public class HibernateUtil {
 			.configure(f) // configures settings from hibernate.cfg.xml
 			.build();
 	try {
-		_sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+		//_sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+                MetadataSources mds = new MetadataSources(registry);
+                Metadata md = mds.buildMetadata();
+                _sessionFactory = md.buildSessionFactory();
                 _hasSessionFactory = true;
 	}
 	catch (Exception e) {
