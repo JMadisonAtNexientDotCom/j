@@ -36,16 +36,31 @@
 		<maven.compiler.target>1.6</maven.compiler.target>
 	</properties>
 	<dependencies>
+           
+            <!-- LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL -->
             
             <!-- Trying to fix error that came out of nowhere. -->
             <!-- http://www.slf4j.org/codes.html -->
-            <!--
             <dependency>
+                <!-- Just adding log4j dependency broke build.... -->
+                <!-- Wait: Why does the groupId have no qualified path? -->
                     <groupId>log4j</groupId>
                     <artifactId>log4j</artifactId>
                     <version>1.2.15</version>
             </dependency>
-            -->
+
+            <dependency>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-api</artifactId>
+                    <version>2.3</version>
+            </dependency>
+            
+            <dependency>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-core</artifactId>
+                    <version>2.3</version>
+            </dependency>
+            <!-- LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL -->
             
 		<dependency>
 			<groupId>org.postgresql</groupId>
