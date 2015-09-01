@@ -21,7 +21,7 @@ public class HibernateUtil {
     
     private static Boolean _debug_hasSetupBeenCalled = false;
     private static Boolean _debug_hasStaticInitBeenCalled = false;
-    private static String _debug_class_state_msg = "No msg set."
+    private static String _debug_class_state_msg = "No msg set.";
 
     //Static initializer for class:
     static{/////////////////////////////////////////////////////////////////////
