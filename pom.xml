@@ -39,12 +39,13 @@
             
             <!-- Trying to fix error that came out of nowhere. -->
             <!-- http://www.slf4j.org/codes.html -->
+            <!--
             <dependency>
                     <groupId>log4j</groupId>
                     <artifactId>log4j</artifactId>
                     <version>1.2.15</version>
             </dependency>
-            
+            -->
             
 		<dependency>
 			<groupId>org.postgresql</groupId>
