@@ -24,7 +24,7 @@ public class TestTransaction {
         
         LogDemo.doIt();
         
-        /*
+        
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session   = sf.openSession();
         session.beginTransaction();
@@ -41,7 +41,7 @@ public class TestTransaction {
         
         session.getTransaction().commit();
         session.close();
-                */
+                
         
     }//FUNC::END
 }//CLASS::END
