@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package utils;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.hibernate.SessionFactory;
@@ -115,8 +116,14 @@ public class HibernateUtil {
     protected static void setUp() {
 	// A SessionFactory is set up once for an application!
         
+        //Configuring using a FILE REFERENCE looks like a good idea to me.
+        //Will probably allow me to know if the reference is bad.
+        //http://stackoverflow.com/questions/20063330/how-to-load-hibernate-cfg-xml-from-different-location
+        File f = new File("D:\\fax\\hibernate.cfg.xml");
+        if(false == f.exists()){ throw new MyError("File path is invalid!");}
+        
 	final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-			.configure() // configures settings from hibernate.cfg.xml
+			.configure(f) // configures settings from hibernate.cfg.xml
 			.build();
 	try {
 		_sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
