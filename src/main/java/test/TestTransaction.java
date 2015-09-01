@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import utils.HibernateUtil;
 import test.entities.TestTable01;
 
+
 /**
  *
  * @author jmadison
@@ -20,6 +21,8 @@ public class TestTransaction {
     //http://docs.jboss.org/hibernate/orm/5.0/quickstart/html/
     //Example 5. Saving entities
     public static void doTestTransaction(){
+        
+        /*
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session   = sf.openSession();
         session.beginTransaction();
@@ -36,5 +39,7 @@ public class TestTransaction {
         
         session.getTransaction().commit();
         session.close();
+                */
+        
     }//FUNC::END
 }//CLASS::END
