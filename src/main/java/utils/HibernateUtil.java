@@ -11,6 +11,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import test.MyError;
+import org.hibernate.cfg.Configuration;
 //import org.hibernate.cfg.Configuration;
 
 /**
@@ -79,14 +80,33 @@ public class HibernateUtil {
         getSessionFactory().close();
     }
 
-    
+    /** This way on stack overflow seems more sensible. **/
+    protected static void setUp(){
+         Configuration configuration = new Configuration();
+         configuration.configure("resources//hbm.cfg.xml");
+         StandardServiceRegistryBuilder ssrb = 
+            new StandardServiceRegistryBuilder().applySettings(configuration
+                                                              .getProperties());
+         _sessionFactory = configuration.buildSessionFactory(ssrb.build());
+         
+         if(null != _sessionFactory)
+         {
+             _hasSessionFactory = true;
+             throw new MyError("session factory is null, abc");
+         }
+         else
+         {
+             _hasSessionFactory = false;
+         }
+    }//setUp
     
     //SOURCE: http://docs.jboss.org/hibernate/orm/5.0/quickstart/html/
     //Example 4. Obtaining the org.hibernate.SessionFactory
     //JMadison note: IF session factory is set up once for an application...
     //Why is this example method non-static??? I am going to change that.
-    protected static void setUp() throws Exception {
+    protected static void setUpOld() throws Exception {
 	// A SessionFactory is set up once for an application!
+        
 	final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
 			.configure("resources//hbm.cfg.xml") // configures settings from hibernate.cfg.xml
 			.build();
