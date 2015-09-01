@@ -83,7 +83,8 @@ public class HibernateUtil {
     /** This way on stack overflow seems more sensible. **/
     protected static void setUp(){
          Configuration configuration = new Configuration();
-         configuration.configure("resources//hbm.cfg.xml");
+         //configuration.configure("resources//hbm.cfg.xml");
+          configuration.configure("sfdsfdsfdsf//sfdjslfj//hbm.cfg.xml");
          StandardServiceRegistryBuilder ssrb = 
             new StandardServiceRegistryBuilder().applySettings(configuration
                                                               .getProperties());
