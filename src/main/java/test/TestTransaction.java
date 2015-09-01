@@ -30,11 +30,13 @@ public class TestTransaction {
         LogDemo.doIt();
         
         //Attempt to throw custom error:
-        MyError me = new MyError("Oh noooo!!");
-        throw me;
+        //MyError me = new MyError("Oh noooo!!");
+        //throw me;
+        
+        
+        SessionFactory sf = HibernateUtil.getSessionFactory();
         
         /*
-        SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session   = sf.openSession();
         session.beginTransaction();
         //session.save( new Event( "Our very first event!", new Date() ) );

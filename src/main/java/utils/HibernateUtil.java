@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import test.MyError;
 //import org.hibernate.cfg.Configuration;
 
 /**
@@ -46,6 +47,14 @@ public class HibernateUtil {
     */
 
     public static SessionFactory getSessionFactory() {
+        
+        //Make sure getter crashes here if trying to return null.
+        if(null==sessionFactory)
+        {
+            MyError me = new MyError("null==sessionFactory");
+            throw me;
+        }
+        
         return sessionFactory;
     }
 
