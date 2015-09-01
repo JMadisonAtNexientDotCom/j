@@ -14,6 +14,10 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import utils.HibernateUtil;
+import org.hibernate.SessionFactory;
+
+//import org.hibernate.tutorial.hbm.Event;
 
 /**
  *
@@ -29,6 +33,10 @@ public class TestServlet extends HttpServlet{
                        HttpServletResponse response)
                 throws ServletException, IOException
      {
+        //test hibernate and see if you can get a simple transaction
+        //to SQL database.
+        TestTransaction.doTestTransaction();
+         
          
             try{
 		PrintWriter out = response.getWriter();

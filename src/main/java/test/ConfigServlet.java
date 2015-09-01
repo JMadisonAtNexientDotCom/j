@@ -13,6 +13,6 @@ public class ConfigServlet extends HttpServlet{
     @Override 
     public void init()throws ServletException{
         super.init();
-        TestConfig.testVar01 = "INITED!!!";
+        TestConfig.testVar01 = "ConfigServlet.init() was here!";
     }
 }
