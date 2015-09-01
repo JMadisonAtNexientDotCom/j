@@ -17,6 +17,19 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+                
+                <!-- http://www.mkyong.com/hibernate/hibernate-error-initial-        -->
+                <!-- sessionfactory-creation-failed-java-lang-noclassdeffounderror-  -->
+                <!-- orghibernateannotationscommonreflectionreflectionmanager/       -->
+                <repository>
+                  <id>JBoss repository</id>
+                  <url>http://repository.jboss.com/maven2/</url>
+                </repository>
+              
+
+                
+                
+                
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
