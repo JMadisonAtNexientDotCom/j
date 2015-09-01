@@ -21,6 +21,7 @@ public class HibernateUtil {
     
     private static Boolean _debug_hasSetupBeenCalled = false;
     private static Boolean _debug_hasStaticInitBeenCalled = false;
+    private static String _debug_class_state_msg = "No msg set."
 
     //Static initializer for class:
     static{/////////////////////////////////////////////////////////////////////
@@ -33,21 +34,7 @@ public class HibernateUtil {
     }///////////////////////////////////////////////////////////////////////////
     
     private static SessionFactory sessionFactory;
-    
-    /* This code was from another tutorial.
-    private static final SessionFactory sessionFactory = buildSessionFactory();
-    private static SessionFactory buildSessionFactory() {
-        try {
-            // Create the SessionFactory from hibernate.cfg.xml
-            Configuration  configuration = new Configuration().configure( "resources\\hbm.cfg.xml");
-            return new Configuration().configure().buildSessionFactory();
-        } catch (Throwable ex) {
-            // Make sure you log the exception, as it might be swallowed
-            System.err.println("Initial SessionFactory creation failed." + ex);
-            throw new ExceptionInInitializerError(ex);
-        }
-    }
-    */
+
 
     public static SessionFactory getSessionFactory() {
         
@@ -58,6 +45,7 @@ public class HibernateUtil {
             MyError me;
             String msg = "null==sessionFactory,";
             msg += (_debug_hasStaticInitBeenCalled ? "INIT_YES" : "NO_INIT" );
+            msg += ":_debug_class_state_msg==" + _debug_class_state_msg;
             me = new MyError(msg);
             throw me;
         }
@@ -90,10 +78,19 @@ public class HibernateUtil {
 		StandardServiceRegistryBuilder.destroy( registry );
 	}
         
+        //TEST: Make sure sessionFactory is not null:
         if(null == sessionFactory)
         {
             throw new MyError("setUp() about to exit with NULL sessionFactory");
         }
+        
+        //TEST:
+        //before we exit, test to make sure getSessionFactory() 
+        //is not returning null; ///////////////////////////////////////////////
+        _debug_class_state_msg = "in setUp, testing getSessionFactory";
+        SessionFactory sf = getSessionFactory();
+        if(null == sf){ throw new MyError("sf == null!!");}
+        ////////////////////////////////////////////////////////////////////////
         
     }//FUNC:setUp:END
     
