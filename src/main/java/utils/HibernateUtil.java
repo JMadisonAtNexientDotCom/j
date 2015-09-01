@@ -121,7 +121,8 @@ public class HibernateUtil {
         //Will probably allow me to know if the reference is bad.
         //http://stackoverflow.com/questions/20063330/how-to-load-hibernate-cfg-xml-from-different-location
         log("about to set file reference:");
-        File f = new File("D:\\fax\\hibernate.cfg.xml");
+       // File f = new File("D:\\fax\\hibernate.cfg.xml");
+        File f = new File("..\\resources\\hbm.cfg.xml");
         if(false == f.exists())
         { 
             log("file reference is INVALID PATH");
