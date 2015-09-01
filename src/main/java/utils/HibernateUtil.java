@@ -62,6 +62,7 @@ public class HibernateUtil {
         {
             MyError me;
             String msg = "getSessionFactory() FAILED! :: null==_sessionFactory,";
+            msg += ("_hasSessionFactory ==" + _hasSessionFactory);
             //msg += (_debug_hasStaticInitBeenCalled ? "INIT_YES" : "NO_INIT" );
             msg += ":_debug_class_state_msg==" + _debug_class_state_msg;
             msg += "log:::::";
@@ -87,7 +88,7 @@ public class HibernateUtil {
     protected static void setUp() throws Exception {
 	// A SessionFactory is set up once for an application!
 	final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-			.configure() // configures settings from hibernate.cfg.xml
+			.configure("resources//hbm.cfg.xml") // configures settings from hibernate.cfg.xml
 			.build();
 	try {
 		_sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
