@@ -128,7 +128,7 @@ public class HibernateUtil {
        // File f = new File("D:\\fax\\hibernate.cfg.xml");
         // File f = new File("..\\resources\\hbm.cfg.xml");
         Path relativePath = FileSystems.getDefault().
-                                            getPath("resources", "hbm.cfg.xml");
+                                            getPath("webapps", "hbm.cfg.xml");
         Path absPath = relativePath.toAbsolutePath();
         String absolutePathAsString = absPath.toString();
         File f = new File(absolutePathAsString);
