@@ -22,6 +22,8 @@ public class TestTransaction {
     //Example 5. Saving entities
     public static void doTestTransaction(){
         
+        //http://wiki.apache.org/tomcat/FAQ/Logging#Q6
+        System.out.println("Is this a tomcat log?");
         LogDemo.doIt();
         
         
