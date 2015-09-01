@@ -10,6 +10,9 @@ import org.hibernate.SessionFactory;
 import utils.HibernateUtil;
 import test.entities.TestTable01;
 
+import java.lang.Exception;
+import java.lang.Error;
+import test.MyError;
 
 /**
  *
@@ -26,7 +29,11 @@ public class TestTransaction {
         System.out.println("Is this a tomcat log?");
         LogDemo.doIt();
         
+        //Attempt to throw custom error:
+        MyError me = new MyError("Oh noooo!!");
+        throw me;
         
+        /*
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session   = sf.openSession();
         session.beginTransaction();
@@ -43,7 +50,7 @@ public class TestTransaction {
         
         session.getTransaction().commit();
         session.close();
-                
+        */ 
         
     }//FUNC::END
 }//CLASS::END
