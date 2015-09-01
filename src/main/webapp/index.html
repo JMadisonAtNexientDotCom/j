@@ -208,26 +208,13 @@ pre {
 
 <section class='container'>
           <hgroup>
-            <h1>We now have pom.xml dependencies 1-5 inclusive.</h1>
-            <h1>Appening 6,7,8. Still working? </h1>
-            <h1>6,7, or 8 crashed my app. Removed. </h1>
-            <h1>Adding 6 back. 6 is Jboss. This could be the problem one.</h1>
-            <h1>Adding 7 back. Really thought 6 would cause the crash. </h1>
-            <h1>7 caused crash. See if crash is in comments? </h1>
-            <h1>It was NOT the comments. </h1>
-            <h1>Removed #7, but left it in a comment, so I know why #7 was not included. </h1>
-            <h1>Adding all the other dependencies back. Betting on that being the only conflict. </h1>
-            <h1>Changed compiler from 1.6 to 1.8. See if crashes. </h1>
-            <h1>Added #7 back. With compiler 1.8, might not crash. </h1>
-            <h1>NOPE! Still crashed. Remove #7. Then later, try different way to add compiler 1.8</h1>
-            <h1>Added compiler plugin 1.8. That other 1.8 thing I did was probably wrong. </h1>
-            <h1>Adding dependency #7 (Javassist) back to pom.xml. Hopefully no crashes with compiler 1.8 now. </h1>
-            <h1>Still crashed. Try to remove that other 1.8 that was a 1.6... And test again. </h1>
-            <h1>Decided: Javassist will have to be added via .jar and excluded from pom.xml </h1>
-            <h1>Actually, trying version 1.18.1 that comes with hibernate lib. </h1>
+            
             <h1>SUCCESS!!! Use Javassist 1.18.1 newer version causes openshift to crash.</h1>
             <h1>New rule. We need to commit 2X in a row so we can have a commit message telling us the commit is WORKING. </h1>
             <h1>Hopefully I see this. I am worried. </h1>
+            <h1>Previous commit was broken. So is this one. Only commited to make this note:</h1>
+            <h1>java.lang.NoClassDefFoundError: org/slf4j/impl/StaticLoggerBinder </h>
+            
           </hgroup>
 
 
