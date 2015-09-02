@@ -169,6 +169,13 @@ public class HibernateUtil {
 	final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
 			.configure(handMadeRelativePath) // configures settings from hibernate.cfg.xml
 			.build();
+        
+         MetadataSources mds = new MetadataSources(registry);
+         Metadata md = mds.buildMetadata();
+         _sessionFactory = md.buildSessionFactory();
+         _hasSessionFactory = true;
+        
+        /*
 	try {
 		//_sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
                 MetadataSources mds = new MetadataSources(registry);
@@ -182,8 +189,9 @@ public class HibernateUtil {
                 _hasSessionFactory = false;
                 _sessionFactory    = null;
 		StandardServiceRegistryBuilder.destroy( registry );
-                
+                throw new MyError("setUp failed!");
 	}
+        */
         
         testSessionFactoryReferenceIntegrity();
         
