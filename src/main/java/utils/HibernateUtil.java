@@ -143,6 +143,9 @@ public class HibernateUtil {
         //hack: try hand-made-relative path:
         //String sep = System.getProperty("file.separator"); //<--http://stackoverflow.com/questions/19762169/forward-slash-or-backslash
         String handMadeRelativePath = "webapps/hbm.cfg.xml";
+        
+        //test this to see what error results:
+        String invalidPath = "ninja/hbm.cfg.xml";
       
        
         if(false == f.exists())
@@ -164,7 +167,7 @@ public class HibernateUtil {
         //than a file object. But why would .configure not complainin the first place
         //if it was given bad data? Not sure.
 	final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-			.configure(handMadeRelativePath) // configures settings from hibernate.cfg.xml
+			.configure(invalidPath) // configures settings from hibernate.cfg.xml
 			.build();
 	try {
 		//_sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
