@@ -131,6 +131,10 @@ public class HibernateUtil {
         Path absPath = relativePath.toAbsolutePath();
         String absolutePathAsString = absPath.toString();
         File f = new File(absolutePathAsString);
+        
+        //hack, try using relative path string:
+        Path realPath = absPath.toRealPath();
+        String realPathAsString = realPath.toString();
        
         if(false == f.exists())
         { 
@@ -151,7 +155,7 @@ public class HibernateUtil {
         //than a file object. But why would .configure not complainin the first place
         //if it was given bad data? Not sure.
 	final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-			.configure(absolutePathAsString) // configures settings from hibernate.cfg.xml
+			.configure(realPathAsString) // configures settings from hibernate.cfg.xml
 			.build();
 	try {
 		//_sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
