@@ -48,7 +48,12 @@
         <!-- Drop and re-create the database schema on startup -->  
         <property name="hbm2ddl.auto">create</property>  
   
-        <mapping class="org.arpit.javapostsforlearning.User"></mapping>  
+        <!-- invalid mapping. Left over from a tutorial I was doing. -->
+        <!-- TUTORIAL: http://www.java2blog.com/2013/01/hibernate-hello-world-example-in-eclipse.html -->
+        <!-- <mapping class="org.arpit.javapostsforlearning.User"></mapping>  -->
+        
+        <!-- Guess that this is correct. Read up more on this. -->
+        <mapping class="test.entities.TestTable01"></mapping>
   
     </session-factory>  
   
