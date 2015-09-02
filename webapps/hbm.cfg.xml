@@ -18,7 +18,16 @@
         
         
         <!-- <property name="connection.url">jdbc:sqlserver://localhost:1433;database=UserInfo</property> -->
-	<property name="hibernate.connection.url">jdbc:mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/;database=j1clone01</property>
+        
+        <!-- This is wrong. Proof: http://stackoverflow.com/questions/16985771/jdbc-cant-connect-to-mysql-database-on-openshift -->
+	<!-- <property name="hibernate.connection.url">jdbc:mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/;database=j1clone01</property> -->
+        
+        <!-- IF you SSH into OpenShift, you can find these in the .env folder at the login-root directory. -->
+        <!-- OPENSHIFT_MYSQL_DB_HOST == 127.7.232.130 -->
+        <!-- OPENSHIFT_MYSQL_DB_PORT == 3306 -->
+
+        <property name="hibernate.connection.url">jdbc:mysql://127.7.232.130:3306/;database=j1clone01</property>
+        
         <property name="hibernate.connection.username">adminXQ1FMjx</property>  
         <property name="hibernate.connection.password">tWczw5ecRifW</property>  
   
