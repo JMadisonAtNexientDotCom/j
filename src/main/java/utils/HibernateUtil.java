@@ -143,7 +143,7 @@ public class HibernateUtil {
         log("file reference for hbm.cfg.xml was valid!");
         
         //HACK: Throw error no matter what to see what that absolute path is!!
-        if(false)
+        if(true)
         {
             throw new MyError("Path is VALID!:" +
                     "absolutePathAsString==[" + absolutePathAsString + "]");
