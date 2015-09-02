@@ -49,6 +49,18 @@
 		<maven.compiler.target>1.6</maven.compiler.target>
 	</properties>
 	<dependencies>
+            
+            <!-- servlet dependencies: -->
+            
+            <!-- supposidly this one works best for tomcat. There is another JBoss one. -->
+            <!-- http://stackoverflow.com/questions/1979957/maven-dependency-for-servlet-3-0-api -->
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-servlet-api</artifactId>
+                <version>7.0.21</version>
+                <scope>provided</scope>
+            </dependency>
+            
            
             <!-- DONT MIX VERSIONS OF HIBERNATE!!! -->
             <!-- http://hibernate.org/orm/downloads/ HIBERNATE 5.0 -->
