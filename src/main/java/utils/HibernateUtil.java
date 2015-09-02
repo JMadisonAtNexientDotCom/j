@@ -167,7 +167,7 @@ public class HibernateUtil {
         //than a file object. But why would .configure not complainin the first place
         //if it was given bad data? Not sure.
 	final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-			.configure(absolutePathAsString) // configures settings from hibernate.cfg.xml
+			.configure(handMadeRelativePath) // configures settings from hibernate.cfg.xml
 			.build();
 	try {
 		//_sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
