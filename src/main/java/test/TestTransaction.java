@@ -10,9 +10,6 @@ import org.hibernate.SessionFactory;
 import utils.HibernateUtil;
 import test.entities.TestTable01;
 
-import java.lang.Exception;
-import java.lang.Error;
-import test.MyError;
 
 /**
  *
@@ -44,8 +41,8 @@ public class TestTransaction {
         
         //do something to an entity:
         TestTable01 tt = new TestTable01();
-        tt.setToken("superToken101");
-        tt.setTokenMSG("TheTokenMsg");
+        tt.setToken("superToken02");
+        tt.setTokenMSG("The message. TWO");
         
         //save changes performed on entity:
         session.save( tt );
