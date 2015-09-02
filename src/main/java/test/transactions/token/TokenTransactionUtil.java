@@ -18,18 +18,16 @@ public class TokenTransactionUtil {
     //Example 5. Saving entities
     public static void doTestTransaction(){
         
-      
         //ENTER TRANSACTION:
         Session ses = TransUtil.enterTransaction();
         
         //TRANSACTION LOGIC:
         TokenTable tt = new TokenTable();
-        tt.setValue("superToken101");
-        tt.setComment("TheTokenMsg");
+        tt.setValue("!!!TestToken!!!");
+        tt.setComment("from doTestTransaction()");
         
         //EXIT TRANSACTION:
         TransUtil.exitTransaction(ses,tt);
-        
         
     }//FUNC::END
 }//CLASS::END

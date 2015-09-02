@@ -1,6 +1,6 @@
 package test;
 import org.hibernate.Session;
-import test.entities.TestTable01;
+import test.entities.TokenTable;
 import test.transactions.util.TransUtil;
 /**
  * A test transaction. Just used in development. Will not be used in
@@ -17,9 +17,9 @@ public class TestTransaction {
         Session ses = TransUtil.enterTransaction();
         
         //Transaction Logic:
-        TestTable01 ent = new TestTable01();
-        ent.setToken("superToken04");
-        ent.setTokenMSG("The message. FOUR");
+        TokenTable ent = new TokenTable();
+        ent.setValue("superToken06");
+        ent.setComment("The message. SIX");
         
         //Exit Transaction:
         TransUtil.exitTransaction(ses,ent);

@@ -54,6 +54,7 @@
         
         <!-- Guess that this is correct. Read up more on this. -->
         <mapping class="test.entities.TestTable01"></mapping>
+        <mapping class="test.entities.TokenTable"></mapping>
   
     </session-factory>  
   
