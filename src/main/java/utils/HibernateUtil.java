@@ -5,8 +5,6 @@
  */
 package utils;
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -143,14 +141,17 @@ public class HibernateUtil {
         log("file reference for hbm.cfg.xml was valid!");
         
         //HACK: Throw error no matter what to see what that absolute path is!!
-        if(true)
+        if(false)
         {
             throw new MyError("Path is VALID!:" +
                     "absolutePathAsString==[" + absolutePathAsString + "]");
         }
         
+        //Bug fix maybe? Gave .configure an absolute file PATH-STRING rather
+        //than a file object. But why would .configure not complainin the first place
+        //if it was given bad data? Not sure.
 	final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-			.configure(f) // configures settings from hibernate.cfg.xml
+			.configure(absolutePathAsString) // configures settings from hibernate.cfg.xml
 			.build();
 	try {
 		//_sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
