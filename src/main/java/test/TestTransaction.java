@@ -2,10 +2,10 @@ package test;
 import org.hibernate.Session;
 import test.entities.TokenTable;
 import test.transactions.util.TransUtil;
-/**
- * A test transaction. Just used in development. Will not be used in
- * final deployment.
- * @author jmadison :2015.09.02_0424PM */
+
+ /** A test transaction. Just used in development. --*
+ *-- Will not be used in final deployment.         --*
+ *-- @author jmadison :2015.09.02_0424PM           **/
 public class TestTransaction {
     
     //Code originally from:
