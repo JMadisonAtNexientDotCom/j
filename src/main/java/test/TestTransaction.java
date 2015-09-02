@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import utils.HibernateUtil;
 import test.entities.TestTable01;
+import test.transactions.util.TransUtil;
 
 
 /**
@@ -22,33 +23,23 @@ public class TestTransaction {
     //Example 5. Saving entities
     public static void doTestTransaction(){
         
-        //http://wiki.apache.org/tomcat/FAQ/Logging#Q6
-        //System.out.println("Is this a tomcat log?");
-        //LogDemo.doIt();
-        
-        //Attempt to throw custom error:
-        //MyError me = new MyError("Oh noooo!!");
-        //throw me;
-        
-        
-        SessionFactory sf = HibernateUtil.getSessionFactory();
-        
-        //just uncommented this all.
-        Session session   = sf.openSession();
-        session.beginTransaction();
-        //session.save( new Event( "Our very first event!", new Date() ) );
-        //session.save( new Event( "A follow up event", new Date() ) );
+       //REFACTORING TO USE TransUtil
+       
+       // SessionFactory sf = HibernateUtil.getSessionFactory();
+       // Session session   = sf.openSession();
+       // session.beginTransaction();
+        Session ses = TransUtil.enterTransaction();
         
         //do something to an entity:
-        TestTable01 tt = new TestTable01();
-        tt.setToken("superToken02");
-        tt.setTokenMSG("The message. TWO");
+        TestTable01 ent = new TestTable01();
+        ent.setToken("superToken03");
+        ent.setTokenMSG("The message. THREE");
         
         //save changes performed on entity:
-        session.save( tt );
-        
-        session.getTransaction().commit();
-        session.close();
+       // session.save( tt );
+       // session.getTransaction().commit();
+        //session.close();
+        TransUtil.exitTransaction(ses,ent);
         
         
     }//FUNC::END

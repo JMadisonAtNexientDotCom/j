@@ -17,7 +17,7 @@ import javax.persistence.Table;
 //@DynamicUpdate
 @Entity
 @Table(name="test_table_01")  
-public class TestTable01 {
+public class TestTable01 extends BaseEntity{
     
    @Id
    @Column(name="token")
