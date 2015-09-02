@@ -111,13 +111,13 @@
                 <!-- Enables annotation configuration option for project. -->
                 <!-- Without this, you are stuck with XML annotations. -->
                 <!-- Unless org.hibernate.javax.persistence brings in annotations too?? -->
-                <!--
+                
                 <dependency>
                         <groupId>org.hibernate</groupId>
                         <artifactId>hibernate-commons-annotations</artifactId>
                         <version>3.2.0.Final</version>
                 </dependency>
-                -->
+                
                 
                 <!-- This breaks our build. -->
                 <!--
@@ -130,13 +130,13 @@
                 
                 <!-- This version of hibernate-commons-annotations allows build to SUCCEED. -->
                 <!-- But the app will crash. -->
-                
+                <!--
                 <dependency>
                     <groupId>hibernate-commons-annotations</groupId>
                     <artifactId>hibernate-commons-annotations</artifactId>
                     <version>3.0.0.GA</version>
                 </dependency>
-                
+                -->
                     
                     
 
