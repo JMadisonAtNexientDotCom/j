@@ -5,6 +5,7 @@
  */
 package utils;
 import java.io.File;
+import java.net.URI;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -133,8 +134,12 @@ public class HibernateUtil {
         File f = new File(absolutePathAsString);
         
         //hack, try using relative path string:
-        Path realPath = absPath.toRealPath();
-        String realPathAsString = realPath.toString();
+        //Not possible....
+        
+        //hack... Uri? Why not.
+        URI uriPath = absPath.toUri();
+        String absURIAsString = uriPath.toString();
+      
        
         if(false == f.exists())
         { 
@@ -155,7 +160,7 @@ public class HibernateUtil {
         //than a file object. But why would .configure not complainin the first place
         //if it was given bad data? Not sure.
 	final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-			.configure(realPathAsString) // configures settings from hibernate.cfg.xml
+			.configure(absURIAsString) // configures settings from hibernate.cfg.xml
 			.build();
 	try {
 		//_sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
