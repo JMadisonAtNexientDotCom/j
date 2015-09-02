@@ -6,7 +6,12 @@
     <session-factory>  
   
         <!-- Database connection settings -->  
-        <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>  
+       <!-- <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>  -->
+       
+       <!--suspicion this driver may NOT need any special config like the microsoft driver. -->
+       <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property> 
+        
+        
         <!-- <property name="connection.url">jdbc:sqlserver://localhost:1433;database=UserInfo</property> -->
 				<property name ="connection.url">jdbc:mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/;database=j1clone01</property>
         <property name="hibernate.connection.username">adminXQ1FMjx</property>  
