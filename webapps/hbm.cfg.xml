@@ -26,7 +26,12 @@
         <!-- OPENSHIFT_MYSQL_DB_HOST == 127.7.232.130 -->
         <!-- OPENSHIFT_MYSQL_DB_PORT == 3306 -->
 
-        <property name="hibernate.connection.url">jdbc:mysql://127.7.232.130:3306/;database=j1clone01</property>
+        <!-- got a GRAMMAR EXCEPTION, so this format is likely wrong. -->
+        <!-- We probably want THIS format: jdbc:mysql://localhost:3306/myDatabase -->
+        <!-- SOURCE: http://stackoverflow.com/questions/9227328/  -->
+        <!-- <property name="hibernate.connection.url">jdbc:mysql://127.7.232.130:3306/;database=j1clone01</property> -->
+        <property name="hibernate.connection.url">jdbc:mysql://127.7.232.130:3306/j1clone01</property>
+        
         
         <property name="hibernate.connection.username">adminXQ1FMjx</property>  
         <property name="hibernate.connection.password">tWczw5ecRifW</property>  
