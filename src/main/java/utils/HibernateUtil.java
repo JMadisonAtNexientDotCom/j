@@ -11,7 +11,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import test.MyError;
-import org.hibernate.cfg.Configuration;
+//import org.hibernate.cfg.Configuration;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import org.hibernate.boot.Metadata;
@@ -61,7 +61,9 @@ public class HibernateUtil {
             //try{ setUp();}catch(Exception e){System.out.println(e);}
             setUp();
         }
-        testSessionFactoryReferenceIntegrity();
+        
+        //Causes infinite recursion.
+        //testSessionFactoryReferenceIntegrity();
         
         //Make sure getter crashes here if trying to return null.
         //If null, ask if we failed to call the static initializer:
@@ -193,34 +195,25 @@ public class HibernateUtil {
 	}
         */
         
-        testSessionFactoryReferenceIntegrity();
+        //test is okay here maybe?
+        //NO,not okay here. since the test can call setup.
+        //testSessionFactoryReferenceIntegrity();
         
     }//FUNC:setUp:END
-   
-    /** TEST FUNCTION: Will crash on error. **/
-    private static void testSessionFactoryReferenceIntegrity(){
-        
-        //This guard is here because setUp() is allowed to fail.
-        //If setup fails, _hasSessionFactory == false, and setUp()
-        //Will be called again when trying to use the getSessionFactory()
-        //method.
-        if(_hasSessionFactory)
+    
+    /** Checks to make sure the _has variable matches the reference var. **/
+    private static void throwErrorIfBadSessionFactoryRef(){
+        if( (true==_hasSessionFactory) && (null == _sessionFactory))
         {
-            //TEST: Make sure _sessionFactory within this scope is not null: ///
-            if(null == _sessionFactory)
-            {
-                throw new MyError("setUp() about to exit with +" + 
-                                                        "NULL _sessionFactory");
-            }///////////////////////////////////////////////////////////////////
-            //TEST:
-            //before we exit, test to make sure getSessionFactory() 
-            //is not returning null; ///////////////////////////////////////////
-            _debug_class_state_msg = "in setUp, testing getSessionFactory";
-            SessionFactory sf = getSessionFactory();
-            if(null == sf){ throw new MyError("sf == null!!");}
-            ////////////////////////////////////////////////////////////////////
-        }//_hasSessionFactory?
+            throw new MyError("_sessionFactory==null, yet _hasSessionFactory==true");
+        }else
+        if( (false==_hasSessionFactory) && (null != _sessionFactory))
+        {
+             throw new MyError("_sessionFactory!=null, but _hasSessionFactory==false");
+        }
     }//FUNC::END
+   
+
     
     /*
     //thinking this was a bad idea:
