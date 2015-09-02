@@ -36,7 +36,7 @@ public class TestTransaction {
         
         SessionFactory sf = HibernateUtil.getSessionFactory();
         
-        /*
+        //just uncommented this all.
         Session session   = sf.openSession();
         session.beginTransaction();
         //session.save( new Event( "Our very first event!", new Date() ) );
@@ -52,7 +52,7 @@ public class TestTransaction {
         
         session.getTransaction().commit();
         session.close();
-        */ 
+        
         
     }//FUNC::END
 }//CLASS::END
