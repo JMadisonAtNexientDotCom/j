@@ -61,6 +61,14 @@
                     <artifactId>log4j</artifactId>
                     <version>1.2.17</version>
             </dependency>
+            
+             <!-- http://www.mkyong.com/wicket/java-lang-classnotfoundexception-org-slf4j-impl-staticloggerbinder/ -->
+            <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <version>1.5.6</version>
+            </dependency>
+
 
             <dependency>
                     <groupId>org.apache.logging.log4j</groupId>
