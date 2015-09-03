@@ -19,11 +19,11 @@ import javax.persistence.Table;
 @Table(name="token_table")  
 public class TokenTable extends BaseEntity{
     
-    /** Column name stored as string const for easy refactoring. **/
+    /** Column name stored as string constant for easy refactoring. **/
     public static final String COLUMN_ID      = "id";
-    /** Column name stored as string const for easy refactoring. **/
+    /** Column name stored as string constant for easy refactoring. **/
     public static final String COLUMN_TOKEN   = "token";
-    /** Column name stored as string const for easy refactoring. **/
+    /** Column name stored as string constant for easy refactoring. **/
     public static final String COLUMN_COMMENT = "comment";
     
    /** A sequential integer used to identify the token.                      ***
@@ -33,7 +33,7 @@ public class TokenTable extends BaseEntity{
    *** else's data over public HTTP.                                         **/
   @Id
   @GeneratedValue
-  @Column(name="id")
+  @Column(name=COLUMN_ID)
   private long id;
    
     
@@ -41,14 +41,14 @@ public class TokenTable extends BaseEntity{
    ***  An ENCRYPTED version of the Id. Encrypted so that there is no        ***
    ***  chance of token collision if all Ids in the table are unique.        **/
    //@Id //<--TEMP ID till we fix bugs.
-   @Column(name="token")
+   @Column(name=COLUMN_TOKEN)
     private String token;
     
     /** A comment attached to this token entry in the token table            ***
     *** Used for debugging. Planned as ~permenant~ installment in this       ***
     *** architecture. ~Huntch~ that the maintainability gained by this       ***
     *** addition will trump the slight performance hit on the database.      **/
-    @Column(name="comment")
+    @Column(name=COLUMN_COMMENT)
     private String comment;
     
     //Is this getter+setter necessary?
