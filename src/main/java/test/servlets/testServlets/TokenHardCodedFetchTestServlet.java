@@ -1,5 +1,6 @@
 package test.servlets.testServlets;
 
+import test.entities.BaseEntityContainer;
 import javax.servlet.ServletException; //-------------tomcat/lib/servlet-api.jar
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -7,7 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import test.TestTransaction;
-
+import test.transactions.token.TokenTransactionUtil;
+import test.entities.TokenTable;
 
 
 /**
@@ -23,8 +25,22 @@ public class TokenHardCodedFetchTestServlet extends HttpServlet{
                 throws ServletException, IOException
      {
        
+        BaseEntityContainer bec;
+        bec = TokenTransactionUtil.getTokenEntityUsingHash("superToken09");
+         
+        String msg = "none set.";
+        if(bec.exists)
+        {
+            TokenTable tt = (TokenTable)bec.entity;
+            msg = tt.getComment();
+        }
+        else
+        {
+            msg = "token not found";
+        }
+        
 	PrintWriter out = response.getWriter();
-	out.println("hellothere");
+	out.println(msg);
 		
      }//FUNC::END
 }//CLASS::END
