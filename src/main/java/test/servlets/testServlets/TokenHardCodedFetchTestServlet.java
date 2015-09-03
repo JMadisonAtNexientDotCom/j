@@ -12,7 +12,7 @@ import test.transactions.token.TokenTransactionUtil;
 import test.entities.TokenTable;
 import test.transactions.util.TransUtil;
 import org.hibernate.Session;
-
+import test.debug.DebugConsts;
 
 /**
  * A hard-coded fetch of a token. One of the tiny wins needed to work up
@@ -32,7 +32,7 @@ public class TokenHardCodedFetchTestServlet extends HttpServlet{
         Session ses = TransUtil.enterTransaction();
          
         //perform transaction:
-        String hardCodedTokenName = "superToken09";
+        String hardCodedTokenName = DebugConsts.HARD_CODED_TOKEN;
         BaseEntityContainer bec;
         bec = TokenTransactionUtil.getTokenEntityUsingTokenString(hardCodedTokenName);
         

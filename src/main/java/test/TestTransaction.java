@@ -2,6 +2,7 @@ package test;
 import org.hibernate.Session;
 import test.entities.TokenTable;
 import test.transactions.util.TransUtil;
+import test.debug.DebugConsts;
 
  /** A test transaction. Just used in development. --*
  *-- Will not be used in final deployment.         --*
@@ -18,7 +19,7 @@ public class TestTransaction {
         
         //Transaction Logic:
         TokenTable ent = new TokenTable();
-        ent.setToken("THIS_IS_HARD_CODED_TOKEN");
+        ent.setToken(DebugConsts.HARD_CODED_TOKEN);
         ent.setComment("!!The message. TEN!!");
         TransUtil.markEntityForSaveOnExit(ent);
         

@@ -9,6 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import test.entities.TokenTable;
 import test.transactions.util.TransUtil;
 import test.entities.BaseEntityContainer;
+import test.debug.DebugConsts;
 /**
  * A utility to manage transactions done to the TokenTable.
  * This type of organization may not be needed. But I have a huntch
@@ -35,7 +36,7 @@ public class TokenTransactionUtil {
         
         //TRANSACTION LOGIC:
         TokenTable tt = new TokenTable();
-        tt.setToken("THIS_IS_HARD_CODED_TOKEN");
+        tt.setToken(DebugConsts.HARD_CODED_TOKEN);
         tt.setComment("from doTestTransaction()");
         
         
