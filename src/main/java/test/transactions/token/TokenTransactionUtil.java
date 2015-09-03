@@ -49,7 +49,7 @@ public class TokenTransactionUtil {
         
         //Transaction Logic:
         Criteria criteria = session.createCriteria(TokenTable.class);
-        criteria.add(Restrictions.eq(TokenTable.VARNAME_TOKEN, tv));
+        criteria.add(Restrictions.eq(TokenTable.COLUMN_TOKEN, tv));
 
         TokenTable theToken = (TokenTable) criteria.uniqueResult();
 

@@ -20,21 +20,21 @@ import javax.persistence.Table;
 public class TokenTable extends BaseEntity{
     
     /** Column name stored as string const for easy refactoring. **/
-    public static final String VARNAME_ID      = "id";
+    public static final String COLUMN_ID      = "id";
     /** Column name stored as string const for easy refactoring. **/
-    public static final String VARNAME_TOKEN   = "token";
+    public static final String COLUMN_TOKEN   = "token";
     /** Column name stored as string const for easy refactoring. **/
-    public static final String VARNAME_COMMENT = "comment";
+    public static final String COLUMN_COMMENT = "comment";
     
    /** A sequential integer used to identify the token.                      ***
    *** Internally, we should be using this id value rather than the token.   ***
    *** The token ~meerly~ exists as an ~encripted~ representation of the ID. ***
    *** So that people can't just be all like "TOKEN + 1" and access someone  ***
    *** else's data over public HTTP.                                         **/
-   @Id
-   @GeneratedValue
-   @Column(name="id")
-   private long id;
+  // @Id
+   //@GeneratedValue
+   //@Column(name="id")
+  // private long id;
    
     
    /**  The TOKEN the outside world sees.                                    ***
@@ -51,8 +51,8 @@ public class TokenTable extends BaseEntity{
     private String comment;
     
     //Is this getter+setter necessary?
-    public Long getId(){ return id;}
-    public void setId(Long id){ this.id = id;}
+    //public Long getId(){ return id;}
+   // public void setId(Long id){ this.id = id;}
     
     public String getToken(){ return token;}
     public void setToken(String value){ this.token = value;}
