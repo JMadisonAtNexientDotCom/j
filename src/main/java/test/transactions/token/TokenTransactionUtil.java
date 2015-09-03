@@ -1,5 +1,6 @@
 package test.transactions.token;
 
+import test.MyError;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 //import org.hibernate.SessionFactory;
