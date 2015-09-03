@@ -27,7 +27,7 @@ public class TokenTransactionUtil {
         
         //TRANSACTION LOGIC:
         TokenTable tt = new TokenTable();
-        tt.setValue("!!!TestToken!!!");
+        tt.setToken("!!!TestToken!!!");
         tt.setComment("from doTestTransaction()");
         
         //EXIT TRANSACTION:

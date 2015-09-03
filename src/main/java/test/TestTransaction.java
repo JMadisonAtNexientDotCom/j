@@ -18,7 +18,7 @@ public class TestTransaction {
         
         //Transaction Logic:
         TokenTable ent = new TokenTable();
-        ent.setValue("superToken09");
+        ent.setToken("superToken09");
         ent.setComment("The message. NINE");
         
         //Exit Transaction:
