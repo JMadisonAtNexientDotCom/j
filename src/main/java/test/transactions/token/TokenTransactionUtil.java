@@ -35,7 +35,7 @@ public class TokenTransactionUtil {
         
         //TRANSACTION LOGIC:
         TokenTable tt = new TokenTable();
-        tt.setToken("!!!TestToken!!!");
+        tt.setToken("THIS_IS_HARD_CODED_TOKEN");
         tt.setComment("from doTestTransaction()");
         
         

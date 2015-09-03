@@ -18,7 +18,7 @@ public class TestTransaction {
         
         //Transaction Logic:
         TokenTable ent = new TokenTable();
-        ent.setToken("superToken10");
+        ent.setToken("THIS_IS_HARD_CODED_TOKEN");
         ent.setComment("!!The message. TEN!!");
         TransUtil.markEntityForSaveOnExit(ent);
         
