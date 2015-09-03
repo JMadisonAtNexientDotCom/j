@@ -32,18 +32,37 @@
          </servlet-mapping>
           <!-- HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH -->
          
+        <!-- Configuration servlet experiment. -->
+        <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+        <servlet>
+            <!-- We want this servlet loaded before all others to do config stuff. -->
+            <servlet-name>theConfigServletName</servlet-name>
+            <servlet-class>test.ConfigServlet</servlet-class>
+            <load-on-startup>0</load-on-startup>
+        </servlet>
+        <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
          
-         
-         
-         
-         
-         <servlet>
-             <!-- We want this servlet loaded before all others to do config stuff. -->
-             <servlet-name>theConfigServletName</servlet-name>
-             <servlet-class>test.ConfigServlet</servlet-class>
-             <load-on-startup>0</load-on-startup>
-         </servlet>
-         
+        <!-- JERSEY RESTFUL API DEMO: JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ -->
+        <!-- http://www.mkyong.com/webservices/jax-rs/jersey-hello-world-example/ -->
+        <!-- JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ -->
+        <servlet>
+		<servlet-name>jersey-serlvet</servlet-name>
+		<servlet-class>
+                     com.sun.jersey.spi.container.servlet.ServletContainer
+                </servlet-class>
+		<init-param>
+		     <param-name>com.sun.jersey.config.property.packages</param-name>
+		     <param-value>com.mkyong.rest</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>jersey-serlvet</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+        <!-- JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ -->
+        
          
 </web-app>
 
