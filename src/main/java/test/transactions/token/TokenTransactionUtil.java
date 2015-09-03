@@ -64,7 +64,8 @@ public class TokenTransactionUtil {
 
         TokenTable theToken = (TokenTable) criteria.uniqueResult();
 
-        
+        //DELETE THESE COMMENTS DURING CLEAN UP:
+        //OLD EXPLANATION: 
         //Rather than handling exiting of transaction here,
         //we will simply build an array of entities that need to be
         //saved. When all of the transactions from different utilities
@@ -72,9 +73,15 @@ public class TokenTransactionUtil {
         //1: we make a call to transaction utility to exit transaction.
         //2: Any entities that have been edited and put in our queue will
         //   be saved&commited.
-        if (theToken!=null) {
-            TransUtil.markEntityForSaveOnExit(theToken);
-        }
+        
+        //DELETE THESE COMMENTS DURING CLEAN UP:
+        //UPDATE: LOGIC ERROR:
+        //This is wrong. Getting a token should NOT mean that we have to save
+        //it. If the calling function wants to mutate the returned token and
+        //save it, it is that calling function'schoice to do that:
+        //XXXX if (theToken!=null) {
+        //XXXX    TransUtil.markEntityForSaveOnExit(theToken);
+        //XXXX }
         
         //Create output:
         BaseEntityContainer op = new BaseEntityContainer();
