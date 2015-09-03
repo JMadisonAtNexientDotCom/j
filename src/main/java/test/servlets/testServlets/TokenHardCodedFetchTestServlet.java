@@ -24,9 +24,11 @@ public class TokenHardCodedFetchTestServlet extends HttpServlet{
                        HttpServletResponse response)
                 throws ServletException, IOException
      {
+         
+        String hardCodedTokenName = "superToken09";
        
         BaseEntityContainer bec;
-        bec = TokenTransactionUtil.getTokenEntityUsingHash("superToken09");
+        bec = TokenTransactionUtil.getTokenEntityUsingHash(hardCodedTokenName);
          
         String msg = "none set.";
         if(bec.exists)
@@ -36,7 +38,7 @@ public class TokenHardCodedFetchTestServlet extends HttpServlet{
         }
         else
         {
-            msg = "token not found";
+            msg = "token not found:[" + hardCodedTokenName + "]";
         }
         
 	PrintWriter out = response.getWriter();

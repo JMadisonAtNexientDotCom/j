@@ -53,14 +53,15 @@ public class TokenTransactionUtil {
 
         TokenTable theToken = (TokenTable) criteria.uniqueResult();
 
+        //Decide how we are going to exit the transaction,
+        //based on if the token was null or not:
         if (theToken!=null) {
-                System.out.println("theToken found:");
-                System.out.println(theToken.getValue()+ " - " 
-                                                       + theToken.getComment());
+            TransUtil.exitTransaction(session, theToken);
         }
-        
-        //Exit Transaction:
-        TransUtil.exitTransaction(session, theToken);
+        else
+        {    //exits a transaction where the entity was null:
+             TransUtil.nullExit(session,theToken);
+        }
         
         //Create output:
         BaseEntityContainer op = new BaseEntityContainer();

@@ -63,6 +63,25 @@ public class TransUtil {
         ses.close();
     }//END::FUNC
     
+    /**
+     * Like exitTransaction, but expects the entity to be null.
+     * Will throw error if the entity is NOT null.
+     * @param ses        :The session object we want to perform this operation on.
+     * @param nullEntity :The NULL entity object. Supplied for error checking.
+     */
+    public static void nullExit(Session ses, BaseEntity nullEntity)
+    {
+        enterExitErrorCheck(false); //<--false for exiting.
+        if(null != nullEntity)
+        {
+            throw new MyError("Entity supplied expected to be null!");
+        }
+        
+        //no ses.save because entity is null:
+        ses.getTransaction().commit();
+        ses.close();  
+    }//END::FUNC
+    
     private static void enterExitErrorCheck(Boolean isEntering){
         
         //This error check cannot be done reliably in
