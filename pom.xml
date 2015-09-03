@@ -83,6 +83,39 @@
             </dependency>
             -->
             
+
+
+            <!-- Jax-RS implementation using JERSEY -->
+            <!-- SOURCE: Andre Mantei @0:43         -->
+            <!-- https://www.youtube.com/watch?     -->
+            <!-- v=ac_DFgz8yFk                      -->
+            <!-- JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ -->
+            <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-bundle</artifactId>
+            <version>1.18</version>
+            </dependency>
+
+            <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-core</artifactId>
+            <version>1.8</version>
+            </dependency>
+
+            <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>3.3.1</version>
+            </dependency>
+
+            <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
+            </dependency>
+            <!-- JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ -->
+            
+            
             <!-- for JERSEY RESTFUL API bla bla -->
             <!-- https://netbeans.org/bugzilla/show_bug.cgi?id=230235 -->
             <dependency>
