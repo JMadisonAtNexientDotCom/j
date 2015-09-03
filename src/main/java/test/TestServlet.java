@@ -30,7 +30,7 @@ public class TestServlet extends HttpServlet{
      {
         //test hibernate and see if you can get a simple transaction
         //to SQL database.
-        TestTransaction.doTestTransaction();
+        //TestTransaction.doTestTransaction();
          
          
             try{
