@@ -5,7 +5,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
  
-@Path("/Test")
+//@Path("/Test")
 public class TokenRestService {
  
 	@GET
