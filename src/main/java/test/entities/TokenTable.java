@@ -31,16 +31,16 @@ public class TokenTable extends BaseEntity{
    *** The token ~meerly~ exists as an ~encripted~ representation of the ID. ***
    *** So that people can't just be all like "TOKEN + 1" and access someone  ***
    *** else's data over public HTTP.                                         **/
-  // @Id
-   //@GeneratedValue
-   //@Column(name="id")
-  // private long id;
+  @Id
+  @GeneratedValue
+  @Column(name="id")
+  private long id;
    
     
    /**  The TOKEN the outside world sees.                                    ***
    ***  An ENCRYPTED version of the Id. Encrypted so that there is no        ***
    ***  chance of token collision if all Ids in the table are unique.        **/
-    @Id //<--TEMP ID till we fix bugs.
+   //@Id //<--TEMP ID till we fix bugs.
    @Column(name="token")
     private String token;
     
@@ -52,8 +52,8 @@ public class TokenTable extends BaseEntity{
     private String comment;
     
     //Is this getter+setter necessary?
-    //public Long getId(){ return id;}
-   // public void setId(Long id){ this.id = id;}
+    public Long getId(){ return id;}
+    public void setId(Long id){ this.id = id;}
     
     public String getToken(){ return token;}
     public void setToken(String value){ this.token = value;}
