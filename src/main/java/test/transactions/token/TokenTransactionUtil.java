@@ -42,14 +42,14 @@ public class TokenTransactionUtil {
     *** @return   : Returns container with found entity.                     *** 
     ***             If no match found, container is configured               ***
     ***             to reflect that. This helps us avoid returning NULL.     **/
-    public static BaseEntityContainer getTokenEntityUsingHash(String tv){
+    public static BaseEntityContainer getTokenEntityUsingTokenString(String tv){
         
         //Enter Transaction:
         Session session = TransUtil.enterTransaction();
         
         //Transaction Logic:
         Criteria criteria = session.createCriteria(TokenTable.class);
-        criteria.add(Restrictions.eq("value", tv));
+        criteria.add(Restrictions.eq(TokenTable.VARNAME_TOKEN, tv));
 
         TokenTable theToken = (TokenTable) criteria.uniqueResult();
 

@@ -19,6 +19,13 @@ import javax.persistence.Table;
 @Table(name="token_table")  
 public class TokenTable extends BaseEntity{
     
+    /** Column name stored as string const for easy refactoring. **/
+    public static final String VARNAME_ID      = "id";
+    /** Column name stored as string const for easy refactoring. **/
+    public static final String VARNAME_TOKEN   = "token";
+    /** Column name stored as string const for easy refactoring. **/
+    public static final String VARNAME_COMMENT = "comment";
+    
    /** A sequential integer used to identify the token.                      ***
    *** Internally, we should be using this id value rather than the token.   ***
    *** The token ~meerly~ exists as an ~encripted~ representation of the ID. ***
@@ -42,6 +49,10 @@ public class TokenTable extends BaseEntity{
     *** addition will trump the slight performance hit on the database.      **/
     @Column(name="comment")
     private String comment;
+    
+    //Is this getter+setter necessary?
+    public Long getId(){ return id;}
+    public void setId(Long id){ this.id = id;}
     
     public String getToken(){ return token;}
     public void setToken(String value){ this.token = value;}

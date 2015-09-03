@@ -28,7 +28,7 @@ public class TokenHardCodedFetchTestServlet extends HttpServlet{
         String hardCodedTokenName = "superToken09";
        
         BaseEntityContainer bec;
-        bec = TokenTransactionUtil.getTokenEntityUsingHash(hardCodedTokenName);
+        bec = TokenTransactionUtil.getTokenEntityUsingTokenString(hardCodedTokenName);
          
         String msg = "none set.";
         if(bec.exists)
