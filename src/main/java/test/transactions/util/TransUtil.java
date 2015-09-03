@@ -35,7 +35,7 @@ public class TransUtil {
     public static Session enterTransaction(){
         
         //Checks pairing of enterTransaction with exitTransaction:
-        enterExitErrorCheck(true);
+        enterExitErrorCheck(true); //<-- True for entering.
         
         //Create new session factory:
         SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -56,7 +56,7 @@ public class TransUtil {
     public static void exitTransaction(Session ses, BaseEntity ent)
     {
         //Checks pairing of enterTransaction with exitTransaction:
-        enterExitErrorCheck(true);
+        enterExitErrorCheck(false); //<--false for exiting.
         
         ses.save( ent );
         ses.getTransaction().commit();
