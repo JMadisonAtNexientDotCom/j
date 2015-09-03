@@ -88,13 +88,13 @@
             
             <!-- For JERSEY RESTFUL API -->
             <!-- http://www.mkyong.com/webservices/jax-rs/jersey-hello-world-example/ -->
-            <!--
+            
             <dependency>
                 <groupId>com.sun.jersey</groupId>
                 <artifactId>jersey-server</artifactId>
                 <version>1.8</version>
             </dependency>
-            -->
+            
             
 
 
