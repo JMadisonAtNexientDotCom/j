@@ -40,6 +40,7 @@ public class TokenTable extends BaseEntity{
    /**  The TOKEN the outside world sees.                                    ***
    ***  An ENCRYPTED version of the Id. Encrypted so that there is no        ***
    ***  chance of token collision if all Ids in the table are unique.        **/
+    @Id
    @Column(name="token")
     private String token;
     
