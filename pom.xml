@@ -139,12 +139,16 @@
             <!-- Perhaps we can hack this to work by using external dependency plugin -->
             <!-- and pointing to a .jar file to download? -->
             <!-- BETTER IDEA: Delete the "unknown dependencies" that java beans keeps adding. -->
+            <!--
+            DO NOT INCLUDE THIS! com.sun.jersey already includes rs-api.
+            http://stackoverflow.com/questions/23277429/exception-in-rest-jersey
+            
             <dependency>
                 <groupId>javax.ws.rs</groupId>
                 <artifactId>javax.ws.rs-api</artifactId>
-                <!-- <version>2.0.1</version> -->
-                <version>2.0</version> <!-- Try 2.0 and see what happesns. Then don't us it at all. -->
-             </dependency>
+                <version>2.0.1</version>
+            </dependency>
+            -->
              
             
             <!-- servlet dependencies: -->
