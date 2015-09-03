@@ -6,6 +6,8 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          metadata-complete="false">
 
+    
+         <!-- SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS -->
          <servlet>
              <servlet-name>theServletName</servlet-name>
              <servlet-class>test.TestServlet</servlet-class>
@@ -15,8 +17,25 @@
          <servlet-mapping>
              <servlet-name>theServletName</servlet-name>
              <url-pattern>/pattern</url-pattern>
-             
          </servlet-mapping>
+         <!-- SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS -->
+         
+         <!-- HHHHHHHHHHHHHHHHHHH Hard Coded Fetch TestHHHHHHHHHHHHHHHHHHHHH -->
+         <servlet>
+             <servlet-name>tokenHardCodedFetch_ServletName</servlet-name>
+             <servlet-class>test.servlets.testServlets.TokenHardCodedFetchTestServlet</servlet-class>
+         </servlet>
+         
+         <servlet-mapping>
+             <servlet-name>tokenHardCodedFetch_ServletName</servlet-name>
+             <url-pattern>/tokenHardCodedFetch_TestPage</url-pattern>
+         </servlet-mapping>
+          <!-- HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH -->
+         
+         
+         
+         
+         
          
          <servlet>
              <!-- We want this servlet loaded before all others to do config stuff. -->
