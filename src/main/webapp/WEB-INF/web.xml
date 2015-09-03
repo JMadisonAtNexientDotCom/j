@@ -66,6 +66,7 @@
         <!-- token service restful api -->
         <!-- Is there a way to annotation configure a JERSEY servlet??? -->
         <!-- TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT -->
+        <!--
         <servlet>
 		<servlet-name>TokenRestService_ServletName</servlet-name>
 		<servlet-class>
@@ -81,6 +82,7 @@
 		<servlet-name>TokenRestService_ServletName</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
+        -->
         <!-- TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT -->
         
          
