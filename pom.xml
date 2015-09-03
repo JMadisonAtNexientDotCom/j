@@ -103,6 +103,7 @@
             <!-- https://www.youtube.com/watch?     -->
             <!-- v=ac_DFgz8yFk                      -->
             <!-- JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ -->
+            <!--
             <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-bundle</artifactId>
@@ -126,6 +127,7 @@
             <artifactId>gson</artifactId>
             <version>2.2.4</version>
             </dependency>
+            -->
             <!-- JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ -->
             
             
