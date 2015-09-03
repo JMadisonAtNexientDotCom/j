@@ -18,11 +18,12 @@ public class TestTransaction {
         
         //Transaction Logic:
         TokenTable ent = new TokenTable();
-        ent.setToken("superToken09");
-        ent.setComment("The message. NINE");
+        ent.setToken("superToken10");
+        ent.setComment("!!The message. TEN!!");
+        TransUtil.markEntityForSaveOnExit(ent);
         
         //Exit Transaction:
-        TransUtil.exitTransaction(ses,ent);
+        TransUtil.exitTransaction(ses,true);
          
     }//FUNC::END
 }//CLASS::END

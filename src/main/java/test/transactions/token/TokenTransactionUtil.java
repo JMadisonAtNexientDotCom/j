@@ -22,16 +22,22 @@ public class TokenTransactionUtil {
     //Example 5. Saving entities
     public static void doTestTransaction(){
         
-        //ENTER TRANSACTION:
-        Session ses = TransUtil.enterTransaction();
+        //Throw error if transaction state of application is
+        //NOT currently inside a transaction.
+        TransUtil.insideTransactionCheck();
+        
+        //I have decided that we should NOT wrap pre-made transactions
+        //between TransUtil.enterTransaction() and
+        //        TransUtil.exitTransaction() commands.
+        //HOWEVER! We should check that the application is inside a transaction
+        //state for any transaction utility method.
+        
         
         //TRANSACTION LOGIC:
         TokenTable tt = new TokenTable();
         tt.setToken("!!!TestToken!!!");
         tt.setComment("from doTestTransaction()");
         
-        //EXIT TRANSACTION:
-        TransUtil.exitTransaction(ses,tt);
         
     }//FUNC::END
     
@@ -45,7 +51,11 @@ public class TokenTransactionUtil {
     public static BaseEntityContainer getTokenEntityUsingTokenString(String tv){
         
         //Enter Transaction:
-        Session session = TransUtil.enterTransaction();
+        //Session session = TransUtil.enterTransaction();
+        
+        //Test to see if we are currently in a transaction state.
+        //If we are not, code will crash.
+        Session session = TransUtil.getActiveTransactionSession();
         
         //Transaction Logic:
         Criteria criteria = session.createCriteria(TokenTable.class);
@@ -53,14 +63,16 @@ public class TokenTransactionUtil {
 
         TokenTable theToken = (TokenTable) criteria.uniqueResult();
 
-        //Decide how we are going to exit the transaction,
-        //based on if the token was null or not:
+        
+        //Rather than handling exiting of transaction here,
+        //we will simply build an array of entities that need to be
+        //saved. When all of the transactions from different utilities
+        //have finished:the entity saver queue within our main
+        //1: we make a call to transaction utility to exit transaction.
+        //2: Any entities that have been edited and put in our queue will
+        //   be saved&commited.
         if (theToken!=null) {
-            TransUtil.exitTransaction(session, theToken);
-        }
-        else
-        {    //exits a transaction where the entity was null:
-             TransUtil.nullExit(session,theToken);
+            TransUtil.markEntityForSaveOnExit(theToken);
         }
         
         //Create output:
