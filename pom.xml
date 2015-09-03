@@ -83,7 +83,7 @@
             </dependency>
             -->
             
-            <!-- for JERSEY RESTFUL API -->
+            <!-- for JERSEY RESTFUL API bla bla -->
             <!-- https://netbeans.org/bugzilla/show_bug.cgi?id=230235 -->
             <dependency>
                 <groupId>javax.ws.rs</groupId>
