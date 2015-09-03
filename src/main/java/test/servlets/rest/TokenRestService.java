@@ -9,7 +9,7 @@ import javax.ws.rs.core.Response;
 public class TokenRestService {
  
 	@GET
-	@Path("/{param}")
+	@Path("getMsg/{param}")
 	public Response getMsg(@PathParam("param") String msg) {
  
 		String output = "Servlet: TokenRestService : " + msg;
