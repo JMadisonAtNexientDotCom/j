@@ -48,8 +48,8 @@ public class TokenRestService {
             //EXIT transaction:
             TransUtil.exitTransaction(ses, true);
             
-            //String output = "NEXT TOKEN GOTTEN:[" + tt.getToken() + "]";
-            //return Response.status(200).entity(output).build();
+            String output = "NEXT TOKEN GOTTEN:[" + tt.getToken() + "]";
+            return Response.status(200).entity(output).build();
             
             //see if we can return json:
             
