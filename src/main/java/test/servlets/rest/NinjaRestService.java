@@ -30,7 +30,7 @@ import test.MyError;
 
 ////////////////////////////////////////////////////////////////////////////////
  
-@Path("XXX/") //<--If this @Path path matches the path of ANY OTHER JERSEY SERVLET
+@Path("NinjaRestService/") //<--If this @Path path matches the path of ANY OTHER JERSEY SERVLET
            //   your servlets will all fail. Even if the full path to this
            //   servlet is unique. ARGH!!!!
 public class NinjaRestService {
