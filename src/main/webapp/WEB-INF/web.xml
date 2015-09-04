@@ -80,7 +80,7 @@
 
 	<servlet-mapping>
 		<servlet-name>TokenRestService_ServletName</servlet-name>
-		<url-pattern>/TokenRestService/*</url-pattern>
+		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
         
         <!-- TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT -->

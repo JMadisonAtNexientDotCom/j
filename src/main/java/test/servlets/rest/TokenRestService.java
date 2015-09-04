@@ -30,7 +30,7 @@ import test.MyError;
 
 ////////////////////////////////////////////////////////////////////////////////
  
-//@Path("/")
+@Path("TokenRestService/") //<--By matching class name, we assure not servlet mapping collision.
 public class TokenRestService {
  
 	@GET
