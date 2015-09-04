@@ -26,13 +26,18 @@ import java.util.logging.Logger;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import test.MyError;
+import test.debug.DebugConsts;
 
 
 ////////////////////////////////////////////////////////////////////////////////
- 
-@Path("TokenRestService/") //<--By matching class name, we assure not servlet mapping collision.
+
+@Path( DebugConsts.HARD_CODED_MAPPING )
+ //@Path(TokenRestService.class.getSimpleName() + "/")
+//@Path("TokenRestService/") //<--By matching class name, we assure not servlet mapping collision.
 public class TokenRestService {
  
+    public static final String CLASS_MAPPING = TokenRestService.class.getSimpleName() + "/";
+    
 	@GET
 	@Path("getMsg/{param}")
 	public Response getMsg(@PathParam("param") String msg) {
