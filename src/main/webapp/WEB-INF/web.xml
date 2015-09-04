@@ -85,6 +85,28 @@
         
         <!-- TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT -->
         
+        <!-- NINJA service restful api -->
+        <!-- Is there a way to annotation configure a JERSEY servlet??? -->
+        <!-- NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN -->
+        
+        <servlet>
+		<servlet-name>NinjaRestService_ServletName</servlet-name>
+		<servlet-class>
+                     com.sun.jersey.spi.container.servlet.ServletContainer
+                </servlet-class>
+		<init-param>
+		     <param-name>com.sun.jersey.config.property.packages</param-name>
+		     <param-value>test.servlets.rest</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>NinjaRestService_ServletName</servlet-name>
+		<url-pattern>/NinjaRestService/*</url-pattern>
+	</servlet-mapping>
+        
+        <!-- NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN -->
+        
          
 </web-app>
 
