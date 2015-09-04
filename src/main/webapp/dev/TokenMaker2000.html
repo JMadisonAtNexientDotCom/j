@@ -39,13 +39,12 @@ app.controller('customersCtrl', function($scope, $http) {
 
     $scope.inc = function()
     {
-   
-    //doAwesomeStuff($http).success(function (response) {$scope.name = response;});
-
-      serviceURL = "http://j1clone01-madnamespace.rhcloud.com/TokenRestService/getNextToken";
+      //serviceURL is potential refactoring nightmare. //
+      //Can we use a .jsp page and dynamically pull URLs from classes? //
+      serviceURL = "http://j1clone01-madnamespace.rhcloud.com/api/TokenRestService/getNextToken";
       $http.get(serviceURL).success(function (response) {$scope.name = response;});
 
-   }
+   };
 
 
 }); //CONTROLLER::END
