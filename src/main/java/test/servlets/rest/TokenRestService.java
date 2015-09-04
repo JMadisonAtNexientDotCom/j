@@ -43,9 +43,12 @@ public class TokenRestService {
  
 	}//FUNC::END
         
-        @GET
+        //@GET
         //@Path("getNextToken/{param}")
         //public Response getNextToken(@PathParam("param") String msg){
+        
+          @GET
+          @Path("getNextToken/")
           public Response getNextToken(@QueryParam("msg") int msg){
             
             //message msg is discarded and not used for now.
