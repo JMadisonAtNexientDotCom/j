@@ -198,18 +198,46 @@
             </dependency>
              -->
              
+            <!-- newer dependecy! http://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl/1.9.13 -->
+            <!--
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+                <version>1.9.13</version>
+            </dependency>
+            -->
             
+            <!-- http://stackoverflow.com/questions/18429468/correct-set-of-dependencies-for-using-jackson-mapper -->
+            <!-- http://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind/2.6.1 -->
+            <dependency>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-databind</artifactId>
+                    <version>2.6.1</version>
+            </dependency>
             
+            <!--
+                <dependency>
+                  <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+                <version>1.9.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-core-asl</artifactId>
+                <version>1.9.2</version>
+            </dependency>
+           -->
 
-            <!-- To get Object to JSON conversion. -->
-            <!-- http://www.mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/ -->
+            <!--
+            // To get Object to JSON conversion. //
+            // http://www.mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/ //
        
                   <dependency>
                           <groupId>org.codehaus.jackson</groupId>
                           <artifactId>jackson-mapper-asl</artifactId>
                           <version>1.8.5</version>
                   </dependency>
-         
+            -->
              
              <!-- try this dependency. -->
              <dependency>

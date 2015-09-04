@@ -1,5 +1,6 @@
 package test.servlets.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -14,9 +15,18 @@ import test.transactions.util.TransUtil;
 //http://www.mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/
 import java.io.File;
 import java.io.IOException;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
+//import org.codehaus.jackson.JsonGenerationException;
+//import org.codehaus.jackson.map.JsonMappingException;
+//import org.codehaus.jackson.map.ObjectMapper;
+//import com.fasterXML
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ws.rs.core.MediaType;
+import test.MyError;
+
+
 ////////////////////////////////////////////////////////////////////////////////
  
 @Path("/")
@@ -55,23 +65,20 @@ public class TokenRestService {
             
             
             
-            //http://stackoverflow.com/questions/15375328/hibernate-entity-to-json-object-with-jackson-to-http-post
             
-            //The webResource object:
-            //Client client = Client.create();
-            //String url = kayakoWebService.generateURL();
-            //WebResource webResource = client.resource(url);
-            
-            //Company domainObject = companyDAO.findCompanyById(id);
-            //ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON)
-            //    .entity(domainObject, MediaType.APPLICATION_JSON)
-            //    .post(ClientResponse.class);
-            
+           
             ObjectMapper mapper = new ObjectMapper();
-            String jsonText = mapper.writerWithDefaultPrettyPrinter().writeValueAsString( tt );
-
-            return Response.status(200).entity(jsonText).build();
-            
+            ObjectWriter prettyPrinter = mapper.writerWithDefaultPrettyPrinter();
+            String jsonText;
+            try {
+                jsonText = prettyPrinter.writeValueAsString( tt );
+            } catch (JsonProcessingException ex) {
+                Logger.getLogger(TokenRestService.class.getName()).log(Level.SEVERE, null, ex);
+                //Writing code to keep compiler happy, never a good reason.
+                //This is horrible code. Now I am going to re-throw the exception I just caught.
+                throw new MyError("Yeah, we are not really catching this exception. TokenRestService.java");
+            }
+            return Response.ok(jsonText, MediaType.APPLICATION_JSON).build();
             
             
             
