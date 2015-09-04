@@ -48,8 +48,8 @@ public class TokenRestService {
             //EXIT transaction:
             TransUtil.exitTransaction(ses, true);
             
-            String output = "NEXT TOKEN GOTTEN:[" + tt.getToken() + "]";
-            return Response.status(200).entity(output).build();
+            //String output = "NEXT TOKEN GOTTEN:[" + tt.getToken() + "]";
+            //return Response.status(200).entity(output).build();
             
             //see if we can return json:
             
@@ -67,8 +67,10 @@ public class TokenRestService {
             //    .entity(domainObject, MediaType.APPLICATION_JSON)
             //    .post(ClientResponse.class);
             
-            
-            
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonText = mapper.writerWithDefaultPrettyPrinter().writeValueAsString( tt );
+
+            return Response.status(200).entity(jsonText).build();
             
             
             
