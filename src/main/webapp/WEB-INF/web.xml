@@ -87,7 +87,7 @@
         
         <!-- NINJA service restful api -->
         <!-- Is there a way to annotation configure a JERSEY servlet??? -->
-        <!-- NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN -->
+        <!-- BNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN -->
         
         <servlet>
 		<servlet-name>NinjaRestService_ServletName</servlet-name>
