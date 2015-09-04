@@ -9,24 +9,50 @@
     </head>
     <body>
         
-            <div data-ng-app="myApp" ng-controller="customersCtrl"> 
+        
+        <div ng-app="myApp" ng-controller="customersCtrl"> 
 
-            <ul>
 
-                {{ name }}
-               <!-- {{ name.id + ', ' + name.token }} -->
+  <div>
+TOKEN MAKER 2000
+</div>
 
-            </ul>
+     <!-- these two calls work. But neither individually. Guessing ASYNC problem? -->
+     <button data-ng-click="inc();">MAKE TOKEN!</button> 
 
-            </div>
 
-            <script>
-            var app = angular.module('myApp', []);
-            app.controller('customersCtrl', function($scope, $http) {
-              $http.get('http://j1clone01-madnamespace.rhcloud.com/TokenRestService/getNextToken')
-              .success(function (response) {$scope.name = response;});
-            });
-            </script>
+<div>
+<textarea>
+{{ name }} 
+</textarea>
+</div>
+  
+  
+</div>
 
+<script>
+var app = angular.module('myApp', []);
+
+//CONTROLLER::START
+app.controller('customersCtrl', function($scope, $http) {
+    
+
+    $scope.inc = function()
+    {
+   
+    //doAwesomeStuff($http).success(function (response) {$scope.name = response;});
+
+      serviceURL = "http://j1clone01-madnamespace.rhcloud.com/TokenRestService/getNextToken";
+      $http.get(serviceURL).success(function (response) {$scope.name = response;});
+
+   }
+
+
+}); //CONTROLLER::END
+
+</script>
+        <!-- sdfffffffffffffffffffffffffffffff -->
+        
+   
     </body>
 </html>
