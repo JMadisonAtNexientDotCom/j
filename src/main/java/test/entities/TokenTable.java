@@ -16,9 +16,11 @@ import javax.persistence.Table;
  *
  **/
 @Entity
-@Table(name="token_table")  
+@Table(name="token_table")  //<--can we replace this with TABLE_NAME ?
 public class TokenTable extends BaseEntity{
     
+    /** Name of table this entity refers to, for easy refactoring. **/
+    public static final String TABLE_NAME     = "token_table";
     /** Column name stored as string constant for easy refactoring. **/
     public static final String COLUMN_ID      = "id";
     /** Column name stored as string constant for easy refactoring. **/

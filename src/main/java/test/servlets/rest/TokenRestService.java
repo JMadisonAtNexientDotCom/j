@@ -4,6 +4,10 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
+import org.hibernate.Session;
+import test.entities.TokenTable;
+import test.transactions.token.TokenTransactionUtil;
+import test.transactions.util.TransUtil;
  
 @Path("/")
 public class TokenRestService {
@@ -16,6 +20,25 @@ public class TokenRestService {
  
 		return Response.status(200).entity(output).build();
  
-	}
- 
-}
+	}//FUNC::END
+        
+        @GET
+        @Path("getNextToken/{param}")
+        public Response getNextToken(@PathParam("param") String msg){
+            
+            //message msg is discarded and not used for now.
+            
+            //ENTER transaction:
+            Session ses = TransUtil.enterTransaction();
+            
+            //Transaction logic:
+            TokenTable tt = TokenTransactionUtil.makeNextToken();
+            TransUtil.markEntityForSaveOnExit(tt);
+            
+            //EXIT transaction:
+            TransUtil.exitTransaction(ses, true);
+            
+            String output = "NEXT TOKEN GOTTEN:[" + tt.getToken() + "]";
+            return Response.status(200).entity(output).build();
+        }//FUNC::END
+}//CLASS::END
