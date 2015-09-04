@@ -30,11 +30,11 @@ import test.MyError;
 
 ////////////////////////////////////////////////////////////////////////////////
  
-@Path("/")
+@Path("WTFMAN/")
 public class NinjaRestService {
  
 	@GET
-	@Path("getMsg/{param}")
+	@Path("XXXXgetMsg/{param}")
 	public Response getMsg(@PathParam("param") String msg) {
  
 		String output = "Servlet: NinjaRestService : " + msg;
@@ -48,7 +48,7 @@ public class NinjaRestService {
         //public Response getNextToken(@PathParam("param") String msg){
         
           @GET
-          @Path("getNextToken") //removed slash at end. Lets try again.
+          @Path("XXXXgetNextToken") //removed slash at end. Lets try again.
           public Response getNextToken(@QueryParam("msg") int msg){
             
             //message msg is discarded and not used for now.
