@@ -126,62 +126,22 @@ public class TokenTransactionUtil {
      *           session could lead to [duplicate/identical] token records
      *           in our database.
      * 
-     * @return : Return the new token for usage.
-     */
+     * @return : Return the new token for usage. **/
     public static TokenTable makeNextToken(){
         
-        //Get the transaction we are in:
-        Session ses = TransUtil.getActiveTransactionSession();
-        
-        //THIS ISN'T WORKING... And it looks like it might be hard to pull off.
-        //http://stackoverflow.com/questions/9046971/mysql-equivalent-of-oracles-sequence-nextval
-        //
-        //Get the NEXT available ID in the TokenTable:
-        //http://stackoverflow.com/questions/6346450/
-        //how-to-get-the-auto-increment-primary-key-value-in-mysql-using-hibernate
-        /*
-        String qs = "";
-        qs += "select nextval('";
-        qs += TokenTable.TABLE_NAME;
-        qs += ".";
-        qs += TokenTable.COLUMN_ID;
-        qs += "')";
-        Query query = ses.createSQLQuery( qs );
-        
-        //CORRECT: http://stackoverflow.com/questions/6346450/
-        long tokenIndex = (Long) query.list().get( 0 );
-        
-        //WRONG:
-        //convert result of query into integer:
-        //long tokenIndex = Long.parseLong( query.toString() );
-        
-        //now that we know the next number that will be used,
-        //we can encrypt the number into a hash that will be our token:
-        String tokenCode = encryptIndex(tokenIndex);
-        
-        //create a new token entity and populate it:
-        TokenTable tt = new TokenTable(); //<<--"TokenTable" is more correctly "TokenRecord" or "TokenEntry", if you want to use proper relational database names.
-        tt.setId(tokenIndex);
-        tt.setToken(tokenCode);
-        tt.setComment("Last touched by makeNextToken() function.");
-        */
-        
-        //try another approach:
-        //when you createa new TokenTable() is the auto incriment id automatically set? Lets find out.
+        //Logic Body:
         TokenTable tt = new TokenTable();
-        //String tokenCode = encryptIndex( tt.getId() );
         String tokenCode = encryptIndex( getMaxTokenIndex() + 1 );
         tt.setToken( tokenCode );
-        tt.setComment("Query will fail if done on empty table. Fix this.");
+        tt.setComment("last touched by makeNextToken()");
         
         //return the populated token:
-        return tt;
-        
+        return tt;   
     }//FUNC::END
     
     /** Take an index and encrypt it. ENCRYPT. Not hash.
      *  The purpose of the token is to give the candidate an obfuscated
-     *  key. Encryption of a primary key number will ~gaurantee~ we
+     *  key. Encryption of a primary key number will guarantee we
      *  will never have colliding token values.
      * @param tokenIndex : The primary that:
      *                     1. represents a unique token.
