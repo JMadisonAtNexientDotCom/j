@@ -9,13 +9,24 @@
     </head>
     <body>
         
-        <div data-ng-app="">
- 
-        <p>Input something in the input box:</p>
-        <p>Name : <input type="text" ng-model="name" placeholder="Enter name here"></p>
-        <h1>Hello {{name}}</h1>
+            <div data-ng-app="myApp" ng-controller="customersCtrl"> 
 
-        </div>
-        
+            <ul>
+
+                {{ name }}
+               <!-- {{ name.id + ', ' + name.token }} -->
+
+            </ul>
+
+            </div>
+
+            <script>
+            var app = angular.module('myApp', []);
+            app.controller('customersCtrl', function($scope, $http) {
+              $http.get('http://j1clone01-madnamespace.rhcloud.com/TokenRestService/getNextToken')
+              .success(function (response) {$scope.name = response;});
+            });
+            </script>
+
     </body>
 </html>
