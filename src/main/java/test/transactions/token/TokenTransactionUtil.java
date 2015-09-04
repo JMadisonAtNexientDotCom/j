@@ -129,6 +129,9 @@ public class TokenTransactionUtil {
      * @return : Return the new token for usage. **/
     public static TokenTable makeNextToken(){
         
+        //Make sure we are in a transaction state if we are doing this!
+        TransUtil.insideTransactionCheck();
+        
         //Logic Body:
         TokenTable tt = new TokenTable();
         String tokenCode = encryptIndex( getMaxTokenIndex() + 1 );
