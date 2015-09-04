@@ -30,7 +30,7 @@ import test.MyError;
 
 ////////////////////////////////////////////////////////////////////////////////
  
-@Path("WTFMAN/")
+@Path("/") //<<offending colliding path?
 public class NinjaRestService {
  
 	@GET
