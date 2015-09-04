@@ -4,6 +4,7 @@ import test.MyError;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 //import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 //import utils.HibernateUtil;
@@ -40,6 +41,31 @@ public class TokenTransactionUtil {
         tt.setToken(DebugConsts.HARD_CODED_TOKEN);
         tt.setComment("from doTestTransaction()");
         
+        
+    }//FUNC::END
+    
+    /** Returns the highest primary key within the token_table
+     *  Used so we know how to create the encryption value for
+     *  the NEXT token. Since all token primary keys are ascending
+     *  and sequential, we just have to add +1 to whatever value we
+     *  get here, and then encrypt it.
+     * @return : The max primary key currently stored in database token_table **/
+    public static long getMaxTokenIndex(){
+        
+        //Get the transaction we are in:
+        Session ses = TransUtil.getActiveTransactionSession();
+        
+        //Query: Get maximum value for a given column:
+        //SOURCE: amacleod 's answer on:
+        //http://stackoverflow.com/questions/3900105/
+        Criteria c = ses.createCriteria(TokenTable.class);
+        c.addOrder(Order.desc(TokenTable.COLUMN_ID));
+        c.setMaxResults(1);
+        TokenTable t = (TokenTable)c.uniqueResult(); //<--TokenTable should really be called TokenRecord or TokenEntry, Record is more SQL specific. Go with that.
+
+        //The id stored in this entity should be the HIGHEST id that
+        //currently exists in the database for the corrosponding table.
+        return t.getId();
         
     }//FUNC::END
     
@@ -94,7 +120,8 @@ public class TokenTransactionUtil {
         //try another approach:
         //when you createa new TokenTable() is the auto incriment id automatically set? Lets find out.
         TokenTable tt = new TokenTable();
-        String tokenCode = encryptIndex( tt.getId() );
+        //String tokenCode = encryptIndex( tt.getId() );
+        String tokenCode = encryptIndex( getMaxTokenIndex() + 1 );
         tt.setToken( tokenCode );
         tt.setComment("I have low hopes for this.");
         
