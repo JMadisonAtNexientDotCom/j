@@ -89,6 +89,7 @@
         <!-- Is there a way to annotation configure a JERSEY servlet??? -->
         <!-- BNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN -->
         
+        <!--
         <servlet>
 		<servlet-name>NinjaRestService_ServletName</servlet-name>
 		<servlet-class>
@@ -104,6 +105,7 @@
 		<servlet-name>NinjaRestService_ServletName</servlet-name>
 		<url-pattern>/NinjaRestService/*</url-pattern>
 	</servlet-mapping>
+        -->
         
         <!-- NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN -->
         
