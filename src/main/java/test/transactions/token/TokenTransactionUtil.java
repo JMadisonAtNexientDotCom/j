@@ -5,6 +5,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 //import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 //import utils.HibernateUtil;
@@ -55,6 +56,16 @@ public class TokenTransactionUtil {
         //Get the transaction we are in:
         Session ses = TransUtil.getActiveTransactionSession();
         
+        //BUG FIX: Edge case of empty table:
+        ////////////////////////////////////////////////////////////////////////
+        //get number of entries currently in table. If there is nothing,
+        //return zero: Returning zero is ASSUMING that our database starts
+        //ordering primary keys at "1". Which I have observed in my MySQL
+        //database. Cannot gaurantee that is the case for other databases.
+        long tokenRecordCount = getHighestPrimaryKeyInTokenTable();
+        if(0==tokenRecordCount){ return 0; }
+        ////////////////////////////////////////////////////////////////////////
+        
         //Query: Get maximum value for a given column:
         //SOURCE: amacleod 's answer on:
         //http://stackoverflow.com/questions/3900105/
@@ -62,10 +73,48 @@ public class TokenTransactionUtil {
         c.addOrder(Order.desc(TokenTable.COLUMN_ID));
         c.setMaxResults(1);
         TokenTable t = (TokenTable)c.uniqueResult(); //<--TokenTable should really be called TokenRecord or TokenEntry, Record is more SQL specific. Go with that.
+        
 
         //The id stored in this entity should be the HIGHEST id that
         //currently exists in the database for the corrosponding table.
         return t.getId();
+        
+    }//FUNC::END
+    
+    /** A wrapper for getNumberOfTokensInTable() so we can
+     *  make a distinction between the two operations and
+     *  [codify/document] the assumption we are making.
+     * @return : A long representing the highest primary key value
+                 currently stored within the database's token table **/
+    private static long getHighestPrimaryKeyInTokenTable(){
+        return getNumberOfTokensInTable();
+    }//FUNC::END
+    
+    /** Gets the number of records within the token table.
+     *  
+     *  Original Usage:
+     *  To do "look-before-you-leap" check on code that would error
+     *  if executed on an empty table. Specifically the function 
+     *  getMaxTokenIndex
+     * 
+     *  synonym: "findHighestPrimaryKey", this is HOW we are using the
+     *           function. However, this function only works as such
+     *           IF the tokens are in order as we expect.
+     * 
+     * @return : The number of tokens in the table.
+     */
+    private static long getNumberOfTokensInTable(){
+        
+        Session ses = TransUtil.getActiveTransactionSession();
+        
+        //SOURCE: How do we count rows in hibernate?
+        //http://stackoverflow.com/questions/1372317/
+        Criteria cri = ses.createCriteria(TokenTable.class);
+        cri = cri.setProjection(Projections.rowCount());
+        Long boxedOutput = (Long)cri.uniqueResult();
+        long unboxedOutput = (long)boxedOutput;
+        
+        return unboxedOutput;
         
     }//FUNC::END
     
@@ -123,7 +172,7 @@ public class TokenTransactionUtil {
         //String tokenCode = encryptIndex( tt.getId() );
         String tokenCode = encryptIndex( getMaxTokenIndex() + 1 );
         tt.setToken( tokenCode );
-        tt.setComment("I have low hopes for this.");
+        tt.setComment("Query will fail if done on empty table. Fix this.");
         
         //return the populated token:
         return tt;
