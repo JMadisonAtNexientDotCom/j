@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import test.MyError;
 
@@ -43,8 +44,9 @@ public class TokenRestService {
 	}//FUNC::END
         
         @GET
-        @Path("getNextToken/{param}")
-        public Response getNextToken(@PathParam("param") String msg){
+        //@Path("getNextToken/{param}")
+        //public Response getNextToken(@PathParam("param") String msg){
+          public Response getNextToken(@QueryParam("msg") int msg){
             
             //message msg is discarded and not used for now.
             
