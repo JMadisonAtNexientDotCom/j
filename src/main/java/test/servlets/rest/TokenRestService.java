@@ -48,7 +48,7 @@ public class TokenRestService {
         //public Response getNextToken(@PathParam("param") String msg){
         
           @GET
-          @Path("getNextToken/")
+          @Path("getNextToken") //removed slash at end. Lets try again.
           public Response getNextToken(@QueryParam("msg") int msg){
             
             //message msg is discarded and not used for now.
