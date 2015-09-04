@@ -9,6 +9,14 @@
         
         <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
 	<repositories>
+            <!-- To get Object to JSON conversion. -->
+            <!-- http://www.mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/ -->
+            <repository>
+                    <id>codehaus</id>
+                    <url>http://repository.codehaus.org/org/codehaus</url>
+            </repository>
+            
+            
 		<repository>
 			<id>eap</id>
 			<url>http://maven.repository.redhat.com/techpreview/all</url>
@@ -189,6 +197,19 @@
                 <version>4.0</version>
             </dependency>
              -->
+             
+            
+            
+
+            <!-- To get Object to JSON conversion. -->
+            <!-- http://www.mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/ -->
+       
+                  <dependency>
+                          <groupId>org.codehaus.jackson</groupId>
+                          <artifactId>jackson-mapper-asl</artifactId>
+                          <version>1.8.5</version>
+                  </dependency>
+         
              
              <!-- try this dependency. -->
              <dependency>

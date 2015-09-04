@@ -8,6 +8,16 @@ import org.hibernate.Session;
 import test.entities.TokenTable;
 import test.transactions.token.TokenTransactionUtil;
 import test.transactions.util.TransUtil;
+
+//Attempt to convert to object to JSON:
+////////////////////////////////////////////////////////////////////////////////
+//http://www.mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/
+import java.io.File;
+import java.io.IOException;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+////////////////////////////////////////////////////////////////////////////////
  
 @Path("/")
 public class TokenRestService {
@@ -38,7 +48,30 @@ public class TokenRestService {
             //EXIT transaction:
             TransUtil.exitTransaction(ses, true);
             
-            String output = "NEXT TOKEN GOTTEN:[" + tt.getToken() + "]";
-            return Response.status(200).entity(output).build();
+            //String output = "NEXT TOKEN GOTTEN:[" + tt.getToken() + "]";
+            //return Response.status(200).entity(output).build();
+            
+            //see if we can return json:
+            
+            
+            
+            //http://stackoverflow.com/questions/15375328/hibernate-entity-to-json-object-with-jackson-to-http-post
+            
+            //The webResource object:
+            //Client client = Client.create();
+            //String url = kayakoWebService.generateURL();
+            //WebResource webResource = client.resource(url);
+            
+            //Company domainObject = companyDAO.findCompanyById(id);
+            //ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON)
+            //    .entity(domainObject, MediaType.APPLICATION_JSON)
+            //    .post(ClientResponse.class);
+            
+            
+            
+            
+            
+            
+            
         }//FUNC::END
 }//CLASS::END
