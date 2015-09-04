@@ -69,8 +69,12 @@ public class TokenTransactionUtil {
         qs += "')";
         Query query = ses.createSQLQuery( qs );
         
+        //CORRECT: http://stackoverflow.com/questions/6346450/
+        long tokenIndex = (Long) query.list().get( 0 );
+        
+        //WRONG:
         //convert result of query into integer:
-        long tokenIndex = Long.parseLong( query.toString() );
+        //long tokenIndex = Long.parseLong( query.toString() );
         
         //now that we know the next number that will be used,
         //we can encrypt the number into a hash that will be our token:
