@@ -58,9 +58,13 @@ public class TokenTransactionUtil {
         //Get the transaction we are in:
         Session ses = TransUtil.getActiveTransactionSession();
         
+        //THIS ISN'T WORKING... And it looks like it might be hard to pull off.
+        //http://stackoverflow.com/questions/9046971/mysql-equivalent-of-oracles-sequence-nextval
+        //
         //Get the NEXT available ID in the TokenTable:
         //http://stackoverflow.com/questions/6346450/
         //how-to-get-the-auto-increment-primary-key-value-in-mysql-using-hibernate
+        /*
         String qs = "";
         qs += "select nextval('";
         qs += TokenTable.TABLE_NAME;
@@ -85,6 +89,14 @@ public class TokenTransactionUtil {
         tt.setId(tokenIndex);
         tt.setToken(tokenCode);
         tt.setComment("Last touched by makeNextToken() function.");
+        */
+        
+        //try another approach:
+        //when you createa new TokenTable() is the auto incriment id automatically set? Lets find out.
+        TokenTable tt = new TokenTable();
+        String tokenCode = encryptIndex( tt.getId() );
+        tt.setToken( tokenCode );
+        tt.setComment("I have low hopes for this.");
         
         //return the populated token:
         return tt;
