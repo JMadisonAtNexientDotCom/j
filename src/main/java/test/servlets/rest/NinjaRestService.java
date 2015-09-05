@@ -26,12 +26,12 @@ import java.util.logging.Logger;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import test.MyError;
-
+import test.config.constants.ServletClassNames;
 
 ////////////////////////////////////////////////////////////////////////////////
-@Path("NinjaRestService/") //<--If this @Path path matches the path of ANY OTHER JERSEY SERVLET
-           //   your servlets will all fail. Even if the full path to this
-           //   servlet is unique. ARGH!!!!
+@Path(ServletClassNames.NinjaRestService_MAPPING) //<--If this @Path path matches the path of 
+           //   ANY OTHER JERSEY SERVLET your servlets will all fail. 
+           //   Even if the full path to this servlet is unique. ARGH!!!!
 public class NinjaRestService {
  
 	@GET

@@ -1,5 +1,7 @@
 package test.debug;
 
+import test.servlets.rest.TokenRestService;
+
 /**
  * Constants for debugging/experimenting as I develop.
  * Put whatever experimental debug vars you need here.
@@ -12,6 +14,10 @@ public class DebugConsts {
     /** This var must be final because experimenting with servlet mapping.
      *  and servlet mapping must use constant expressions.
      */
-    public static final String HARD_CODED_MAPPING = "HARD_CODED_MAPPING/";
+    
+    //Cant do it this way:
+    //public static final String HARD_CODED_MAPPING = TokenRestService.class.getSimpleName() + "/";
+    public static final String HARD_CODED_MAPPING = "HARD_CODED_MAPPING/";     
+            
     
 }

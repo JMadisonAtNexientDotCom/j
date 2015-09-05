@@ -27,11 +27,12 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import test.MyError;
 import test.debug.DebugConsts;
+import test.config.constants.ServletClassNames;
 
 
 ////////////////////////////////////////////////////////////////////////////////
 
-@Path( DebugConsts.HARD_CODED_MAPPING )
+@Path( ServletClassNames.TokenRestService_MAPPING )
  //@Path(TokenRestService.class.getSimpleName() + "/")
 //@Path("TokenRestService/") //<--By matching class name, we assure not servlet mapping collision.
 public class TokenRestService {
