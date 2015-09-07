@@ -47,10 +47,12 @@ TOKEN MAKER 2000
 </div>
 
 <script>
-var app = angular.module('myApp', ['angularSpinners']);
+//var app = angular.module('myApp', ['angularSpinners']);
+var app = angular.module('myApp', []);
 
 //CONTROLLER::START
-app.controller('customersCtrl', function($scope, $http, spinnerService) {
+//app.controller('customersCtrl', function($scope, $http, spinnerService) {
+app.controller('customersCtrl', function($scope, $http) {
     
 
     $scope.inc = function()
@@ -60,14 +62,14 @@ app.controller('customersCtrl', function($scope, $http, spinnerService) {
       serviceURL = "http://j1clone01-madnamespace.rhcloud.com/api/TokenRestService/getNextToken";
       //$http.get(serviceURL).success(function (response) {$scope.name = response;});
 			
-			spinnerService.show('html5spinner'); //<--where is ref to spinnerService?
+			//spinnerService.show('html5spinner'); //<--where is ref to spinnerService?
 			$http.get(serviceURL).success( onResponded );
 
    };
 	 
 	 function onResponded(response){
 			$scope.theStuffWeReallyNeed = response;
-			spinnerService.hide('html5spinner');
+			//spinnerService.hide('html5spinner');
 	 }
 
 
