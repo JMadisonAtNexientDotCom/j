@@ -6,6 +6,12 @@
         <title>TOKEN MAKER 2000</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+				
+				<!-- spinner animation for waiting after pressing button that -->
+				<!-- results in an asynchronous call. AKA: Wait for something to load and -->
+				<!-- let user know the UI is still responsive. -->
+				<LINK REL=StyleSheet HREF="../jsLib/css/components/loading_spinner.css" TYPE="text/css">
+				
     </head>
     <body>
         
@@ -14,6 +20,16 @@
 
 
   <div>
+	
+	<!-- quick test to make sure we have relative .css URL correct. -->
+	<spinner name="html5spinner">  
+								<div class="overlay"></div>
+								<div class="spinner">
+									<div class="double-bounce1"></div>
+									<div class="double-bounce2"></div>
+								</div>
+								<div class="please-wait">Test of loading spinner...</div>
+							</spinner>  
 TOKEN MAKER 2000
 </div>
 
