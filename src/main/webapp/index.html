@@ -8,6 +8,8 @@
   
 	<LINK REL=StyleSheet HREF="jsLib/testCSS/openshift_bootstrap.css" TYPE="text/css">
 	
+	<LINK REL=StyleSheet HREF="jsLib/css/components/loading_spinner.css" TYPE="text/css">
+	
 <style>
 
 </style>
@@ -18,6 +20,15 @@
 <section class='container'>
           <hgroup>
               
+							<!-- trying to get spinner animation working for async code. -->
+							<spinner name="html5spinner">  
+								<div class="overlay"></div>
+								<div class="spinner">
+									<div class="double-bounce1"></div>
+									<div class="double-bounce2"></div>
+								</div>
+								<div class="please-wait">Please Wait...</div>
+							</spinner>  
            
               <h1> URLS below: </h1>
               <h1> http://j1clone01-madnamespace.rhcloud.com/pattern </h1>
