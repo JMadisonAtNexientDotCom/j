@@ -60,14 +60,14 @@ app.controller('customersCtrl', function($scope, $http) {
       serviceURL = "http://j1clone01-madnamespace.rhcloud.com/api/TokenRestService/getNextToken";
       //$http.get(serviceURL).success(function (response) {$scope.name = response;});
 			
-			spinnerService.show('html5spinner');
+			//spinnerService.show('html5spinner');
 			$http.get(serviceURL).success( onResponded );
 
    };
 	 
 	 function onResponded(response){
 			$scope.name = response;
-			spinnerService.hide('html5spinner');
+			//spinnerService.hide('html5spinner');
 	 }
 
 
