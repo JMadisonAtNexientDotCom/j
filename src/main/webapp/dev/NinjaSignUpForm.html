@@ -21,7 +21,7 @@
     </head>
 <body>
 
-<div data-ng-app="myApp" data-ng-controller="myCtrl">
+<div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="apiCallUsed" >
  
 <p>New Ninja Registration:</p>
 <p>Name : <input type="text" ng-model="nName"     placeholder="Enter name here"></p>
@@ -31,7 +31,7 @@
 <p><input type="text" ng-model="nPortfolio"placeholder="Enter name here"></p>
 <button data-ng-click="onButtonClicked()">REGISTER NINJA</button>
 
-
+<textarea readonly>{{apiCallUsed}}</textarea>
 
 </div>
 
@@ -52,16 +52,32 @@ app.controller('myCtrl', function($scope) {
     $scope.onButtonClicked = onRegisterButtonClick;
 
     function onRegisterButtonClick(){
-        $scope.nName = "clicked!";
+        //$scope.nName = "clicked!";
+        spinnerService.show('html5spinner');
+        
+        //Build query string using J-QUERY:
+        //SOURCE: http://stackoverflow.com/questions/316781/
+        //                             how-to-build-query-string-with-javascript
+        qs = "";
+        qs = $.param({ name: $scope.nName, 
+                       phone:$scope.nPhone,
+                       email:$scope.nEmail,
+                       portfolioURL:$scope.nPortfolio });
 
-        apiURL= "http://j1clone01-madnamespace.rhcloud.com/TokenRestService/getNextToken";
-        $http.get(apiURL).success(function (response) {$scope.name = response;});
+        apiURL= "http://j1clone01-madnamespace.rhcloud.com/TokenRestService/getNextToken?" + qs;
+        
+        //for debugging:
+        $scope.apiCallUsed = apiURL;
+        
+        //$http.get(apiURL).success(function (response) {$scope.name = response;});
+        
+        $http.get(apiURL).success(onResponded);
 
     }
 
     function onResponded(response){
-	$scope.theStuffWeReallyNeed = response;
-	//spinnerService.hide('html5spinner');
+	//$scope.theStuffWeReallyNeed = response;
+	spinnerService.hide('html5spinner');
     }
 
 });
