@@ -63,15 +63,13 @@ public class NinjaTransactionUtil {
     /**
      * Makes a new [record/entry] in database's 
      * ninja table and populates that [record/entry]
-     * @param ninja          :for info, see: setNinjaBasicInfo
      * @param name           :for info, see: setNinjaBasicInfo
      * @param phone          :for info, see: setNinjaBasicInfo
      * @param email          :for info, see: setNinjaBasicInfo
      * @param portfolio_url  :for info, see: setNinjaBasicInfo
      * @return A new ninja that has just had all of it's basic info set. **/
     public static NinjaTable makeNinjaRecord
-        (NinjaTable ninja, String name, int phone, String email, 
-                                                          String portfolio_url){
+        (String name, int phone, String email,String portfolio_url){
         //Make sure we are in a transaction state if we are doing this!
         TransUtil.insideTransactionCheck();
         
@@ -79,7 +77,7 @@ public class NinjaTransactionUtil {
         NinjaTable n = makeNextNinja();
         
         //Populate ninja with basic info:
-        setNinjaBasicInfo(ninja,name,phone,email,portfolio_url);
+        setNinjaBasicInfo(n, name,phone,email,portfolio_url);
         
         //Set debug comment:
         n.setComment("last touched by makeNinjaRecord");

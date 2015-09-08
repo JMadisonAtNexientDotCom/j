@@ -2,6 +2,7 @@ package test.servlets.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
@@ -43,6 +44,33 @@ public class NinjaRestService {
 
         return Response.status(200).entity(output).build();
 
+    }//FUNC::END
+    
+    @GET
+    @Path("makeNinjaRecord")
+    public Response makeNinjaRecord(
+            @QueryParam("name")         String name ,
+            @QueryParam("phone")        int    phone,
+            @QueryParam("email")        String email,
+            @QueryParam("portfolioURL") String portfolioURL){
+        
+        //ENTER transaction:
+        Session ses = TransUtil.enterTransaction();
+        
+        //Transaction logic:
+        NinjaTable nt = NinjaTransactionUtil.
+                                makeNinjaRecord(name,phone,email,portfolioURL);
+        
+        //Mark entity for save:
+        TransUtil.markEntityForSaveOnExit(nt);
+       
+        //EXIT transaction:
+        //THERE ISNOTHING TO SAVE. So exit transaction with a false.
+        TransUtil.exitTransaction(ses, false);
+        
+        //Return entity as body of 200/ok response:
+        return JSONUtil.entityToJSONResponse(nt);
+       
     }//FUNC::END
         
     @GET
