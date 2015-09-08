@@ -69,7 +69,7 @@ public class NinjaTransactionUtil {
      * @param portfolio_url  :for info, see: setNinjaBasicInfo
      * @return A new ninja that has just had all of it's basic info set. **/
     public static NinjaTable makeNinjaRecord
-        (String name, int phone, String email,String portfolio_url){
+        (String name, long phone, String email,String portfolio_url){
         //Make sure we are in a transaction state if we are doing this!
         TransUtil.insideTransactionCheck();
         
@@ -106,7 +106,7 @@ public class NinjaTransactionUtil {
      *               it is quite and cell phone calls give away their position.
      * @return                                                               **/
     public static NinjaTable setNinjaBasicInfo
-        (NinjaTable ninja, String name, int phone, String email, 
+        (NinjaTable ninja, String name, long phone, String email, 
                                                           String portfolio_url){
         
         //Make sure we are in a transaction state if we are doing this!

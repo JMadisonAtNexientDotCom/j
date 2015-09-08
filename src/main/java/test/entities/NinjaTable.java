@@ -47,8 +47,10 @@ public class NinjaTable extends BaseEntity {
   @Column(name=COLUMN_NAME)
   private String name;
   
+  //If you do HTTP request to set a phone number that is too long.
+  //The response will turn into a 404. Made long instead of int for this reason.
   @Column(name=COLUMN_PHONE)
-  private int phone;
+  private long phone;
   
   @Column(name=COLUMN_EMAIL)
   private String email;
@@ -68,8 +70,8 @@ public class NinjaTable extends BaseEntity {
   public String getName(){ return name;}
   public void setName(String name){ this.name = name;}
   
-  public int getPhone(){ return phone;}
-  public void setPhone(int phone){ this.phone = phone;}
+  public long getPhone(){ return phone;}
+  public void setPhone(long phone){ this.phone = phone;}
   
   public String getEmail(){ return email;}
   public void setEmail(String email){ this.email = email;}

@@ -50,7 +50,7 @@ public class NinjaRestService {
     @Path("makeNinjaRecord")
     public Response makeNinjaRecord(
             @QueryParam("name")         String name ,
-            @QueryParam("phone")        int    phone,
+            @QueryParam("phone")        long   phone,
             @QueryParam("email")        String email,
             @QueryParam("portfolioURL") String portfolioURL){
         
