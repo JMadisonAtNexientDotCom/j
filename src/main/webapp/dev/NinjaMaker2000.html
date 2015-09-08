@@ -4,29 +4,20 @@
     <head>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 				
-				 <!-- for async spinners. THEY WORK! -->
-				 <script src="../jsLib/node_modules/angular-spinners/src/spinner-service.js"></script>
-				 <script src="../jsLib/node_modules/angular-spinners/src/spinner-directive.js"></script>
-				 <script src="../jsLib/node_modules/angular-spinners/dist/angular-spinners.js"></script>
+        <!-- for async spinners. THEY WORK! -->
+        <script src="../jsLib/node_modules/angular-spinners/src/spinner-service.js"></script>
+        <script src="../jsLib/node_modules/angular-spinners/src/spinner-directive.js"></script>
+        <script src="../jsLib/node_modules/angular-spinners/dist/angular-spinners.js"></script>
 				
-        <title>TOKEN MAKER 2000</title>
+        <title>NINJA MAKER 2000</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 				
-				<!-- spinner animation for waiting after pressing button that -->
-				<!-- results in an asynchronous call. AKA: Wait for something to load and -->
-				<!-- let user know the UI is still responsive. -->
-				<LINK REL=StyleSheet HREF="../jsLib/css/components/loading_spinner.css" TYPE="text/css">
-				
-				<!--- WTF. Forgot to use script tag and used css tag. -->
-				<!--
-				<LINK REL=StyleSheet HREF="../jsLib/node_modules/angular-spinners/src/spinner-service.js"   TYPE="text/css">
-				<LINK REL=StyleSheet HREF="../jsLib/node_modules/angular-spinners/src/spinner-directive.js" TYPE="text/css">
-				<LINK REL=StyleSheet HREF="../jsLib/node_modules/angular-spinners/dist/angular-spinners.js" TYPE="text/css">
-				-->
-				
+        <!-- spinner animation for waiting after pressing button that -->
+        <!-- results in an asynchronous call. AKA: Wait for something to load and -->
+        <!-- let user know the UI is still responsive. -->
+        <LINK REL=StyleSheet HREF="../jsLib/css/components/loading_spinner.css" TYPE="text/css">
 			
-				
     </head>
     <body>
         
@@ -34,19 +25,19 @@
         <div data-ng-app="myApp" data-ng-controller="customersCtrl"> 
 
 
-  <div>
-	
-	<!-- quick test to make sure we have relative .css URL correct. -->
-	<spinner name="html5spinner">  
-								<div class="overlay"></div>
-								<div class="spinner">
-									<div class="double-bounce1"></div>
-									<div class="double-bounce2"></div>
-								</div>
-								<div class="please-wait">Test of loading spinner...</div>
-							</spinner>  
-NINJA MAKER 2000
-</div>
+    <div>
+
+        <!-- quick test to make sure we have relative .css URL correct. -->
+        <spinner name="html5spinner">  
+            <div class="overlay"></div>
+            <div class="spinner">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
+            </div>
+            <div class="please-wait">Test of loading spinner...</div>
+        </spinner>  
+    NINJA MAKER 2000
+    </div>
 
      <!-- these two calls work. But neither individually. Guessing ASYNC problem? -->
      <button data-ng-click="inc();">MAKE NINJA!</button> 
