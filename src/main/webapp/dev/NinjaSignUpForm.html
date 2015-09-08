@@ -80,7 +80,8 @@ app.controller('myCtrl', function($scope, $http, spinnerService) {
                        email:$scope.nEmail,
                        portfolioURL:$scope.nPortfolio });
 
-        apiURL= "http://j1clone01-madnamespace.rhcloud.com/TokenRestService/getNextToken?" + qs;
+        //url of rest-api responsible for making new ninja records using arguments:
+        apiURL= "http://j1clone01-madnamespace.rhcloud.com/NinjaRestService/makeNinjaRecord?" + qs;
         
         //for debugging:
         $scope.apiCallUsed = apiURL;
