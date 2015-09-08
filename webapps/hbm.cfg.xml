@@ -50,7 +50,9 @@
         <!-- Drop and re-create the database schema on startup -->  
         <property name="hbm2ddl.auto">create</property>  
         
-        <prop key="hibernate.hbm2ddl.import_files">main/resources/import.sql</prop>
+        <!-- Not sure how to get this working! -->
+        <!-- https://docs.jboss.org/hibernate/orm/4.1/manual/en-US/html/ch03.html -->
+        <property name="hibernate.hbm2ddl.import_files">main/resources/import.sql</property>
   
         <!-- invalid mapping. Left over from a tutorial I was doing. -->
         <!-- TUTORIAL: http://www.java2blog.com/2013/01/hibernate-hello-world-example-in-eclipse.html -->
