@@ -1,0 +1,71 @@
+<!DOCTYPE html> <!-- Numbers below mark 80 characters -->
+<!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
+<html lang="en-US">
+    <head>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+				
+        <!-- for async spinners. THEY WORK! -->
+        <script src="../jsLib/node_modules/angular-spinners/src/spinner-service.js"></script>
+        <script src="../jsLib/node_modules/angular-spinners/src/spinner-directive.js"></script>
+        <script src="../jsLib/node_modules/angular-spinners/dist/angular-spinners.js"></script>
+				
+        <title>Ninja Sign Up Form</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+				
+        <!-- spinner animation for waiting after pressing button that -->
+        <!-- results in an asynchronous call. AKA: Wait for something to load and -->
+        <!-- let user know the UI is still responsive. -->
+        <LINK REL=StyleSheet HREF="../jsLib/css/components/loading_spinner.css" TYPE="text/css">
+							
+    </head>
+<body>
+
+<div data-ng-app="myApp" data-ng-controller="myCtrl">
+ 
+<p>New Ninja Registration:</p>
+<p>Name : <input type="text" ng-model="nName"     placeholder="Enter name here"></p>
+<p>Phone: <input type="text" ng-model="nPhone"    placeholder="Enter name here"></p>
+<p>Email: <input type="text" ng-model="nEmail"    placeholder="Enter name here"></p>
+<p>Website / Portfolio / Resume URL: </p>
+<p><input type="text" ng-model="nPortfolio"placeholder="Enter name here"></p>
+<button data-ng-click="onButtonClicked()">REGISTER NINJA</button>
+
+
+
+</div>
+
+<script>
+//sample app declaration: 
+//<div ng-app="myApp" ng-controller="myCtrl">
+//sample input binded to firstName: 
+//<input type="text" ng-model="firstName"><br>
+
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.nName     = "SuperNinjaPerson";
+    $scope.nPhone    = "(555)-FakeNumber";
+    $scope.nEmail    = "FakeEmail@Fake.com";
+    $scope.nPortfolio= "www.example.com";
+
+    //set function reference:
+    $scope.onButtonClicked = onRegisterButtonClick;
+
+    function onRegisterButtonClick(){
+        $scope.nName = "clicked!";
+
+        apiURL= "http://j1clone01-madnamespace.rhcloud.com/TokenRestService/getNextToken";
+        $http.get(apiURL).success(function (response) {$scope.name = response;});
+
+    }
+
+    function onResponded(response){
+	$scope.theStuffWeReallyNeed = response;
+	//spinnerService.hide('html5spinner');
+    }
+
+});
+</script>
+
+</body>
+</html>
