@@ -65,6 +65,7 @@ app.controller('myCtrl', function($scope, $http, spinnerService) {
 
     function onRegisterButtonClick(){
         $scope.nName = "clicked!";
+        $scope.apiCallUsed = "whateverBro";
         spinnerService.show('html5spinner');
         
         //Build query string using J-QUERY:
