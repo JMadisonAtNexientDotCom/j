@@ -6,8 +6,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
-import test.entities.TokenTable;
-import test.transactions.token.TokenTransactionUtil;
 import test.transactions.util.TransUtil;
 
 //Attempt to convert to object to JSON:

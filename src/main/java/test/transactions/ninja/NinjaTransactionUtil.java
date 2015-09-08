@@ -21,7 +21,7 @@ public class NinjaTransactionUtil {
         
         //Logic Body:
         NinjaTable nt = new NinjaTable();
-        nt.setComment("last touched by makeNextNinja()");
+        nt.setComment("touched by makeNextNinja()");
         
         //return the newly constructed ninja:
         return nt;   

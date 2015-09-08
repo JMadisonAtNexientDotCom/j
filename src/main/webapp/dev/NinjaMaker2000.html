@@ -27,7 +27,7 @@
 
             $scope.inc = function()
             {//FUNC::START
-                serviceURL = "http://j1clone01-madnamespace.rhcloud.com/TokenRestService/getNextToken";
+                serviceURL = "http://j1clone01-madnamespace.rhcloud.com/NinjaRestService/getNextNinja";
                 $http.get(serviceURL).success(function (response) {$scope.name = response;});
             }//FUNC::END
         }); //CONTROLLER::END

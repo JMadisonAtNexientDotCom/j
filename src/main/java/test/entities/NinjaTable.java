@@ -17,7 +17,7 @@ public class NinjaTable extends BaseEntity {
     /** Name of table this entity refers to, for easy refactoring. **/
     public static final String TABLE_NAME             = "ninja_table";
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String COLUMN_ID              = "id";
+    public static final String COLUMN_ID              = "idOfNinja";
     /** Column name stored as string constant for easy refactoring. **/
     public static final String COLUMN_NAME            = "name";
     /** Column name stored as string constant for easy refactoring. **/
@@ -30,10 +30,17 @@ public class NinjaTable extends BaseEntity {
     public static final String COLUMN_COMMENT         = "comment";
     
     
+  /** named "idOfNinja" instead of simply "id" because I am trying to
+   *  track down a bug that seems to be involved with the name "id"
+   *  colliding in my token table and ninja table. 
+   * 
+   *  Called "idOfNinja" rather than "ninjaID" because postfixes are
+   *  more friendly with intellisense than prefixes.
+   */
   @Id
   @GeneratedValue
   @Column(name=COLUMN_ID)
-  private long id;
+  private long idOfNinja;
   
   @Column(name=COLUMN_NAME)
   private String name;
@@ -53,8 +60,8 @@ public class NinjaTable extends BaseEntity {
 
   //Getters and setters:
   //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
-  public Long getId(){ return id;}
-  public void setId(Long id){ this.id = id;}
+  public Long getIdOfNinja(){ return idOfNinja;}
+  public void setIdOfNinja(Long idOfNinja){ this.idOfNinja = idOfNinja;}
   
   public String getName(){ return name;}
   public void setName(String name){ this.name = name;}
