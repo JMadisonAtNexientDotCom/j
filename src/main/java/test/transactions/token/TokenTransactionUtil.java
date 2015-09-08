@@ -53,6 +53,14 @@ public class TokenTransactionUtil {
      * @return : The max primary key currently stored in database token_table **/
     public static long getMaxTokenIndex(){
         
+        return TransUtil.getHighestKeyInTable
+                                       (TokenTable.class, TokenTable.COLUMN_ID);
+        
+        /*
+        This code seems like a hackish way to do the query.
+        Implimenting a method in my transaction utility.
+        
+        
         //Get the transaction we are in:
         Session ses = TransUtil.getActiveTransactionSession();
         
@@ -78,7 +86,7 @@ public class TokenTransactionUtil {
         //The id stored in this entity should be the HIGHEST id that
         //currently exists in the database for the corrosponding table.
         return t.getId();
-        
+        */
     }//FUNC::END
     
     /** A wrapper for getNumberOfTokensInTable() so we can
