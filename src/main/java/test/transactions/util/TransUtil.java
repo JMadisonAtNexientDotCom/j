@@ -6,6 +6,9 @@ import org.hibernate.SessionFactory;
 import test.entities.BaseEntity;
 import utils.HibernateUtil;
 import java.util.ArrayList;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Projections;
+import test.entities.TokenTable;
 
 /**
  * TransUtil stands for: "Transaction Utility"
@@ -380,4 +383,56 @@ public class TransUtil {
             }
         }
     }//END::FUNC 
+    
+    
+    /**
+     * Used for primary keys. But does NOT have to be primary keys now.
+     * @param tableClass : The class of the [table/entity] you want
+     *                     the highest key from.
+     * @param keyName    : The name of the key. Because:
+     *                     1. Key is not always named "id"
+     *                     2. Table may have multiple keys per record.
+     * @return 
+     */
+    public static long getHighestKeyInTable(Class tableClass, String keyName){
+       // return getNumberOfRecordsInTable();
+        
+          Session ses = TransUtil.getActiveTransactionSession();
+        
+       //SOURCE:
+       // http://stackoverflow.com/questions/3743677/get-max-value-record-from-table-in-hibernate
+        Criteria cri = ses.createCriteria( tableClass );
+        cri = cri.setProjection(Projections.max( keyName ));
+        Long boxedOutput = (Long)cri.uniqueResult();
+        long unboxedOutput = (long)boxedOutput;
+        
+        return unboxedOutput;
+          
+          
+    }//FUNC::END
+    
+    /**
+     * FUNCTION NOT TESTED!
+     * Gets the highest number of records in a given database table.
+     * @param tableClass :The class of one of our entities that represents
+     *                    a database table.
+     * @return 
+     **/
+    public static long getNumberOfRecordsInTable(Class tableClass){
+                     //getNumberOfRecordsInTable
+        Session ses = TransUtil.getActiveTransactionSession();
+        
+        //SOURCE: How do we count rows in hibernate?
+        //http://stackoverflow.com/questions/1372317/
+        Criteria cri = ses.createCriteria( tableClass );
+        cri = cri.setProjection(Projections.rowCount());
+        Long boxedOutput = (Long)cri.uniqueResult();
+        long unboxedOutput = (long)boxedOutput;
+        
+        return unboxedOutput;
+        
+    }//FUNC::END
+    
+    
+    
 }//END::CLASS

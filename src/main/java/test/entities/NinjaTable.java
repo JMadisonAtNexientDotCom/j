@@ -19,7 +19,7 @@ public class NinjaTable extends BaseEntity {
     /** Name of table this entity refers to, for easy refactoring. **/
     public static final String TABLE_NAME             = "ninja_table";
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String COLUMN_ID              = "idOfNinja";
+    public static final String COLUMN_ID              = "id";
     /** Column name stored as string constant for easy refactoring. **/
     public static final String COLUMN_NAME            = "name";
     /** Column name stored as string constant for easy refactoring. **/

@@ -1,7 +1,9 @@
 package test.transactions.ninja;
 
+import org.hibernate.Session;
 import test.entities.NinjaTable;
 import test.transactions.util.TransUtil;
+import test.MyError;
 /**
  * Handles [transactions/operations] involving the ninja table.
  * AKA: Our table full of identification info for every ninja that
@@ -28,7 +30,34 @@ public class NinjaTransactionUtil {
            
     }//FUNC::END
     
-   
+    /**
+     * Retrieve the ninja entity using ID:
+     * @param nid :The ninja id we want to use.
+     * @return 
+     */
+    public static NinjaTable getNinjaByID(Long nid){
+        
+        //ErrorCheck: Are we in a transaction state?
+        TransUtil.insideTransactionCheck();
+        
+        //our output variable:
+        NinjaTable nt;
+        
+        //TODO: Is there a way to check if ninja of given ID exists and
+        //return negative one (-1) if it does not exist??
+        
+        try {
+            Session ses = TransUtil.getActiveTransactionSession();
+            nt =  (NinjaTable) ses.get(NinjaTable.class, nid);
+        } catch (Exception e) {
+            //Not really catching exception. Just making compiler happy.
+            throw new MyError(e.toString() );
+        }
+        
+        //return our ninja output variable:
+        return nt;
+        
+    }//FUNC::END
     
     /**
      * Makes a new [record/entry] in database's 

@@ -45,11 +45,28 @@ public class NinjaRestService {
 
     }//FUNC::END
         
-    
+    @GET
+    @Path("getNinjaByID")
+    public Response getNinjaByID(@QueryParam("id") int nid){
+        //ENTER transaction:
+        Session ses = TransUtil.enterTransaction();
+        
+        //Transaction logic:
+        NinjaTable nt = NinjaTransactionUtil.getNinjaByID( nid );
+        
+        //DO NOT MARK ENTITY FOR SAVE! 
+        //Getting method is not meant to mutate.
+       
+        //EXIT transaction:
+        TransUtil.exitTransaction(ses, true);
+        
+        //Return entity as body of 200/ok response:
+        return JSONUtil.entityToJSONResponse(nt);
+    }//FUNC::END
         
     @GET
     @Path("getNextNinja") //removed slash at end. Lets try again.
-    public Response getNextToken(@QueryParam("msg") int msg){
+    public Response getNextNinja(@QueryParam("msg") int msg){
 
         //message msg is discarded and not used for now.
 

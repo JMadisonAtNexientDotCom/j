@@ -62,7 +62,7 @@ public class TokenTransactionUtil {
         //return zero: Returning zero is ASSUMING that our database starts
         //ordering primary keys at "1". Which I have observed in my MySQL
         //database. Cannot gaurantee that is the case for other databases.
-        long tokenRecordCount = getHighestPrimaryKeyInTokenTable();
+        long tokenRecordCount = getNumberOfRecordsInTable();
         if(0==tokenRecordCount){ return 0; }
         ////////////////////////////////////////////////////////////////////////
         
@@ -86,9 +86,10 @@ public class TokenTransactionUtil {
      *  [codify/document] the assumption we are making.
      * @return : A long representing the highest primary key value
                  currently stored within the database's token table **/
-    private static long getHighestPrimaryKeyInTokenTable(){
-        return getNumberOfTokensInTable();
-    }//FUNC::END
+   // private static long getHighestPrimaryKeyInTokenTable(){
+   //     //return getNumberOfTokensInTable();
+   //     
+   // }//FUNC::END
     
     /** Gets the number of records within the token table.
      *  
@@ -103,8 +104,16 @@ public class TokenTransactionUtil {
      * 
      * @return : The number of tokens in the table.
      */
-    private static long getNumberOfTokensInTable(){
+    private static long getNumberOfRecordsInTable(){
         
+        //make sure we are in a transaction state:
+        TransUtil.insideTransactionCheck();
+        
+        //Get number of records in the token table and return:
+        Long op = TransUtil.getNumberOfRecordsInTable(TokenTable.class);
+        return op;
+        
+        /*
         Session ses = TransUtil.getActiveTransactionSession();
         
         //SOURCE: How do we count rows in hibernate?
@@ -115,6 +124,7 @@ public class TokenTransactionUtil {
         long unboxedOutput = (long)boxedOutput;
         
         return unboxedOutput;
+        */
         
     }//FUNC::END
     
