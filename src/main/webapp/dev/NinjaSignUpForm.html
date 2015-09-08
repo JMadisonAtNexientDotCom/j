@@ -21,7 +21,7 @@
     </head>
 <body>
 
-<div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="apiCallUsed" >
+<div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="apiCallUsed='ONE';" >
  
     
 <!-- quick test to make sure we have relative .css URL correct. -->
@@ -58,6 +58,7 @@ app.controller('myCtrl', function($scope, $http, spinnerService) {
     $scope.nPhone    = "(555)-FakeNumber";
     $scope.nEmail    = "FakeEmail@Fake.com";
     $scope.nPortfolio= "www.example.com";
+    $scope.apiCallUsed="raer";
 
     //set function reference:
     $scope.onButtonClicked = onRegisterButtonClick;
