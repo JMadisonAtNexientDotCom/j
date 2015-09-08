@@ -38,7 +38,7 @@ public class NinjaTable extends BaseEntity {
    *  more friendly with intellisense than prefixes.
    */
   @Id
-  @GeneratedValue
+  //@GeneratedValue
   @Column(name=COLUMN_ID)
   private long idOfNinja;
   

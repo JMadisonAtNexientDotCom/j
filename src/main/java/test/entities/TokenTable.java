@@ -34,7 +34,7 @@ public class TokenTable extends BaseEntity{
    *** So that people can't just be all like "TOKEN + 1" and access someone  ***
    *** else's data over public HTTP.                                         **/
   @Id
-  @GeneratedValue
+  //@GeneratedValue
   @Column(name=COLUMN_ID)
   private long id;
    
