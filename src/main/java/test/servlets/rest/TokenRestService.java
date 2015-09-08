@@ -28,6 +28,7 @@ import javax.ws.rs.core.MediaType;
 import test.MyError;
 import test.debug.DebugConsts;
 import test.config.constants.ServletClassNames;
+import utils.JSONUtil;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -77,7 +78,7 @@ public class TokenRestService {
             
             
             
-           
+           /*
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter prettyPrinter = mapper.writerWithDefaultPrettyPrinter();
             String jsonText;
@@ -90,7 +91,9 @@ public class TokenRestService {
                 throw new MyError("Yeah, we are not really catching this exception. TokenRestService.java");
             }
             return Response.ok(jsonText, MediaType.APPLICATION_JSON).build();
+            */
             
+            return JSONUtil.entityToJSONResponse(tt);
             
             
         }//FUNC::END

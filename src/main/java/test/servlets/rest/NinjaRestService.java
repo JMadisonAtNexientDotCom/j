@@ -27,6 +27,7 @@ import test.MyError;
 import test.config.constants.ServletClassNames;
 import test.transactions.ninja.NinjaTransactionUtil;
 import test.entities.NinjaTable;
+import utils.JSONUtil;
 
 ////////////////////////////////////////////////////////////////////////////////
 @Path(ServletClassNames.NinjaRestService_MAPPING) //<--If this @Path path matches the path of 
@@ -62,6 +63,7 @@ public class NinjaRestService {
             //EXIT transaction:
             TransUtil.exitTransaction(ses, true);
             
+            /*
             //This huge chunk of code could go in a JSON utility
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter prettyPrinter = mapper.writerWithDefaultPrettyPrinter();
@@ -75,7 +77,9 @@ public class NinjaRestService {
                 throw new MyError("Yeah, we are not really catching this exception. NinjaRestService.java");
             }
             return Response.ok(jsonText, MediaType.APPLICATION_JSON).build();
+            */
             
+            return JSONUtil.entityToJSONResponse(nt);
             
             
         }//FUNC::END
