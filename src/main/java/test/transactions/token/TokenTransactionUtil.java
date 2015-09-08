@@ -53,6 +53,9 @@ public class TokenTransactionUtil {
      * @return : The max primary key currently stored in database token_table **/
     public static long getMaxTokenIndex(){
         
+        //makesure we are already inside a transaction:
+        TransUtil.insideTransactionCheck();
+        
         return TransUtil.getHighestKeyInTable
                                        (TokenTable.class, TokenTable.COLUMN_ID);
         

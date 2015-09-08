@@ -397,7 +397,7 @@ public class TransUtil {
     public static long getHighestKeyInTable(Class tableClass, String keyName){
        // return getNumberOfRecordsInTable();
         
-          Session ses = TransUtil.getActiveTransactionSession();
+       Session ses = TransUtil.getActiveTransactionSession();
         
        //SOURCE:
        // http://stackoverflow.com/questions/3743677/get-max-value-record-from-table-in-hibernate
