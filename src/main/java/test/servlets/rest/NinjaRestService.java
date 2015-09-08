@@ -27,6 +27,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import test.MyError;
 import test.config.constants.ServletClassNames;
+import test.transactions.ninja.NinjaTransactionUtil;
+import test.entities.NinjaTable;
 
 ////////////////////////////////////////////////////////////////////////////////
 @Path(ServletClassNames.NinjaRestService_MAPPING) //<--If this @Path path matches the path of 
@@ -35,7 +37,7 @@ import test.config.constants.ServletClassNames;
 public class NinjaRestService {
  
 	@GET
-	@Path("XXXXgetMsg/{param}")
+	@Path("getMsg/{param}")
 	public Response getMsg(@PathParam("param") String msg) {
  
 		String output = "Servlet: NinjaRestService : " + msg;
@@ -44,12 +46,10 @@ public class NinjaRestService {
  
 	}//FUNC::END
         
-        //@GET
-        //@Path("getNextToken/{param}")
-        //public Response getNextToken(@PathParam("param") String msg){
+    
         
           @GET
-          @Path("getNextToken") //removed slash at end. Lets try again.
+          @Path("getNextNinja") //removed slash at end. Lets try again.
           public Response getNextToken(@QueryParam("msg") int msg){
             
             //message msg is discarded and not used for now.
@@ -58,26 +58,18 @@ public class NinjaRestService {
             Session ses = TransUtil.enterTransaction();
             
             //Transaction logic:
-            TokenTable tt = TokenTransactionUtil.makeNextToken();
-            TransUtil.markEntityForSaveOnExit(tt);
+            NinjaTable nt = NinjaTransactionUtil.makeNextNinja();
+            TransUtil.markEntityForSaveOnExit(nt);
             
             //EXIT transaction:
             TransUtil.exitTransaction(ses, true);
             
-            //String output = "NEXT TOKEN GOTTEN:[" + tt.getToken() + "]";
-            //return Response.status(200).entity(output).build();
-            
-            //see if we can return json:
-            
-            
-            
-            
-           
+            //This huge chunk of code could go in a JSON utility
             ObjectMapper mapper = new ObjectMapper();
             ObjectWriter prettyPrinter = mapper.writerWithDefaultPrettyPrinter();
             String jsonText;
             try {
-                jsonText = prettyPrinter.writeValueAsString( tt );
+                jsonText = prettyPrinter.writeValueAsString( nt );
             } catch (JsonProcessingException ex) {
                 Logger.getLogger(NinjaRestService.class.getName()).log(Level.SEVERE, null, ex);
                 //Writing code to keep compiler happy, never a good reason.
