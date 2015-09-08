@@ -36,7 +36,7 @@ public class NinjaTransactionUtil {
      * @return 
      */
     
-    public static NinjaTable getNinjaByID(Long nid){
+    public static NinjaTable getNinjaByID(long nid){
         
         //ErrorCheck: Are we in a transaction state?
         TransUtil.insideTransactionCheck();

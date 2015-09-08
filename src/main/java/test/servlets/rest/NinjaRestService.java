@@ -47,7 +47,7 @@ public class NinjaRestService {
         
     @GET
     @Path("getNinjaByID")
-    public Response getNinjaByID(@QueryParam("id") Long nid){
+    public Response getNinjaByID(@QueryParam("id") long nid){
         //ENTER transaction:
         Session ses = TransUtil.enterTransaction();
         
