@@ -52,7 +52,7 @@
         
         <!-- Not sure how to get this working! -->
         <!-- https://docs.jboss.org/hibernate/orm/4.1/manual/en-US/html/ch03.html -->
-        <property name="hibernate.hbm2ddl.import_files">import.sql</property>
+        <!-- <property name="hibernate.hbm2ddl.import_files">import.sql</property> -->
   
         <!-- invalid mapping. Left over from a tutorial I was doing. -->
         <!-- TUTORIAL: http://www.java2blog.com/2013/01/hibernate-hello-world-example-in-eclipse.html -->
