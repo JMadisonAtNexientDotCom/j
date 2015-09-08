@@ -23,6 +23,17 @@
 
 <div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="apiCallUsed" >
  
+    
+<!-- quick test to make sure we have relative .css URL correct. -->
+<spinner name="html5spinner">  
+    <div class="overlay"></div>
+    <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+    </div>
+    <div class="please-wait">Test of loading spinner...</div>
+</spinner>  
+
 <p>New Ninja Registration:</p>
 <p>Name : <input type="text" ng-model="nName"     placeholder="Enter name here"></p>
 <p>Phone: <input type="text" ng-model="nPhone"    placeholder="Enter name here"></p>
