@@ -398,6 +398,19 @@ public class TransUtil {
        // return getNumberOfRecordsInTable();
         
        Session ses = TransUtil.getActiveTransactionSession();
+       
+       
+       
+       //BUG FIX: Edge case of empty table:
+        ////////////////////////////////////////////////////////////////////////
+        //get number of entries currently in table. If there is nothing,
+        //return zero: Returning zero is ASSUMING that our database starts
+        //ordering primary keys at "1". Which I have observed in my MySQL
+        //database. Cannot gaurantee that is the case for other databases.
+        long recordCount = getNumberOfRecordsInTable(tableClass);
+        if(0==recordCount){ return 0; }
+        ////////////////////////////////////////////////////////////////////////
+       
         
        //SOURCE:
        // http://stackoverflow.com/questions/3743677/get-max-value-record-from-table-in-hibernate

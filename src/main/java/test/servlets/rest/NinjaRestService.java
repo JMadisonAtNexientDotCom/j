@@ -58,7 +58,8 @@ public class NinjaRestService {
         //Getting method is not meant to mutate.
        
         //EXIT transaction:
-        TransUtil.exitTransaction(ses, true);
+        //THERE ISNOTHING TO SAVE. So exit transaction with a false.
+        TransUtil.exitTransaction(ses, false);
         
         //Return entity as body of 200/ok response:
         return JSONUtil.entityToJSONResponse(nt);

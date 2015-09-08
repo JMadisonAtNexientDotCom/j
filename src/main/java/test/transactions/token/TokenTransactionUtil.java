@@ -56,6 +56,9 @@ public class TokenTransactionUtil {
         //makesure we are already inside a transaction:
         TransUtil.insideTransactionCheck();
         
+        
+        
+        
         return TransUtil.getHighestKeyInTable
                                        (TokenTable.class, TokenTable.COLUMN_ID);
         
