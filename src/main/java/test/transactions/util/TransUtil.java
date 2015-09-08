@@ -392,8 +392,8 @@ public class TransUtil {
      * @param keyName    : The name of the key. Because:
      *                     1. Key is not always named "id"
      *                     2. Table may have multiple keys per record.
-     * @return 
-     */
+     * @return :Returns ZERO if there are no entries. Assumes that first
+     *          key in an ascending list is #1, not #0. **/
     public static long getHighestKeyInTable(Class tableClass, String keyName){
        // return getNumberOfRecordsInTable();
         
