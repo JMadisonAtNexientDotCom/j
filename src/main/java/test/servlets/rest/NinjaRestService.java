@@ -35,52 +35,36 @@ import utils.JSONUtil;
            //   Even if the full path to this servlet is unique. ARGH!!!!
 public class NinjaRestService {
  
-	@GET
-	@Path("getMsg/{param}")
-	public Response getMsg(@PathParam("param") String msg) {
- 
-		String output = "Servlet: NinjaRestService : " + msg;
- 
-		return Response.status(200).entity(output).build();
- 
-	}//FUNC::END
+    @GET
+    @Path("getMsg/{param}")
+    public Response getMsg(@PathParam("param") String msg) {
+
+        String output = "Servlet: NinjaRestService : " + msg;
+
+        return Response.status(200).entity(output).build();
+
+    }//FUNC::END
         
     
         
-          @GET
-          @Path("getNextNinja") //removed slash at end. Lets try again.
-          public Response getNextToken(@QueryParam("msg") int msg){
-            
-            //message msg is discarded and not used for now.
-            
-            //ENTER transaction:
-            Session ses = TransUtil.enterTransaction();
-            
-            //Transaction logic:
-            NinjaTable nt = NinjaTransactionUtil.makeNextNinja();
-            TransUtil.markEntityForSaveOnExit(nt);
-            
-            //EXIT transaction:
-            TransUtil.exitTransaction(ses, true);
-            
-            /*
-            //This huge chunk of code could go in a JSON utility
-            ObjectMapper mapper = new ObjectMapper();
-            ObjectWriter prettyPrinter = mapper.writerWithDefaultPrettyPrinter();
-            String jsonText;
-            try {
-                jsonText = prettyPrinter.writeValueAsString( nt );
-            } catch (JsonProcessingException ex) {
-                Logger.getLogger(NinjaRestService.class.getName()).log(Level.SEVERE, null, ex);
-                //Writing code to keep compiler happy, never a good reason.
-                //This is horrible code. Now I am going to re-throw the exception I just caught.
-                throw new MyError("Yeah, we are not really catching this exception. NinjaRestService.java");
-            }
-            return Response.ok(jsonText, MediaType.APPLICATION_JSON).build();
-            */
-            
-            return JSONUtil.entityToJSONResponse(nt);
-            
-            
-        }//FUNC::END
+    @GET
+    @Path("getNextNinja") //removed slash at end. Lets try again.
+    public Response getNextToken(@QueryParam("msg") int msg){
+
+        //message msg is discarded and not used for now.
+
+        //ENTER transaction:
+        Session ses = TransUtil.enterTransaction();
+
+        //Transaction logic:
+        NinjaTable nt = NinjaTransactionUtil.makeNextNinja();
+        TransUtil.markEntityForSaveOnExit(nt);
+
+        //EXIT transaction:
+        TransUtil.exitTransaction(ses, true);
+
+        //Return entity as body of 200/ok response:
+        return JSONUtil.entityToJSONResponse(nt);
+
+    }//FUNC::END
 }//CLASS::END

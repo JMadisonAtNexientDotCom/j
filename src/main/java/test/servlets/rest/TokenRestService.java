@@ -70,31 +70,8 @@ public class TokenRestService {
             //EXIT transaction:
             TransUtil.exitTransaction(ses, true);
             
-            //String output = "NEXT TOKEN GOTTEN:[" + tt.getToken() + "]";
-            //return Response.status(200).entity(output).build();
-            
-            //see if we can return json:
-            
-            
-            
-            
-           /*
-            ObjectMapper mapper = new ObjectMapper();
-            ObjectWriter prettyPrinter = mapper.writerWithDefaultPrettyPrinter();
-            String jsonText;
-            try {
-                jsonText = prettyPrinter.writeValueAsString( tt );
-            } catch (JsonProcessingException ex) {
-                Logger.getLogger(TokenRestService.class.getName()).log(Level.SEVERE, null, ex);
-                //Writing code to keep compiler happy, never a good reason.
-                //This is horrible code. Now I am going to re-throw the exception I just caught.
-                throw new MyError("Yeah, we are not really catching this exception. TokenRestService.java");
-            }
-            return Response.ok(jsonText, MediaType.APPLICATION_JSON).build();
-            */
-            
+            //Return entity as body of 200/ok response:
             return JSONUtil.entityToJSONResponse(tt);
-            
             
         }//FUNC::END
 }//CLASS::END
