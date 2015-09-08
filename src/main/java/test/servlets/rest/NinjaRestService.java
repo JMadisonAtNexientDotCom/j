@@ -64,9 +64,8 @@ public class NinjaRestService {
         //Mark entity for save:
         TransUtil.markEntityForSaveOnExit(nt);
        
-        //EXIT transaction:
-        //THERE ISNOTHING TO SAVE. So exit transaction with a false.
-        TransUtil.exitTransaction(ses, false);
+        //EXIT transaction, true==we have entities to save.
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_WITH_SAVE);
         
         //Return entity as body of 200/ok response:
         return JSONUtil.entityToJSONResponse(nt);

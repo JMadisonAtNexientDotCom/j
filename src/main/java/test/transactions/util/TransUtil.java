@@ -16,6 +16,21 @@ import test.entities.TokenTable;
  * @author jmadison: 2015.09.02_0354PM **/
 public class TransUtil {
     
+    /** We exit a transaction with this flag to tell program that
+     *  we believe we have registered entities to be saved upon exiting
+     *  the transaction. This is done as an error check.
+     * 
+     *  If we exit with EXIT_WITH_SAVE but we have not marked any entities
+     *  as needing to be saved, it shows an inconsistency in our logic.
+     *  Logic errors can be hard to find. So this is helpful. **/
+    public static final Boolean EXIT_WITH_SAVE = true;
+    
+    /** The inverse of EXIT_WITH_SAVE. 
+     *  We exit with this code when we have NOT marked
+     *  any entities for saving upon closing of the session.
+     *  For more info, see EXIT_WITH_SAVE **/
+    public static final Boolean EXIT_NO_SAVING = false;
+    
     /** If the application is single threaded, then we can implement
      *  one very helpful piece of error checking:
      *  We can check for balance/pairing between
