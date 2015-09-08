@@ -35,6 +35,7 @@ public class NinjaTransactionUtil {
      * @param nid :The ninja id we want to use.
      * @return 
      */
+    
     public static NinjaTable getNinjaByID(Long nid){
         
         //ErrorCheck: Are we in a transaction state?
