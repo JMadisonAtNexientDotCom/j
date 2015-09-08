@@ -2,8 +2,10 @@ package test.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 
 /**
  * Represents the ninja(s) that are registered in the system.
@@ -38,7 +40,7 @@ public class NinjaTable extends BaseEntity {
    *  more friendly with intellisense than prefixes.
    */
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name=COLUMN_ID)
   private long idOfNinja;
   

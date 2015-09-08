@@ -2,6 +2,7 @@ package test.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 /**
@@ -34,7 +35,7 @@ public class TokenTable extends BaseEntity{
    *** So that people can't just be all like "TOKEN + 1" and access someone  ***
    *** else's data over public HTTP.                                         **/
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name=COLUMN_ID)
   private long id;
    
