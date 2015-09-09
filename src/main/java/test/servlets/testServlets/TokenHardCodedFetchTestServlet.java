@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import test.TestTransaction;
-import test.transactions.util.token.TokenTransactionUtil;
+import test.transactions.util.token.TokenTransUtil;
 import test.entities.TokenTable;
 import test.transactions.util.TransUtil;
 import org.hibernate.Session;
@@ -34,7 +34,7 @@ public class TokenHardCodedFetchTestServlet extends HttpServlet{
         //perform transaction:
         String hardCodedTokenName = DebugConsts.HARD_CODED_TOKEN;
         BaseEntityContainer bec;
-        bec = TokenTransactionUtil.getTokenEntityUsingTokenString(hardCodedTokenName);
+        bec = TokenTransUtil.getTokenEntityUsingTokenString(hardCodedTokenName);
         
         //exit the transaction state, no saving is required:
         TransUtil.exitTransaction(ses,false);

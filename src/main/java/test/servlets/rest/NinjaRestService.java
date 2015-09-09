@@ -26,7 +26,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import test.MyError;
 import test.config.constants.ServletClassNames;
-import test.transactions.util.ninja.NinjaTransactionUtil;
+import test.transactions.util.ninja.NinjaTransUtil;
 import test.entities.NinjaTable;
 import utils.JSONUtil;
 
@@ -58,7 +58,7 @@ public class NinjaRestService {
         Session ses = TransUtil.enterTransaction();
         
         //Transaction logic:
-        NinjaTable nt = NinjaTransactionUtil.
+        NinjaTable nt = NinjaTransUtil.
                                 makeNinjaRecord(name,phone,email,portfolioURL);
         
         //Mark entity for save:
@@ -79,7 +79,7 @@ public class NinjaRestService {
         Session ses = TransUtil.enterTransaction();
         
         //Transaction logic:
-        NinjaTable nt = NinjaTransactionUtil.getNinjaByID( nid );
+        NinjaTable nt = NinjaTransUtil.getNinjaByID( nid );
         
         //DO NOT MARK ENTITY FOR SAVE! 
         //Getting method is not meant to mutate.
@@ -102,7 +102,7 @@ public class NinjaRestService {
         Session ses = TransUtil.enterTransaction();
 
         //Transaction logic:
-        NinjaTable nt = NinjaTransactionUtil.makeNextNinja();
+        NinjaTable nt = NinjaTransUtil.makeNextNinja();
         TransUtil.markEntityForSaveOnExit(nt);
 
         //EXIT transaction:

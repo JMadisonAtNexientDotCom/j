@@ -19,7 +19,7 @@ import test.debug.DebugConsts;
  * it will be helpful.
  * @author jmadison
  */
-public class TokenTransactionUtil {
+public class TokenTransUtil {
     
     //Code originally from:
     //http://docs.jboss.org/hibernate/orm/5.0/quickstart/html/

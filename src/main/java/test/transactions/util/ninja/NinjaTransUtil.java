@@ -10,7 +10,7 @@ import test.MyError;
  * wishes to participate in trials for a chance to become a member of the clan.
  * @author jmadison
  */
-public class NinjaTransactionUtil {
+public class NinjaTransUtil {
     
     /** Makes a new ninja [record/entry] in the ninja table.
      *  But it is up to other logic to populate the record

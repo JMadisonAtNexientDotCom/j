@@ -7,7 +7,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import test.entities.TokenTable;
-import test.transactions.util.token.TokenTransactionUtil;
+import test.transactions.util.token.TokenTransUtil;
 import test.transactions.util.TransUtil;
 
 //Attempt to convert to object to JSON:
@@ -64,7 +64,7 @@ public class TokenRestService {
             Session ses = TransUtil.enterTransaction();
             
             //Transaction logic:
-            TokenTable tt = TokenTransactionUtil.makeNextToken();
+            TokenTable tt = TokenTransUtil.makeNextToken();
             TransUtil.markEntityForSaveOnExit(tt);
             
             //EXIT transaction:
