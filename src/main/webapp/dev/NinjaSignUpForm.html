@@ -40,7 +40,9 @@
 <form name="myForm">
 <p>New Ninja Registration:</p>
 <p>Name : <input type="text" name="iName"  ng-model="nName" placeholder="Enter name here"></p>
-<p>Phone: <input type="number" name="iPhone" ng-model="nPhone"    
+
+<!-- using number type is not what I want for phone numbers. It gives me a spinner! -->
+<p>Phone: <input type="text" name="iPhone" ng-model="nPhone"    
                  ng-required="number"
                  ng-minlength="3"
                  ng-maxlength="13"
