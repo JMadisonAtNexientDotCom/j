@@ -10,8 +10,8 @@ BEGIN;
 CREATE TABLE riddle_table (id serial PRIMARY KEY, string varchar(80) );
 CREATE TABLE rhyme_table (id serial PRIMARY KEY, string varchar(30) );
 
-
-INSERT INTO riddle_table (string) VALUES ('I build up castles but tear down mountains make some men blind but others to see. What am I?');
+ 
+INSERT INTO riddle_table (string) VALUES ('I build up castles but tear down mountains make some men blind but others to');
 INSERT INTO rhyme_table (string) VALUES ('Sand my man.');
 
 
