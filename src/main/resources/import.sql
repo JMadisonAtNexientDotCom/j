@@ -1,16 +1,18 @@
 
-DROP TABLE IF EXISTS short_adjective;
-DROP TABLE IF EXISTS long_adjective;
-DROP TABLE IF EXISTS noun;
+DROP TABLE IF EXISTS riddle_table;
+DROP TABLE IF EXISTS rhyme_table;
+-- DROP TABLE IF EXISTS riddle_rhyme_truth_table;
+-- DROP TABLE IF EXISTS riddle_rhyme_false_table;
+
 
 BEGIN;
 
-CREATE TABLE short_adjective (id serial PRIMARY KEY, string varchar(30) );
-CREATE TABLE long_adjective (id serial PRIMARY KEY, string varchar(30) );
-CREATE TABLE noun (id serial PRIMARY KEY, string varchar(30) );
+CREATE TABLE riddle_table (id serial PRIMARY KEY, string varchar(30) );
+CREATE TABLE rhyme_table (id serial PRIMARY KEY, string varchar(30) );
 
-INSERT INTO short_adjective (string) VALUES ('artless');
-INSERT INTO long_adjective (string) VALUES ('base-court');
-INSERT INTO noun (string) VALUES ('apple-john');
+
+INSERT INTO riddle_table (string) VALUES ('I build up castles but tear down mountains make some men blind but others to see. What am I?');
+INSERT INTO rhyme_table (string) VALUES ('Sand my man.');
+
 
 COMMIT;
