@@ -65,6 +65,11 @@
         <mapping class="test.entities.TestTable01"></mapping>
         <mapping class="test.entities.TokenTable"></mapping>
         <mapping class="test.entities.NinjaTable"></mapping>
+        
+        <!-- Question me in riddles and I will answer in rhymes. -->
+        <mapping class="test.entities.RiddleTable"></mapping>
+        <mapping class="test.entities.RhymeTable"></mapping>
+        
   
     </session-factory>  
   
