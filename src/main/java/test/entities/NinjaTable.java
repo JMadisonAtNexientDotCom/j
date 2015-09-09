@@ -13,7 +13,7 @@ import javax.persistence.Table;
  * a trial (test) administered by a sensei (teacher/recruiter) 
  * @author jmadison on 2015.09.04_0507PM                          **/
 @Entity
-@Table(name="ninja_table")  //<--can we replace this with TABLE_NAME ?
+@Table(name= NinjaTable.TABLE_NAME)  //<--can we replace this with TABLE_NAME ?
 public class NinjaTable extends BaseEntity {
     
     /** Name of table this entity refers to, for easy refactoring. **/
