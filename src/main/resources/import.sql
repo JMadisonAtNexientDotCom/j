@@ -66,6 +66,6 @@ INSERT INTO riddle_table (string) VALUES ('I build up castles but tear down moun
 SET @last_riddle_id := 1;
 INSERT INTO rhyme_table (string) VALUES ('Sand my man.');
 SET @last_rhyme_id  := 1;
-INSERT INTO riddle_rhyme_truth_table(riddle_id, rhyme_id) VALUES (@last_riddle_id,@last_rhyme_id);
+INSERT INTO riddle_rhyme_truth_table(riddle_id, rhyme_id) VALUES (1,1);
 
 COMMIT;
