@@ -34,7 +34,7 @@
             <div class="double-bounce1"></div>
             <div class="double-bounce2"></div>
     </div>
-    <div class="please-wait">Test of loading spinner...</div>
+    <div class="please-wait">...WAIT!...</div>
 </spinner>  
 
 <p>New Ninja Registration:</p>
@@ -61,11 +61,7 @@
 
 var app = angular.module('myApp', ['angularSpinners']);
 app.controller('myCtrl', function($scope, $http, spinnerService) {
-    $scope.nName     = "SuperNinjaPerson";
-    $scope.nPhone    = "(555)-FakeNumber";
-    $scope.nEmail    = "FakeEmail@Fake.com";
-    $scope.nPortfolio= "www.example.com";
-    $scope.apiCallUsed="raer";
+    
 
     //set function reference:
     $scope.onButtonClicked = onRegisterButtonClick;
