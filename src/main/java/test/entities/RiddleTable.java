@@ -23,6 +23,7 @@ public class RiddleTable extends TextTableBaseEntity {
     public static final String TEXT_COLUMN            = TextTableBaseEntity.TEXT_COLUMN;
     
   /*
+  DELETE THIS CODE ONCE WE ARE CERTAIN BASE CLASS WORKS!
   //shared code between riddle+rhyme tables, can we make base class?
   ////////////////////////////////////////////////////////
   @Id

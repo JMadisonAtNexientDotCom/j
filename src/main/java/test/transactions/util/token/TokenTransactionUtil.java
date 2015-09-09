@@ -1,4 +1,4 @@
-package test.transactions.token;
+package test.transactions.util.token;
 
 import test.MyError;
 import org.hibernate.Criteria;

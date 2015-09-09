@@ -26,7 +26,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import test.MyError;
 import test.config.constants.ServletClassNames;
-import test.transactions.ninja.NinjaTransactionUtil;
+import test.transactions.util.ninja.NinjaTransactionUtil;
 import test.entities.NinjaTable;
 import utils.JSONUtil;
 

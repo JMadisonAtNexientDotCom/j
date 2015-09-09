@@ -42,4 +42,4 @@ public class TextTableBaseEntity extends BaseEntity{
   public void setText(String text){ this.text = text;}
   /////////////////////////////////////////////////////////
     
-}
+}//CLASS::END

@@ -1,4 +1,4 @@
-package test.transactions.ninja;
+package test.transactions.util.ninja;
 
 import org.hibernate.Session;
 import test.entities.NinjaTable;
