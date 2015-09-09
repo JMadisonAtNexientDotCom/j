@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS rhyme_table;
 
 BEGIN;
 
-CREATE TABLE riddle_table (id serial PRIMARY KEY, string varchar(30) );
+CREATE TABLE riddle_table (id serial PRIMARY KEY, string varchar(80) );
 CREATE TABLE rhyme_table (id serial PRIMARY KEY, string varchar(30) );
 
 
