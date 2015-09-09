@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * @author jmadison ON: 2015.09.09_0227PM
  */
 @Entity
-@Table(name="riddle_table")
+@Table(name=RiddleTable.TABLE_NAME)
 public class RiddleTable {
      /** Name of table this entity refers to, for easy refactoring. **/
     public static final String TABLE_NAME             = "riddle_table";

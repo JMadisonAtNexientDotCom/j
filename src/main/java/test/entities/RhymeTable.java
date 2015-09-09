@@ -13,7 +13,7 @@ import javax.persistence.Table;
  * @author jmadison ON: 2015.09.09_0227PM
  */
 @Entity
-@Table(RhymeTable.TABLE_NAME)
+@Table(name = RhymeTable.TABLE_NAME)
 public class RhymeTable extends BaseEntity {
     /** Name of table this entity refers to, for easy refactoring. **/
     public static final String TABLE_NAME             = "rhyme_table";
