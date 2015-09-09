@@ -14,7 +14,6 @@ CREATE TABLE rhyme_table (id serial PRIMARY KEY, string varchar(80) );
 CREATE TABLE riddle_rhyme_truth_table (riddle_id INT UNSIGNED NOT NULL, 
                                        rhyme_id  INT UNSIGNED NOT NULL);
 
-
 -- RIDDLE + RHYME ENTRY --
 INSERT INTO riddle_table (string) VALUES ('I build up castles but tear down mountains make some men blind but others to see. What am I?');
 INSERT INTO rhyme_table (string) VALUES ('Sand my man.');
