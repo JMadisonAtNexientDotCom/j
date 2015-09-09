@@ -21,6 +21,8 @@ CREATE TABLE riddle_rhyme_wrong_table (riddle_id INT UNSIGNED NOT NULL, rhyme_id
 -- RIDDLE + RHYME ENTRY --
 INSERT INTO riddle_table (string) VALUES ('I build up castles but tear down mountains make some men blind but others to see. What am I?');
 INSERT INTO rhyme_table (string) VALUES ('Sand my man.');
-INSERT INTO riddle_rhyme_truth_table(riddle_id, rhyme_id) VALUES (1,1);
+SET @last_riddle_id := 1;
+SET @last_rhyme_id := 1;
+INSERT INTO riddle_rhyme_truth_table(riddle_id, rhyme_id) VALUES (@last_riddle_id, @last_rhyme_id);
 
 COMMIT;
