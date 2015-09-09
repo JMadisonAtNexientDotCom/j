@@ -52,6 +52,7 @@
         
         <!-- Not sure how to get this working! -->
         <!-- https://docs.jboss.org/hibernate/orm/4.1/manual/en-US/html/ch03.html -->
+        <!-- THIS IS NEEDED! And maps to my resources folder. <prjRoot>/src/main/resources -->
         <property name="hbm2ddl.import_files">import.sql</property>
         
         <!-- my mind fades... -->
