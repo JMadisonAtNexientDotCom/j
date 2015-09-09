@@ -37,19 +37,24 @@
     <div class="please-wait">...WAIT!...</div>
 </spinner>  
 
+<form name="myForm">
 <p>New Ninja Registration:</p>
-<p>Name : <input type="text" ng-model="nName"     placeholder="Enter name here"></p>
-<p>Phone: <input type="text" ng-model="nPhone"    
+<p>Name : <input type="text" name="iName"  ng-model="nName" placeholder="Enter name here"></p>
+<p>Phone: <input type="text" name="iPhone" ng-model="nPhone"    
                  ng-required="number"
                  ng-minlength="3"
                  ng-maxlength="13"
-                 placeholder="##########"></p>
-<p>Email: <input type="text" ng-model="nEmail"    placeholder="Required@Email.com"></p>
+                 placeholder="##########">
+    <span class="error" ng-show="myForm.iPhone.$error.minlength">Too short!</span>
+    <span class="error" ng-show="myForm.iPhone.$error.maxlength">Too long!</span>
+</p>
+<p>Email: <input type="text" name="iEmail" ng-model="nEmail"    placeholder="Required@Email.com"></p>
 <p>Website / Portfolio / Resume URL: </p>
-<p><input type="text" ng-model="nPortfolio"placeholder="www.Zombo.com"></p>
+<p><input type="text" name="iPortfolio" ng-model="nPortfolio"placeholder="www.Zombo.com"></p>
 <button data-ng-click="onButtonClicked()">REGISTER NINJA</button>
 
 <textarea readonly>{{apiCallUsed}}</textarea>
+</form>
 
 </div>
 
