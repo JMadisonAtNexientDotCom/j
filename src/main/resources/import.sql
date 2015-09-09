@@ -50,8 +50,7 @@ BEGIN;
 # of a "BEGIN;" and "[COMMIT; / END;]"
 # https://dev.mysql.com/doc/refman/5.0/en/declare-local-variable.html
 
-SET @last_riddle_id = 0;
-SET @last_rhyme_id = 0;
+
 
 -- Max length == 800, as in: 10 lines max when each line is 80 chars. --
 -- Max length == 80 (one line) for our answers (rhymes).              --
@@ -63,9 +62,7 @@ CREATE TABLE riddle_rhyme_truth_table (riddle_id INT UNSIGNED NOT NULL,
 
 -- RIDDLE + RHYME ENTRY --
 INSERT INTO riddle_table (string) VALUES ('I build up castles but tear down mountains make some men blind but others to see. What am I?');
-SET @last_riddle_id := 1;
 INSERT INTO rhyme_table (string) VALUES ('Sand my man.');
-SET @last_rhyme_id  := 1;
 INSERT INTO riddle_rhyme_truth_table(riddle_id, rhyme_id) VALUES (1,1);
 
 COMMIT;
