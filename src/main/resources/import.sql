@@ -2,9 +2,40 @@
 
 BEGIN;
 
+# Declaring variables: Help:
+# A how to: http://stackoverflow.com/questions/11505522/mysql-declaring-variables
+# Tells me variables need to be declared and used within the scope
+# of a "BEGIN; and END;"
+# https://dev.mysql.com/doc/refman/5.0/en/declare-local-variable.html
 SET @last_riddle_id = 0;
 SET @last_rhyme_id = 0;
 
+-- Table Summary: (Lost previous summary somewhere in commit history)
+-- riddle_table: Questions that need answering.
+-- rhyme_table : Answers to riddles.
+-- riddle_rhyme_truth_table: pairs riddle+rhyme. 
+--                           If pair is in here, it is true.
+-- riddle_rhyme_wrong_table: pairs riddle+rhyme. 
+--                           If pair is in here, it is wrong.
+--                           This table mostly for data integrity check.
+--
+-- Design justification:
+-- QUESTION: WHY USE riddle_rhyme_truth_table and riddle_rhyme_wrong_table ??
+-- ANSWER: Having a question_answer table where there is a pair and a 3rd column
+--         telling us if that question is wrong or right means that if there
+--         are 100 questions each with only one correct answer, we will need
+--         100x100 entries. 10,000 entries! That is a LOT OF SPACE.
+--         And a LOT OF WORK for test makers to explicitly define all of this.
+--         Instead: Only the correct answer needs to be defined.
+--         The riddle_rhyme_wrong_table is mostly for finding errors.
+--         If pair exists in both the "wrong" table and the "truth" table,
+--         The question is now invalid because developers could not agree on it.
+--
+--         in wrong_table:  | in truth_table: | MEANS:
+--               YES        |      YES        | Error. Answer both true&false
+--               YES        |      NO         | Answer is FALSE. EXPLICIT
+--               NO         |      NO         | Answer is FALSE. (implied)
+--               NO         |      YES        | Answer is TRUE.  EXPLICIT
 DROP TABLE IF EXISTS riddle_table;
 DROP TABLE IF EXISTS rhyme_table;
 DROP TABLE IF EXISTS riddle_rhyme_truth_table;
