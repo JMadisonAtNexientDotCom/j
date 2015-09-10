@@ -47,7 +47,7 @@ public class RiddleRhymeTransUtil_Truth {
         //Create a criteria query to find an entry with riddleID and rhymeID
         //Throw an error if the entry exists more than once:
         //Transaction Logic:
-        Criteria c = ses.createCriteria(TokenTable.class);
+        Criteria c = ses.createCriteria(RiddleRhymeTruthTable.class);
         c.add(Restrictions.eq(RiddleRhymeTruthTable.RIDDLE_ID_COLUMN,riddleID));
         c.add(Restrictions.eq(RiddleRhymeTruthTable.RHYME_ID_COLUMN ,rhymeID ));
         List results = c.list();
