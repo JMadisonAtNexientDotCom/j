@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!-- AUTHOR: JMadison.
+<!--   10|       20|       30|       40|       50|       60|       70|       -->
+<!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
+<html lang="en">
+  <head>
+		<!--angular library -->
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+		
+		<!-- Jquery needed to build query string. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+		<!-- for async spinners. THEY WORK! -->
+		<script src="../jsLib/node_modules/angular-spinners/src/spinner-service.js"></script>
+		<script src="../jsLib/node_modules/angular-spinners/src/spinner-directive.js"></script>
+		<script src="../jsLib/node_modules/angular-spinners/dist/angular-spinners.js"></script>
+
+		<!-- spinner waiting animation for async call. -->
+		<LINK REL=StyleSheet HREF="../jsLib/css/components/loading_spinner.css" TYPE="text/css">
+	
+    <meta charset="utf-8">
+    <title>RIDDLE RHYME MATCHER 2000</title>
+  
+  </head>
+  <body>
+	
+	  
+    
+		<div data-ng-app="myApp" ng-controller="myCtrl" 
+		     data-ng-init="riddleID=0;rhymeID=0;theResponseJsonTextWeWant='hello';">
+		  <form name="myForm">
+				<p> riddleID? </p>
+				<input type="number" ng-model="riddleID">
+				<p> rhymeID? </p>
+				<input type="number" ng-model="rhymeID" >
+				<p> Ask if it is correct: </p>
+				<button data-ng-click="callAPI();">QUERY!</button>
+				<textarea readonly>
+				{{ theResponseJsonTextWeWant }} 
+				</textarea>
+			</form>
+		</div>
+		
+		<script>
+		
+		//http://www.w3schools.com/angular/tryit.asp?filename=try_ng_intro_controller
+		var app = angular.module('myApp', ['angularSpinners']);
+		app.controller('myCtrl', function($scope, $http, spinnerService) {
+			
+			$scope.callAPI = function(){
+
+				spinnerService.show('html5spinner');
+
+				//Build query string using J-QUERY:
+				//SOURCE: http://stackoverflow.com/questions/316781/
+				qs = $.param({ riddleID: $scope.riddleID, 
+											 rhymeID:  $scope.rhymeID});
+
+				//url of rest-api responsible for making new ninja records using arguments:
+				//Break it up so refactoring is easier in future:
+				appRoot="http://j1clone01-madnamespace.rhcloud.com";
+				apiBase="api";
+				apiPath="RiddleRhymeRestService/getIsCorrect";
+				apiURL= appRoot+"/"+apiBase+"/"+apiPath+"?" + qs;
+
+				//for debugging:
+				$scope.apiCallUsed = apiURL;
+
+				$http.get(apiURL).success(onResponded);
+
+			};//FUNC:callAPI:END
+				 
+			function onResponded(response){
+				$scope.theResponseJsonTextWeWant = response;
+				spinnerService.hide('html5spinner');
+			}//FUNC:onResponded:END
+
+				
+				
+		});//APP.CONTROLLER:END
+		</script>
+		
+		
+  </body>
+</html>
+<!--   10|       20|       30|       40|       50|       60|       70|       -->
+<!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
