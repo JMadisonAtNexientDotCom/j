@@ -29,8 +29,10 @@ public class RiddleRhymeTransUtil_Wrong {
      * @param rhymeID  :id of the rhyme from the rhyme table. (answer table)
      * @return : True if pair found in table. **/
     public static boolean getIsPairInTable(long riddleID, long rhymeID){
-        //TODO: Actual code.
+        //TODO: Actual code...
         return false;
     }//FUNC::END
     
 }//CLASS::END
+
+// 
