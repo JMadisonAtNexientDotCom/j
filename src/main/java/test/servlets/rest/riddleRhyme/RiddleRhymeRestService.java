@@ -48,8 +48,11 @@ public class RiddleRhymeRestService extends BaseRestService {
         //Return the response:
         //If in debug mode, populate comment with useful information.
         String help = "C";//c is for comment.+
-        if(DebugConfig.isDebugBuild)
-        {help = "1==CORRECT,-1==WRONG,0==UNDEFINED";}
+        if(DebugConfig.isDebugBuild){
+            help = "";
+            help += "1==CORRECT,-1==WRONG,0==UNDEFINED";
+            help += " riddleID==" + riddleID + " rhymeID==" + rhymeID;
+        }
         return JSONUtil.numberToJSONResponse(op, help);
         
     }//FUNC::END
