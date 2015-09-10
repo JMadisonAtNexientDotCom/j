@@ -24,6 +24,19 @@ import javax.ws.rs.core.Response;
  * Planning out the increments to your final goal is a good idea.
  * /////////////////////////////////////////////////////////////////////////////
  * 
+ * Debug notes:
+ * This error may lead you to believe it is an entity serialization issue on
+ * a JSON response from a servlet. But this actually happened to me because I
+ * left off the @QueryParam annotations on the servlet function.
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * HTTP Status 415 - Unsupported Media Type
+   type Status report
+   message: Unsupported Media Type
+   description: The server refused this request because the request entity is 
+   *            in a format not supported by the requested resource for the 
+   *            requested method.
+   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * 
  * @author jmadison ---------------------------------------------------------**/
 public class BaseRestService {
     
