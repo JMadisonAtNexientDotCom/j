@@ -60,28 +60,28 @@ public class RiddleRhymeJoinTableBaseEntity extends BaseEntity implements Serial
     
     @Id //COMPOSITE KEY. ID#1
     @Column(name=RIDDLE_ID_COLUMN)
-    private long riddleId;
+    private long riddle_id;
     
     @Id //COMPOSITE KEY. ID#2
     @Column(name=RHYME_ID_COLUMN)
-    private long rhymeId;
+    private long rhyme_id;
 
     //Boilerplate getters and setters:
     //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
     public long getRiddleId() {
-        return riddleId;
+        return riddle_id;
     }
 
     public void setRiddleId(long riddleId) {
-        this.riddleId = riddleId;
+        this.riddle_id = riddleId;
     }
 
     public long getRhymeId() {
-        return rhymeId;
+        return rhyme_id;
     }
 
     public void setRhymeId(long rhymeId) {
-        this.rhymeId = rhymeId;
+        this.rhyme_id = rhymeId;
     }
     //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
     
