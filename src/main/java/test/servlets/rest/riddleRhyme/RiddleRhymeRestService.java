@@ -24,21 +24,27 @@ public class RiddleRhymeRestService {
     @GET
     @Path("ping")
     public Response ping(@QueryParam("msg") String msg) {
-
-        String output = "Servlet: RiddleRhymeRestService : " + msg;
-
-        return Response.status(200).entity(output).build();
-
+        return getCommonPingResponse(msg);
     }//FUNC::END
     
+    /** An alternate way to ping the service that might be more friendly
+     *  to typing by hand. But less friendly when trying to implement using
+     *  an angular $httpGet request.
+     * @param path :Some made up path used as message to ping service.
+     * @return     :A message containing the path, confirming data was
+     *              successfully bounced from client to service and back. **/
     @GET
     @Path("ping/{path}")
     public Response pingPath(@PathParam("path") String path) {
-
-        String output = "Servlet: RiddleRhymeRestService : " + path;
+        return getCommonPingResponse(path);
+    }//FUNC::END
+    
+    /** Common shared code between ping & pingPath functions. **/
+    private Response getCommonPingResponse(String baseMessage){
+        String className = this.getClass().getSimpleName();
+        String output = "Servlet:"+ className + "says:" + baseMessage;
 
         return Response.status(200).entity(output).build();
-
     }//FUNC::END
     
     
