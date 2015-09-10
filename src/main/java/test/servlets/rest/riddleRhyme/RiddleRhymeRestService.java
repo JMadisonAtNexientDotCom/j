@@ -7,6 +7,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import test.config.constants.ServletClassNames;
+import test.config.debug.DebugConfig;
 import test.servlets.rest.BaseRestService;
 import test.transactions.util.TransUtil;
 import test.transactions.util.riddleRhyme.RiddleRhymeTransUtil;
@@ -41,8 +42,10 @@ public class RiddleRhymeRestService extends BaseRestService {
         TransUtil.exitTransaction(ses,TransUtil.EXIT_NO_SAVING);
         
         //Return the response:
-        String help;
-        help = "1==CORRECT,-1==WRONG,0==UNDEFINED";
+        //If in debug mode, populate comment with useful information.
+        String help = "C";//c is for comment.+
+        if(DebugConfig.isDebugBuild)
+        {help = "1==CORRECT,-1==WRONG,0==UNDEFINED";}
         return JSONUtil.numberToJSONResponse(op, help);
         
     }//FUNC::END
