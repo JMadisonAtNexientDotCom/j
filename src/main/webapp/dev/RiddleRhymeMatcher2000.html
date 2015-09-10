@@ -36,6 +36,16 @@
 				<p> Ask if it is correct: </p>
 				<button data-ng-click="callAPI();">QUERY!</button>
 				
+				<!-- spinner to let user know to wait for async call. -->
+				<spinner name="html5spinner">  
+						<div class="overlay"></div>
+						<div class="spinner">
+										<div class="double-bounce1"></div>
+										<div class="double-bounce2"></div>
+						</div>
+						<div class="please-wait">...WAIT!...</div>
+				</spinner>  
+				
 				<p> THE QUERY MADE: </p>
 				<textarea readonly>
 				{{ apiCallUsed }} 
