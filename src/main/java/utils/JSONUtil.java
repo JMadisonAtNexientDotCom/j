@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import primitives.IntegerWithComment;
 import test.MyError;
 import test.entities.BaseEntity;
 
@@ -22,12 +23,20 @@ public class JSONUtil {
      * @return    : A 200/OK response with the 
      *              entity as JSON inside the body. **/
     public static Response entityToJSONResponse(BaseEntity ent){
+        return genericObjectToJSONResponse(ent);
+    }//FUNC::ENDentityToJSONResponse
+    
+    /** Made this PRIVATE because I would like to use strict typing in project.
+     *  However, internally, the core implementation uses generic objects.
+     * @param obj :The object you want to convert to JSON response.
+     * @return    :A JSON response. **/
+    private static Response genericObjectToJSONResponse(Object obj){
         //This huge chunk of code could go in a JSON utility
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter prettyPrinter = mapper.writerWithDefaultPrettyPrinter();
         String jsonText;
         try {
-            jsonText = prettyPrinter.writeValueAsString( ent );
+            jsonText = prettyPrinter.writeValueAsString( obj );
         } catch (JsonProcessingException ex) {
             Logger.getLogger(JSONUtil.class.getName()).log(Level.SEVERE, null, ex);
             //Writing code to keep compiler happy, never a good reason.
@@ -35,6 +44,18 @@ public class JSONUtil {
             throw new MyError("Yeah, we are not really catching this exception. JSONUtil.java");
         }
         return Response.ok(jsonText, MediaType.APPLICATION_JSON).build();
-    }//entityToJSONResponse
+    }//FUNC::END
+    
+    /**
+     * Converts a number to a JSON response.
+     * @param myValue
+     * @param myComment
+     * @return sdfjlsdjflsdjfljds */
+    public static Response numberToJSONResponse(int myValue, String myComment){
+        IntegerWithComment obj = new IntegerWithComment();
+        obj.value   = myValue;
+        obj.comment = myComment;
+        return genericObjectToJSONResponse(obj);
+    }//FUNC::END
     
 }//CLASS::END
