@@ -27,7 +27,7 @@
 	  
     
 		<div data-ng-app="myApp" ng-controller="myCtrl" 
-		     data-ng-init="riddleID=0;rhymeID=0;theResponseJsonTextWeWant='hello';">
+		     data-ng-init="riddleID=0;rhymeID=0;theResponseJsonTextWeWant='hello';apiCallUsed='ONE';">
 		  <form name="myForm">
 				<p> riddleID? </p>
 				<input type="number" ng-model="riddleID">
@@ -35,9 +35,17 @@
 				<input type="number" ng-model="rhymeID" >
 				<p> Ask if it is correct: </p>
 				<button data-ng-click="callAPI();">QUERY!</button>
+				
+				<p> THE QUERY MADE: </p>
+				<textarea readonly>
+				{{ apiCallUsed }} 
+				</textarea>
+				
+				<p> THE RESULT OF QUERY: </p>
 				<textarea readonly>
 				{{ theResponseJsonTextWeWant }} 
 				</textarea>
+				
 			</form>
 		</div>
 		
