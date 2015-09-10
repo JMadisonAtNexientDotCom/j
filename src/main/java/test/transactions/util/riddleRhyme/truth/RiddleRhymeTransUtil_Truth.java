@@ -48,8 +48,8 @@ public class RiddleRhymeTransUtil_Truth {
         //Throw an error if the entry exists more than once:
         //Transaction Logic:
         Criteria c = ses.createCriteria(RiddleRhymeTruthTable.class);
-        c.add(Restrictions.eq(RiddleRhymeTruthTable.RIDDLE_ID_COLUMN,riddleID));
-        c.add(Restrictions.eq(RiddleRhymeTruthTable.RHYME_ID_COLUMN ,rhymeID ));
+        c.add(Restrictions.eq("riddleId",riddleID)); //RiddleRhymeTruthTable.RIDDLE_ID_COLUMN
+        c.add(Restrictions.eq("rhymeId" ,rhymeID )); //RiddleRhymeTruthTable.RHYME_ID_COLUMN
         List results = c.list();
         
         //Decide what to return based on contents of our results list
