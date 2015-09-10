@@ -1,4 +1,4 @@
-package test.transactions.util.riddleRhyme.truth;
+package test.transactions.util.riddleRhyme.joinTables.truth;
 
 import java.util.List;
 import org.hibernate.Session;

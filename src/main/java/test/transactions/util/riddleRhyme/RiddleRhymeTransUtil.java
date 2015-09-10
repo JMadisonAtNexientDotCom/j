@@ -1,8 +1,8 @@
 package test.transactions.util.riddleRhyme;
 
 import test.transactions.util.TransUtil;
-import test.transactions.util.riddleRhyme.truth.RiddleRhymeTransUtil_Truth;
-import test.transactions.util.riddleRhyme.wrong.RiddleRhymeTransUtil_Wrong;
+import test.transactions.util.riddleRhyme.joinTables.truth.RiddleRhymeTransUtil_Truth;
+import test.transactions.util.riddleRhyme.joinTables.wrong.RiddleRhymeTransUtil_Wrong;
 
 /**
  * Utility that is responsible for transactions that involve both the

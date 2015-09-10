@@ -1,4 +1,4 @@
-package test.transactions.util.riddleRhyme.wrong;
+package test.transactions.util.riddleRhyme.joinTables.wrong;
 
 /**
  * CLASS SUMMARY:
