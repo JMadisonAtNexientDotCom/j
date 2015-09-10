@@ -1,13 +1,5 @@
 package test.transactions.util.riddleRhyme.joinTables.truth;
-
-import java.util.List;
-import org.hibernate.Session;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
-import test.entities.TokenTable;
-import test.transactions.util.TransUtil;
 import test.entities.RiddleRhymeTruthTable;
-import test.MyError;
 import test.transactions.util.riddleRhyme.joinTables.RiddleRhymeJoinTablesTransUtil;
 
 /**
