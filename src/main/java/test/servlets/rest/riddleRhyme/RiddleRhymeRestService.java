@@ -30,7 +30,8 @@ public class RiddleRhymeRestService extends BaseRestService {
      */
     @GET
     @Path("getIsCorrect")
-    public Response getIsCorrect(long riddleID, long rhymeID){
+    public Response getIsCorrect(@QueryParam("riddleID") long riddleID, 
+                                 @QueryParam("rhymeID")  long rhymeID ){
         
         //Enter transaction state:
         Session ses = TransUtil.enterTransaction();
