@@ -7,10 +7,10 @@ import javax.ws.rs.core.Response;
 import test.config.constants.ServletClassNames;
 import test.servlets.rest.BaseRestService;
 
-/** A rest service class that handles any api calls involving our
+/** A rest service class that handles any api calls involving our --------------
  *  1: riddle table (questions)
  *  2: rhyme  table (answers)
- * @author jmadison **/
+ * @author jmadison ---------------------------------------------------------**/
 @Path(ServletClassNames.RiddleRhymeRestService_MAPPING)
 public class RiddleRhymeRestService extends BaseRestService {
     
