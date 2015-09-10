@@ -85,6 +85,7 @@
         
         <!-- TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT -->
         
+        <!-- THIS IS COMMENTED OUT! WHY IS IT... WORKING??? -->
         <!-- NINJA service restful api -->
         <!-- Is there a way to annotation configure a JERSEY servlet??? -->
         <!-- BNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN -->
