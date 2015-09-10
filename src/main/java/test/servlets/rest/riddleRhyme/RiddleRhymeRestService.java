@@ -1,5 +1,5 @@
 package test.servlets.rest.riddleRhyme;
-
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -22,8 +22,8 @@ public class RiddleRhymeRestService {
      * @return 
      */
     @GET
-    @Path("getMsg/{param}")
-    public Response getMsg(@PathParam("param") String msg) {
+    @Path("ping")
+    public Response getMsg(@QueryParam("msg") String msg) {
 
         String output = "Servlet: RiddleRhymeRestService : " + msg;
 
