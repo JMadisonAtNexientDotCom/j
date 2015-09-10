@@ -36,24 +36,10 @@ import utils.JSONUtil;
 @Path( ServletClassNames.TokenRestService_MAPPING )
  //@Path(TokenRestService.class.getSimpleName() + "/")
 //@Path("TokenRestService/") //<--By matching class name, we assure not servlet mapping collision.
-public class TokenRestService {
+public class TokenRestService extends BaseRestService {
  
     public static final String CLASS_MAPPING = TokenRestService.class.getSimpleName() + "/";
-    
-	@GET
-	@Path("getMsg/{param}")
-	public Response getMsg(@PathParam("param") String msg) {
- 
-		String output = "Servlet: TokenRestService : " + msg;
- 
-		return Response.status(200).entity(output).build();
- 
-	}//FUNC::END
-        
-        //@GET
-        //@Path("getNextToken/{param}")
-        //public Response getNextToken(@PathParam("param") String msg){
-        
+   
           @GET
           @Path("getNextToken") //removed slash at end. Lets try again.
           public Response getNextToken(@QueryParam("msg") int msg){

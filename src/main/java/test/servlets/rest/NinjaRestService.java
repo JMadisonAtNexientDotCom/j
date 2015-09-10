@@ -34,18 +34,8 @@ import utils.JSONUtil;
 @Path(ServletClassNames.NinjaRestService_MAPPING) //<--If this @Path path matches the path of 
            //   ANY OTHER JERSEY SERVLET your servlets will all fail. 
            //   Even if the full path to this servlet is unique. ARGH!!!!
-public class NinjaRestService {
+public class NinjaRestService extends BaseRestService {
  
-    @GET
-    @Path("getMsg/{param}")
-    public Response getMsg(@PathParam("param") String msg) {
-
-        String output = "Servlet: NinjaRestService : " + msg;
-
-        return Response.status(200).entity(output).build();
-
-    }//FUNC::END
-    
     @GET
     @Path("makeNinjaRecord")
     public Response makeNinjaRecord(
