@@ -13,14 +13,23 @@ import test.config.constants.ServletClassNames;
 @Path(ServletClassNames.RiddleRhymeRestService_MAPPING)
 public class RiddleRhymeRestService {
     
-    /** Been duplicating this code a lot. Maybe we can put this in a base
-     *  class and have it called "getTestMessage" ?
-     *  It can be used basically as a ping.. Maybe it should be called...
-     *  "ping" Since that is the usage. A basic connectivity test.
-     *  Can you get back the message you sent via a ping?
-     * @param msg
-     * @return 
-     */
+    /**
+     * Ping the service using this url formulation:
+     * [AppBaseURL] / [API Root] / [Servlet's Name] / "ping?msg=helloworld"
+     * 
+     * AppBaseURL: The root domain of your web application.
+     * Example: http://myDomain.com
+     * 
+     * API Root: The relative url that defines where all your API services are.
+     * Example: "api" (with AppBaseURL we have: http://myDomain.com/api/
+     * 
+     * Servlet's Name: The class name, servlet name, and service name 
+     *                                                  should all be IDENTICAL.
+     * Example: "BaseRestService"  (derived from BaseRestService.java)
+     * 
+     * @param msg: The test message we would like to bounce off the servlet.
+     * @return : A response where servlet identifies itself and confirms
+     *           the contents of the message you sent to it.                 **/
     @GET
     @Path("ping")
     public Response ping(@QueryParam("msg") String msg) {
@@ -39,11 +48,18 @@ public class RiddleRhymeRestService {
         return getCommonPingResponse(path);
     }//FUNC::END
     
-    /** Common shared code between ping & pingPath functions. **/
+    /** Common shared code between ping & pingPath functions.
+     *  What it does:
+     *  1: Servlet identifies itself in response.
+     *     WHY: Helps us confirm we are talking to correct servlet.
+     *  2: Servlet spits back message that was given to it.
+     *     WHY: To confirm information was successfully bounced without loss.
+     *          AKA: 2-way communication is working.
+     * @param baseMessage : The test message you would like to use.
+     * @return : A response confirming the servlet is there and listening. **/
     private Response getCommonPingResponse(String baseMessage){
         String className = this.getClass().getSimpleName();
-        String output = "Servlet:"+ className + "says:" + baseMessage;
-
+        String output = "Servlet:["+ className + "] says:[" + baseMessage + "]";
         return Response.status(200).entity(output).build();
     }//FUNC::END
     
