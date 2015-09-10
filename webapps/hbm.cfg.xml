@@ -70,6 +70,10 @@
         <mapping class="test.entities.RiddleTable"></mapping>
         <mapping class="test.entities.RhymeTable"></mapping>
         
+        <!-- Join tables telling us if riddle+rhyme combo is true or false. -->
+        <mapping class="test.entities.RiddleRhymeTruthTable"></mapping>
+        <mapping class="test.entities.RiddleRhymeWrongTable"></mapping>
+        
   
     </session-factory>  
   
