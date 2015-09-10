@@ -8,6 +8,7 @@ package test.config.constants;
 import test.MyError;
 import test.servlets.rest.NinjaRestService;
 import test.servlets.rest.TokenRestService;
+import test.servlets.rest.riddleRhyme.RiddleRhymeRestService;
 
 /**
  * First off.... I would like to say... I am not 100% happy with this monstrosity.
@@ -28,10 +29,19 @@ import test.servlets.rest.TokenRestService;
 public class ServletClassNames {
     
     //There must be a better way!
+    //TOKEN SERVICE:
     public static final String TokenRestService_CLASSNAME = "TokenRestService";
     public static final String TokenRestService_MAPPING   = "TokenRestService/";
+    
+    //NINJA SERVICE:
     public static final String NinjaRestService_CLASSNAME = "NinjaRestService";
     public static final String NinjaRestService_MAPPING   = "NinjaRestService/";
+    
+    //RIDDLERHYME SERVICE:
+    public static final String RiddleRhymeRestService_CLASSNAME = 
+                                                      "RiddleRhymeRestService";
+    public static final String RiddleRhymeRestService_MAPPING   = 
+                                                      "RiddleRhymeRestService/";
     
     //Static initializer.
     //I bundle it in a "doStaticInit()" function because
@@ -85,6 +95,11 @@ public class ServletClassNames {
         
         if( notEQ(NinjaRestService_CLASSNAME, NinjaRestService.class.getSimpleName()))
         {  mError(NinjaRestService_CLASSNAME); }
+        
+        if( notEQ(RiddleRhymeRestService_CLASSNAME, RiddleRhymeRestService.class.getSimpleName()))
+        {  mError(RiddleRhymeRestService_CLASSNAME); }
+        
+        
     }//FUNC::END
     
     private static void verifyCorrectMapping_MAPPING(){
@@ -93,6 +108,9 @@ public class ServletClassNames {
         
         checkMapping(NinjaRestService_CLASSNAME,
                      NinjaRestService_MAPPING);
+        
+        checkMapping(RiddleRhymeRestService_CLASSNAME,
+                     RiddleRhymeRestService_MAPPING);
                         
     }//FUNC::END
     
