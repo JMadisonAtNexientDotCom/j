@@ -63,12 +63,12 @@
 	</servlet-mapping>
         <!-- JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ -->
         
-        <!-- token service restful api -->
-        <!-- Is there a way to annotation configure a JERSEY servlet??? -->
+        <!-- This is basically configuration for a front-controller.         -->
+        <!-- It points to test.servlets.rest package. All of the servlets    -->
+        <!-- Within that package have url of [appUrlRoot]/api/whatever.      -->
         <!-- TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT -->
-        
         <servlet>
-		<servlet-name>TokenRestService_ServletName</servlet-name>
+		<servlet-name>ApiFrontController_ServletName</servlet-name>
 		<servlet-class>
                      com.sun.jersey.spi.container.servlet.ServletContainer
                 </servlet-class>
@@ -79,7 +79,7 @@
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>TokenRestService_ServletName</servlet-name>
+		<servlet-name>ApiFrontController_ServletName</servlet-name>
 		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
         
