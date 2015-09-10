@@ -23,9 +23,19 @@ public class RiddleRhymeRestService {
      */
     @GET
     @Path("ping")
-    public Response getMsg(@QueryParam("msg") String msg) {
+    public Response ping(@QueryParam("msg") String msg) {
 
         String output = "Servlet: RiddleRhymeRestService : " + msg;
+
+        return Response.status(200).entity(output).build();
+
+    }//FUNC::END
+    
+    @GET
+    @Path("ping/{path}")
+    public Response pingPath(@PathParam("path") String path) {
+
+        String output = "Servlet: RiddleRhymeRestService : " + path;
 
         return Response.status(200).entity(output).build();
 
