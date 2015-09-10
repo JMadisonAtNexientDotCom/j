@@ -13,5 +13,27 @@ public class IntegerWithComment {
     
     //Empty Constructor:
     public IntegerWithComment(){};
+
+    //Boiler-Plate getters and setters. May be necessary for JSONUtil.java
+    //to serialize it!
+    ////////////////////////////////////////////////////////////////////////////
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+    ////////////////////////////////////////////////////////////////////////////
+    
+    
     
 }//CLASS::END
