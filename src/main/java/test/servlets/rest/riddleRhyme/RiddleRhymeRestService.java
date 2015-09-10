@@ -41,12 +41,16 @@ public class RiddleRhymeRestService extends BaseRestService {
         //Exit transaction state, with NOTHING TO SAVE:
         TransUtil.exitTransaction(ses,TransUtil.EXIT_NO_SAVING);
         
+        return Response.ok().build();
+        
+        /*
         //Return the response:
         //If in debug mode, populate comment with useful information.
         String help = "C";//c is for comment.+
         if(DebugConfig.isDebugBuild)
         {help = "1==CORRECT,-1==WRONG,0==UNDEFINED";}
         return JSONUtil.numberToJSONResponse(op, help);
+                */
         
     }//FUNC::END
     
