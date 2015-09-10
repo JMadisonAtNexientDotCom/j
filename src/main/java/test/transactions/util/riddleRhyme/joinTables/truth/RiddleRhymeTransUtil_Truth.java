@@ -8,6 +8,7 @@ import test.entities.TokenTable;
 import test.transactions.util.TransUtil;
 import test.entities.RiddleRhymeTruthTable;
 import test.MyError;
+import test.transactions.util.riddleRhyme.joinTables.RiddleRhymeJoinTablesTransUtil;
 
 /**
  * CLASS SUMMARY:
@@ -38,37 +39,10 @@ public class RiddleRhymeTransUtil_Truth {
      * @param rhymeID  :id of the rhyme from the rhyme table. (answer table)
      * @return : True if pair found in table. **/
     public static boolean getIsPairInTable(long riddleID, long rhymeID){
-        
-        //Make sure we are in a transaction state:
-        //And get the session we are in:
-        TransUtil.insideTransactionCheck();
-        Session ses = TransUtil.getActiveTransactionSession();
-        
-        //Create a criteria query to find an entry with riddleID and rhymeID
-        //Throw an error if the entry exists more than once:
-        //Transaction Logic:
-        Criteria c = ses.createCriteria(RiddleRhymeTruthTable.class);
-        c.add(Restrictions.eq(RiddleRhymeTruthTable.RIDDLE_ID_COLUMN,riddleID)); //
-        c.add(Restrictions.eq(RiddleRhymeTruthTable.RHYME_ID_COLUMN ,rhymeID )); //
-        List results = c.list();
-        
-        //Decide what to return based on contents of our results list
-        //from the database query://////////////////////////////////////////////
-        int numberOfResults = results.size();
-        boolean output = false;
-        if(0==numberOfResults){ output = false;}else
-        if(1==numberOfResults){ output = true; }else
-        if(numberOfResults > 1){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            output = true; //<-- technically so. Just happens to exist twice.
-            String msg="";
-            msg+="DATABASE INTEGRITY ERROR:";
-            msg+="RiddleRhyme Pair not unique in Truth Table.";
-            throw new MyError(msg);
-        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-        ////////////////////////////////////////////////////////////////////////
-        
-        //return the output result:
-        return output;
+        Class joinTableToQuery = RiddleRhymeTruthTable.class;
+        boolean op = RiddleRhymeJoinTablesTransUtil.getIsPairInTable
+                                          (riddleID, rhymeID, joinTableToQuery);
+        return op;
     }//FUNC::END
     
 }//CLASS::START

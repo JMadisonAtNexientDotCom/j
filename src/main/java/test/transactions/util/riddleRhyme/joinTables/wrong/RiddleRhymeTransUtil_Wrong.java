@@ -1,5 +1,8 @@
 package test.transactions.util.riddleRhyme.joinTables.wrong;
 
+import test.entities.RiddleRhymeWrongTable;
+import test.transactions.util.riddleRhyme.joinTables.RiddleRhymeJoinTablesTransUtil;
+
 /**
  * CLASS SUMMARY:
  * Utility to query the table that stores riddle+rhyme (question+answer)
@@ -29,10 +32,10 @@ public class RiddleRhymeTransUtil_Wrong {
      * @param rhymeID  :id of the rhyme from the rhyme table. (answer table)
      * @return : True if pair found in table. **/
     public static boolean getIsPairInTable(long riddleID, long rhymeID){
-        //TODO: Actual code...
-        return false;
+       Class joinTableToQuery = RiddleRhymeWrongTable.class;
+        boolean op = RiddleRhymeJoinTablesTransUtil.getIsPairInTable
+                                          (riddleID, rhymeID, joinTableToQuery);
+        return op;
     }//FUNC::END
     
 }//CLASS::END
-
-// 
