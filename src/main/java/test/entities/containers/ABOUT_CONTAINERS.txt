@@ -1,0 +1,12 @@
+Containers simply wrap other entity objects.
+The original reason was so that functions who's job it is to find
+and return an entity do not return NULL when no entity is found.
+
+Instead they return a container.
+And that container's
+.exist == false
+.entity== null
+When no entity was found.
+
+I like to use .has variables to verify that a value should indeed be null
+when a value slot is allowed to be null.

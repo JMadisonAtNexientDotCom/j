@@ -1,5 +1,6 @@
-package test.entities;
+package test.entities.tables;
 
+import test.entities.bases.RiddleRhymeJoinTableBaseEntity;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 

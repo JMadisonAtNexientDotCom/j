@@ -1,7 +1,7 @@
 package test.transactions.util.ninja;
 
 import org.hibernate.Session;
-import test.entities.NinjaTable;
+import test.entities.tables.NinjaTable;
 import test.transactions.util.TransUtil;
 import test.MyError;
 /**

@@ -1,0 +1,6 @@
+Stores entities that directly represent a database table.
+NO COMPOSITE INFORMATION.
+
+For example, a question on a test that has 1 question and multiple answers
+all in a nice packet. That is composite data. That belongs in the composites
+folder. NOT THIS FOLDER.

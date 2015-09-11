@@ -1,4 +1,5 @@
-package test.entities;
+package test.entities.tables;
+import test.entities.bases.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

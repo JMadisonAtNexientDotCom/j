@@ -1,4 +1,4 @@
-package test.entities;
+package test.entities.bases;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -7,10 +7,10 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-import static test.entities.NinjaTable.COLUMN_ID;
+import static test.entities.tables.NinjaTable.COLUMN_ID;
 
-import test.entities.RiddleTable;
-import test.entities.RhymeTable;
+import test.entities.tables.RiddleTable;
+import test.entities.tables.RhymeTable;
 
 /**
  * A common base entity representing tables that have two foreign keys.

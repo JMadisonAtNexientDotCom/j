@@ -1,6 +1,6 @@
 package test;
 import org.hibernate.Session;
-import test.entities.TokenTable;
+import test.entities.tables.TokenTable;
 import test.transactions.util.TransUtil;
 import test.debug.DebugConsts;
 

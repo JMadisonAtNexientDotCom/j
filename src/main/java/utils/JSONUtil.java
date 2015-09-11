@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import primitives.IntegerWithComment;
 import test.MyError;
-import test.entities.BaseEntity;
+import test.entities.bases.BaseEntity;
 
 /**
  * Original use: Refactoring duplicate code that existed in both

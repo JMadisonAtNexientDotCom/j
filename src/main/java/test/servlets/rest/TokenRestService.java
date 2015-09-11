@@ -6,7 +6,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
-import test.entities.TokenTable;
+import test.entities.tables.TokenTable;
 import test.transactions.util.token.TokenTransUtil;
 import test.transactions.util.TransUtil;
 

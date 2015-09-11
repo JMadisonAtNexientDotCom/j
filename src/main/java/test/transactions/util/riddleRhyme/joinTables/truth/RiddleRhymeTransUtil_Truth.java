@@ -1,5 +1,5 @@
 package test.transactions.util.riddleRhyme.joinTables.truth;
-import test.entities.RiddleRhymeTruthTable;
+import test.entities.tables.RiddleRhymeTruthTable;
 import test.transactions.util.riddleRhyme.joinTables.RiddleRhymeJoinTablesTransUtil;
 
 /**

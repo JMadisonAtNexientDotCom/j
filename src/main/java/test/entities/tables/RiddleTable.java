@@ -1,4 +1,4 @@
-package test.entities;
+package test.entities.tables;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import test.entities.TextTableBaseEntity;
+import test.entities.bases.TextTableBaseEntity;
 
 /**
  * A riddle is a question that must be answered with a rhyme.

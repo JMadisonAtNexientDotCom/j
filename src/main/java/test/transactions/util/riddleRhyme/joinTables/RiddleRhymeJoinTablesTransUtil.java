@@ -5,8 +5,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import test.MyError;
-import test.entities.RiddleRhymeJoinTableBaseEntity;
-import test.entities.RiddleRhymeTruthTable;
+import test.entities.bases.RiddleRhymeJoinTableBaseEntity;
+import test.entities.tables.RiddleRhymeTruthTable;
 import test.transactions.util.TransUtil;
 
 /**

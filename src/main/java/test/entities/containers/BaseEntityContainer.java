@@ -1,5 +1,6 @@
-package test.entities;
+package test.entities.containers;
 import test.MyError;
+import test.entities.bases.BaseEntity;
 /**
  * Say we have a function called "findEntityUsingName"
  * That takes a name. If it finds the entity, it returns an instance of

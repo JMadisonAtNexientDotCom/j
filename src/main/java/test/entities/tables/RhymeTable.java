@@ -1,30 +1,29 @@
-package test.entities;
+package test.entities.tables;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-
+import javax.persistence.Table;
+import test.entities.bases.TextTableBaseEntity;
 
 /**
- * A base entity who's structure simply has a primary key id column
- * and a varchar column for text called "text".
- * 
- * Original usage:
- * Eliminating redundant code between RiddleTable.java and RhymeTable.java
- * Since both of those tables have identical structures.
- * 
- * @author jmadison
+ * A "Rhyme" is an ANSWER to a Riddle.
+ * @author jmadison ON: 2015.09.09_0227PM
  */
-@MappedSuperclass
-public class TextTableBaseEntity extends BaseEntity{
-    
+@Entity
+@Table(name = RhymeTable.TABLE_NAME)
+public class RhymeTable extends TextTableBaseEntity {
+    /** Name of table this entity refers to, for easy refactoring. **/
+    public static final String TABLE_NAME             = "rhyme_table";
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String ID_COLUMN              = "id";
+    public static final String ID_COLUMN              = TextTableBaseEntity.ID_COLUMN;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String TEXT_COLUMN            = "text";
+    public static final String TEXT_COLUMN            = TextTableBaseEntity.TEXT_COLUMN;
     
+  /*
+  DELETE THIS CODE ONCE WE ARE CERTAIN BASE CLASS WORKS!
   //shared code between riddle+rhyme tables, can we make base class?
   ////////////////////////////////////////////////////////
   @Id
@@ -41,5 +40,6 @@ public class TextTableBaseEntity extends BaseEntity{
   public String getText(){ return text;}
   public void setText(String text){ this.text = text;}
   /////////////////////////////////////////////////////////
+    */
     
 }//CLASS::END

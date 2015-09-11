@@ -1,0 +1,10 @@
+Composites are entities that are made by compositing other entities
+togther. An example is a riddle on a riddle-exam.
+
+They have no direct representation in the database.
+
+Entities like this will make JSON responses that are used on
+our .html test pages easier.
+
+.HTML pages will eventually need to be .jsp.
+But one step at a time!
