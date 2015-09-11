@@ -15,6 +15,7 @@ public class IntegerWithComment {
     public IntegerWithComment(){};
 
     /*
+    NOT NECESSARY TO SERIALIZE! NOW I KNOW!
     //Boiler-Plate getters and setters. May be necessary for JSONUtil.java
     //to serialize it!
     ////////////////////////////////////////////////////////////////////////////
