@@ -40,6 +40,34 @@ public class BaseEntityContainer {
         
     }//END::FUNC
     
+    /** This function is used so that functions do NOT have to return null.
+     *  Use this function when the BaseEntity is ALLOWED to be null. If the
+     *  base entity is NOT allowed to be null, 
+     *  use the standard make function. 
+     * 
+     *  Original Usages:
+     *  1. TokenTransUtil.getTokenEntityUsingTokenString();
+     *  2. RiddleTransUtil.getEntityByID();
+     * 
+     * @param possiblyNullEntityReference: An entity reference that 
+     *                                     is allowed to be null
+     * @return : A properly configured BaseEntityContainer.
+     */
+    public static BaseEntityContainer make_NullAllowed
+                                       (BaseEntity possiblyNullEntityReference){
+       BaseEntityContainer op = new BaseEntityContainer();
+        if(null == possiblyNullEntityReference){   
+            //make container configured as empty:
+            op.entity = null;
+            op.exists = false;
+        }else{   
+            //make container configured as populated:
+            op.entity = possiblyNullEntityReference;
+            op.exists = true;
+        }//END-IF     
+        return op;
+    }//FUNC::END
+    
     /** Reference may or may not be null. **/
     public BaseEntity entity;
     

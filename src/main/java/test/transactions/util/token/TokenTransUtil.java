@@ -193,9 +193,6 @@ public class TokenTransUtil {
     ***             to reflect that. This helps us avoid returning NULL.     **/
     public static BaseEntityContainer getTokenEntityUsingTokenString(String tv){
         
-        //Enter Transaction:
-        //Session session = TransUtil.enterTransaction();
-        
         //Test to see if we are currently in a transaction state.
         //If we are not, code will crash.
         Session session = TransUtil.getActiveTransactionSession();
@@ -203,21 +200,11 @@ public class TokenTransUtil {
         //Transaction Logic:
         Criteria criteria = session.createCriteria(TokenTable.class);
         criteria.add(Restrictions.eq(TokenTable.COLUMN_TOKEN, tv));
-
         TokenTable theToken = (TokenTable) criteria.uniqueResult();
 
         //Create output:
-        BaseEntityContainer op = new BaseEntityContainer();
-        if(null == theToken)
-        {   //make container configured as empty:
-            op.entity = null;
-            op.exists = false;
-        }
-        else
-        {   //make container configured as populated:
-            op.entity = theToken;
-            op.exists = true;
-        }
+        BaseEntityContainer op;
+        op = BaseEntityContainer.make_NullAllowed(theToken);
         
         //return the container with our result of query:
         return op;
