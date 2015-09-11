@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import test.MyError;
 import test.config.debug.DebugConfig;
 import test.entities.composites.RiddleWithPossibleRhymes;
+import test.entities.containers.BaseEntityContainer;
 import test.entities.tables.RhymeTable;
 import test.entities.tables.RiddleTable;
 import test.transactions.util.TransUtil;
@@ -104,7 +105,14 @@ public class RiddleRhymeTransUtil {
         TransUtil.insideTransactionCheck();
         
         //get the riddle entry using the id:
-        RiddleTable rt = RiddleTransUtil.getEntityByID(riddleID);
+        RiddleTable rt;
+        BaseEntityContainer rtCon = RiddleTransUtil.getRiddleEntityByID(riddleID);
+        if(false == rtCon.exists){
+            throw new MyError("riddle of this id does not exist");
+        }else{
+            rt = (RiddleTable)(rtCon.entity);
+        }////
+        
         
         //RAAAAWWWWEEEERRR!!!!            
         RiddleWithPossibleRhymes op = RiddleWithPossibleRhymes.
@@ -114,16 +122,11 @@ public class RiddleRhymeTransUtil {
         ArrayList<RhymeTable> rhymeList = RhymeTransUtil.
                     getRiddleChoices(riddleID, numberOfChoices, numberOfTruths);
         
+        //Pack the rhymeList (possible answers) into our output container:
+        op.rhymeChoiceList = rhymeList;
         
-        //TODO!
-        //TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO
-        if(DebugConfig.isDebugBuild)
-        {
-            throw new MyError("[TODO:RhymeTransUtil.getRiddleChoices]");
-        }
-        return null;
-        //TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO
+        //return output:
+        return op;
         
     }//FUNC::END
-    
-}
+}//CLASS::END
