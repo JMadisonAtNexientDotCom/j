@@ -62,17 +62,17 @@
         <!-- <mapping class="org.arpit.javapostsforlearning.User"></mapping>  -->
         
         <!-- Guess that this is correct. Read up more on this. -->
-        <mapping class="test.entities.TestTable01"></mapping>
-        <mapping class="test.entities.TokenTable"></mapping>
-        <mapping class="test.entities.NinjaTable"></mapping>
+        <mapping class="test.entities.tables.TestTable01"></mapping>
+        <mapping class="test.entities.tables.TokenTable"></mapping>
+        <mapping class="test.entities.tables.NinjaTable"></mapping>
         
         <!-- Question me in riddles and I will answer in rhymes. -->
-        <mapping class="test.entities.RiddleTable"></mapping>
-        <mapping class="test.entities.RhymeTable"></mapping>
+        <mapping class="test.entities.tables.RiddleTable"></mapping>
+        <mapping class="test.entities.tables.RhymeTable"></mapping>
         
         <!-- Join tables telling us if riddle+rhyme combo is true or false. -->
-        <mapping class="test.entities.RiddleRhymeTruthTable"></mapping>
-        <mapping class="test.entities.RiddleRhymeWrongTable"></mapping>
+        <mapping class="test.entities.tables.RiddleRhymeTruthTable"></mapping>
+        <mapping class="test.entities.tables.RiddleRhymeWrongTable"></mapping>
         
   
     </session-factory>  
