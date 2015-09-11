@@ -1,8 +1,16 @@
 package test.transactions.util.riddleRhyme;
 
+import java.util.ArrayList;
+import test.MyError;
+import test.config.debug.DebugConfig;
+import test.entities.composites.RiddleWithPossibleRhymes;
+import test.entities.tables.RhymeTable;
+import test.entities.tables.RiddleTable;
 import test.transactions.util.TransUtil;
 import test.transactions.util.riddleRhyme.joinTables.truth.RiddleRhymeTransUtil_Truth;
 import test.transactions.util.riddleRhyme.joinTables.wrong.RiddleRhymeTransUtil_Wrong;
+import test.transactions.util.riddleRhyme.rhyme.RhymeTransUtil;
+import test.transactions.util.riddleRhyme.riddle.RiddleTransUtil;
 
 /**
  * Utility that is responsible for transactions that involve both the
@@ -75,6 +83,46 @@ public class RiddleRhymeTransUtil {
           
         //return the true/false/undefined code:
         return op; //<--says I have syntax error. Intellisense hates me.
+        
+    }//FUNC::END
+    
+    /**
+     * 
+     * @param riddleID        :The ID of the riddle.
+     * @param numberOfChoices :How many choices you want this riddle to have?
+     * @param numberOfTruths  :How many of those choices are true?
+     *                         Will TRY to hit the target you specify, however,
+     *                         it has to work with the data that exists.
+     *                         If the Riddle has no possible solution, then
+     *                         the actual numberOfTruths will be ZERO regardless
+     *                         of what was supplied.
+     */
+    public static RiddleWithPossibleRhymes makeRiddleAndRhymes
+                       (long riddleID, int numberOfChoices, int numberOfTruths){
+                           
+        //make sure we are in a transaction state, since we must fetch data:
+        TransUtil.insideTransactionCheck();
+        
+        //get the riddle entry using the id:
+        RiddleTable rt = RiddleTransUtil.getEntityByID(riddleID);
+        
+        //RAAAAWWWWEEEERRR!!!!            
+        RiddleWithPossibleRhymes op = RiddleWithPossibleRhymes.
+                                         makeRiddleWithEmptyRhymeChoiceList(rt);
+        
+        //create a choice list:
+        ArrayList<RhymeTable> rhymeList = RhymeTransUtil.
+                    getRiddleChoices(riddleID, numberOfChoices, numberOfTruths);
+        
+        
+        //TODO!
+        //TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO
+        if(DebugConfig.isDebugBuild)
+        {
+            throw new MyError("[TODO:RhymeTransUtil.getRiddleChoices]");
+        }
+        return null;
+        //TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO::TODO
         
     }//FUNC::END
     
