@@ -1,6 +1,7 @@
 package test.transactions.util.riddleRhyme.rhymeRiddle.rhyme;
 
 import java.util.ArrayList;
+import java.util.List;
 import test.MyError;
 import test.config.debug.DebugConfig;
 import test.entities.composites.RiddleWithPossibleRhymes;
@@ -70,7 +71,7 @@ public class RhymeTransUtil {
      *                               Must work with data we have, so may NOT hit
      *                               the target you want. But will try.
      * @return                                                               **/
-    public static ArrayList<RhymeTable> makeChoicesToChooseFrom
+    public static List<RhymeTable> makeChoicesToChooseFrom
                 (long riddleID, int numberOfChoices, int numberOfTruthsDesired){
               
         //error check: Make sure we are in a transaction state:
@@ -88,7 +89,7 @@ public class RhymeTransUtil {
                          
         //Attempt to get the number of Rhymes (answers) that are true
         //for the riddleID (question being asked)
-        ArrayList<RhymeTable> rhymesThatAre_TRUTH;
+        List<RhymeTable> rhymesThatAre_TRUTH;
         rhymesThatAre_TRUTH = RiddleRhymeTransUtil.getRhymesThatAre_TRUTH
                                               (riddleID, numberOfTruthsDesired);
         //The remainder of the possible answers will be false:
@@ -96,7 +97,7 @@ public class RhymeTransUtil {
         int numberOfWrongAnswersNeeded = numberOfChoices - actualNumberOfTruths;
         
         
-        ArrayList<RhymeTable> rhymesThatAre_WRONG;
+        List<RhymeTable> rhymesThatAre_WRONG;
         rhymesThatAre_WRONG = RiddleRhymeTransUtil.getRhymesThatAre_WRONG
                                          (riddleID, numberOfWrongAnswersNeeded);
         int actualNumberOfWrongs = rhymesThatAre_WRONG.size();
@@ -129,7 +130,7 @@ public class RhymeTransUtil {
         
         
         //Pack the contents of both arrays together, then shuffle:
-        ArrayList<RhymeTable> op;
+        List<RhymeTable> op;
         op = new ArrayList<RhymeTable>();
         op.addAll(rhymesThatAre_TRUTH);
         op.addAll(rhymesThatAre_WRONG);

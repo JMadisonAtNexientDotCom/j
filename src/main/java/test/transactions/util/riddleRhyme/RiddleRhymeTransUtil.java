@@ -1,6 +1,7 @@
 package test.transactions.util.riddleRhyme;
 
 import java.util.ArrayList;
+import java.util.List;
 import test.MyError;
 import test.config.debug.DebugConfig;
 import test.entities.composites.RiddleWithPossibleRhymes;
@@ -119,7 +120,7 @@ public class RiddleRhymeTransUtil {
                                          makeRiddleWithEmptyRhymeChoiceList(rt);
         
         //create a choice list:
-        ArrayList<RhymeTable> rhymeList = RhymeTransUtil.makeChoicesToChooseFrom(riddleID, numberOfChoices, numberOfTruths);
+        List<RhymeTable> rhymeList = RhymeTransUtil.makeChoicesToChooseFrom(riddleID, numberOfChoices, numberOfTruths);
         
         //Pack the rhymeList (possible answers) into our output container:
         op.rhymeChoiceList = rhymeList;
@@ -136,10 +137,10 @@ public class RiddleRhymeTransUtil {
      * @param riddleID :The unique identifier for the riddle
      * @param numberOfTruthsDesired : How many rhymes do you want returned?
      * @return :The amount requested or LESS. But never more. **/
-    public static ArrayList<RhymeTable> getRhymesThatAre_TRUTH
+    public static List<RhymeTable> getRhymesThatAre_TRUTH
                                      (long riddleID, int numberOfTruthsDesired){
         /** op == "output" **/
-        ArrayList<RhymeTable> op;                                 
+        List<RhymeTable> op;                                 
 
         //To find TRUE solutions, find matches in the TRUTH table:
         op = RiddleRhymeTransUtil_Truth.makeMatches_ForRiddle_TRUTH
@@ -158,11 +159,11 @@ public class RiddleRhymeTransUtil {
      * @param riddleID :The unique identifier for the riddle.
      * @param numberOfWrongsDesired : How many rhymes do you want returned?
      * @return :The amount requested or LESS. But never more. **/
-    public static ArrayList<RhymeTable> getRhymesThatAre_WRONG
+    public static List<RhymeTable> getRhymesThatAre_WRONG
                                      (long riddleID, int numberOfWrongsDesired){
         
         /** op == "output" **/
-        ArrayList<RhymeTable> op;                                   
+        List<RhymeTable> op;                                   
 
         //To find WRONG solutions, find ANTI-matches in the TRUTH table.
         op = RiddleRhymeTransUtil_Truth.makeMatches_ForRiddle_WRONG

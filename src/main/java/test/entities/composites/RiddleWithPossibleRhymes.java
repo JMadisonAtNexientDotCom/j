@@ -1,6 +1,7 @@
 package test.entities.composites;
 
 import java.util.ArrayList;
+import java.util.List;
 import test.entities.tables.RhymeTable;
 import test.entities.tables.RiddleTable;
 
@@ -30,7 +31,7 @@ public class RiddleWithPossibleRhymes {
     /** I called it "rhymeChoiceList" instead of "rhymeChoices"
      *  because I find the addition of a single "s" to make something
      *  plural to be too subtile. **/
-    public ArrayList<RhymeTable> rhymeChoiceList;
+    public List<RhymeTable> rhymeChoiceList;
     
     //EMPTY CONSTRUCTOR:
     public RiddleWithPossibleRhymes(){};
