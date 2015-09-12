@@ -10,8 +10,8 @@ import test.entities.tables.RiddleTable;
 import test.transactions.util.TransUtil;
 import test.transactions.util.riddleRhyme.joinTables.truth.RiddleRhymeTransUtil_Truth;
 import test.transactions.util.riddleRhyme.joinTables.wrong.RiddleRhymeTransUtil_Wrong;
-import test.transactions.util.riddleRhyme.rhyme.RhymeTransUtil;
-import test.transactions.util.riddleRhyme.riddle.RiddleTransUtil;
+import test.transactions.util.riddleRhyme.rhymeRiddle.rhyme.RhymeTransUtil;
+import test.transactions.util.riddleRhyme.rhymeRiddle.riddle.RiddleTransUtil;
 
 /**
  * Utility that is responsible for transactions that involve both the
@@ -106,7 +106,7 @@ public class RiddleRhymeTransUtil {
         
         //get the riddle entry using the id:
         RiddleTable rt;
-        BaseEntityContainer rtCon = RiddleTransUtil.getRiddleEntityByID(riddleID);
+        BaseEntityContainer rtCon = RiddleTransUtil.getRiddleByID(riddleID);
         if(false == rtCon.exists){
             throw new MyError("riddle of this id does not exist");
         }else{
@@ -119,8 +119,7 @@ public class RiddleRhymeTransUtil {
                                          makeRiddleWithEmptyRhymeChoiceList(rt);
         
         //create a choice list:
-        ArrayList<RhymeTable> rhymeList = RhymeTransUtil.
-                    getRiddleChoices(riddleID, numberOfChoices, numberOfTruths);
+        ArrayList<RhymeTable> rhymeList = RhymeTransUtil.makeChoicesToChooseFrom(riddleID, numberOfChoices, numberOfTruths);
         
         //Pack the rhymeList (possible answers) into our output container:
         op.rhymeChoiceList = rhymeList;
@@ -129,4 +128,52 @@ public class RiddleRhymeTransUtil {
         return op;
         
     }//FUNC::END
+                  
+   
+                       
+    /**
+     * Get [CORRECT/TRUTH] solutions for a given riddle 
+     * @param riddleID :The unique identifier for the riddle
+     * @param numberOfTruthsDesired : How many rhymes do you want returned?
+     * @return :The amount requested or LESS. But never more. **/
+    public static ArrayList<RhymeTable> getRhymesThatAre_TRUTH
+                                     (long riddleID, int numberOfTruthsDesired){
+        /** op == "output" **/
+        ArrayList<RhymeTable> op;                                 
+
+        //To find TRUE solutions, find matches in the TRUTH table:
+        op = RiddleRhymeTransUtil_Truth.makeMatches_ForRiddle_TRUTH
+                                              (riddleID, numberOfTruthsDesired);
+
+        if(op.size() > numberOfTruthsDesired){ //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            throw new MyError("Exceeded number of TRUTHS desired");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+
+        return op;
+        
+    }//FUNC::END     
+            
+    /**
+     * Get [INCORRECT/WRONG] solutions for a given riddle 
+     * @param riddleID :The unique identifier for the riddle.
+     * @param numberOfWrongsDesired : How many rhymes do you want returned?
+     * @return :The amount requested or LESS. But never more. **/
+    public static ArrayList<RhymeTable> getRhymesThatAre_WRONG
+                                     (long riddleID, int numberOfWrongsDesired){
+        
+        /** op == "output" **/
+        ArrayList<RhymeTable> op;                                   
+
+        //To find WRONG solutions, find ANTI-matches in the TRUTH table.
+        op = RiddleRhymeTransUtil_Truth.makeMatches_ForRiddle_WRONG
+                                               (riddleID, numberOfWrongsDesired);
+
+        if(op.size() > numberOfWrongsDesired){ //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+             throw new MyError("Exceeded number of WRONGS desired");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+
+        return op;
+      
+    }//FUNC::END       
+                       
 }//CLASS::END
