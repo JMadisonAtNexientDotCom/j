@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import test.MyError;
 import test.config.debug.DebugConfig;
-import test.entities.composites.RiddleWithPossibleRhymes;
+import test.entities.composites.CueCard;
 import test.entities.containers.BaseEntityContainer;
 import test.entities.tables.RhymeTable;
 import test.entities.tables.RiddleTable;

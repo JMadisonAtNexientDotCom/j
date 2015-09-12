@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import test.MyError;
 import test.config.debug.DebugConfig;
-import test.entities.composites.RiddleWithPossibleRhymes;
+import test.entities.composites.CueCard;
 import test.entities.containers.BaseEntityContainer;
 import test.entities.tables.RhymeTable;
 import test.entities.tables.RiddleTable;
@@ -99,7 +99,7 @@ public class RiddleRhymeTransUtil {
      *                         the actual numberOfTruths will be ZERO regardless
      *                         of what was supplied.
      */
-    public static RiddleWithPossibleRhymes makeRiddleAndRhymes
+    public static CueCard makeRiddleAndRhymes
                        (long riddleID, int numberOfChoices, int numberOfTruths){
                            
         //make sure we are in a transaction state, since we must fetch data:
@@ -116,14 +116,13 @@ public class RiddleRhymeTransUtil {
         
         
         //RAAAAWWWWEEEERRR!!!!            
-        RiddleWithPossibleRhymes op = RiddleWithPossibleRhymes.
-                                         makeRiddleWithEmptyRhymeChoiceList(rt);
+        CueCard op = CueCard.makeCueCard_WithJest_And_EmptyQuips(rt);
         
         //create a choice list:
         List<RhymeTable> rhymeList = RhymeTransUtil.makeChoicesToChooseFrom(riddleID, numberOfChoices, numberOfTruths);
         
         //Pack the rhymeList (possible answers) into our output container:
-        op.rhymeChoiceList = rhymeList;
+        op.quips = rhymeList;
         
         //return output:
         return op;
