@@ -86,6 +86,7 @@ public class RiddleRhymeRestService extends BaseRestService {
         }else
         if(false == RiddleTransUtil.doesRiddleExist(riddleID)){
             String msg = "[riddle of that id does not exist in database]";
+            if(riddleID < 0){ msg+= "[(riddle ID is NEGATIVE)]";}
             c = CueCard.makeErrorCueCard(msg, numberOfChoices);
         }else
         if(numberOfTruths > numberOfChoices)
