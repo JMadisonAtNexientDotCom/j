@@ -147,7 +147,22 @@ public class RiddleRhymeTransUtil {
                                               (riddleID, numberOfTruthsDesired);
 
         if(op.size() > numberOfTruthsDesired){ //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            throw new MyError("Exceeded number of TRUTHS desired");
+            
+            String msg = "";
+            msg+="Exceeded number of TRUTHS desired";
+            msg+="[numberOfTruthsDesired==[" +numberOfTruthsDesired + "]]";
+            msg+="[op.size() ==" + op.size() + "]";
+            
+            //list out contents of op:
+            msg+="[Output contents:]";
+            int len = op.size();
+            for(int i = 0; i < len; i++)
+            {
+                msg+="[op[i].getId()==[" + op.get(i).getId()+ "]]";
+                msg+="[op[i].getText()==[" + op.get(i).getText() + "]]";
+            }
+            
+            throw new MyError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 
         return op;
