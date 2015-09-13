@@ -76,7 +76,7 @@ public class RiddleRhymeRestService extends BaseRestService {
         //Handle Error checking more gracefully on REST servlet by returning
         //An "Error Cue Card" Still respond with 200/OK. But the information
         //Sent back will indicate an error on the non-server side.
-        if(RiddleTransUtil.doesRiddleExist(riddleID)){
+        if(false == RiddleTransUtil.doesRiddleExist(riddleID)){
             String msg = "riddle of that id does not exist in database";
             c = CueCard.makeErrorCueCard(msg, numberOfChoices);
         }else
