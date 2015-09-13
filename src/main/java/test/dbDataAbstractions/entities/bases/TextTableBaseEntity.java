@@ -1,4 +1,4 @@
-package test.entities.bases;
+package test.dbDataAbstractions.entities.bases;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;

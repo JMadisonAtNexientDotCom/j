@@ -5,10 +5,10 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import test.MyError;
-import test.entities.bases.BaseEntity;
-import test.entities.containers.BaseEntityContainer;
-import test.entities.tables.RhymeTable;
-import test.entities.tables.RiddleTable;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
+import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
+import test.dbDataAbstractions.entities.tables.RhymeTable;
+import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.transactions.util.TransUtil;
 
 /**

@@ -1,4 +1,4 @@
-package test.entities.tables;
+package test.dbDataAbstractions.entities.tables;
 
 /**
  * This is a table designed to store all REST web-service api URLS.

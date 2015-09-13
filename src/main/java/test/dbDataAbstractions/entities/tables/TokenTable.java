@@ -1,5 +1,5 @@
-package test.entities.tables;
-import test.entities.bases.BaseEntity;
+package test.dbDataAbstractions.entities.tables;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

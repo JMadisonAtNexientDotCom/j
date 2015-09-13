@@ -1,4 +1,4 @@
-package test.entities.bases;
+package test.dbDataAbstractions.entities.bases;
 
 import java.io.Serializable;
 import javax.persistence.MappedSuperclass;

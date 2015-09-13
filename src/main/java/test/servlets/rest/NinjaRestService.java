@@ -27,7 +27,7 @@ import javax.ws.rs.core.MediaType;
 import test.MyError;
 import test.config.constants.ServletClassNames;
 import test.transactions.util.ninja.NinjaTransUtil;
-import test.entities.tables.NinjaTable;
+import test.dbDataAbstractions.entities.tables.NinjaTable;
 import utils.JSONUtil;
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,18 @@
+A folder that contains any data that is:
+1. An abstraction of a database. Like entities.
+2. Used for communication, where values inside the class
+   represent values that are in the database.
+
+   Example: LecternSlab represents a Ninja's written response to a CueCard
+            that the Jester has read from.
+
+   LecternSlab ~= a candidate response to a question. That needs to be
+                  sent back to server side.
+
+   CueCard ~= A combination of Riddle (question) and Rhymes 
+		(Possible answers to select from) 
+		that have been sent from server to client.
+
+   Jester: No real code object for this. For now it is just an
+           elaborative encoding object within our story that will
+           help us remember the different parts of this system.

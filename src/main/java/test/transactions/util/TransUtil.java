@@ -3,12 +3,12 @@ package test.transactions.util;
 import test.MyError;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import test.entities.bases.BaseEntity;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 import utils.HibernateUtil;
 import java.util.ArrayList;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
-import test.entities.tables.TokenTable;
+import test.dbDataAbstractions.entities.tables.TokenTable;
 
 /**
  * TransUtil stands for: "Transaction Utility"

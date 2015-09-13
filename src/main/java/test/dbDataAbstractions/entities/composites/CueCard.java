@@ -1,9 +1,9 @@
-package test.entities.composites;
+package test.dbDataAbstractions.entities.composites;
 
 import java.util.ArrayList;
 import java.util.List;
-import test.entities.tables.RhymeTable;
-import test.entities.tables.RiddleTable;
+import test.dbDataAbstractions.entities.tables.RhymeTable;
+import test.dbDataAbstractions.entities.tables.RiddleTable;
 
 /**
  * 

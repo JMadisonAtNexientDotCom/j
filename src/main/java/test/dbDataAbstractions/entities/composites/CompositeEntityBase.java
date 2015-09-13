@@ -1,4 +1,4 @@
-package test.entities.composites;
+package test.dbDataAbstractions.entities.composites;
 
 /**
  * A base class for all composite entities that have no direct relationship

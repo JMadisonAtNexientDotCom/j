@@ -1,6 +1,6 @@
 package test.transactions.util.riddleRhyme.joinTables.wrong;
 
-import test.entities.tables.RiddleRhymeWrongTable;
+import test.dbDataAbstractions.entities.tables.RiddleRhymeWrongTable;
 import test.transactions.util.riddleRhyme.joinTables.RiddleRhymeJoinTablesTransUtil;
 
 /**

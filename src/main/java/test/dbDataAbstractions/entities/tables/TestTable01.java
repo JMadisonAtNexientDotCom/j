@@ -1,8 +1,8 @@
-package test.entities.tables;
+package test.dbDataAbstractions.entities.tables;
 
 //import org.hibernate.annotations.DynamicUpdate;
 
-import test.entities.bases.BaseEntity;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 //import javax.persistence.GeneratedValue;

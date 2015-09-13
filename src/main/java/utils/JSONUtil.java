@@ -9,8 +9,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import primitives.IntegerWithComment;
 import test.MyError;
-import test.entities.bases.BaseEntity;
-import test.entities.composites.CompositeEntityBase;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
+import test.dbDataAbstractions.entities.composites.CompositeEntityBase;
 
 /**
  * Original use: Refactoring duplicate code that existed in both

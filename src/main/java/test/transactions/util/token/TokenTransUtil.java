@@ -9,9 +9,9 @@ import org.hibernate.criterion.Projections;
 //import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 //import utils.HibernateUtil;
-import test.entities.tables.TokenTable;
+import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.transactions.util.TransUtil;
-import test.entities.containers.BaseEntityContainer;
+import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.debug.DebugConsts;
 /**
  * A utility to manage transactions done to the TokenTable.

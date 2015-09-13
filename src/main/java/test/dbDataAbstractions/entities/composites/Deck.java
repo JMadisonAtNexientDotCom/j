@@ -1,4 +1,4 @@
-package test.entities.composites;
+package test.dbDataAbstractions.entities.composites;
 
 import java.util.List;
 
