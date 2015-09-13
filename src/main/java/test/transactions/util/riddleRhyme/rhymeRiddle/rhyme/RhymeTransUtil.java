@@ -134,10 +134,11 @@ public class RhymeTransUtil {
         op = new ArrayList<RhymeTable>();
         op.addAll(rhymesThatAre_TRUTH);
         op.addAll(rhymesThatAre_WRONG);
-        if(op.size() != numberOfChoices)
-        {   //always do error check when you are uncertain of the results
+        if(op.size() != allRhymesTotal)
+        {   
+            //always do error check when you are uncertain of the results
             //of an operation. Example: Functions you've never used before.
-            throw new MyError("Concatination did not work as expectd.");
+            throw new MyError("Concatination did not work as expected.");
         }/////
         
         //Return the Rhyme
