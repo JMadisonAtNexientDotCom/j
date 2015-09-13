@@ -73,6 +73,9 @@ public class RiddleRhymeRestService extends BaseRestService {
         CueCard c = RiddleRhymeTransUtil.makeFilledOutCueCard
                                     (riddleID, numberOfChoices, numberOfTruths);
         
+        //EXIT TRANSACTION!!!
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+        
         //Create our response:
         CompositeEntityBase ceb = (CompositeEntityBase)c;
         return JSONUtil.compositeEntityToJSONResponse(ceb);
