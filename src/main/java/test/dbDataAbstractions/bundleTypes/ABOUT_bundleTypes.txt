@@ -1,0 +1,9 @@
+Bundle types are data types that are containers 
+that hold mixed types of dbDataAbstractions types.
+
+They are primarily for:
+1. Creating a nicely made bundle that will help with sending 
+   responses back and forth from server to client and back.
+
+2. A catch-all category for gluing different types together where
+   we are not sure what other category it all fits under.

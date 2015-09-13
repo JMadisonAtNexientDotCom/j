@@ -1,0 +1,9 @@
+Fractured types can be though of as fractured entities.
+They are types that contain information pertaining to database tables.
+But they contain a fraction of it.
+
+For example: If the type is just a list of Id's from a given table...
+It is fractured.
+
+You could achieve similiar non-fractured collection by havinga collection of
+entities... But sometimes you might want something more light weight.

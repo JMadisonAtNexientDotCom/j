@@ -1,0 +1,5 @@
+Selection types are a sub-set of fractured types.
+They represent a set/selection of some type of information in the database.
+
+For example: Maybe it is just an array of question IDs.
+And no other information. This would be a selection type.

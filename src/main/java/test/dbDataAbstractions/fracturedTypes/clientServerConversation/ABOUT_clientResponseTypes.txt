@@ -1,0 +1,9 @@
+Client response types are FRACTURED types
+because they represent a sub-set of information in the database.
+
+Example:
+An array of only rhyme IDs (question ids) that notifies us what
+answers the ninja (candidate) has used to reply to the question.
+
+Fractured could also be seen as meaning "sub-set" or "sub selection"
+in this case.
