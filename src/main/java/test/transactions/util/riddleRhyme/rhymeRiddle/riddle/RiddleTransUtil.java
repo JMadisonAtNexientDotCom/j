@@ -18,6 +18,26 @@ import test.transactions.util.riddleRhyme.rhymeRiddle.RRCommonCodeTransUtil;
  */
 public class RiddleTransUtil {
     
+    /** Used to test if a riddle with a given ID exists. NOT meant as a 
+     *  "look before you leap" to getRiddleByID() since getRiddleByID()
+     *  does not error if you give it invalid ID.
+     * 
+     *  Original usage: To see if bad riddleID was given to rest service.
+     *                  That way service can respond accordingly.
+     * @param riddleID: The unique ID of the riddle you want.
+     * @return        : A boolean telling us if a riddle with that idea actually
+     *                  exists. TRUE==exists. FALSE==does-not-exist          **/
+    public static boolean doesRiddleExist(long riddleID){
+        
+        //ERROR CHECK: Make sure we are inside a transaction state:
+        TransUtil.insideTransactionCheck();
+        
+        //Logic Body:
+        BaseEntityContainer bec = getRiddleByID(riddleID);
+        return bec.exists;
+        
+    }//FUNC::END
+    
     /** Get riddle entity by ID, if not found, the container will reflect that.
      * @param riddleID :The ID of the riddle entity you want.
      * @return :A container that will contain the entity if one was found. **/

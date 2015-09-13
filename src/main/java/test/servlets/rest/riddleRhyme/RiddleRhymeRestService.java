@@ -14,6 +14,7 @@ import test.entities.composites.CueCard;
 import test.servlets.rest.BaseRestService;
 import test.transactions.util.TransUtil;
 import test.transactions.util.riddleRhyme.RiddleRhymeTransUtil;
+import test.transactions.util.riddleRhyme.rhymeRiddle.riddle.RiddleTransUtil;
 import utils.JSONUtil;
 
 /** A rest service class that handles any api calls involving our --------------
