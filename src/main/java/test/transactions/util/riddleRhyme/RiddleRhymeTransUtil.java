@@ -89,7 +89,8 @@ public class RiddleRhymeTransUtil {
     }//FUNC::END
     
     /**
-     * 
+     * Creates a CueCard (question with answers) that 
+     * represents a question on the game show (test being taken).
      * @param riddleID        :The ID of the riddle.
      * @param numberOfChoices :How many choices you want this riddle to have?
      * @param numberOfTruths  :How many of those choices are true?
@@ -99,7 +100,7 @@ public class RiddleRhymeTransUtil {
      *                         the actual numberOfTruths will be ZERO regardless
      *                         of what was supplied.
      */
-    public static CueCard makeRiddleAndRhymes
+    public static CueCard makeFilledOutCueCard
                        (long riddleID, int numberOfChoices, int numberOfTruths){
                            
         //make sure we are in a transaction state, since we must fetch data:

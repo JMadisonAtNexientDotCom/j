@@ -8,6 +8,9 @@ import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import test.config.constants.ServletClassNames;
 import test.config.debug.DebugConfig;
+import test.entities.bases.BaseEntity;
+import test.entities.composites.CompositeEntityBase;
+import test.entities.composites.CueCard;
 import test.servlets.rest.BaseRestService;
 import test.transactions.util.TransUtil;
 import test.transactions.util.riddleRhyme.RiddleRhymeTransUtil;
@@ -57,6 +60,24 @@ public class RiddleRhymeRestService extends BaseRestService {
         
     }//FUNC::END
     
+    @GET
+    @Path("makeFilledOutCueCard")
+    public Response makeFilledOutCueCard(
+                             @QueryParam("riddleID")        long riddleID, 
+                             @QueryParam("numberOfChoices") int numberOfChoices,
+                             @QueryParam("numberOfTruths")  int numberOfTruths){
+        //Enter transaction state:
+        Session ses = TransUtil.enterTransaction();
+        
+        //Use utility to get what you want:
+        CueCard c = RiddleRhymeTransUtil.makeFilledOutCueCard
+                                    (riddleID, numberOfChoices, numberOfTruths);
+        
+        //Create our response:
+        CompositeEntityBase ceb = (CompositeEntityBase)c;
+        return JSONUtil.compositeEntityToJSONResponse(ceb);
+    
+    }//FUNC::END
     
     
 }//CLASS::END

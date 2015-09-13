@@ -70,7 +70,7 @@ import test.entities.tables.RiddleTable;
  * 
  * @author jmadison
  */
-public class CueCard {
+public class CueCard extends CompositeEntityBase{
     
     /** Riddles in the context of CueCards are known as "Jests" **/
     public RiddleTable jest;
@@ -79,7 +79,7 @@ public class CueCard {
      *  Rhymes(answers) in the context of a CueCard are known as "quips"
      *  Why? Because of the naming confusion below:
      * 
-     *  It is less ambigious that "rhymeChoices" and shorter than
+     *  It is less ambiguous that "rhymeChoices" and shorter than
      *  "rhymeReplyOptions" etc. **/
     public List<RhymeTable> quips;
     

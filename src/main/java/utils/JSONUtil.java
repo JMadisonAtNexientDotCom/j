@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response;
 import primitives.IntegerWithComment;
 import test.MyError;
 import test.entities.bases.BaseEntity;
+import test.entities.composites.CompositeEntityBase;
 
 /**
  * Original use: Refactoring duplicate code that existed in both
@@ -25,6 +26,17 @@ public class JSONUtil {
     public static Response entityToJSONResponse(BaseEntity ent){
         return genericObjectToJSONResponse(ent);
     }//FUNC::ENDentityToJSONResponse
+    
+    /** Converts a composite entity 
+     * (an entity with no direct database table representation)
+     *  into a JSON Response. Used for creating rest services.
+     * 
+     * @param ce : The composite entity we want to convert to JSON.
+     * @return   : A 200/OK response with the entity asJSON inside the body. **/
+    public static Response compositeEntityToJSONResponse
+                                                       (CompositeEntityBase ce){
+        return genericObjectToJSONResponse(ce);
+    }//FUNC::END
     
     /** Made this PRIVATE because I would like to use strict typing in project.
      *  However, internally, the core implementation uses generic objects.

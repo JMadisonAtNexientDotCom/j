@@ -8,7 +8,7 @@ import java.util.List;
  *  Think of a jester with a deck of cards.
  *  But instead of playing cards, they are CueCards with riddles on them.
  * @author jmadison                                                          **/
-public class Deck {
+public class Deck extends CompositeEntityBase {
     
     /** The cards in the deck that are about to 
      *  barrage(attack, mentally) the ninja. **/
