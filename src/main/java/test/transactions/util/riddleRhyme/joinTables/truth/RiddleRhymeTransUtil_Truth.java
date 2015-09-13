@@ -119,6 +119,16 @@ public class RiddleRhymeTransUtil_Truth {
         TransUtil.insideTransactionCheck();
         Session ses = TransUtil.getActiveTransactionSession();
         
+        //BUGFIX: Looks like "setMaxResults(0)" does NTO work with hibernate.
+        //So if amountToReturn==0, we will just return empty list.
+        if(amountToReturn == 0){ ///////////////////////////////////////////////
+            List<RhymeTable> emptyList = new ArrayList<RhymeTable>();
+            return emptyList;
+        }else
+        if(amountToReturn < 0){
+            throw new MyError("Asking to return negative amount of matches.");
+        }///////////////////////////////////////////////////////////////////////
+        
         //Use criteria to get list of random results that DO NOT MATCH the
         //riddleID supplied: Use "ne" (NOT EQUALS) restriction.
         String riddleIDColumn = RiddleRhymeTruthTable.RIDDLE_ID_COLUMN;
