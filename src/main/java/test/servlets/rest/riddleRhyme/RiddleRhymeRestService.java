@@ -77,11 +77,12 @@ public class RiddleRhymeRestService extends BaseRestService {
         //Sent back will indicate an error on the non-server side.
         if(RiddleTransUtil.doesRiddleExist(riddleID)){
             String msg = "riddle of that id does not exist in database";
-            c = CueCard.makeErrorCueCard(msg);
+            c = CueCard.makeErrorCueCard(msg, numberOfChoices);
         }else
         if(numberOfTruths > numberOfChoices)
         {
-            c = CueCard.makeErrorCueCard("numberOfTruths>numberOfChoices");
+            String msg = "numberOfTruths>numberOfChoices";
+            c = CueCard.makeErrorCueCard(msg, numberOfChoices);
         }else{
             //Our non-error case. Note that ZERO number of truths is allowed.
             c = RiddleRhymeTransUtil.makeFilledOutCueCard
