@@ -1,7 +1,11 @@
 Composites are entities that are made by compositing other entities
-togther. An example is a riddle on a riddle-exam.
+together. An example is a riddle on a riddle-exam.
 
 They have no direct representation in the database.
+
+THEY DO NOT HAVE ANY META-DATA!!!
+All of the properties within the composite must be references
+to actual [entities/tables].
 
 Entities like this will make JSON responses that are used on
 our .html test pages easier.
