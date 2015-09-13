@@ -70,8 +70,23 @@ public class RiddleRhymeRestService extends BaseRestService {
         Session ses = TransUtil.enterTransaction();
         
         //Use utility to get what you want:
-        CueCard c = RiddleRhymeTransUtil.makeFilledOutCueCard
+        CueCard c;
+        
+        //Handle Error checking more gracefully on REST servlet by returning
+        //An "Error Cue Card" Still respond with 200/OK. But the information
+        //Sent back will indicate an error on the non-server side.
+        if(RiddleTransUtil.doesRiddleExist(riddleID)){
+            String msg = "riddle of that id does not exist in database";
+            c = CueCard.makeErrorCueCard(msg);
+        }else
+        if(numberOfTruths > numberOfChoices)
+        {
+            c = CueCard.makeErrorCueCard("numberOfTruths>numberOfChoices");
+        }else{
+            //Our non-error case. Note that ZERO number of truths is allowed.
+            c = RiddleRhymeTransUtil.makeFilledOutCueCard
                                     (riddleID, numberOfChoices, numberOfTruths);
+        }//BLOCK::END
         
         //EXIT TRANSACTION!!!
         TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);

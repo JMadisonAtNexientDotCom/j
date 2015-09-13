@@ -22,6 +22,32 @@ public class RiddleTable extends TextTableBaseEntity {
     /** Column name stored as string constant for easy refactoring. **/
     public static final String TEXT_COLUMN            = TextTableBaseEntity.TEXT_COLUMN;
     
+    /** An invalid index (hence negative) used to identify error objects
+     *  that have been intentionally made by the programmer of this application.
+     */
+    public static final long ID_MAKE_ERROR_RIDDLE = (-777);
+    
+    /** 
+     *  Makes a RiddleTable instance that is populated with bogus data that
+     *  will help us catch errors in the program if we see it show up on 
+     *  on the front-end.
+     * 
+     *  DESIGN NOTE:
+     *  Is static method of RiddleTable rather than in the RiddleTransUtil
+     *  because it does NOT require us to be in a transaction session. 
+     * 
+     * @param errorMessage :The error message we want shown on the UI front end.
+     *                      Of the application. The error message we want to
+     *                      use to populate this RiddleTable instance.
+     * @return : A RiddleTable populated with bogus data and an error message. 
+                                                                             **/
+    public static RiddleTable makeErrorRiddle(String errorMessage){
+        RiddleTable op = new RiddleTable();
+        op.setId(ID_MAKE_ERROR_RIDDLE); //set id to invalid value.
+        op.setText(errorMessage);
+        return op;
+    }//FUNC::END
+    
   /*
   DELETE THIS CODE ONCE WE ARE CERTAIN BASE CLASS WORKS!
   //shared code between riddle+rhyme tables, can we make base class?

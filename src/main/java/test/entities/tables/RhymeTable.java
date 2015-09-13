@@ -22,6 +22,25 @@ public class RhymeTable extends TextTableBaseEntity {
     /** Column name stored as string constant for easy refactoring. **/
     public static final String TEXT_COLUMN            = TextTableBaseEntity.TEXT_COLUMN;
     
+    /** Index/ID to be used for when when we intentionally make a RhymeTable
+     *  with bogus info. Negative so that it is an invalid database index.    */
+    public static final long ID_MAKE_ERROR_RHYME = (-888);
+    
+    /** Used to create error RhymeTable that will be sent back to FRONT-END
+     *  when the front-end makes a IMPROPERLY-FORMATTED http request.
+     *  If the FRONT ENDS fault: We send back error objects.
+     *  If BACK ENDS fault     : We throw uncaught exceptions into the backend.
+     * @param errorMessage     : The error message we want displayed in 
+     *                           front-end.
+     * @return                 : RhymeTable object configured to display error 
+     *                           message.                                    **/
+    public static RhymeTable makeErrorRhyme(String errorMessage){
+        RhymeTable op = new RhymeTable();
+        op.setId(ID_MAKE_ERROR_RHYME);
+        op.setText(errorMessage);
+        return op;
+    }//FUNC::END
+    
   /*
   DELETE THIS CODE ONCE WE ARE CERTAIN BASE CLASS WORKS!
   //shared code between riddle+rhyme tables, can we make base class?

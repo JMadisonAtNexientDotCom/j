@@ -99,6 +99,39 @@ public class CueCard extends CompositeEntityBase{
         op.quips = new ArrayList<RhymeTable>();
         return op;
     }//FUNC::END
+                      
+    /**
+     * Creates a CueCard populated with an error message. Used to let the 
+     * USER-INTERFACE people know they did something wrong with their 
+     * restful get http request.
+     * 
+     * IMPLEMENTATION:
+     * We want the ERROR JSON response to have the EXACT SAME DATA FORMAT
+     * as if it were a valid response. So we don't have to code handling for
+     * another data format in the UI.
+     * 
+     * REASONING:
+     * Taking this logic for Valve and the Half-Life hammer editor.
+     * If there was an error in rendering a model in the game, the model
+     * was simply replaced with a model that said "ERROR".
+     * 
+     * @param errorMessage : The error message to display.
+     * @return  **/
+    public static CueCard makeErrorCueCard
+                                       (String errorMessage, int numberOfQuips){
+        CueCard op = new CueCard();
+        op.jest  = RiddleTable.makeErrorRiddle(errorMessage);
+        op.quips = new ArrayList<RhymeTable>();
+        RhymeTable currentEntry;
+        for(int i = 0; i < numberOfQuips; i++){
+            currentEntry = RhymeTable.makeErrorRhyme(errorMessage);
+            op.quips.add(currentEntry);
+        }//NEXT I
+        
+        //return the CueCard configured as an Error message.
+        return op;
+        
+    }//FUNC::END
     
     /* this might just make code hard to read.
     public static RiddleAndRhymes make
