@@ -11,6 +11,7 @@ import test.config.debug.DebugConfig;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.composites.CompositeEntityBase;
 import test.dbDataAbstractions.entities.composites.CueCard;
+import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.servlets.rest.BaseRestService;
 import test.transactions.util.TransUtil;
 import test.transactions.util.riddleRhyme.RiddleRhymeTransUtil;
@@ -58,6 +59,24 @@ public class RiddleRhymeRestService extends BaseRestService {
             help += " riddleID==" + riddleID + " rhymeID==" + rhymeID;
         }
         return JSONUtil.numberToJSONResponse(op, help);
+        
+    }//FUNC::END
+    
+    @GET
+    @Path("getOneRandomRiddle")
+    public Response getOneRandomRiddle(){
+        
+        //Enter transaction state:
+        Session ses = TransUtil.enterTransaction();
+        
+        //Transaction logic:
+        RiddleTable rt = RiddleTransUtil.getOneRandomRiddle();
+        
+        //EXIT TRANSACTION!!!
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+        
+        //Return JSON response:
+        return JSONUtil.entityToJSONResponse(rt);
         
     }//FUNC::END
     
