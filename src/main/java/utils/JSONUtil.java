@@ -11,6 +11,7 @@ import primitives.IntegerWithComment;
 import test.MyError;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.composites.CompositeEntityBase;
+import test.dbDataAbstractions.fracturedTypes.FracturedTypeBase;
 
 /**
  * Original use: Refactoring duplicate code that existed in both
@@ -25,7 +26,11 @@ public class JSONUtil {
      *              entity as JSON inside the body. **/
     public static Response entityToJSONResponse(BaseEntity ent){
         return genericObjectToJSONResponse(ent);
-    }//FUNC::ENDentityToJSONResponse
+    }//FUNC::END
+    
+    public static Response fracturedTypeToJSONResponse(FracturedTypeBase frac){
+        return genericObjectToJSONResponse(frac);
+    }//FUNC::END
     
     /** Converts a composite entity 
      * (an entity with no direct database table representation)

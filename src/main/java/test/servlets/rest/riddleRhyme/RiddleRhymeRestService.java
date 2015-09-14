@@ -6,12 +6,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
+import test.MyError;
 import test.config.constants.ServletClassNames;
 import test.config.debug.DebugConfig;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.composites.CompositeEntityBase;
 import test.dbDataAbstractions.entities.composites.CueCard;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
+import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
 import test.servlets.rest.BaseRestService;
 import test.transactions.util.TransUtil;
 import test.transactions.util.riddleRhyme.RiddleRhymeTransUtil;
@@ -59,6 +61,50 @@ public class RiddleRhymeRestService extends BaseRestService {
             help += " riddleID==" + riddleID + " rhymeID==" + rhymeID;
         }
         return JSONUtil.numberToJSONResponse(op, help);
+        
+    }//FUNC::END
+    
+    
+    /**
+     * Returns a blank slate representing an "answer card" that the ninja
+     *  must fill out. Think of the Jester's CueCard containing a riddle
+     *  as a trivial-~persuit~ (board game) card. We don't want to write on it. 
+     *  Because it is part of the board game. So we give the ninja a 
+     *  blank slate that they can fill out.
+     *
+     * @param riddleID :The riddle ID this ninja's slate is attempting
+     *                  to answer.
+     * @return : A blank slate the UI developer can fill out and send back
+     *           to the server for grading.                                  **/
+    @GET
+    @Path("getBlankSlate")
+    public Response getBlankSlate(long riddleID){
+        
+        //Enter transaction state:
+        Session ses = TransUtil.enterTransaction();
+        
+        //Transaction logic:
+        //Make sure the riddleID exists. If the riddleID does not exist,
+        //The slate will be populated with an ERROR_ID as it's riddleID
+        //To notify the [UI/FRONT-END] dev and hopefully prevent error
+        //from being graded.
+        boolean riddleExists = RiddleTransUtil.doesRiddleExist(riddleID);
+        Slate s;
+        if(riddleExists){
+            s = Slate.makeBlankSlate(riddleID);
+        }else{
+            s = Slate.makeErrorSlate(riddleID);
+        }//BLOCK::END
+        
+        if(null == s){ //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            throw new MyError("how did s become null??");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        //EXIT TRANSACTION!!!
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+        
+        //Return JSON response:
+        return JSONUtil.fracturedTypeToJSONResponse(null);
         
     }//FUNC::END
     
