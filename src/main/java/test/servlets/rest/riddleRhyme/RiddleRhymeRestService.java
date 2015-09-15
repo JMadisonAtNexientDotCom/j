@@ -126,10 +126,14 @@ public class RiddleRhymeRestService extends BaseRestService {
         //Enter transaction state:
         Session ses = TransUtil.enterTransaction();
         
+        
         //Transaction logic:
-        boolean riddleExists = RiddleTransUtil.doesRiddleExist(riddleID);
+        //If the riddleID exists, NO ERROR.
+        //If the riddleID is NEGATIVE, also NO ERROR. Because in this
+        //Case, negative signifies we want a RANDOM riddle.
         Slate s;
-        if(riddleExists){
+        boolean riddleExists = RiddleTransUtil.doesRiddleExist(riddleID);
+        if(riddleExists || (riddleID<0) ){
             s = SlateTransUtil.makeFilledOutTestSlate_COMMON
                                                      (riddleID, slateDebugType);
         }else{
