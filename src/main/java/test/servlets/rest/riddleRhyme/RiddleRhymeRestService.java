@@ -32,14 +32,12 @@ import utils.JSONUtil;
 @Path(ServletClassNames.RiddleRhymeRestService_MAPPING)
 public class RiddleRhymeRestService extends BaseRestService {
     
-    /** Returns an integer code telling you if the answer is correct or not.
-     * 
-     * @param riddleID
-     * @param rhymeID
+    /** Returns an integer code telling you if the answer is correct or not.----
+     * @param riddleID :The ID# of riddle (question) being asked.
+     * @param rhymeID  :The ID# of rhyme answering the [riddle/question].
      * @return : 1 == TRUE
      *          -1 == FALSE
-     *           0 == UNDEFINED
-     */
+     *           0 == UNDEFINED ----------------------------------------------*/
     @GET
     @Path("getIsCorrect")
     public Response getIsCorrect(@QueryParam("riddleID") long riddleID, 
