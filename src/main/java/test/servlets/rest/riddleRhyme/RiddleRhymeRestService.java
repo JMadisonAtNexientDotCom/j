@@ -78,7 +78,8 @@ public class RiddleRhymeRestService extends BaseRestService {
      *           to the server for grading.                                  **/
     @GET
     @Path("getBlankSlate")
-    public Response getBlankSlate(long riddleID){
+    public Response getBlankSlate( @QueryParam("riddleID") 
+                                           long riddleID){
         
         //Enter transaction state:
         Session ses = TransUtil.enterTransaction();
