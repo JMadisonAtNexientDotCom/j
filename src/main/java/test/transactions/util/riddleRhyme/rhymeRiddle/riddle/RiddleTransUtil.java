@@ -39,6 +39,47 @@ public class RiddleTransUtil {
         
     }//FUNC::END
     
+    /** Returns RANDOM riddle if riddleID supplied is negative.
+     *  Returns riddle of a given ID if riddleID is >= 0.
+     *  Will throw error if >=0 value is not found in table.
+     * @param riddleID : The ID of the riddle.
+     * @return :A RiddleTable entity representing the riddleID. **/
+    public static RiddleTable getRiddleByID_or_Random(long riddleID){
+        
+        //ERROR CHECK: Are we inside a transaction state?
+        TransUtil.insideTransactionCheck();
+        
+        RiddleTable op;
+        if(riddleID < 0){//-----------------------------------------------------
+            op = getOneRandomRiddle();
+        }else
+        if(riddleID >= 0){
+            boolean doesExist = doesRiddleExist(riddleID);
+            if(false==doesExist){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                String msg = "[getRiddleByID_or_Random asked for.]";
+                msg+="[A non-existant riddle of ]";
+                msg+="[ID:" + Long.toString(riddleID) + "]";
+                throw new MyError(msg);
+            }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            BaseEntityContainer con = getRiddleByID(riddleID);
+            op = (RiddleTable)con.entity;
+        }else{
+            //if you get here. Logic of block is messed up.
+            throw new MyError("This should be an unreachable statement.");
+        }//---------------------------------------------------------------------
+        
+        //Null output is considered an error:
+        if(null==op){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            String m2 = "[op should not be null if ]";
+            m2+="[we get to this line of execution.]";
+            throw new MyError(m2);
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        //return the output:
+        return op;
+        
+    }//FUNC::END
+    
     /**
      * Return a random riddle. Should NOT return null. I am not going to
      * return a BaseEntityContainer just in case the database has ZERO
@@ -139,4 +180,8 @@ public class RiddleTransUtil {
         return op;
         
     }//FUNC::END
+    
+    
+    
+    
 }//CLASS::END

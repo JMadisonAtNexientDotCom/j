@@ -27,7 +27,18 @@ import test.dbDataAbstractions.fracturedTypes.FracturedTypeBase;
  * @author jmadison :2015.09.13----------------------------------------------**/
 public class Slate extends FracturedTypeBase{
     
+    /** Used to populate a slate object with error data. **/
     public static long ERROR_BAD_RIDDLE_USED_TO_MAKE_SLATE = (-999);
+    
+    /** Used for slates that have been configured with 100% WRONG answers.
+     *  Used to debug our grading functions. **/
+    public static String SLATE_DEBUG_TYPE_WRONG = 
+                        "SLATE_DEBUG_TYPE_WRONG";
+    
+    /** Used for slates that have been configured with 100% CORRECT answers.
+     *  Used to debug our grading functions. **/
+    public static String SLATE_DEBUG_TYPE_TRUTH =
+                        "SLATE_DEBUG_TYPE_TRUTH";
     
     /** The id of the riddle(question) that has been presented to
      *  the ninja (test taker / candidate) **/

@@ -25,10 +25,20 @@ public class JSONUtil {
      * @return    : A 200/OK response with the 
      *              entity as JSON inside the body. **/
     public static Response entityToJSONResponse(BaseEntity ent){
+        
+        if(null==ent){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            throw new MyError("null argument given to entityToJSONResponse");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
         return genericObjectToJSONResponse(ent);
     }//FUNC::END
     
     public static Response fracturedTypeToJSONResponse(FracturedTypeBase frac){
+        
+        if(null==frac){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            throw new MyError("null arg given to fracturedTypeToJSONResponse");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
         return genericObjectToJSONResponse(frac);
     }//FUNC::END
     
@@ -40,6 +50,11 @@ public class JSONUtil {
      * @return   : A 200/OK response with the entity asJSON inside the body. **/
     public static Response compositeEntityToJSONResponse
                                                        (CompositeEntityBase ce){
+                                                           
+        if(null==ce){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            throw new MyError("compositeEntityToJSONResponse(null)==BAD!");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE                                                  
+                                                                                                       
         return genericObjectToJSONResponse(ce);
     }//FUNC::END
     

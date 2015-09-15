@@ -1,8 +1,12 @@
 package test.servlets.rest.riddleRhyme;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
@@ -16,6 +20,7 @@ import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
 import test.servlets.rest.BaseRestService;
 import test.transactions.util.TransUtil;
+import test.transactions.util.forCompositeEntities.SlateTransUtil;
 import test.transactions.util.riddleRhyme.RiddleRhymeTransUtil;
 import test.transactions.util.riddleRhyme.rhymeRiddle.riddle.RiddleTransUtil;
 import utils.JSONUtil;
@@ -64,6 +69,81 @@ public class RiddleRhymeRestService extends BaseRestService {
         
     }//FUNC::END
     
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("gradeOneBlankSlate")
+    public Response gradeOneBlankSlate(){
+        return null;
+    }//FUNC::END
+    
+   
+    
+    /**
+     * Gets a slate that has been filled out with information from a random
+     * riddle. Used to test our "gradeOneBlankSlate() function. 
+     * 
+     *  This slate should be populated so that when it is graded it checks
+     *  out as being 100% correct.
+     * 
+     * @param riddleID: The riddleID we want to make a filled out slate for.
+     *                  A slate being basically a contestant answer card.
+     * 
+     *                  If riddle ID <=-1, we will retrieve random.
+     *                  Otherwise, we retrieve for specific riddle.
+     * @return : A slate populated with the CORRECT [rhyme/answer](s) **/
+    @Path("getFilledOutTestSlate_TRUTH")
+    public Response getFilledOutTestSlate_TRUTH(
+                     @DefaultValue("-1") @QueryParam("riddleID") long riddleID){
+        return getFilledOutTestSlate_COMMON
+                                       (riddleID, Slate.SLATE_DEBUG_TYPE_TRUTH);                     
+    }//FUNC::END
+    
+    /**
+     *  Get a test slate for grading that has been populated
+     *  so that it will be graded as WRONG. Specifically, 100% incorrect.
+     * 
+     *  This slate should be populated so that when it is graded it checks
+     *  out as being 100% FALSE/INCORRECT.
+     * 
+     * @param riddleID: The riddleID we want to make a filled out slate for.
+     *                  A slate being basically a contestant answer card.
+     * 
+     *                  If riddle ID <=-1, we will retrieve random.
+     *                  Otherwise, we retrieve for specific riddle.
+     * @return : A slate populated with the WRONG [rhyme/answers] **/
+    @Path("getFilledOutTestSlate_WRONG")
+    public Response getFilledOutTestSlate_WRONG(
+                     @DefaultValue("-1") @QueryParam("riddleID") long riddleID){
+        return getFilledOutTestSlate_COMMON
+                                       (riddleID, Slate.SLATE_DEBUG_TYPE_WRONG); 
+    }//FUNC::END
+    
+    private Response getFilledOutTestSlate_COMMON
+                                         (long riddleID, String slateDebugType){
+        //Enter transaction state:
+        Session ses = TransUtil.enterTransaction();
+        
+        //Transaction logic:
+        boolean riddleExists = RiddleTransUtil.doesRiddleExist(riddleID);
+        Slate s;
+        if(riddleExists){
+            s = SlateTransUtil.makeFilledOutTestSlate_COMMON
+                                                     (riddleID, slateDebugType);
+        }else{
+            s = Slate.makeErrorSlate(riddleID);
+        }//BLOCK::END
+        
+        if(null == s){ //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            throw new MyError("how did s become null??");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        //EXIT TRANSACTION!!!
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+        
+        //Return JSON response:
+        return JSONUtil.fracturedTypeToJSONResponse(s);     
+    }//FUNC::END
     
     /**
      * Returns a blank slate representing an "answer card" that the ninja
@@ -77,8 +157,8 @@ public class RiddleRhymeRestService extends BaseRestService {
      * @return : A blank slate the UI developer can fill out and send back
      *           to the server for grading.                                  **/
     @GET
-    @Path("getBlankSlate")
-    public Response getBlankSlate( @QueryParam("riddleID") 
+    @Path("getOneBlankSlate")
+    public Response getOneBlankSlate( @QueryParam("riddleID") 
                                            long riddleID){
         
         //Enter transaction state:
