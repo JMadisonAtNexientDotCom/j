@@ -105,7 +105,7 @@ public class RiddleRhymeRestService extends BaseRestService {
         TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
         
         //Return JSON response:
-        return JSONUtil.fracturedTypeToJSONResponse(null);
+        return JSONUtil.fracturedTypeToJSONResponse(s);
         
     }//FUNC::END
     
