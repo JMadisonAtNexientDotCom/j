@@ -92,6 +92,7 @@ public class RiddleRhymeRestService extends BaseRestService {
      *                  If riddle ID <=-1, we will retrieve random.
      *                  Otherwise, we retrieve for specific riddle.
      * @return : A slate populated with the CORRECT [rhyme/answer](s) **/
+    @GET
     @Path("getFilledOutTestSlate_TRUTH")
     public Response getFilledOutTestSlate_TRUTH(
                      @DefaultValue("-1") @QueryParam("riddleID") long riddleID){
@@ -112,6 +113,7 @@ public class RiddleRhymeRestService extends BaseRestService {
      *                  If riddle ID <=-1, we will retrieve random.
      *                  Otherwise, we retrieve for specific riddle.
      * @return : A slate populated with the WRONG [rhyme/answers] **/
+    @GET
     @Path("getFilledOutTestSlate_WRONG")
     public Response getFilledOutTestSlate_WRONG(
                      @DefaultValue("-1") @QueryParam("riddleID") long riddleID){
