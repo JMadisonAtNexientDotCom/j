@@ -35,6 +35,19 @@ import test.dbDataAbstractions.entities.tables.TokenTable;
  * @author jmadison: 2015.09.02_0354PM **/
 public class TransUtil {
     
+    /** Stores the variable of the NEXT thread ID to give to thread-local
+     *  threadID variable. **/
+    public static int nextThreadID = 0;
+    public static ThreadLocal<Integer> getNextThreadID(){
+        ThreadLocal<Integer> op = new ThreadLocal<Integer>();
+        op.set(nextThreadID);
+        nextThreadID++;
+        return op;
+    }//FUNC::END
+    
+    /** Initialize this ThreadLocal Integer. **/
+    public static ThreadLocal<Integer> threadID;
+    
     /** This static utility has state information in it. I designed this
      *  intentionally for helping catch errors in the logic of a transaction.
      *  However, I expected this logic to break down if two or more API
@@ -63,12 +76,6 @@ public class TransUtil {
      *  For more info, see EXIT_WITH_SAVE **/
     public static final Boolean EXIT_NO_SAVING = false;
     
-    /** If the application is single threaded, then we can implement
-     *  one very helpful piece of error checking:
-     *  We can check for balance/pairing between
-     *  entering a transaction and exiting a transaction. */
-    public static final Boolean isSingleThreaded = true;
-    
     /** Variable that helps for catching errors. Only used when
      *  isSingleThreaded == true, because this debugging logic may
      *  not hold up in multi-threaded environments.
@@ -93,14 +100,6 @@ public class TransUtil {
     
     static
     {///////////////////////  Static Initializer  //////////////////////////////
-        //by implementing an array of entities that are marked to be
-        //saved when we exit the transaction state, we have effectively
-        //made this utility NON THREAD SAFE. Throw error if
-        //isSingleThreaded is != true.
-        if(false == isSingleThreaded)
-        {
-            throw new Error("My design is no longer thread safe");
-        }
         
         //allocate to zero items. Just to make sure ref is not null.
         //this array will be destroyed after exiting at transaction
@@ -165,6 +164,12 @@ public class TransUtil {
      * @return : Returns object representing the transaction we have entered **/
     public static Session enterTransaction(){
         
+        //BUGFIX: At beginning of enterTransaction, do a check to make sure
+        //we are not already inside a transaction. Not allowed to enterTransaction
+        //twice in a row. Lack of this check may be why concurrent threads
+        //were able to execute without an error showing up:
+        outsideTransactionCheck();
+        
         //Create new session factory:
         SessionFactory sf = HibernateUtil.getSessionFactory();
         
@@ -219,6 +224,21 @@ public class TransUtil {
      *                                                                       **/
     public static void exitTransaction(Session ses, Boolean weHaveEntitiesThatNeedSaving)
     {
+        //BUGFIX: Make sure we are INSIDE transaction state before exiting.
+        //This bugfix may lead to finding some concurrency errors.
+        insideTransactionCheck();
+        
+        //ERRROR CHECK: Make sure session object provided is identical
+        //to the one that was stored.
+        if(ses != activeTransactionSession ){ //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            String msg = "";
+            msg +="[Closing utility with a different session instance]";
+            msg +="[Than the once used to close it. Concurrency problem]";
+            msg +="[Most likely.]";
+            throw new MyError(msg);
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        
         //save,commit,close:
         //SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
         //loop through all entities marked to be saved,
@@ -338,8 +358,7 @@ public class TransUtil {
     /** Will crash program if we are OUTSIDE a transaction. **/
     public static void insideTransactionCheck(){
         
-        //This error check is NOT reliable in multi-threaded environment:
-        if(false == isSingleThreaded){ return;}  
+        //TODO: Make thread safe.
 
         if(false == areWeInTransaction)
         {
@@ -364,14 +383,14 @@ public class TransUtil {
     /** Will crash program if we are INSIDE a transaction. **/
     public static void outsideTransactionCheck(){
         
-        //This error check is NOT reliable in multi-threaded environment:
-        if(false == isSingleThreaded){ return;} 
+        //TODO: Make thread safe.
 
         if(true == areWeInTransaction)
         {
             String msg = "";
             msg += "[outsideTransactionCheck FAILED]";
             msg += "[Please check your transaction enter/exit balancing.]";
+            msg += "[ALSO: Could be concurrency/multi-thread problem.]";
             throw new MyError(msg);
         }
         
@@ -383,6 +402,7 @@ public class TransUtil {
             msg2 += "[insideTransactionCheck FAILED]";
             msg2 += "[Session reference should have been]";
             msg2 += "[nullifed upon exiting the transaction state.]";
+            msg2 += "[ALSO: Could be concurrency/multi-thread problem.]";
             throw new MyError(msg2);
         }
         
@@ -397,9 +417,7 @@ public class TransUtil {
      */
     private static void enterExitErrorCheck(Boolean isEntering){
         
-        //This error check cannot be done reliably in
-        //a multi-threaded environment. Exit if in multi-threaded environment.
-        if(false == isSingleThreaded){ return;}
+        //todo: Make thread safe.
         
         if(isEntering)
         {//we are entering a transaction:
@@ -493,3 +511,13 @@ public class TransUtil {
         
     }//FUNC::END
 }//END::CLASS
+
+//HISTORY:
+
+    //Removed because this is hackish, and we need to support multiple threads
+    //because Tomcat uses multiple threads for concurrent requests.
+    /** If the application is single threaded, then we can implement
+     *  one very helpful piece of error checking:
+     *  We can check for balance/pairing between
+     *  entering a transaction and exiting a transaction. */
+    //x//public static final Boolean isSingleThreaded = true;
