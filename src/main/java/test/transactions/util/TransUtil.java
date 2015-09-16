@@ -11,10 +11,42 @@ import org.hibernate.criterion.Projections;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 
 /**
+ * PURPOSE/PATTERN OF THIS UTILITY:
+ * Provides globally scoped logical "bracket" balancing for the application.
+ * 
+ * What I am trying to enforce:
+ * 1. All transaction logic in app must happen between:
+ *    enterTransaction() and exitTransaction() statements.
+ * 2. Transactions may NOT be nested.
+ * 
+ * This helps detect logic errors that could not otherwise be tested for.
+ * As there is a VAST SET of possible program states.
+ * 
+ * CONCERN:
+ * This is a static utility. Because it is looking for errors in the
+ * overall program logic. So far my load testing has not come up with any
+ * errors due to concurrent API calls... This actually shocks me. I am hoping
+ * this is the way it is by design. Because this behavior is very helpful to me.
+ * Thinking there must be a new instance of TransUtil for each 
+ * [session/request/connection]?
+ * 
  * TransUtil stands for: "Transaction Utility"
  * A utility used to remove boiler plate code from transactions.
  * @author jmadison: 2015.09.02_0354PM **/
 public class TransUtil {
+    
+    /** This static utility has state information in it. I designed this
+     *  intentionally for helping catch errors in the logic of a transaction.
+     *  However, I expected this logic to break down if two or more API
+     *  calls happen SYMULATANIOUSLY. They would both open up a session and
+     *  then store that state information here in the 
+     *  activeTransactionSession variable. One immediately overwriting the
+     *  other and corrupting the other.
+     * 
+     *  But after load testing... I did not see this happen.
+     *  But... I need to understand WHY this doesn't happen.
+     */
+    public static int debugSharedThreadCounter = 0;
     
     /** We exit a transaction with this flag to tell program that
      *  we believe we have registered entities to be saved upon exiting
