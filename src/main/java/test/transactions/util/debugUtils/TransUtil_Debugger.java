@@ -1,6 +1,7 @@
 package test.transactions.util.debugUtils;
 
 import test.transactions.util.TransUtil;
+import test.transactions.util.debugUtils.researchTest.ThreadSafeStaticUtility;
 
 /**-----------------------------------------------------------------------------
  * A debug class for TransUtil.java. I have some questions about concurrency
@@ -22,5 +23,15 @@ public class TransUtil_Debugger {
     public static int getSharedCounterValue(){
         return TransUtil.debugSharedThreadCounter;
     }//FUNC::END
+    
+    /** Increment non-shared counter. **/
+    public static void incrementHordedCounter(){
+        ThreadSafeStaticUtility.core.get().incrimentDebugCounter();
+    }
+    
+    /** Get value of non-shared counter. **/
+    public static int getHordedCounterValue(){
+        return ThreadSafeStaticUtility.core.get().debugCounter;
+    }
     
 }//CLASS::END

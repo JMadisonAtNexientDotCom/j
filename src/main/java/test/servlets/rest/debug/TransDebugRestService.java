@@ -58,5 +58,41 @@ public class TransDebugRestService extends BaseRestService{
         
     }//FUNC::END
     
+    @GET
+    @Path("incrementHordedCounter")
+    public Response incrementHordedCounter(){
+        
+        //Enter transaction state:
+        Session ses = TransUtil.enterTransaction();
+        
+        //Logic:
+        TransUtil_Debugger.incrementHordedCounter();
+        int op = TransUtil_Debugger.getHordedCounterValue();
+        
+        //Exit transaction state:
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+        
+        return JSONUtil.numberToJSONResponse
+                            (op,"TransDebugRestService.incrementHordedCounter");
+        
+    }//FUNC::END
+    
+    @Path("getHordedCounterValue")
+    public Response getHordedCounterValue(){
+        
+        //Enter transaction state:
+        Session ses = TransUtil.enterTransaction();
+        
+        //Logic:
+        int op = TransUtil_Debugger.getHordedCounterValue();
+        
+        //Exit transaction state:
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+        
+        return JSONUtil.numberToJSONResponse
+                            (op,"TransDebugRestService.getHordedCounterValue");
+        
+    }//FUNC::END
+    
     
 }//CLASS::END
