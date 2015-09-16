@@ -41,6 +41,7 @@ public class TransDebugRestService extends BaseRestService{
         
     }//FUNC::END
     
+    @GET
     @Path("getSharedCounterValue")
     public Response getSharedCounterValue(){
         
@@ -77,6 +78,7 @@ public class TransDebugRestService extends BaseRestService{
         
     }//FUNC::END
     
+    @GET
     @Path("getHordedCounterValue")
     public Response getHordedCounterValue(){
         
