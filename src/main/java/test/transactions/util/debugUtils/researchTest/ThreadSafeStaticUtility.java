@@ -11,12 +11,14 @@ public class ThreadSafeStaticUtility {
     //public static final ThreadLocal<ThreadSafeStaticUtility_CORE> core = 
     //                            new ThreadLocal<ThreadSafeStaticUtility_CORE>();
     
-    private static ThreadLocal<ThreadSafeStaticUtility_CORE> _core;
+    private static ThreadLocal<ThreadSafeStaticUtility_CORE> _core =
+                                new ThreadLocal<ThreadSafeStaticUtility_CORE>();
     
     public static ThreadSafeStaticUtility_CORE getCore(){
         ThreadSafeStaticUtility_CORE op = _core.get();
         if(null == op){
-            _core.set( op = new ThreadSafeStaticUtility_CORE());
+            op = new ThreadSafeStaticUtility_CORE();
+            _core.set( op );
         }
         
         return op; 
