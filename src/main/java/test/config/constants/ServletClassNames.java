@@ -8,6 +8,7 @@ package test.config.constants;
 import test.MyError;
 import test.servlets.rest.NinjaRestService;
 import test.servlets.rest.TokenRestService;
+import test.servlets.rest.debug.TransDebugRestService;
 import test.servlets.rest.riddleRhyme.RiddleRhymeRestService;
 
 /**
@@ -42,6 +43,12 @@ public class ServletClassNames {
                                                       "RiddleRhymeRestService";
     public static final String RiddleRhymeRestService_MAPPING   = 
                                                       "RiddleRhymeRestService/";
+    
+    //TRANSACTION DEBUGGER SERVICE:
+    public static final String TransDebugRestService_CLASSNAME = 
+                                                       "TransDebugRestService";
+    public static final String TransDebugRestService_MAPPING = 
+                                                       "TransDebugRestService/";
     
     //Static initializer.
     //I bundle it in a "doStaticInit()" function because
@@ -99,6 +106,9 @@ public class ServletClassNames {
         if( notEQ(RiddleRhymeRestService_CLASSNAME, RiddleRhymeRestService.class.getSimpleName()))
         {  mError(RiddleRhymeRestService_CLASSNAME); }
         
+        if( notEQ(TransDebugRestService_CLASSNAME, TransDebugRestService.class.getSimpleName()))
+        {  mError(TransDebugRestService_CLASSNAME); }
+        
         
     }//FUNC::END
     
@@ -111,6 +121,9 @@ public class ServletClassNames {
         
         checkMapping(RiddleRhymeRestService_CLASSNAME,
                      RiddleRhymeRestService_MAPPING);
+        
+        checkMapping(TransDebugRestService_CLASSNAME,
+                     TransDebugRestService_MAPPING);
                         
     }//FUNC::END
     
