@@ -96,5 +96,28 @@ public class TransDebugRestService extends BaseRestService{
         
     }//FUNC::END
     
+    /**-------------------------------------------------------------------------
+     * Testing the ability to assign the Static Utils core a different id
+     * for each thread it exists on.
+     * @return :The ID of the utility core executing on the request thread.
+     ------------------------------------------------------------------------**/
+    @GET
+    @Path("getUtilityInstanceID")
+    public Response getUtilityInstanceID(){
+        
+        //Enter transaction state:
+        Session ses = TransUtil.enterTransaction();
+        
+        //Logic:
+        int op = TransUtil_Debugger.getUtilityInstanceID();
+        
+        //Exit transaction state:
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+        
+        return JSONUtil.numberToJSONResponse
+                            (op,"TransDebugRestService.getUtilityInstanceID");
+        
+    }//FUNC::END
+    
     
 }//CLASS::END

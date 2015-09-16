@@ -34,4 +34,11 @@ public class TransUtil_Debugger {
         return ThreadSafeStaticUtility.getCore().debugCounter;
     }
     
+    /** Get the uniqueID of the utility. Though the utility is static. ---------
+     *  There is one instance of it per thread.
+     * @return :Integer ID --------------------------------------------------**/
+    public static int getUtilityInstanceID(){
+        return ThreadSafeStaticUtility.getCore().utilityInstanceID;
+    }
+    
 }//CLASS::END

@@ -9,6 +9,10 @@ package test.transactions.util.debugUtils.researchTest;
  */
 public class ThreadSafeStaticUtility_CORE {
     
+    /** An ID to help us debug. Helps us differentiate instances of this
+     *  utility running on different threads.  ------------------------------**/
+    public int utilityInstanceID = (-1);
+    
     public int debugCounter = 0;
     
     public void incrimentDebugCounter(){
