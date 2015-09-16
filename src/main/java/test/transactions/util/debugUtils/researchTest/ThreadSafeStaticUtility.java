@@ -7,7 +7,19 @@ package test.transactions.util.debugUtils.researchTest;
  */
 public class ThreadSafeStaticUtility {
     
-    public static final ThreadLocal<ThreadSafeStaticUtility_CORE> core = 
-                                new ThreadLocal<ThreadSafeStaticUtility_CORE>();
+    //This seems not to work. Trying another approach.
+    //public static final ThreadLocal<ThreadSafeStaticUtility_CORE> core = 
+    //                            new ThreadLocal<ThreadSafeStaticUtility_CORE>();
+    
+    private static ThreadLocal<ThreadSafeStaticUtility_CORE> _core;
+    
+    public static ThreadSafeStaticUtility_CORE getCore(){
+        ThreadSafeStaticUtility_CORE op = _core.get();
+        if(null == op){
+            _core.set( op = new ThreadSafeStaticUtility_CORE());
+        }
+        
+        return op; 
+    } 
     
 }//CLASS::END

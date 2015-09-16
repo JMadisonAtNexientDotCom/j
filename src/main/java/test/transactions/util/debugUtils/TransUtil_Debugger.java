@@ -26,12 +26,12 @@ public class TransUtil_Debugger {
     
     /** Increment non-shared counter. **/
     public static void incrementHordedCounter(){
-        ThreadSafeStaticUtility.core.get().incrimentDebugCounter();
+        ThreadSafeStaticUtility.getCore().incrimentDebugCounter();
     }
     
     /** Get value of non-shared counter. **/
     public static int getHordedCounterValue(){
-        return ThreadSafeStaticUtility.core.get().debugCounter;
+        return ThreadSafeStaticUtility.getCore().debugCounter;
     }
     
 }//CLASS::END
