@@ -1,6 +1,11 @@
 package test.transactions.util.debugUtils.researchTest;
 
 /**
+ * THIS IS HOW WE WILL DO IT!
+ * Though for TransUtil.java, we might want a less verbose call.
+ * Like TransUtil.i.someFunction() rather than TransUtil.getCore.someFunction();
+ * 
+ * 
  * An attempt to make a thread-safe static utility where all static variables
  * have UNIQUE INSTANCE for each thread this utility is being used on.
  * @author jmadison
