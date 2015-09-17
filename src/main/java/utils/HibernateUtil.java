@@ -22,6 +22,7 @@ import test.dbDataAbstractions.entities.tables.RiddleRhymeWrongTable;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.dbDataAbstractions.entities.tables.TestTable01;
 import test.dbDataAbstractions.entities.tables.TokenTable;
+import test.debug.debugUtils.EntityColumnDebugUtil;
 
 
 
@@ -122,33 +123,7 @@ public class HibernateUtil {
         getSessionFactory().close();
     }
 
-    /** This way on stack overflow seems more sensible. **/
-    /*
-    //Have NOT found a way to validate the configuration path. So put
-    //resources folder  under java folder as a huntch. Then will just try
-    //my other setUp() method and put hbm.cfg.xml at root of project or
-    //root of WEB-INF 
-    //http://stackoverflow.com/questions/4934330/org-hibernate-hibernateexception-hibernate-cfg-xml-not-found
-    protected static void setUp(){
-         Configuration configuration = new Configuration();
-         configuration.configure("resources//hbm.cfg.xml");
-         //configuration.configure("sfdsfdsfdsf//sfdjslfj//hbm.cfg.xml");
-         StandardServiceRegistryBuilder ssrb = 
-            new StandardServiceRegistryBuilder().applySettings(configuration
-                                                              .getProperties());
-         _sessionFactory = configuration.buildSessionFactory(ssrb.build());
-         
-         if(null != _sessionFactory)
-         {
-             _hasSessionFactory = true;
-             throw new MyError("session factory is null, abc");
-         }
-         else
-         {
-             _hasSessionFactory = false;
-         }
-    }//setUp
-    */
+    
     
     //SOURCE: http://docs.jboss.org/hibernate/orm/5.0/quickstart/html/
     //Example 4. Obtaining the org.hibernate.SessionFactory
@@ -206,34 +181,7 @@ public class HibernateUtil {
          addAnnotations(mds);
          Metadata md = mds.buildMetadata();
          _sessionFactory = md.buildSessionFactory();
-         
-         //UDPATE: Add annotation configuration here?
-      
-         
-         
          _hasSessionFactory = true;
-        
-        /*
-	try {
-		//_sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
-                MetadataSources mds = new MetadataSources(registry);
-                Metadata md = mds.buildMetadata();
-                _sessionFactory = md.buildSessionFactory();
-                _hasSessionFactory = true;
-	}
-	catch (Exception e) {
-		// The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
-		// so destroy it manually.
-                _hasSessionFactory = false;
-                _sessionFactory    = null;
-		StandardServiceRegistryBuilder.destroy( registry );
-                throw new MyError("setUp failed!");
-	}
-        */
-        
-        //test is okay here maybe?
-        //NO,not okay here. since the test can call setup.
-        //testSessionFactoryReferenceIntegrity();
         
     }//FUNC:setUp:END
     
@@ -245,13 +193,33 @@ public class HibernateUtil {
      *              AnnotationConfiguration object in previous
      *              versions of hibernate. ----------------------------------**/
     private static void addAnnotations(MetadataSources mds){
-        mds.addAnnotatedClass(TestTable01.class );
-        mds.addAnnotatedClass(TokenTable .class );
-        mds.addAnnotatedClass(NinjaTable .class );
-        mds.addAnnotatedClass(RiddleTable.class );
-        mds.addAnnotatedClass(RhymeTable .class );
-        mds.addAnnotatedClass(RiddleRhymeTruthTable.class);
-        mds.addAnnotatedClass(RiddleRhymeWrongTable.class);
+        addAnnoEntity(mds, TestTable01.class );
+        addAnnoEntity(mds, TokenTable .class );
+        addAnnoEntity(mds, NinjaTable .class );
+        addAnnoEntity(mds, RiddleTable.class );
+        addAnnoEntity(mds, RhymeTable .class );
+        addAnnoEntity(mds, RiddleRhymeTruthTable.class);
+        addAnnoEntity(mds, RiddleRhymeWrongTable.class);
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+     * Adds annotated entity class to MetadataSources, but ALSO
+     * registers that class with my debug code so that I can make sure that
+     * this constraint is enforced: 
+     * 
+     * Column annotation name used == the actual column name in database.
+     * Variable name used == the actual column in database.
+     * Have everything MATCH EXACTLY. This makes criteria queries much
+     * easier to pull off.
+     * @Column(name="column_name") private long column_name;
+     *
+     * @param mds :The object we are injecting with annotation config info.
+     * @param annotatedEntityClass :The class to inject into mds.
+     ------------------------------------------------------------------------**/
+    private static void addAnnoEntity
+                              (MetadataSources mds, Class annotatedEntityClass){
+        mds.addAnnotatedClass(annotatedEntityClass);
+        EntityColumnDebugUtil.addAnnotatedEntityClass(annotatedEntityClass);
     }//FUNC::END
     
     /** Checks to make sure the _has variable matches the reference var. **/
