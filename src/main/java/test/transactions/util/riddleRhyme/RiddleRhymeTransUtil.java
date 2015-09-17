@@ -14,11 +14,10 @@ import test.transactions.util.riddleRhyme.joinTables.wrong.RiddleRhymeTransUtil_
 import test.transactions.util.riddleRhyme.rhymeRiddle.rhyme.RhymeTransUtil;
 import test.transactions.util.riddleRhyme.rhymeRiddle.riddle.RiddleTransUtil;
 
-/**
+/**-----------------------------------------------------------------------------
  * Utility that is responsible for transactions that involve both the
  * RiddleTable.java (question table) and the RhymeTable.java (answer table)
- * @author jmadison
- */
+ * @author jmadison ----------------------------------------------------------*/
 public class RiddleRhymeTransUtil {
     
     /** Positive numbers denote TRUE **/
