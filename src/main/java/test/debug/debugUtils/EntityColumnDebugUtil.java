@@ -243,8 +243,10 @@ public class EntityColumnDebugUtil {
         String nl = System.lineSeparator();
         String msg = "";
         ErrorEntry cur;
+        msg+="[::BROKEN ENFORCED CONVENTION ERROR::] (Details Below)" + nl;
+        msg+="Variable Name != Column Name" + nl;
         msg+="|--Class Name:--||--Variable Name:--||--Column Name:--|" + nl;
-        
+       
         int len = _errorList.size();
         for(int i = 0; i < len; i++){
             cur = _errorList.get(i);
