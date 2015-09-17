@@ -27,7 +27,7 @@ import test.MyError;
  *    base column because we have this_style_of_variable rather than
  *    thisStyleOfVariable
  * 
- * @author jmadison
+ * @author jmadison ON:2015.09.17_0313PM
  ----------------------------------------------------------------------------**/
 public class EntityColumnDebugUtil {
     

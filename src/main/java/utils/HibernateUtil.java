@@ -64,6 +64,9 @@ public class HibernateUtil {
      ------------------------------------------------------------------------**/
     public synchronized static SessionFactory getSessionFactory() {
         
+        //Variable integrity check:
+        throwErrorIfBadSessionFactoryRef();
+        
         if(false == _hasSessionFactory)
         { 
             //try{ setUp();}catch(Exception e){System.out.println(e);}
@@ -73,7 +76,7 @@ public class HibernateUtil {
         //Make sure getter crashes here if trying to return null.
         //If null, ask if we failed to call the static initializer:
         if(null==_sessionFactory)
-        {
+        {//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             MyError me;
             String msg = "getSessionFactory() FAILED! :: null==_sessionFactory,";
             msg += ("_hasSessionFactory ==" + _hasSessionFactory);
@@ -83,7 +86,10 @@ public class HibernateUtil {
             msg += _debug_log;
             me = new MyError(msg);
             throw me;
-        }
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        //Variable integrity check:
+        throwErrorIfBadSessionFactoryRef();
         
         return _sessionFactory;
     }//FUNC::END
@@ -211,14 +217,18 @@ public class HibernateUtil {
     
     /** Checks to make sure the _has variable matches the reference var. **/
     private static void throwErrorIfBadSessionFactoryRef(){
-        if( (true==_hasSessionFactory) && (null == _sessionFactory))
+        if( (true==_hasSessionFactory) && (null == _sessionFactory))//----------
         {
-            throw new MyError("_sessionFactory==null, yet _hasSessionFactory==true");
+            String e1;
+            e1 = "_sessionFactory==null, yet _hasSessionFactory==true";
+            throw new MyError(e1);
         }else
         if( (false==_hasSessionFactory) && (null != _sessionFactory))
         {
-             throw new MyError("_sessionFactory!=null, but _hasSessionFactory==false");
-        }
+            String e2;
+            e2 = "_sessionFactory!=null, but _hasSessionFactory==false";
+            throw new MyError(e2);
+        }//---------------------------------------------------------------------
     }//FUNC::END
     
     private static void log(String inMSG){
