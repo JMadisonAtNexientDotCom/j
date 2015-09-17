@@ -178,12 +178,28 @@ public class HibernateUtil {
 			.build();
         
          MetadataSources mds = new MetadataSources(registry);
-         addAnnotations(mds);
+      
+         annotationConfigurationStep(mds);
+        
          Metadata md = mds.buildMetadata();
          _sessionFactory = md.buildSessionFactory();
          _hasSessionFactory = true;
         
     }//FUNC:setUp:END
+    
+    /** Links the annotations to hibernate. (or rather, prepares)---------------
+     *  And then debugs to make sure our @Column annotations fit the
+     *  convention of variable name must match column name.
+     * @param mds :Object to apply described operation to.
+     ------------------------------------------------------------------------**/
+    private static void annotationConfigurationStep(MetadataSources mds){
+        
+        //Register annotations with HIBERNATE and our DEBUGGER utility:
+        addAnnotations(mds);
+        
+        //Use debug utility to make sure everything is setup correctly:
+        EntityColumnDebugUtil.doIntegrityCheck();
+    }//FUNC::END
     
     /** This function replaces the entity mappings that were in-----------------
      *  hbm.cfg.xml.
