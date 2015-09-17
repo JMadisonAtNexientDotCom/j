@@ -3,27 +3,28 @@ package test.debug.debugUtils.helpers;
 import java.util.List;
 
 /**-----------------------------------------------------------------------------
- * An object that logs an @Column(name=...) error in our code.
- * @author jmadison
- ----------------------------------------------------------------------------**/
-public class ErrorEntry {
+ * Collects data for STATIC: [[varname.toUpperCase()]+_COLUMN] 
+ * variable missing errors.
+ * @author jmadison :2015.07.19_0547PM
+ -----------------------------------------------------------------------------*/
+public class ErrorEntry_STATIC_COLUMN {
+    
     public Class c;
     public String fieldName;
     public String columnName;
     
-    /**-------------------------------------------------------------------------
+    
+     /**-------------------------------------------------------------------------
      * Helps compile output log of errors.
      * @param msg    :The error message to append to.
      * @param errors :The list of error entries to serialize.
      * @return       :New and improved error message.
      ------------------------------------------------------------------------**/
-    public static String add(String msg, List<ErrorEntry> errors){
+    public static String add(String msg, List<ErrorEntry_STATIC_COLUMN> errors){
         
         String nl = System.lineSeparator();
-        ErrorEntry cur;
-        msg+="[::BROKEN ENFORCED CONVENTION ERROR::] (Details Below)" + nl;
-        msg+="Variable Name != Column Name" + nl;
-        msg+="|--Class Name:--||--Variable Name:--||--Column Name:--|" + nl;
+        ErrorEntry_STATIC_COLUMN cur;
+        msg+="[::CONSTVAL_COLUMN ERROR FOR STATIC _COLUMN::]" + nl;
        
         int len = errors.size();
         for(int i = 0; i < len; i++){
@@ -34,7 +35,6 @@ public class ErrorEntry {
         return msg;
         
     }//FUNC::END
-    
     
     /** Serializes one line/row of one of the errors we have.-------------------
      *  So that we can build our ascii table of errors to output
@@ -50,5 +50,4 @@ public class ErrorEntry {
         msg+= System.lineSeparator();
         return msg;
     }//FUNC::END
-    
 }//CLASS::END

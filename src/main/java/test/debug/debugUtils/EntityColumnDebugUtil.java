@@ -2,11 +2,17 @@ package test.debug.debugUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Column;
 import test.MyError;
 import test.debug.debugUtils.helpers.ErrorEntry;
+import test.debug.debugUtils.helpers.ErrorEntry_CONSTVAL_CASE;
+import test.debug.debugUtils.helpers.ErrorEntry_CONSTVAL_CHARS;
+import test.debug.debugUtils.helpers.ErrorEntry_STATIC_COLUMN;
 
 /**-----------------------------------------------------------------------------
  * This is a utility used to enforce a convention of mine.
@@ -53,6 +59,24 @@ public class EntityColumnDebugUtil {
     private static final List<ErrorEntry> _errorList = 
                                                     new ArrayList<ErrorEntry>();
     
+    /** An error list of static column errors.----------------------------------
+     *  Meaning: Variable annotated with @Column does not have an analogous
+     *  static variable ending with _COLUMN ---------------------------------**/
+    private static final List<ErrorEntry_STATIC_COLUMN> 
+           _errorList_STATIC_COLUMN = new ArrayList<ErrorEntry_STATIC_COLUMN>();
+    
+    /** An error list of static column errors.----------------------------------
+     *  Meaning: Variable annotated with @Column does not have an analogous
+     *  static variable ending with _COLUMN ---------------------------------**/
+    private static final List<ErrorEntry_CONSTVAL_CASE> 
+           _errorList_CONSTVAL_CASE = new ArrayList<ErrorEntry_CONSTVAL_CASE>();
+    
+    /** An error list of static column errors.----------------------------------
+     *  Meaning: Variable annotated with @Column does not have an analogous
+     *  static variable ending with _COLUMN ---------------------------------**/
+    private static final List<ErrorEntry_CONSTVAL_CHARS> 
+         _errorList_CONSTVAL_CHARS = new ArrayList<ErrorEntry_CONSTVAL_CHARS>();
+    
     /**-------------------------------------------------------------------------
      * Add an entity class to our list. We will debug the @Column annotations
      * on this entity at a later date.
@@ -89,13 +113,18 @@ public class EntityColumnDebugUtil {
         List<Field> fields;
         Field curField;
         
+        /** static class variables ending with "_COLUMN" used to identify ------
+         *  the column name when doing criteria search. ---------------------**/
+        List<Field> theStaticColumnFields;
+        
         fields = getFieldsOnClass(curClass);
         setAccessModifiersToPublic(fields);
+        theStaticColumnFields = getStaticColumnFieldsFromList(fields);
         
         int len = fields.size();
         for(int i = 0; i < len; i++){
             curField = fields.get(i);
-            checkField(curField);
+            checkField(curField, theStaticColumnFields);
         }//NEXT i
         
     }//FUNC::END
@@ -135,7 +164,8 @@ public class EntityColumnDebugUtil {
      *  our rule is being enforced.
      * @param curField 
      ------------------------------------------------------------------------**/
-    private static void checkField(Field curField){
+    private static void checkField
+                            (Field curField, List<Field> theStaticColumnFields){
         
         Annotation ann = curField.getAnnotation(Column.class);
         if(ann instanceof Column){
@@ -145,9 +175,149 @@ public class EntityColumnDebugUtil {
             if(notEQ(fieldName,columnName)){
                 //throwColumnNamingError(fieldName,columnName);
                 addError(_currentClassBeingExamined, fieldName, columnName);
-            }
+            }else{
+                //No error on that front. So check for another error.
+                //Does this field name have an analagous "XXXXXXXXX_COLUMN"
+                //that exists as a static variable on the class?
+                int doesFieldNameExist;
+                doesFieldNameExist = checkField_IsPairedWith_STATIC_COLUMN
+                                             (fieldName, theStaticColumnFields);
+                
+                //If the field name does NOT exist, we will COLLECT an error because
+                //our convention of making public static identifiers for the 
+                //field names of variables annotated with @Column has been broken.
+                if(doesFieldNameExist == (-1)){//------------------------------
+                    addError_STATIC_COLUMN
+                                        (_currentClassBeingExamined, fieldName);
+                }else{
+                    //field may exist... But does it contain correct value?
+                    //Example: TOKEN_MSG_COLUMN would == "token_msg"
+                    //Example: ID_COLUMN would == "id"
+                    int valid_index = doesFieldNameExist;
+                    Field theStaticColumn = theStaticColumnFields.get
+                                                                  (valid_index);
+                    boolean columnConstNameIsCorrect;
+                    columnConstNameIsCorrect = staticColumnContentCheck
+                                  (_currentClassBeingExamined, theStaticColumn);
+                    
+                    if(false == columnConstNameIsCorrect){
+                        addError_CONSTVAL_CHARS(_currentClassBeingExamined, theStaticColumn);
+                    }//ERROR#3: name of _COLUMN variable not reflected in it's value.
+                }//ERROR#2: no corrosponding STATIC: [variable]_COLUMN 
+            }//ERROR#1: field name does not match @column name.
         }//instance of?
        
+    }//FUNC::END
+                            
+    /** ------------------------------------------------------------------------
+     *  Looks at a static _COLUMN variable to see if it has correct value.
+     *  EXAMPLE:
+     *  public static string TOKEN_MSG_COLUMN = "token_msg";
+     *  The value has the _COLUMN stripped off. And it is all lowercase.
+     * 
+     *  value is == "token_msg" 
+     * @param c :The class that this Field belongs to.
+     * @param theStaticColumn :The field we are inspecting.
+     * @return :True if everything checks out alright.
+     ------------------------------------------------------------------------**/
+    private static boolean staticColumnContentCheck
+                                               (Class c, Field theStaticColumn){
+        
+        //reference for getting value of static variable:
+        //http://stackoverflow.com/questions/2685345/
+        String staticVarName = theStaticColumn.getName();
+        
+        //if an error happens here, we are not even going to to record it. EEEEE
+        //we are just going to throw an unhandled exception right now. EEEEEEEEE
+        Object obj;
+        try {
+            obj = theStaticColumn.get(null);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(EntityColumnDebugUtil.class.getName()).log
+                                                       (Level.SEVERE, null, ex);
+            throw new MyError("unable to retrieve value of static var. #1");
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(EntityColumnDebugUtil.class.getName()).log
+                                                       (Level.SEVERE, null, ex);
+            throw new MyError("unable to retrieve value of static var. #2");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        //cast the object to string:
+        String staticVarValue = (String)obj;
+        
+        //Check to make sure all characters in staticVarValue are lowercase.
+        if(false == areAllCharactersLowercase(staticVarValue)){
+            addError_CONSTVAL_CASE(c,theStaticColumn);
+            return false;
+        }//false
+        
+        //take the staticVarValue and append "_COLUMN" to it, then UCASE it.
+        //if everything hits convention, it will now be equivalent to
+        //staticVarName:
+        String reconstruction = staticVarValue.toUpperCase() + "_COLUMN";
+        if( notEQ(reconstruction, staticVarName)){
+            return false;
+        }/////////////////////////////////////////
+        
+        //return true, the contents of the static variable check out alright.
+        return true;
+        
+    }//FUNC::END
+                              
+    
+    
+    /**-------------------------------------------------------------------------
+     * @param value : The string we want to check for all lowercase.
+     * @return      : Returns TRUE if all characters were lowercase.
+     ------------------------------------------------------------------------**/
+    private static boolean areAllCharactersLowercase(String value){
+        String ucased = value.toLowerCase();
+        return ( ucased.equals(value));
+    }//FUNC::END
+                      
+    /**
+     * Compares the current field against a selection of static fields.
+     * Looks for a static field that is equal to this formula:
+     * lookingFor == fieldName.toUpperCase() + "_COLUMN";
+     * @param fieldName :The instance field NAME we hope has a friend.
+     * @param theStaticColumnFields :The potential static fields that could
+     *                               fit the naming criteria we are looing for.
+     */
+    private static int checkField_IsPairedWith_STATIC_COLUMN
+                          (String fieldName, List<Field> theStaticColumnFields){
+                  
+        String lookingFor = fieldName.toUpperCase() + "_COLUMN";
+        int exists_at = doesFieldNameExist(lookingFor, theStaticColumnFields);
+        
+        return exists_at;
+                                
+    }//FUNC::END
+                            
+    
+                   
+    /**-------------------------------------------------------------------------
+     * Query if a field name exists in the collection:
+     * @param lookingFor :The name of the field we are looking for.
+     * @param theStaticColumnFields :The fields to search through.
+     * @return :INDEX of ~occurance~ of Field matching search criteria.
+     *          If no match found, returns (-1)
+     ------------------------------------------------------------------------**/
+    private static int doesFieldNameExist
+                         (String lookingFor, List<Field> theStaticColumnFields){
+        int results = (-1);
+        Field cur;
+        int len = theStaticColumnFields.size();
+        for(int i = 0; i < len; i++){
+                cur = theStaticColumnFields.get(i);
+                if(cur.getName().equals(lookingFor)){
+                    results = i;
+                    break; //exit loop.
+                }////////////////////////////////////
+        }//NEXT i
+        
+        //return if field of name [lookingFor] was found:
+        return results;
+        
     }//FUNC::END
     
     /** Throws an error to alert the programmer that they have broken our
@@ -207,7 +377,7 @@ public class EntityColumnDebugUtil {
     private static void possiblyCrashAndListProblems(){
         
         //if anything is in our error list, we will crash:
-        int errorAmount = _errorList.size();
+        int errorAmount = getSumOfAllErrorsFromLists();
         if(errorAmount>0){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             crashAndOutput();
         }else
@@ -218,8 +388,136 @@ public class EntityColumnDebugUtil {
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
     }//FUNC::END
+   
+    /** rawer... **/
+    private static void crashAndOutput(){
+        
+        //Our initial blank message:
+        String msg = "";
+        
+        if(_errorList.size() > 0){
+            ErrorEntry.add(msg, _errorList);
+        }//APPEND MSG
+        
+        if(_errorList_STATIC_COLUMN.size() > 0){
+            ErrorEntry_STATIC_COLUMN.add(msg, _errorList_STATIC_COLUMN);
+        }//APPEND MSG
+        
+        if(_errorList_CONSTVAL_CASE.size() > 0){
+            ErrorEntry_CONSTVAL_CASE.add(msg, _errorList_CONSTVAL_CASE);
+        }//APPEND MSG
+        
+        if(_errorList_CONSTVAL_CHARS.size() > 0){
+            ErrorEntry_CONSTVAL_CHARS.add(msg, _errorList_CONSTVAL_CHARS);
+        }//APPEND MSG
+        
+        //BUGFIX: Forgot the most important part...Throwing the error.
+        throw new MyError(msg);
+        
+    }//FUNC::END
     
-    /** Appends an error to our list of errors. Will spit out all errors--------
+    
+    
+    /**-------------------------------------------------------------------------
+     * Find the static member variables that end with "_COLUMN" so that we
+     * can enforce this convention as well. This makes it easy for us to
+     * do a criteria search.
+     * @param fields :A list of fields that were collected from the class.
+     * @return :The static fields in the list provided.
+     -------------------------------------------------------------------------*/
+    private static List<Field> getStaticColumnFieldsFromList
+                                                           (List<Field> fields){
+        List<Field> op = new ArrayList<Field>();
+        Field cur;
+        
+        int len = fields.size();
+        for(int i = 0; i < len; i++){
+            cur = fields.get(i);
+            if( getIsFieldStaticColumn(cur)){
+                op.add(cur);
+            }//||||||||||||||||||||||||||||||
+        }//NEXT i
+        
+        //return the accumulated static fields ending with "_COLUMN"
+        return op;
+    }//FUNC::END
+      
+                                                           
+    private static boolean getIsFieldStatic(Field f){
+       boolean result = false;     
+       //http://stackoverflow.com/questions/3422390/
+       //                     retrieve-only-static-fields-declared-in-java-class
+       if (java.lang.reflect.Modifier.isStatic(f.getModifiers())) {
+           result = true;
+       }//Modifier Logic.
+       
+       return result;
+    }//FUNC::END
+     
+    /** Parse the name of the field and look for "_COLUMN" at the END
+     *  of it. Decided at the end because:
+     *  1. Gramatically less confusing most of the time than
+     *     if used as PREFIX rather than POSTFIX.
+     *  2. CleanCode recommends against pre-fixing a mass amount of
+     *     identifiers with the same word because it wreaks havock on
+     *     your auto-complete functions.
+     * @param f : The field we want to ~analize~.
+     * @return 
+     */
+    private static boolean getIsFieldColumn(Field f){
+        
+        //true/false result to return. Initially FALSE.
+        boolean result = false;
+        
+        //The name of the field we want to analize.
+        String n = f.getName();
+        
+        //Psuedo constants to help calculations:
+        String _COLUMN = "_COLUMN";
+        int _COLUMN_DOT_LENGTH = _COLUMN.length();
+        
+        //http://stackoverflow.com/questions/1987673/substring-search-in-java
+        int dexOf = n.indexOf(_COLUMN);
+        if(dexOf != (-1)){
+            //Only valid if "_COLUMN" appears at the END."
+            int lastValidIndex  = n.length()-1;
+            int indexOfLetter_N = dexOf + _COLUMN_DOT_LENGTH - 1;
+            if(lastValidIndex == indexOfLetter_N){
+                result = true;
+            }//_COLUMN aligned at exact edge of word.
+        }//_COLUMN FOUND!
+
+        return result;
+       
+    }//FUNC::END
+                                                           
+    private static boolean getIsFieldStaticColumn(Field f){
+        boolean is_Static;
+        boolean is_COLUMN;
+        is_Static = getIsFieldStatic(f);
+        is_COLUMN = getIsFieldColumn(f);
+        boolean results = (is_Static & is_COLUMN);
+        return results;
+    }//FUNC::END
+    
+    /** Gets a talley of all our problems in the source code. ------------------
+     * @return :Total number of errors.
+     ------------------------------------------------------------------------**/
+    private static int getSumOfAllErrorsFromLists(){
+        int sum = 0;
+        sum += _errorList.size();
+        sum += _errorList_STATIC_COLUMN.size();
+        sum += _errorList_CONSTVAL_CASE.size();
+        sum += _errorList_CONSTVAL_CHARS.size();
+        return sum;
+    }//FUNC::END
+    
+    //ADD ERROR FUNCTIONS:
+    //[AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][]
+    //[AE]------------|       START      |--------------------------------[AE][]
+    //[AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][]
+    
+     /** Appends an error to our list of errors. Will spit out all errors--------
      *  after all annotated classes have been examined.
      * @param c         :c is for Class. The class that contains error.
      * @param fieldName :the filedName/variableName with problem.
@@ -238,39 +536,63 @@ public class EntityColumnDebugUtil {
         
     }//FUNC::END
     
-    private static void crashAndOutput(){
-        
-        String nl = System.lineSeparator();
-        String msg = "";
-        ErrorEntry cur;
-        msg+="[::BROKEN ENFORCED CONVENTION ERROR::] (Details Below)" + nl;
-        msg+="Variable Name != Column Name" + nl;
-        msg+="|--Class Name:--||--Variable Name:--||--Column Name:--|" + nl;
-       
-        int len = _errorList.size();
-        for(int i = 0; i < len; i++){
-            cur = _errorList.get(i);
-            msg+=makeErrorRecord(cur);
-        }//NEXT i
-        
-        //BUGFIX: Forgot the most important part...Throwing the error.
-        throw new MyError(msg);
-        
+    /** Add a broken static _COLUMN identifier error-entry to our list----------
+     *  of errors to report on.
+     * @param c :The class that has the error.
+     * @param fieldName :The INSTANCE field name that does not have a
+     *                   STATIC _COLUMN identifier variable paired with it.
+     ------------------------------------------------------------------------**/
+    private static void addError_STATIC_COLUMN(Class c, String fieldName){
+        ErrorEntry_STATIC_COLUMN entry = new ErrorEntry_STATIC_COLUMN();
+        entry.c = c;
+        entry.fieldName = fieldName;
+        entry.columnName = "!N/A!";
+        _errorList_STATIC_COLUMN.add(  entry  );
     }//FUNC::END
     
-    /** Serializes one line/row of one of the errors we have.-------------------
-     *  So that we can build our ascii table of errors to output
-     *  as error message.
-     * @param cur : The current error to serialize into a line of text.
-     * @return    : Serialized ErrorEntry
+    /** This error is for when the casing is incorrect in the value of ---------
+     *  the static _COLUMN variable.
+     * @param c :The current class being inspected, 
+     *           that the variable belongs to.
+     * @param theStaticColumn :The STATIC variable we are inspecting.
      ------------------------------------------------------------------------**/
-    private static String makeErrorRecord(ErrorEntry cur){
-        String msg = "";
-        msg+="[" + cur.c.getCanonicalName() + "]";
-        msg+="[" + cur.fieldName + "]";
-        msg+="[" + cur.columnName + "]";
-        msg+= System.lineSeparator();
-        return msg;
+    private static void addError_CONSTVAL_CASE(Class c, Field theStaticColumn){
+        ErrorEntry_CONSTVAL_CASE entry = new ErrorEntry_CONSTVAL_CASE();
+        entry.c = c;
+        entry.fieldName = theStaticColumn.getName();
+        entry.columnName = "!N/A!";
+        _errorList_CONSTVAL_CASE.add(  entry  );
     }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+     * Error for when the value of our static _CONST is all lowercase as
+     * expected. But it doesn't correctly match the variable it corrosponds
+     * to as per our convention.
+     * 
+     * Example:
+     * -------------------------------------------------------------------------
+     * public static TOKEN_MSG_COLUMN = "token_msg";
+     * 
+     * @Column(name="token_msg");
+     * String token_msg
+     * -------------------------------------------------------------------------
+     * All of that must be in place for a database column to be referenced
+     * in an entity in this code base. NOTE: upper-case characters are
+     * NOT considered valid database column names in this code base.
+     * 
+     * @param c :The class that has the error.
+     * @param theStaticColumn :The STATIC variable we are inspecting. 
+     ------------------------------------------------------------------------**/
+    private static void addError_CONSTVAL_CHARS(Class c, Field theStaticColumn){
+        ErrorEntry_CONSTVAL_CHARS entry = new ErrorEntry_CONSTVAL_CHARS();
+        entry.c = c;
+        entry.fieldName = theStaticColumn.getName();
+        entry.columnName = "!N/A!";
+        _errorList_CONSTVAL_CHARS.add(  entry  );
+    }//FUNC::END
+    
+    //[AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][]
+    //[AE]------------|       END      |--------------------------------[AE][]
+    //[AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][AE][]
   
 }//CLASS::END
