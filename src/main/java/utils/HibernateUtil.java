@@ -15,6 +15,13 @@ import test.MyError;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import org.hibernate.boot.Metadata;
+import test.dbDataAbstractions.entities.tables.NinjaTable;
+import test.dbDataAbstractions.entities.tables.RhymeTable;
+import test.dbDataAbstractions.entities.tables.RiddleRhymeTruthTable;
+import test.dbDataAbstractions.entities.tables.RiddleRhymeWrongTable;
+import test.dbDataAbstractions.entities.tables.RiddleTable;
+import test.dbDataAbstractions.entities.tables.TestTable01;
+import test.dbDataAbstractions.entities.tables.TokenTable;
 
 
 //import org.hibernate.cfg.Configuration;
@@ -146,10 +153,6 @@ public class HibernateUtil {
         //String sep = System.getProperty("file.separator"); //<--http://stackoverflow.com/questions/19762169/forward-slash-or-backslash
         String handMadeRelativePath = "webapps/hbm.cfg.xml";
         
-        //test this to see what error results:
-        String invalidPath = "ninja/hbm.cfg.xml";
-      
-       
         if(false == f.exists())
         { 
             log("file reference is INVALID PATH");
@@ -173,8 +176,14 @@ public class HibernateUtil {
 			.build();
         
          MetadataSources mds = new MetadataSources(registry);
+         addAnnotations(mds);
          Metadata md = mds.buildMetadata();
          _sessionFactory = md.buildSessionFactory();
+         
+         //UDPATE: Add annotation configuration here?
+      
+         
+         
          _hasSessionFactory = true;
         
         /*
@@ -200,6 +209,23 @@ public class HibernateUtil {
         //testSessionFactoryReferenceIntegrity();
         
     }//FUNC:setUp:END
+    
+    /** This function replaces the entity mappings that were in-----------------
+     *  hbm.cfg.xml.
+     *  Example of such xml mapping:
+     *  <mapping class="com.richCompany.moneyApp.Billing"/>
+     * @param mds : The MetadataSources that replaces the old
+     *              AnnotationConfiguration object in previous
+     *              versions of hibernate. ----------------------------------**/
+    private static void addAnnotations(MetadataSources mds){
+        mds.addAnnotatedClass(TestTable01.class );
+        mds.addAnnotatedClass(TokenTable .class );
+        mds.addAnnotatedClass(NinjaTable .class );
+        mds.addAnnotatedClass(RiddleTable.class );
+        mds.addAnnotatedClass(RhymeTable .class );
+        mds.addAnnotatedClass(RiddleRhymeTruthTable.class);
+        mds.addAnnotatedClass(RiddleRhymeWrongTable.class);
+    }//FUNC::END
     
     /** Checks to make sure the _has variable matches the reference var. **/
     private static void throwErrorIfBadSessionFactoryRef(){
