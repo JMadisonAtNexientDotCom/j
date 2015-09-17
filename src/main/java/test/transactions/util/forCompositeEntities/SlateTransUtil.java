@@ -66,6 +66,10 @@ public class SlateTransUtil {
         Slate s = Slate.makeBlankSlate(validRiddleID);
         List<RhymeTable> rtList = RiddleRhymeTransUtil.getRhymesThatAre_WRONG
                                                              (validRiddleID, 4);
+        //set:
+        //s.originalQuips &
+        //s.rhymeSelection below:
+        populateWith_Niave_Quip_List(s, validRiddleID, 1, 3);
         s.rhymeSelection = CollectIDSFromListOfRhymeTableEntities(rtList);
         
         //Return slate populated with WRONG answers.
@@ -88,17 +92,33 @@ public class SlateTransUtil {
         List<RhymeTable> rtList = RiddleRhymeTransUtil.getRhymesThatAre_TRUTH
                                                              (validRiddleID, 4);
         
-        //ADDED:2015.09.16_0921PM
-        //Fake the original quips. Say 1 question was true, 3 were false:
-        List<RhymeTable> orgQuips = 
-                     RiddleRhymeTransUtil.getRhymesTrueFalse(validRiddleID,1,3);
-        
+        //set:
+        //s.originalQuips &
+        //s.rhymeSelection below:
+        populateWith_Niave_Quip_List(s, validRiddleID, 1, 3);
         s.rhymeSelection = CollectIDSFromListOfRhymeTableEntities(rtList);
-        s.originalQuips  = CollectIDSFromListOfRhymeTableEntities(orgQuips);
         
         //Return slate populated with WRONG answers.
         return s;    
         
+    }//FUNC::END
+    
+    /**
+     * TEMP: The originalQuips list may not actually have the answer
+     *       selected.
+     * @param s
+     * @param validRiddleID
+     * @param numWantedTrue
+     * @param numWantedFalse 
+     */
+    private static void populateWith_Niave_Quip_List
+           (Slate s, long validRiddleID, int numWantedTrue, int numWantedFalse){
+              
+        //ADDED:2015.09.16_0921PM
+        //Fake the original quips. Say 1 question was true, 3 were false:
+        List<RhymeTable> orgQuips = RiddleRhymeTransUtil.getRhymesTrueFalse
+                                   (validRiddleID,numWantedTrue,numWantedFalse);
+        s.originalQuips  = CollectIDSFromListOfRhymeTableEntities(orgQuips);
     }//FUNC::END
     
     /**
