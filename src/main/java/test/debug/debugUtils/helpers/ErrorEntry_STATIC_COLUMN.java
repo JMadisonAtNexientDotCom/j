@@ -42,7 +42,7 @@ public class ErrorEntry_STATIC_COLUMN {
      * @param cur : The current error to serialize into a line of text.
      * @return    : Serialized ErrorEntry
      ------------------------------------------------------------------------**/
-    private static String makeErrorRecord(ErrorEntry cur){
+    private static String makeErrorRecord(ErrorEntry_STATIC_COLUMN cur){
         String msg = "";
         msg+="[" + cur.c.getCanonicalName() + "]";
         msg+="[" + cur.fieldName + "]";
