@@ -250,6 +250,10 @@ public class EntityColumnDebugUtil {
             cur = _errorList.get(i);
             msg+=makeErrorRecord(cur);
         }//NEXT i
+        
+        //BUGFIX: Forgot the most important part...Throwing the error.
+        throw new MyError(msg);
+        
     }//FUNC::END
     
     /** Serializes one line/row of one of the errors we have.-------------------
