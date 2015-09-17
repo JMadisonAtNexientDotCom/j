@@ -389,26 +389,29 @@ public class EntityColumnDebugUtil {
         
     }//FUNC::END
    
-    /** rawer... **/
+    /**-------------------------------------------------------------------------
+     * Throws an error with an in depth summary of all those things you
+     * did wrong in the source code.
+     ------------------------------------------------------------------------**/
     private static void crashAndOutput(){
         
         //Our initial blank message:
         String msg = "";
         
         if(_errorList.size() > 0){
-            ErrorEntry.add(msg, _errorList);
+            msg += ErrorEntry.add(msg, _errorList);
         }//APPEND MSG
         
         if(_errorList_STATIC_COLUMN.size() > 0){
-            ErrorEntry_STATIC_COLUMN.add(msg, _errorList_STATIC_COLUMN);
+            msg += ErrorEntry_STATIC_COLUMN.add(msg, _errorList_STATIC_COLUMN);
         }//APPEND MSG
         
         if(_errorList_CONSTVAL_CASE.size() > 0){
-            ErrorEntry_CONSTVAL_CASE.add(msg, _errorList_CONSTVAL_CASE);
+            msg += ErrorEntry_CONSTVAL_CASE.add(msg, _errorList_CONSTVAL_CASE);
         }//APPEND MSG
         
         if(_errorList_CONSTVAL_CHARS.size() > 0){
-            ErrorEntry_CONSTVAL_CHARS.add(msg, _errorList_CONSTVAL_CHARS);
+            msg += ErrorEntry_CONSTVAL_CHARS.add(msg, _errorList_CONSTVAL_CHARS);
         }//APPEND MSG
         
         //BUGFIX: Forgot the most important part...Throwing the error.
