@@ -42,7 +42,7 @@ public class NinjaTable extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name=ID_COLUMN)
-  private long id;
+  private long idOfNinja;
   
   @Column(name=NAME_COLUMN)
   private String name;
@@ -64,8 +64,8 @@ public class NinjaTable extends BaseEntity {
 
   //Getters and setters:
   //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
-  public Long getIdOfNinja(){ return id;}
-  public void setIdOfNinja(Long idOfNinja){ this.id = id;}
+  public Long getIdOfNinja(){ return idOfNinja;}
+  public void setIdOfNinja(Long id){ this.idOfNinja = id;}
   
   public String getName(){ return name;}
   public void setName(String name){ this.name = name;}

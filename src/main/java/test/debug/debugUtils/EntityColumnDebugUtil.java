@@ -50,7 +50,8 @@ public class EntityColumnDebugUtil {
      *  6. fix ONE error.
      *  ETC. (An insight I learned through experience.)
      ------------------------------------------------------------------------**/
-    private static List<ErrorEntry> _errorList = new ArrayList<ErrorEntry>();
+    private static final List<ErrorEntry> _errorList = 
+                                                    new ArrayList<ErrorEntry>();
     
     /**-------------------------------------------------------------------------
      * Add an entity class to our list. We will debug the @Column annotations
