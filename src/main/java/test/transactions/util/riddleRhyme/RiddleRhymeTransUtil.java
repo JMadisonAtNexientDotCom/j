@@ -3,7 +3,6 @@ package test.transactions.util.riddleRhyme;
 import java.util.ArrayList;
 import java.util.List;
 import test.MyError;
-import test.config.debug.DebugConfig;
 import test.dbDataAbstractions.entities.composites.CueCard;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.RhymeTable;
@@ -27,7 +26,7 @@ public class RiddleRhymeTransUtil {
     /** Zero denotes UNDEFINED (Error in table data) **/
     public static final int IS_UNDEFINED = 0;
     
-    /**
+    /**-------------------------------------------------------------------------
      * For a given riddleID (a question) paired with a rhymeID (an answer)
      * Is this judged as correct or not?
      * @param riddleID :The unique id of a riddle from RiddleTable.java
@@ -52,7 +51,7 @@ public class RiddleRhymeTransUtil {
      * 
      * Think of it like this, positive and negatives are OPPOSITES.
      * True and False are OPPOSITES. UNDEFINED is in a grey area in the middle.
-     */
+     ------------------------------------------------------------------------**/
     public static int getIsCorrect(long riddleID, long rhymeID){
         
         //Make sure we are in a transaction state:
@@ -174,11 +173,11 @@ public class RiddleRhymeTransUtil {
        
     }//FUNC::END
                        
-    /**
+    /**-------------------------------------------------------------------------
      * Get [CORRECT/TRUTH] solutions for a given riddle 
      * @param riddleID :The unique identifier for the riddle
      * @param numberOfTruthsDesired : How many rhymes do you want returned?
-     * @return :The amount requested or LESS. But never more. **/
+     * @return :The amount requested or LESS. But never more. ---------------**/
     public static List<RhymeTable> getRhymesThatAre_TRUTH
                                      (long riddleID, int numberOfTruthsDesired){
             
@@ -215,11 +214,11 @@ public class RiddleRhymeTransUtil {
         
     }//FUNC::END     
             
-    /**
+    /**-------------------------------------------------------------------------
      * Get [INCORRECT/WRONG] solutions for a given riddle 
      * @param riddleID :The unique identifier for the riddle.
      * @param numberOfWrongsDesired : How many rhymes do you want returned?
-     * @return :The amount requested or LESS. But never more. **/
+     * @return :The amount requested or LESS. But never more. ---------------**/
     public static List<RhymeTable> getRhymesThatAre_WRONG
                                      (long riddleID, int numberOfWrongsDesired){
                                          
@@ -275,7 +274,7 @@ public class RiddleRhymeTransUtil {
         return talleyOutput;
     }//FUNC::END
     
-    /**
+    /**-------------------------------------------------------------------------
      * COMMON logic between getNumberOf_WRONG and getNumberOf_TRUTH
      * @param riddleID :ID of riddle we are addressing.
      * @param rhymeIDS :Our rhymes that are attempting to answer riddle.
@@ -283,7 +282,7 @@ public class RiddleRhymeTransUtil {
      *                             or the number of TRUTH?
      *                             true --> #TRUTH#
      *                             false--> #WRONG#
-     * @return :Number of TRUTHS or WRONGS, depending on config parameter. **/
+     * @return :Number of TRUTHS or WRONGS, depending on config parameter. --**/
     public static int getNumberOf_EITHER
         (long riddleID, List<Long> rhymeIDS, boolean resultTypeWanted_tf){
            
