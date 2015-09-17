@@ -148,8 +148,9 @@ public class RiddleRhymeTransUtil {
        //make sure we are in transaction state:
        TransUtil.insideTransactionCheck();
            
-       List<RhymeTable> wrong = getRhymesThatAre_WRONG(riddleID,numWantedTrue);
-       List<RhymeTable> truth = getRhymesThatAre_TRUTH(riddleID,numWantedFalse);
+       //BUGFIX: WRONG/TRUTH were transposed:
+       List<RhymeTable> truth = getRhymesThatAre_TRUTH(riddleID,numWantedTrue);
+       List<RhymeTable> wrong = getRhymesThatAre_WRONG(riddleID,numWantedFalse);
        
        //If something goes wrong, god help your string function searching works:
        int actual_wrong = wrong.size();
