@@ -24,9 +24,16 @@ import test.dbDataAbstractions.entities.tables.TestTable01;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 
 
-//import org.hibernate.cfg.Configuration;
+
 
 /**
+ * JMADISON NOTE: When I first deploy the app, and make multiple API calls
+ * it seems like the import.sql is being imported MULTIPLE times.
+ * Is that because this class needs to be synchronized so only one thread
+ * can access it at a time?
+ * 
+ * 
+ * 
  * http://stackoverflow.com/questions/18736594/location-of-hibernate-cfg-xml-in-project
  * @author jmadison
  */
