@@ -220,19 +220,6 @@ public class HibernateUtil {
              throw new MyError("_sessionFactory!=null, but _hasSessionFactory==false");
         }
     }//FUNC::END
-   
-
-    
-    /*
-    //thinking this was a bad idea:
-    private static void doStaticInit() throws Exception{
-        
-        _debug_hasStaticInitBeenCalled = true;
-        _debug_hasSetupBeenCalled = false;
-        setUp();
-        _debug_hasSetupBeenCalled = true;
-    }
-    */
     
     private static void log(String inMSG){
         _debug_log += inMSG + "\n";
