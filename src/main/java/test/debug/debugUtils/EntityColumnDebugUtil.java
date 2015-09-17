@@ -36,6 +36,9 @@ public class EntityColumnDebugUtil {
     private static final List<Class> _trackedEntityClasses = 
                                                          new ArrayList<Class>();
     
+    /** Helps give us a more informative debug message. **/
+    private static Class _currentClassBeingExamined;
+    
     /**-------------------------------------------------------------------------
      * Add an entity class to our list. We will debug the @Column annotations
      * on this entity at a later date.
@@ -51,12 +54,10 @@ public class EntityColumnDebugUtil {
      ------------------------------------------------------------------------**/
     public static void doIntegrityCheck(){
         
-        Class curClass;
-        
         int len = _trackedEntityClasses.size();
         for(int i = 0; i < len; i++){
-            curClass = _trackedEntityClasses.get(i);
-            checkColumnAnnotationsOnClass( curClass );
+            _currentClassBeingExamined = _trackedEntityClasses.get(i);
+            checkColumnAnnotationsOnClass( _currentClassBeingExamined );
         }//NEXT i
         
     }//FUNC::END
@@ -141,6 +142,8 @@ public class EntityColumnDebugUtil {
                                           (String fieldName, String columnName){
         String msg = "";
         msg+="[BROKEN ENFORCED CONVENTION ERROR::]";
+        msg+="CLASS:[" + _currentClassBeingExamined.getCanonicalName() + "]";
+        msg+="["+ fieldName + "]!=[" + columnName + "]";
         msg+="Bad variable/field name:[" + fieldName + "]";
         msg+="To make criteria queries less error prone";
         msg+="And to make sure we don't have two variables for ONE concept";

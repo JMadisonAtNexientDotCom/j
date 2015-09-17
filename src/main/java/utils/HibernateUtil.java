@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package utils;
+
 import java.io.File;
 import java.net.URI;
 import org.hibernate.SessionFactory;
@@ -11,7 +7,6 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import test.MyError;
-//import org.hibernate.cfg.Configuration;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import org.hibernate.boot.Metadata;
@@ -24,20 +19,17 @@ import test.dbDataAbstractions.entities.tables.TestTable01;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.debug.debugUtils.EntityColumnDebugUtil;
 
-
-
-
-/**
+/**-----------------------------------------------------------------------------
  * JMADISON NOTE: When I first deploy the app, and make multiple API calls
  * it seems like the import.sql is being imported MULTIPLE times.
  * Is that because this class needs to be synchronized so only one thread
  * can access it at a time?
  * 
- * 
- * 
- * http://stackoverflow.com/questions/18736594/location-of-hibernate-cfg-xml-in-project
- * @author jmadison
- */
+ * http://stackoverflow.com/questions/18736594/
+ *                                      location-of-hibernate-cfg-xml-in-project
+ * @author jmadison : DAY/TIME unknown.
+ * @author jmadison : UPDATED: 2015.09.17_0247PM
+ ----------------------------------------------------------------------------**/
 public class HibernateUtil {
     
     //declare all static variables BEFORE the static initializer.
@@ -48,26 +40,7 @@ public class HibernateUtil {
     private static String _debug_log = "debug_log:";
     private static SessionFactory _sessionFactory    = null;
     private static Boolean        _hasSessionFactory = false;
-
-    /*
-    Thinking it is a a bad idea to try to access hibernate configuration within
-    static initializer.
-    //Static initializer for class:
-    static{/////////////////////////////////////////////////////////////////////
-        log("entering static{} initializer block");
-        try {
-            log("about to try: doStaticInit()");
-            doStaticInit();
-        } catch (Exception ex) {
-            log("failed to doStaticInit, catching exception");
-            Logger.getLogger(HibernateUtil.class.getName()).log(Level.
-                                                              SEVERE, null, ex);
-        }
-        log("exiting static{} initializer block");
-    }///////////////////////////////////////////////////////////////////////////
-    */
-   
-
+    
     /**-------------------------------------------------------------------------
      * Why synchronized? By JMadison:
      * -------------------------------------------------------------------------
@@ -97,9 +70,6 @@ public class HibernateUtil {
             setUp();
         }
         
-        //Causes infinite recursion.
-        //testSessionFactoryReferenceIntegrity();
-        
         //Make sure getter crashes here if trying to return null.
         //If null, ask if we failed to call the static initializer:
         if(null==_sessionFactory)
@@ -116,12 +86,12 @@ public class HibernateUtil {
         }
         
         return _sessionFactory;
-    }
+    }//FUNC::END
 
     public static void shutdown() {
         // Close caches and connection pools
         getSessionFactory().close();
-    }
+    }//FUNC::END
 
     
     
@@ -134,7 +104,8 @@ public class HibernateUtil {
         
         //Configuring using a FILE REFERENCE looks like a good idea to me.
         //Will probably allow me to know if the reference is bad.
-        //http://stackoverflow.com/questions/20063330/how-to-load-hibernate-cfg-xml-from-different-location
+        //http://stackoverflow.com/questions/20063330/
+        //                 how-to-load-hibernate-cfg-xml-from-different-location
         log("about to set file reference:");
        // File f = new File("D:\\fax\\hibernate.cfg.xml");
         // File f = new File("..\\resources\\hbm.cfg.xml");
@@ -152,7 +123,6 @@ public class HibernateUtil {
         String absURIAsString = uriPath.toString();
         
         //hack: try hand-made-relative path:
-        //String sep = System.getProperty("file.separator"); //<--http://stackoverflow.com/questions/19762169/forward-slash-or-backslash
         String handMadeRelativePath = "webapps/hbm.cfg.xml";
         
         if(false == f.exists())
@@ -171,19 +141,20 @@ public class HibernateUtil {
         }
         
         //Bug fix maybe? Gave .configure an absolute file PATH-STRING rather
-        //than a file object. But why would .configure not complainin the first place
-        //if it was given bad data? Not sure.
-	final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-			.configure(handMadeRelativePath) // configures settings from hibernate.cfg.xml
-			.build();
+        //than a file object. But why would .configure not complainin the first 
+        //place if it was given bad data? Not sure.
+        //.configure : configures settings from hibernate.cfg.xml
+	final StandardServiceRegistry registry = 
+            new StandardServiceRegistryBuilder().configure(handMadeRelativePath)
+            .build();
         
-         MetadataSources mds = new MetadataSources(registry);
-      
-         annotationConfigurationStep(mds);
-        
-         Metadata md = mds.buildMetadata();
-         _sessionFactory = md.buildSessionFactory();
-         _hasSessionFactory = true;
+        MetadataSources mds = new MetadataSources(registry);
+
+        annotationConfigurationStep(mds);
+
+        Metadata md = mds.buildMetadata();
+        _sessionFactory = md.buildSessionFactory();
+        _hasSessionFactory = true;
         
     }//FUNC:setUp:END
     
