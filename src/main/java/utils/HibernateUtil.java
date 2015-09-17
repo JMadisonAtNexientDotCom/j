@@ -67,8 +67,28 @@ public class HibernateUtil {
     */
    
 
-
-    public static SessionFactory getSessionFactory() {
+    /**-------------------------------------------------------------------------
+     * Why synchronized? By JMadison:
+     * -------------------------------------------------------------------------
+     * When the application server first starts up, it is LAZY initialized
+     * upon the first API call (or other request) to the application.
+     * 
+     * IF concurrent requests occur before the app has been initialized.
+     * The lazy initialization will happen multiple times, at the same time,
+     * on different threads.
+     * 
+     * How do I know this? Saved multiple API urls to firefox favorites.
+     * Then selected to open them ALL AT ONCE right after I restarted the
+     * server. The problem with import.sql could then be seen in PHPMyAdmin.
+     * 
+     * This causes import.sql to be invoked multiple times.
+     * -------------------------------------------------------------------------
+     * 
+     * 
+     * @return : A session factory. That handles making of sessions when
+     *           new request comes in to the server.
+     ------------------------------------------------------------------------**/
+    public synchronized static SessionFactory getSessionFactory() {
         
         if(false == _hasSessionFactory)
         { 
