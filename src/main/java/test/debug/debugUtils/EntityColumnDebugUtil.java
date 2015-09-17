@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import test.MyError;
+import test.debug.debugUtils.helpers.ErrorEntry;
 
 /**-----------------------------------------------------------------------------
  * This is a utility used to enforce a convention of mine.
@@ -39,6 +40,18 @@ public class EntityColumnDebugUtil {
     /** Helps give us a more informative debug message. **/
     private static Class _currentClassBeingExamined;
     
+    /** Rather than crash on first error found, scan everything and collect-----
+     *  all errors. That way we don't have to:
+     *  1. re-deploy the server...
+     *  2. fix ONE error.
+     *  3. re-deploy the server...
+     *  4. fix ONE error.
+     *  5. re-deploy the server...
+     *  6. fix ONE error.
+     *  ETC. (An insight I learned through experience.)
+     ------------------------------------------------------------------------**/
+    private static List<ErrorEntry> _errorList = new ArrayList<ErrorEntry>();
+    
     /**-------------------------------------------------------------------------
      * Add an entity class to our list. We will debug the @Column annotations
      * on this entity at a later date.
@@ -59,6 +72,10 @@ public class EntityColumnDebugUtil {
             _currentClassBeingExamined = _trackedEntityClasses.get(i);
             checkColumnAnnotationsOnClass( _currentClassBeingExamined );
         }//NEXT i
+        
+        //If any errors were collected, it is now time to crash the program
+        //and summarize all the errors in a big table:
+        possiblyCrashAndListProblems();
         
     }//FUNC::END
     
@@ -125,10 +142,11 @@ public class EntityColumnDebugUtil {
             String columnName = col.name();
             String fieldName  = curField.getName();
             if(notEQ(fieldName,columnName)){
-                throwColumnNamingError(fieldName,columnName);
+                //throwColumnNamingError(fieldName,columnName);
+                addError(_currentClassBeingExamined, fieldName, columnName);
             }
         }//instance of?
-        
+       
     }//FUNC::END
     
     /** Throws an error to alert the programmer that they have broken our
@@ -179,6 +197,73 @@ public class EntityColumnDebugUtil {
         }//NEXT i
         
         return myList;
+    }//FUNC::END
+    
+    /** If any errors were collected in our column naming conventions,----------
+     *  then we want to list out those errors in a big table and
+     *  throw an exception displaying that data.
+     ------------------------------------------------------------------------**/
+    private static void possiblyCrashAndListProblems(){
+        
+        //if anything is in our error list, we will crash:
+        int errorAmount = _errorList.size();
+        if(errorAmount>0){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            crashAndOutput();
+        }else
+        if(errorAmount<=0){
+            //Do nothing.
+        }else{
+            throw new MyError("We should never execute this line. hjjlsfjslfs");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+    }//FUNC::END
+    
+    /** Appends an error to our list of errors. Will spit out all errors--------
+     *  after all annotated classes have been examined.
+     * @param c         :c is for Class. The class that contains error.
+     * @param fieldName :the filedName/variableName with problem.
+     * @param columnName:the @Column(name=??????) name used.
+     ------------------------------------------------------------------------**/
+    private static void addError(Class c, String fieldName, String columnName ){
+        
+        //Create error entry:
+        ErrorEntry ee = new ErrorEntry();
+        ee.c = c;
+        ee.fieldName = fieldName;
+        ee.columnName= columnName;
+        
+        //Add it to our master list:
+        _errorList.add(ee);
+        
+    }//FUNC::END
+    
+    private static void crashAndOutput(){
+        
+        String nl = System.lineSeparator();
+        String msg = "";
+        ErrorEntry cur;
+        msg+="|--Class Name:--||--Variable Name:--||--Column Name:--|" + nl;
+        
+        int len = _errorList.size();
+        for(int i = 0; i < len; i++){
+            cur = _errorList.get(i);
+            msg+=makeErrorRecord(cur);
+        }//NEXT i
+    }//FUNC::END
+    
+    /** Serializes one line/row of one of the errors we have.-------------------
+     *  So that we can build our ascii table of errors to output
+     *  as error message.
+     * @param cur : The current error to serialize into a line of text.
+     * @return    : Serialized ErrorEntry
+     ------------------------------------------------------------------------**/
+    private static String makeErrorRecord(ErrorEntry cur){
+        String msg = "";
+        msg+="[" + cur.c.getCanonicalName() + "]";
+        msg+="[" + cur.fieldName + "]";
+        msg+="[" + cur.columnName + "]";
+        msg+= System.lineSeparator();
+        return msg;
     }//FUNC::END
   
 }//CLASS::END

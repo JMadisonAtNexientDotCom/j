@@ -7,7 +7,7 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-import static test.dbDataAbstractions.entities.tables.NinjaTable.COLUMN_ID;
+import static test.dbDataAbstractions.entities.tables.NinjaTable.ID_COLUMN;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.dbDataAbstractions.entities.tables.RhymeTable;
 
