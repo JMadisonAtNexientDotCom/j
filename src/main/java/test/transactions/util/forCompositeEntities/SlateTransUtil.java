@@ -33,10 +33,10 @@ public class SlateTransUtil {
 
         //Route to correct configuration:
         Slate op;
-        if(Slate.SLATE_DEBUG_TYPE_TRUTH == slateDebugType){
+        if(Slate.SLATE_DEBUG_TYPE_TRUTH.equals(slateDebugType) ){
             op = makeFilledOutTestSlate_TRUTH(riddleID);
         }else
-        if(Slate.SLATE_DEBUG_TYPE_WRONG == slateDebugType){
+        if(Slate.SLATE_DEBUG_TYPE_WRONG.equals(slateDebugType)){
             op = makeFilledOutTestSlate_WRONG(riddleID);
         }else{//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             op = null;
@@ -87,7 +87,14 @@ public class SlateTransUtil {
         Slate s = Slate.makeBlankSlate(validRiddleID);
         List<RhymeTable> rtList = RiddleRhymeTransUtil.getRhymesThatAre_TRUTH
                                                              (validRiddleID, 4);
+        
+        //ADDED:2015.09.16_0921PM
+        //Fake the original quips. Say 1 question was true, 3 were false:
+        List<RhymeTable> orgQuips = 
+                     RiddleRhymeTransUtil.getRhymesTrueFalse(validRiddleID,1,3);
+        
         s.rhymeSelection = CollectIDSFromListOfRhymeTableEntities(rtList);
+        s.originalQuips  = CollectIDSFromListOfRhymeTableEntities(orgQuips);
         
         //Return slate populated with WRONG answers.
         return s;    

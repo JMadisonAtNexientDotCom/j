@@ -44,6 +44,18 @@ public class Slate extends FracturedTypeBase{
      *  the ninja (test taker / candidate) **/
     public long riddleID;
     
+    /** The original [choices/options] that were written on the CueCard.
+     *  The Jester, after reading the "Jest/title" on the CueCard, then
+     *  read off the [quips/choices] the Ninja was to select from. **/
+    public List<Long> originalQuips;
+    
+    /** A reverseable configuration hash that can be used to identify
+     *  the original CueCard that this Slate is attempting to address.
+     *  The originalQuips can be derived from this hash.
+     *  The originalQuips exists so we can get everything working right away
+     *  and deal with implementation of cueCardConfigHash at a later date. **/
+    public String cueCardConfigHash;
+    
     /** A selection of rhymeID(s) (answer id(s)) that the Ninja has selected.
      *  The ninja believes that any item from this list can satisfy the
      *  riddle (question) being asked. **/
@@ -69,6 +81,7 @@ public class Slate extends FracturedTypeBase{
     public static Slate makeBlankSlate(long inputRiddleID){
         Slate op = new Slate();
         op.riddleID = inputRiddleID;
+        op.originalQuips  = new ArrayList<Long>();
         op.rhymeSelection = new ArrayList<Long>();
         return op;
     }//FUNC::END
@@ -80,6 +93,7 @@ public class Slate extends FracturedTypeBase{
     public static Slate makeErrorSlate(long inputRiddleID){
         Slate op = new Slate();
         op.riddleID = ERROR_BAD_RIDDLE_USED_TO_MAKE_SLATE;
+        op.originalQuips  = new ArrayList<Long>();
         op.rhymeSelection = new ArrayList<Long>();
         
         //Put riddleID 4 times in selection area to hopefully show
@@ -87,6 +101,12 @@ public class Slate extends FracturedTypeBase{
         //id is converted to negative so it is obviously invalid.
         long iri = inputRiddleID;
         long invalidRiddleID = (iri<0 ? iri : 0-iri); //MAKE NEGATIVE.
+        
+        op.originalQuips.add(invalidRiddleID);
+        op.originalQuips.add(invalidRiddleID);
+        op.originalQuips.add(invalidRiddleID);
+        op.originalQuips.add(invalidRiddleID);
+        
         op.rhymeSelection.add(invalidRiddleID);
         op.rhymeSelection.add(invalidRiddleID);
         op.rhymeSelection.add(invalidRiddleID);
