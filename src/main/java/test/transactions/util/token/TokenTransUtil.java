@@ -60,7 +60,7 @@ public class TokenTransUtil {
         
         
         return TransUtil.getHighestKeyInTable
-                                       (TokenTable.class, TokenTable.COLUMN_ID);
+                                       (TokenTable.class, TokenTable.ID_COLUMN);
         
         /*
         This code seems like a hackish way to do the query.
@@ -199,7 +199,7 @@ public class TokenTransUtil {
         
         //Transaction Logic:
         Criteria criteria = session.createCriteria(TokenTable.class);
-        criteria.add(Restrictions.eq(TokenTable.COLUMN_TOKEN, tv));
+        criteria.add(Restrictions.eq(TokenTable.TOKEN_COLUMN, tv));
         TokenTable theToken = (TokenTable) criteria.uniqueResult();
 
         //Create output:

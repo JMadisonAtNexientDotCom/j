@@ -24,11 +24,11 @@ public class TokenTable extends BaseEntity{
     /** Name of table this entity refers to, for easy refactoring. **/
     public static final String TABLE_NAME     = "token_table";
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String COLUMN_ID      = "id";
+    public static final String ID_COLUMN      = "id";
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String COLUMN_TOKEN   = "token";
+    public static final String TOKEN_COLUMN   = "token";
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String COLUMN_COMMENT = "comment";
+    public static final String COMMENT_COLUMN = "comment";
     
    /** A sequential integer used to identify the token.                      ***
    *** Internally, we should be using this id value rather than the token.   ***
@@ -37,7 +37,7 @@ public class TokenTable extends BaseEntity{
    *** else's data over public HTTP.                                         **/
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name=COLUMN_ID)
+  @Column(name=ID_COLUMN)
   private long id;
    
     
@@ -45,14 +45,14 @@ public class TokenTable extends BaseEntity{
    ***  An ENCRYPTED version of the Id. Encrypted so that there is no        ***
    ***  chance of token collision if all Ids in the table are unique.        **/
    //@Id //<--TEMP ID till we fix bugs.
-   @Column(name=COLUMN_TOKEN)
+   @Column(name=TOKEN_COLUMN)
     private String token;
     
     /** A comment attached to this token entry in the token table            ***
     *** Used for debugging. Planned as ~permenant~ installment in this       ***
     *** architecture. ~Huntch~ that the maintainability gained by this       ***
     *** addition will trump the slight performance hit on the database.      **/
-    @Column(name=COLUMN_COMMENT)
+    @Column(name=COMMENT_COLUMN)
     private String comment;
     
     //Is this getter+setter necessary?

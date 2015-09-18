@@ -15,6 +15,12 @@ import javax.persistence.Table;
 @Table(name="test_table_01")  
 public class TestTable01 extends BaseEntity{
     
+    //Now required. App will crash if you do not have const
+    //Identifiers for each instance variable annotated with @Column
+    public static final String ID_COLUMN = "id";
+    public static final String TOKEN_COLUMN = "token";
+    public static final String TOKEN_MSG_COLUMN = "token_msg";
+    
     @Id
     @Column(name="token")
     private String token;
