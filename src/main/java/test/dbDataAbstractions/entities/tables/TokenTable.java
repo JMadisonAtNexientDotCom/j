@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-/**
+/**-----------------------------------------------------------------------------
  * Table that stores the tokens.
  * Each token has a comment that is directly associated with it.
  * It is for debugging purposes ONLY. And not to be used in actual logic.
@@ -16,7 +16,7 @@ import javax.persistence.Table;
  * EDIT HISTORY:
  * JMadison_2015.09.03_0916AM: Refactor: hash-->token, added id field.
  *
- **/
+ ----------------------------------------------------------------------------**/
 @Entity
 @Table(name="token_table")  //<--can we replace this with TABLE_NAME ?
 public class TokenTable extends BaseEntity{
@@ -24,7 +24,7 @@ public class TokenTable extends BaseEntity{
     /** Name of table this entity refers to, for easy refactoring. **/
     public static final String TABLE_NAME     = "token_table";
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String ID_COLUMN      = "ID";
+    public static final String ID_COLUMN      = "id";
     /** Column name stored as string constant for easy refactoring. **/
     public static final String TOKEN_COLUMN   = "token";
     /** Column name stored as string constant for easy refactoring. **/
@@ -38,7 +38,7 @@ public class TokenTable extends BaseEntity{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name=ID_COLUMN)
-  private long ID;
+  private long id;
    
     
    /**  The TOKEN the outside world sees.                                    ***
@@ -56,8 +56,8 @@ public class TokenTable extends BaseEntity{
     private String comment;
     
     //Is this getter+setter necessary?
-    public Long getId(){ return ID;}
-    public void setId(Long id){ this.ID = id;}
+    public Long getId(){ return id;}
+    public void setId(Long id){ this.id = id;}
     
     public String getToken(){ return token;}
     public void setToken(String value){ this.token = value;}
