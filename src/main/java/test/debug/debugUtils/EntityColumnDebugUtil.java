@@ -223,27 +223,9 @@ public class EntityColumnDebugUtil {
     private static boolean staticColumnContentCheck
                                                (Class c, Field theStaticColumn){
         
-        //reference for getting value of static variable:
-        //http://stackoverflow.com/questions/2685345/
-        String staticVarName = theStaticColumn.getName();
-        
-        //if an error happens here, we are not even going to to record it. EEEEE
-        //we are just going to throw an unhandled exception right now. EEEEEEEEE
-        Object obj;
-        try {
-            obj = theStaticColumn.get(null);
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(EntityColumnDebugUtil.class.getName()).log
-                                                       (Level.SEVERE, null, ex);
-            throw new MyError("unable to retrieve value of static var. #1");
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(EntityColumnDebugUtil.class.getName()).log
-                                                       (Level.SEVERE, null, ex);
-            throw new MyError("unable to retrieve value of static var. #2");
-        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-        
-        //cast the object to string:
-        String staticVarValue = (String)obj;
+        //Get the name of the variable, and the value it holds:
+        String staticVarName  = theStaticColumn.getName();
+        String staticVarValue = getStaticConstValue(theStaticColumn);
         
         //Check to make sure all characters in staticVarValue are lowercase.
         if(false == areAllCharactersLowercase(staticVarValue)){
@@ -262,6 +244,35 @@ public class EntityColumnDebugUtil {
         //return true, the contents of the static variable check out alright.
         return true;
         
+    }//FUNC::END
+                   
+    /** Gets the value of a static string constant.-----------------------------
+     * @param theStaticColumn :The static constant.
+     * @return :The value stored inside the static constant.
+     ------------------------------------------------------------------------**/
+    private static String getStaticConstValue(Field theStaticColumn){
+        //reference for getting value of static variable:
+        //http://stackoverflow.com/questions/2685345/
+        //
+        //if an error happens here, we are not even going to to record it. EEEEE
+        //we are just going to throw an unhandled exception right now. EEEEEEEEE
+        Object obj;
+        try {
+            obj = theStaticColumn.get(null);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(EntityColumnDebugUtil.class.getName()).log
+                                                       (Level.SEVERE, null, ex);
+            throw new MyError("unable to retrieve value of static var. #1");
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(EntityColumnDebugUtil.class.getName()).log
+                                                       (Level.SEVERE, null, ex);
+            throw new MyError("unable to retrieve value of static var. #2");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        //cast the object to string:
+        String staticVarValue = (String)obj;
+        
+        return staticVarValue;
     }//FUNC::END
                               
     
@@ -562,8 +573,8 @@ public class EntityColumnDebugUtil {
     private static void addError_CONSTVAL_CASE(Class c, Field theStaticColumn){
         ErrorEntry_CONSTVAL_CASE entry = new ErrorEntry_CONSTVAL_CASE();
         entry.c = c;
-        entry.fieldName = theStaticColumn.getName();
-        entry.columnName = "!N/A!";
+        entry.fieldName  = theStaticColumn.getName();
+        entry.constValue = getStaticConstValue(theStaticColumn);
         _errorList_CONSTVAL_CASE.add(  entry  );
     }//FUNC::END
     

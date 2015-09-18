@@ -14,7 +14,7 @@ public class ErrorEntry_CONSTVAL_CASE {
     
     public Class c;
     public String fieldName;
-    public String columnName;
+    public String constValue;
     
     /**-------------------------------------------------------------------------
      * Helps compile output log of errors.
@@ -27,6 +27,8 @@ public class ErrorEntry_CONSTVAL_CASE {
         String nl = System.lineSeparator();
         ErrorEntry_CONSTVAL_CASE cur;
         msg+="[::CONSTVAL_CASE ERROR FOR STATIC _COLUMN::] (Details Below)" + nl;
+        msg+="Value of constant contains upper-case characters:" + nl;
+        msg+="|--Class Name:--||--CONST NAME:--||--CONST VALUE:--|" + nl;
        
         int len = errors.size();
         for(int i = 0; i < len; i++){
@@ -48,7 +50,7 @@ public class ErrorEntry_CONSTVAL_CASE {
         String msg = "";
         msg+="[" + cur.c.getCanonicalName() + "]";
         msg+="[" + cur.fieldName + "]";
-        msg+="[" + cur.columnName + "]";
+        msg+="[" + cur.constValue + "]";
         msg+= System.lineSeparator();
         return msg;
     }//FUNC::END
