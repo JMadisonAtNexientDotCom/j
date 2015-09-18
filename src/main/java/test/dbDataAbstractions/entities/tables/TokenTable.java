@@ -24,7 +24,7 @@ public class TokenTable extends BaseEntity{
     /** Name of table this entity refers to, for easy refactoring. **/
     public static final String TABLE_NAME     = "token_table";
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String ID_COLUMN      = "idx";
+    public static final String ID_COLUMN      = "ID";
     /** Column name stored as string constant for easy refactoring. **/
     public static final String TOKEN_COLUMN   = "token";
     /** Column name stored as string constant for easy refactoring. **/
@@ -38,7 +38,7 @@ public class TokenTable extends BaseEntity{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name=ID_COLUMN)
-  private long id;
+  private long ID;
    
     
    /**  The TOKEN the outside world sees.                                    ***
@@ -56,8 +56,8 @@ public class TokenTable extends BaseEntity{
     private String comment;
     
     //Is this getter+setter necessary?
-    public Long getId(){ return id;}
-    public void setId(Long id){ this.id = id;}
+    public Long getId(){ return ID;}
+    public void setId(Long id){ this.ID = id;}
     
     public String getToken(){ return token;}
     public void setToken(String value){ this.token = value;}
