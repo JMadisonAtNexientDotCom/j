@@ -1,0 +1,16 @@
+So... You would think that these would all extend from
+ErrorEntry... But not the case.
+
+What I have done here seems like an anti-pattern...
+A lot of cut+pasted code...
+
+However... All of the error checks and messages are working....
+But this got a bit sloppy...
+
+I didn't expect to write over 1,000 lines of error checking code
+today. But what I did was pretty cool.
+
+The source code analyses itself and looks to see if it is
+breaking any rules for how my entity classes should be put
+together. This will either help me greatly, or end up being
+a huge pain in my ass in the future.
