@@ -24,7 +24,7 @@ public class TokenTable extends BaseEntity{
     /** Name of table this entity refers to, for easy refactoring. **/
     public static final String TABLE_NAME     = "token_table";
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String ID_COLUMN      = "id";
+    public static final String ID_COLUMN      = "idx";
     /** Column name stored as string constant for easy refactoring. **/
     public static final String TOKEN_COLUMN   = "token";
     /** Column name stored as string constant for easy refactoring. **/
