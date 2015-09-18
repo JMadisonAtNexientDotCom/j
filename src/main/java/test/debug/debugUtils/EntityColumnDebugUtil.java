@@ -559,8 +559,7 @@ public class EntityColumnDebugUtil {
     private static void addError_STATIC_COLUMN(Class c, String fieldName){
         ErrorEntry_STATIC_COLUMN entry = new ErrorEntry_STATIC_COLUMN();
         entry.c = c;
-        entry.fieldName = fieldName;
-        entry.columnName = "!N/A!";
+        entry.instanceVarName = fieldName;
         _errorList_STATIC_COLUMN.add(  entry  );
     }//FUNC::END
     

@@ -10,8 +10,7 @@ import java.util.List;
 public class ErrorEntry_STATIC_COLUMN {
     
     public Class c;
-    public String fieldName;
-    public String columnName;
+    public String instanceVarName;
     
     
      /**-------------------------------------------------------------------------
@@ -24,7 +23,8 @@ public class ErrorEntry_STATIC_COLUMN {
         
         String nl = System.lineSeparator();
         ErrorEntry_STATIC_COLUMN cur;
-        msg+="[::CONSTVAL_COLUMN ERROR FOR STATIC _COLUMN::]" + nl;
+        msg+="[::CONSTVAL_COLUMN ERROR $$$$$$$$$$$$$$$ ::]" + nl;
+        msg+="[ Missing: [instVarName + '_COLUMN' static string ]" + nl;
        
         int len = errors.size();
         for(int i = 0; i < len; i++){
@@ -45,8 +45,12 @@ public class ErrorEntry_STATIC_COLUMN {
     private static String makeErrorRecord(ErrorEntry_STATIC_COLUMN cur){
         String msg = "";
         msg+="[" + cur.c.getCanonicalName() + "]";
-        msg+="[" + cur.fieldName + "]";
-        msg+="[" + cur.columnName + "]";
+        msg+="[" + cur.instanceVarName + "]";
+        
+        //Mock up the variable that is missing:
+        String constName = cur.instanceVarName.toUpperCase() + "_COLUMN";
+        msg+="[" + "missing static const:[" + constName + "]";
+        
         msg+= System.lineSeparator();
         return msg;
     }//FUNC::END
