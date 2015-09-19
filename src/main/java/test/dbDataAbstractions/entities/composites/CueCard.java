@@ -126,9 +126,9 @@ public class CueCard extends CompositeEntityBase{
         
         //Create our output:
         RhymeTable cur_quip;
-        List<Long> op = new ArrayList<Long>();
         int len = c.quips.size();
-        for(int i = 0; i < len; i++){
+        List<Long> op = new ArrayList<Long>(len); //BUGFIX: 
+        for(int i = 0; i < len; i++){             //init at needed length.
             cur_quip = c.quips.get(i);
             op.set(i, cur_quip.getId() );
         }//NEXT i
