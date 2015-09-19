@@ -84,6 +84,23 @@
 	</servlet-mapping>
         <!--[API] [API] [API] [API] [API] [API] [API] [API] [API] [API] [API]-->
         
+        <!-- CORS filter to be used with API: -->
+        <!-- SRC: http://stackoverflow.com/questions/30974730/
+                                                 jersey-cross-domain-request -->
+        <!--[FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL]-->
+        <filter>
+            <filter-name>MyCorsFilter</filter-name>
+            <filter-class>
+                ntsResponseMachine.services.rest.corsFiltering.MyCorsFilter
+            </filter-class>
+        </filter>
+        <filter-mapping>
+            <filter-name>MyCorsFilter</filter-name>
+            <url-pattern>/api/*</url-pattern>
+        </filter-mapping>
+        <!--[FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL]-->
+        <!--[API] [API] [API] [API] [API] [API] [API] [API] [API] [API] [API]-->
+        
         
         
          
