@@ -2,6 +2,7 @@ package test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern;
 
 import java.util.ArrayList;
 import java.util.List;
+import test.MyError;
 import test.dbDataAbstractions.fracturedTypes.FracturedTypeBase;
 
 /**-----------------------------------------------------------------------------
@@ -86,6 +87,26 @@ public class Slate extends FracturedTypeBase{
         return op;
     }//FUNC::END
     
+    /**-------------------------------------------------------------------------
+     * Throw an error if the slate does NOT conform to what a blank
+     * slate should look like.
+     * @param s :The slate to check.
+     ------------------------------------------------------------------------**/
+    public static void assertBlankSlate(Slate s){
+        if(s.riddleID < 0){doError_badSlateIndex();}
+        if(null==s.originalQuips ){doError("original quips was null!");}
+        if(null==s.rhymeSelection){doError("rhyme selection was null!");}
+        if(s.originalQuips.size() > 0){doError("org quips not empty");}
+        if(s.rhymeSelection.size() > 0){doError("org quips not empty");}
+        
+        if(s.skip_mysteryToMe != false)
+        {doError("skip should be false for blank slate");}
+        
+        if(s.none_noSolutionExists != false)
+        {doError("no solution option should be false for blank slate");}
+        
+    }//FUNC::END
+    
     /** Make a slate configured to bring attention to itself as an error.
      * @param inputRiddleID :The invalid riddle ID used that triggered us
      *                       to make an error response.
@@ -112,6 +133,23 @@ public class Slate extends FracturedTypeBase{
         op.rhymeSelection.add(invalidRiddleID);
         op.rhymeSelection.add(invalidRiddleID);
         return op;
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+    * Wrapper function to throw errors from this class.
+    * @param msg :Specific error message.
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+       String err = "ERROR INSIDE:";
+       err += Slate.class.getSimpleName();
+       err += msg;
+       throw new MyError(err);
+    }//FUNC::END
+    
+    public static void doError_badSlateIndex(){
+        String msg = "Bad blank slate riddle id. Must be postive.";
+        msg+="Blank slates must be titled with Riddle.";
+        doError(msg);
     }//FUNC::END
     
 }//CLASS::END

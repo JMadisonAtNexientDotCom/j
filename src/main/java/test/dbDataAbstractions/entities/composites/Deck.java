@@ -12,7 +12,7 @@ public class Deck extends CompositeEntityBase {
     
     /** The cards in the deck that are about to 
      *  barrage(attack, mentally) the ninja. **/
-    public List<CueCard> Cards;
+    public List<CueCard> cards;
     
     //TODO: An object giving us stats on the deck.
     //      Think of it like a "magic the gathering deck"

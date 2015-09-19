@@ -17,7 +17,7 @@ import test.dbDataAbstractions.entities.tables.RiddleRhymeWrongTable;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.dbDataAbstractions.entities.tables.TestTable01;
 import test.dbDataAbstractions.entities.tables.TokenTable;
-import test.debug.debugUtils.EntityColumnDebugUtil;
+import test.debug.debugUtils.entity.EntityColumnDebugUtil;
 
 /**-----------------------------------------------------------------------------
  * JMADISON NOTE: When I first deploy the app, and make multiple API calls

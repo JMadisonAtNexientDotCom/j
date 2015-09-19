@@ -1,4 +1,4 @@
-package test.debug.debugUtils;
+package test.debug.debugUtils.entity;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -9,10 +9,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Column;
 import test.MyError;
-import test.debug.debugUtils.helpers.ErrorEntry;
-import test.debug.debugUtils.helpers.ErrorEntry_CONSTVAL_CASE;
-import test.debug.debugUtils.helpers.ErrorEntry_CONSTVAL_CHARS;
-import test.debug.debugUtils.helpers.ErrorEntry_STATIC_COLUMN;
+import test.debug.debugUtils.entity.helpers.ErrorEntry;
+import test.debug.debugUtils.entity.helpers.ErrorEntry_CONSTVAL_CASE;
+import test.debug.debugUtils.entity.helpers.ErrorEntry_CONSTVAL_CHARS;
+import test.debug.debugUtils.entity.helpers.ErrorEntry_STATIC_COLUMN;
 
 /**-----------------------------------------------------------------------------
  * This is a utility used to enforce a convention of mine.

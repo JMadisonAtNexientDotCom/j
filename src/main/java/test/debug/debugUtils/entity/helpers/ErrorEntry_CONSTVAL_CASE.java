@@ -1,29 +1,20 @@
-package test.debug.debugUtils.helpers;
+package test.debug.debugUtils.entity.helpers;
 
 import java.util.List;
 
 /**-----------------------------------------------------------------------------
- * Error entry for:
+ * Error for when the public static WHATEVER_DATA_COLUMN has a value
+ * that contains upper-case characters. This is not allowed.
+ * And by association, column names in database and entities are
+ * not allowed to have upper case characters either.
  * 
- * WHEN SITUTATION == :
- *     Static Const (final) who's name ends with _COLUMN and corrosponds
- *     to an entity member variable annotated with @Column
- * 
- * AND:
- *     [instanceMemberVariable.toUpperCase() + _COLUMN != [value of STATIC VAR]
- * 
- * Example:
- * If you have a variable called: TOKEN_MSG_COLUMN,
- * Its value should == "token_msg_column"
- * There should be a instance variable in the class called "token_msg_column"
- * 
- * @author jmadison
+ * @author jmadison:2015.09.17_0715PM
  ----------------------------------------------------------------------------**/
-public class ErrorEntry_CONSTVAL_CHARS{
+public class ErrorEntry_CONSTVAL_CASE {
     
     public Class c;
     public String fieldName;
-    public String columnName;
+    public String constValue;
     
     /**-------------------------------------------------------------------------
      * Helps compile output log of errors.
@@ -31,11 +22,13 @@ public class ErrorEntry_CONSTVAL_CHARS{
      * @param errors :The list of error entries to serialize.
      * @return       :New and improved error message.
      ------------------------------------------------------------------------**/
-    public static String add(String msg, List<ErrorEntry_CONSTVAL_CHARS> errors){
+    public static String add(String msg, List<ErrorEntry_CONSTVAL_CASE> errors){
         
         String nl = System.lineSeparator();
-        ErrorEntry_CONSTVAL_CHARS cur;
-        msg+="[::CONSTVAL_CHARS ERROR FOR STATIC _COLUMN::] (Details Below)" + nl;
+        ErrorEntry_CONSTVAL_CASE cur;
+        msg+="[::CONSTVAL_CASE ERROR FOR STATIC _COLUMN::] (Details Below)" + nl;
+        msg+="Value of constant contains upper-case characters:" + nl;
+        msg+="|--Class Name:--||--CONST NAME:--||--CONST VALUE:--|" + nl;
        
         int len = errors.size();
         for(int i = 0; i < len; i++){
@@ -53,12 +46,15 @@ public class ErrorEntry_CONSTVAL_CHARS{
      * @param cur : The current error to serialize into a line of text.
      * @return    : Serialized ErrorEntry
      ------------------------------------------------------------------------**/
-    private static String makeErrorRecord(ErrorEntry_CONSTVAL_CHARS cur){
+    private static String makeErrorRecord(ErrorEntry_CONSTVAL_CASE cur){
         String msg = "";
         msg+="[" + cur.c.getCanonicalName() + "]";
         msg+="[" + cur.fieldName + "]";
-        msg+="[" + cur.columnName + "]";
+        msg+="[" + cur.constValue + "]";
         msg+= System.lineSeparator();
         return msg;
     }//FUNC::END
-}//CLASS::END
+    
+    
+    
+}//CLASS:END

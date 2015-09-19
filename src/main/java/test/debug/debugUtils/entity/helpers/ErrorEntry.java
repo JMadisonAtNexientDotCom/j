@@ -1,4 +1,4 @@
-package test.debug.debugUtils.helpers;
+package test.debug.debugUtils.entity.helpers;
 
 import java.util.List;
 
