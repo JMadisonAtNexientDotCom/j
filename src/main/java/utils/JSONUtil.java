@@ -10,7 +10,8 @@ import javax.ws.rs.core.Response;
 import primitives.IntegerWithComment;
 import test.MyError;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
-import test.dbDataAbstractions.entities.composites.CompositeEntityBase;
+import test.dbDataAbstractions.entities.bases.BundleEntityBase;
+import test.dbDataAbstractions.entities.bases.CompositeEntityBase;
 import test.dbDataAbstractions.fracturedTypes.FracturedTypeBase;
 
 /**
@@ -40,6 +41,21 @@ public class JSONUtil {
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         return genericObjectToJSONResponse(frac);
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+     * Converts a bundle entity
+     * (an entity that bundles multiple entity of different types.)
+     * into a JSON response.
+     * @param be :Our bundle entity.
+     * @return   :A serialized JSON response.
+     ------------------------------------------------------------------------**/
+    public static Response bundleEntityToJSONResponse(BundleEntityBase be){
+        if(null==be){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            throw new MyError("bundleEntityToJSONResponse(null)==BAD!");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE                                                  
+                                                                                                       
+        return genericObjectToJSONResponse(be);
     }//FUNC::END
     
     /** Converts a composite entity 

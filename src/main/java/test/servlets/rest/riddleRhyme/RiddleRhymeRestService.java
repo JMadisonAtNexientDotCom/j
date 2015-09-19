@@ -13,13 +13,15 @@ import org.hibernate.Session;
 import test.MyError;
 import test.config.constants.ServletClassNames;
 import test.config.debug.DebugConfig;
+import test.dbDataAbstractions.bundleTypes.TriviaBundle;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
-import test.dbDataAbstractions.entities.composites.CompositeEntityBase;
+import test.dbDataAbstractions.entities.bases.CompositeEntityBase;
 import test.dbDataAbstractions.entities.composites.CueCard;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
 import test.servlets.rest.BaseRestService;
 import test.transactions.util.TransUtil;
+import test.transactions.util.forBundleEntities.TriviaBundleTransUtil;
 import test.transactions.util.forCompositeEntities.SlateTransUtil;
 import test.transactions.util.riddleRhyme.RiddleRhymeTransUtil;
 import test.transactions.util.riddleRhyme.rhymeRiddle.riddle.RiddleTransUtil;
@@ -258,6 +260,35 @@ public class RiddleRhymeRestService extends BaseRestService {
         return JSONUtil.compositeEntityToJSONResponse(ceb);
     
     }//FUNC::END
+    
+    
+    
+    @GET
+    @Path("getRandomTriviaBundle")
+    public Response getRandomTriviaBundle
+                        (@QueryParam("cardCount") int cardCount, 
+                         @QueryParam("numQuips")  int numQuips, 
+                         @QueryParam("truMIN")    int truMIN, 
+                         @QueryParam("truMAX")    int truMAX){
+                            
+        //Enter a transaction state:
+        Session ses = TransUtil.enterTransaction();
+        
+        //Core Logic:
+        TriviaBundle bund = TriviaBundleTransUtil.getRandomTrivaBundle
+                                          (cardCount, numQuips, truMIN, truMAX);
+        
+        //Create our output response:
+        Response op = JSONUtil.bundleEntityToJSONResponse(bund);
+       
+        //Exit Transaction state, no saving:
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+        
+        //return response:
+        return op;
+        
+    }//FUNC::END
+    
     
     
 }//CLASS::END

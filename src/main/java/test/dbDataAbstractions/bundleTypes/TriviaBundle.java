@@ -2,6 +2,7 @@ package test.dbDataAbstractions.bundleTypes;
 
 import java.util.List;
 import primitives.Synopsis;
+import test.dbDataAbstractions.entities.bases.BundleEntityBase;
 import test.dbDataAbstractions.entities.composites.CueCard;
 import test.dbDataAbstractions.entities.composites.Deck;
 import test.dbDataAbstractions.entities.composites.Quar;
@@ -46,7 +47,7 @@ cut into bread-shaped slices called SLATES.                                   //
   
   
 -------------------------------HEADER END------------------------------------**/
-public class TriviaBundle {
+public class TriviaBundle extends BundleEntityBase{
     
     /** A Summary of what this TrivaBundle is about.----------------------------
      *  Stores information like:

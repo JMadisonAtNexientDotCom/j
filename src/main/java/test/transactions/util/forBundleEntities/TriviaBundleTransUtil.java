@@ -11,7 +11,7 @@ import test.transactions.util.forCompositeEntities.QuarTransUtil;
  * @author jmadison :2015.09.18 at some time during the night.
  * @author jmadison :2015.09.19_0258PM Now ready for live test.
  ----------------------------------------------------------------------------**/
-public class TrivaBundleTransUtil {
+public class TriviaBundleTransUtil {
     /**-------------------------------------------------------------------------
      *  Creates a TrivaBundle on the fly. The UI people can pull this down,-----
      *  and fill out the QUAR (collection of answer slates) and then
@@ -72,7 +72,7 @@ public class TrivaBundleTransUtil {
      ------------------------------------------------------------------------**/
     private static void doError(String msg){
         String err = "ERROR INSIDE:";
-        err += TrivaBundleTransUtil.class.getSimpleName();
+        err += TriviaBundleTransUtil.class.getSimpleName();
         err += msg;
         throw new MyError(err);
     }//FUNC::END

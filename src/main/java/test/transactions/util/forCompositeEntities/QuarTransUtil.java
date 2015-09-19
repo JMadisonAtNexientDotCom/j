@@ -8,7 +8,7 @@ import test.dbDataAbstractions.entities.composites.Quar;
 import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
 import test.debug.debugUtils.lists.ListDebugUtil;
 import test.transactions.util.TransUtil;
-import test.transactions.util.forBundleEntities.TrivaBundleTransUtil;
+import test.transactions.util.forBundleEntities.TriviaBundleTransUtil;
 
 /**-----------------------------------------------------------------------------
  * 

@@ -1,5 +1,6 @@
 package test.dbDataAbstractions.entities.composites;
 
+import test.dbDataAbstractions.entities.bases.CompositeEntityBase;
 import java.util.ArrayList;
 import java.util.List;
 import test.dbDataAbstractions.entities.tables.RhymeTable;

@@ -1,5 +1,6 @@
 package test.dbDataAbstractions.entities.composites;
 
+import test.dbDataAbstractions.entities.bases.CompositeEntityBase;
 import java.util.List;
 
 /** A deck is a collection of CueCards. It represents a barrage of questions
