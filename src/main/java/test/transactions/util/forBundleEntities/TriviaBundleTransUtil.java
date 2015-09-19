@@ -1,5 +1,6 @@
 package test.transactions.util.forBundleEntities;
 
+import primitives.Synopsis;
 import test.MyError;
 import test.dbDataAbstractions.bundleTypes.TriviaBundle;
 import test.transactions.util.forCompositeEntities.DeckTransUtil;
@@ -33,7 +34,7 @@ public class TriviaBundleTransUtil {
         TriviaBundle bund = new TriviaBundle();
         
         //Populate our triva bundle:
-        bund.synopsis.overview = "Made using getRandomTrivaBundle()";
+        bund.synopsis = Synopsis.makeDefault();
         bund.deck  = DeckTransUtil.getRandomDeckOfCueCards
                                (cardCount, numQuips, truMIN, truMAX);
         bund.quar = QuarTransUtil.makeBlankSlatesForDeck(bund.deck);
@@ -54,9 +55,10 @@ public class TriviaBundleTransUtil {
     private static void validateBundle(TriviaBundle bund, int cardCount){
         
         //Basic error checking on triva bundle:
-        if(null == bund      ){doError("BUNDLE is null"); }else
+        if(null == bund      ){doError("BUNDLE is null" );}else
         if(null == bund.deck ){doError("null DECK made!");}else
-        if(null == bund.quar ){doError("null QUAR made!");}
+        if(null == bund.quar ){doError("null QUAR made!");}else
+        if(null == bund.synopsis){doError("synnop..NULL");}
         
         //Check-Sum:
         int deck_len = bund.deck.cards.size();

@@ -1,1 +1,23 @@
-These are base classes for different entities.
+These are base classes for different entity categories:
+
+//WHAT?
+These categories are mainly to help organization and understanding
+of the code. They don't actually offer any functionality.
+Except for enforcing stricter typing.
+
+//WHY?
+Why would you artificially enforce stricter typing than needed?
+The more strict you are, the less errors you have. And this artificial
+typing construct creates a strictness that will help catch the hardest
+to find errors... DESIGN errors.
+
+//DETAILS:
+
+BUNDLE TYPE ENTITY:
+Contains references to multiple entity types in it.
+
+COMPOSITE/COLLECTION type ENTITY:
+Contains multiple entities of the same TYPE.
+
+BASE ENTITY:
+The base entity from which all other entities derive.

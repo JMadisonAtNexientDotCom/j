@@ -17,4 +17,15 @@ package primitives;
 public class Synopsis {
     public String overview = 
                      "TODO: Details about the game/test you are playing/taking";
+    
+    
+    /**-------------------------------------------------------------------------
+     * Makes a default synopsis. For testing.
+     * @return :Synopsis configured with default information.
+     ------------------------------------------------------------------------**/
+    public static Synopsis makeDefault(){
+        Synopsis s = new Synopsis();
+        s.overview = "Made using Synopsis.makeDefaultSynopsis()";
+        return s;
+    }//FUNC::END
 }//CLASS::END
