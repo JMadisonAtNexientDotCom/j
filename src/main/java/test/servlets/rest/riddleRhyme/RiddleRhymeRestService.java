@@ -266,10 +266,10 @@ public class RiddleRhymeRestService extends BaseRestService {
     @GET
     @Path("getRandomTriviaBundle")
     public Response getRandomTriviaBundle
-                        (@QueryParam("cardCount") int cardCount, 
-                         @QueryParam("numQuips")  int numQuips, 
-                         @QueryParam("truMIN")    int truMIN, 
-                         @QueryParam("truMAX")    int truMAX){
+                    (@DefaultValue("5") @QueryParam("cardCount") int cardCount, 
+                     @DefaultValue("4") @QueryParam("numQuips")  int numQuips, 
+                     @DefaultValue("0") @QueryParam("truMIN")    int truMIN, 
+                     @DefaultValue("2") @QueryParam("truMAX")    int truMAX){
                             
         //Enter a transaction state:
         Session ses = TransUtil.enterTransaction();
