@@ -127,10 +127,11 @@ public class CueCard extends CompositeEntityBase{
         //Create our output:
         RhymeTable cur_quip;
         int len = c.quips.size();
-        List<Long> op = new ArrayList<Long>(len); //BUGFIX: 
-        for(int i = 0; i < len; i++){             //init at needed length.
+        List<Long> op = new ArrayList<Long>(len);
+        for(int i = 0; i < len; i++){            
             cur_quip = c.quips.get(i);
-            op.set(i, cur_quip.getId() );
+            //op.set(i, cur_quip.getId() ); <-- cant get this to work.
+            op.add(i, cur_quip.getId() ); //<--oooh.. overloaded add.
         }//NEXT i
         
         //Return output: Extracted IDS:
