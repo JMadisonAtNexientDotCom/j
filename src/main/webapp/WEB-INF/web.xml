@@ -91,7 +91,7 @@
         <filter>
             <filter-name>MyCorsFilter</filter-name>
             <filter-class>
-                ntsResponseMachine.services.rest.corsFiltering.MyCorsFilter
+                test.servlets.corsFiltering.MyCorsFilter
             </filter-class>
         </filter>
         <filter-mapping>
