@@ -3,6 +3,8 @@ package test.transactions.util.forBundleEntities;
 import primitives.Synopsis;
 import test.MyError;
 import test.dbDataAbstractions.bundleTypes.TriviaBundle;
+import test.dbDataAbstractions.entities.composites.CueCard;
+import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
 import test.transactions.util.forCompositeEntities.DeckTransUtil;
 import test.transactions.util.forCompositeEntities.QuarTransUtil;
 
@@ -66,6 +68,50 @@ public class TriviaBundleTransUtil {
         if(deck_len != quar_len ){ doError("deck_len != quar_len"); }
         if(deck_len != cardCount){ doError("deck not to len-specs");}
         
+        //Check to make sure that the "original quips" in our slates
+        //matches the quips that were in the cards.
+        CueCard cur_ccard;
+        Slate   cur_slate;
+        int len = cardCount;
+        for(int i = 0; i < len; i++){
+            cur_ccard = bund.deck.cards.get(i);
+            cur_slate = bund.quar.slates.get(i);
+            validateCueCardQuipsMatchSlate(cur_ccard, cur_slate);
+        }//NEXT i
+        
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+     * Makes sure that the blank slate has it's original quips selection
+     * matching the CueCard it ~corrosponds~ to.
+     * We want the slate to include what the original options were because
+     * what WRONG options were presented along with the slated
+     * riddle (question) could influence how difficult the question is.
+     * @param c :c is for CueCard. The reads riddles from CueCards.
+     *           One riddle per CueCard.
+     * @param s :s is for Slate. The slate the Ninja uses to write down
+     *           rhymes(answers) for a single riddle(question) that the
+     *           Joker reads from slate.
+     ------------------------------------------------------------------------**/
+    public static void validateCueCardQuipsMatchSlate(CueCard c, Slate s){
+        if(null == c.quips){doError("quips of cue card are null");}
+        if(null == s.originalQuips){doError("originalQuips of Slate are null");}
+        int a = c.quips.size();
+        int b = s.originalQuips.size();
+        if(a != b){doError("both quip arrays should be same length!");}
+        
+        //If we can make it this far, we can check to make sure they all match.
+        //Note: ORDER MATTERS.
+        long cueCard_quipID;
+        long slate_quipID;
+        int len = a; //<-- number of quips in both arrays.
+        for(int i = 0; i < len; i++){
+            cueCard_quipID = c.quips.get(i).getId();
+            slate_quipID   = s.originalQuips.get(i);
+            if(cueCard_quipID != slate_quipID){
+                doError("[cueCard_quipID != slate_quipID]");
+            }//////////////////////////////////
+        }//NEXT i
     }//FUNC::END
     
     /**-------------------------------------------------------------------------

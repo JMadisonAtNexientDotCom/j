@@ -3,6 +3,7 @@ package test.dbDataAbstractions.entities.composites;
 import test.dbDataAbstractions.entities.bases.CompositeEntityBase;
 import java.util.ArrayList;
 import java.util.List;
+import test.MyError;
 import test.dbDataAbstractions.entities.tables.RhymeTable;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
 
@@ -100,6 +101,42 @@ public class CueCard extends CompositeEntityBase{
         op.quips = new ArrayList<RhymeTable>();
         return op;
     }//FUNC::END
+                                                            
+    /**-------------------------------------------------------------------------
+     *  Extracts the ID values from our quips.
+     *  Will throw an error if the quip list is null or empty.
+     *  Because the only time we want to be extracting data from
+     *  this list is when there is data present to extract.
+     * 
+     *  Original use:
+     *  Creating properly partially-filled-out Slates for the Ninja.
+     *  This ~expidites~ the slate filling out process and makes it easier
+     *  on our UI programmers.
+     * 
+     * @param c :The CueCard to extract quipIDsfrom.
+     * @return  :A list of quipsIDs in SAME ORDER as the
+     *           quips they were extracted from.
+     ------------------------------------------------------------------------**/                                          
+    public static List<Long> extractQuipIDs(CueCard c){
+        
+        //ERROR CHECK INPUT:
+        if(null==c){doError("cue card supplied was null!");}
+        if(null==c.quips){doError("quips list was null!");}
+        if(c.quips.size() <= 0){doError("quips was EMPTY!");}
+        
+        //Create our output:
+        RhymeTable cur_quip;
+        List<Long> op = new ArrayList<Long>();
+        int len = c.quips.size();
+        for(int i = 0; i < len; i++){
+            cur_quip = c.quips.get(i);
+            op.set(i, cur_quip.getId() );
+        }//NEXT i
+        
+        //Return output: Extracted IDS:
+        return op;
+        
+    }//FUNC::END
                       
     /**
      * Creates a CueCard populated with an error message. Used to let the 
@@ -134,12 +171,15 @@ public class CueCard extends CompositeEntityBase{
         
     }//FUNC::END
     
-    /* this might just make code hard to read.
-    public static RiddleAndRhymes make
-                                   (RiddleTable rid, ArrayList<RhymeTable> lst){
-        RiddleAndRhymes op = new RiddleAndRhymes();
-        op
+    /**-------------------------------------------------------------------------
+    * Wrapper function to throw errors from this class.
+    * @param msg :Specific error message.
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+       String err = "ERROR INSIDE:";
+       err += CueCard.class.getSimpleName();
+       err += msg;
+       throw new MyError(err);
     }//FUNC::END
-    */
     
 }//CLASS::END

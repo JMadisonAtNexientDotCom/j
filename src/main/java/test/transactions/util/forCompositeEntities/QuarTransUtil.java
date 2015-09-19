@@ -54,6 +54,11 @@ public class QuarTransUtil {
                 Slate.assertBlankSlate( cur_slate );
             }////////////////////////////
             
+            //Slate needs to be partially filled out for convinience.
+            //Ninja should not be touching this information. And later
+            //We will want integrity checks for it.
+            cur_slate.originalQuips = CueCard.extractQuipIDs(cur_card);
+            
             op.slates.add(cur_slate);
         }//NEXT i
         //----------------------------------------------------------------------
@@ -63,6 +68,11 @@ public class QuarTransUtil {
             doError("slates.size != cards.size");
         }//////////////////////////////////////
         
+        //confirm that slates's original-quips match up with our deck:
+        //That would need to be handled in a CueCard-Slate utility
+        //since it involves both. The check in TrivaBundleTransUtil
+        //should be enough.
+
         //return output:
         return op;
       
