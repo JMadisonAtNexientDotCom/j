@@ -6,6 +6,7 @@
 package test.config.constants;
 
 import test.MyError;
+import test.servlets.rest.AdminRestService;
 import test.servlets.rest.NinjaRestService;
 import test.servlets.rest.TokenRestService;
 import test.servlets.rest.debug.TransDebugRestService;
@@ -50,6 +51,24 @@ public class ServletClassNames {
     public static final String TransDebugRestService_MAPPING = 
                                                        "TransDebugRestService/";
     
+    //ADMIN SERVICE:
+    public static final String AdminRestService_CLASSNAME = "AdminRestService";
+    public static final String AdminRestService_MAPPING   = "AdminRestService/";
+    
+    /**-------------------------------------------------------------------------
+     *  Keeps track of how many times was called. Possible that
+     *  we may end up with errors if this error check utility is
+     *  NOT synchronized.
+     ------------------------------------------------------------------------**/
+    private static int _times_called_CHECK_CLASSNAME = 0;
+    
+    /**-------------------------------------------------------------------------
+     *  Keeps track of how many times was called. Possible that
+     *  we may end up with errors if this error check utility is
+     *  NOT synchronized.
+     ------------------------------------------------------------------------**/
+    private static int _times_called_CHECK_MAPPING   = 0;
+    
     //Static initializer.
     //I bundle it in a "doStaticInit()" function because
     //Most IDE's make it a PAIN to edit code within the
@@ -79,7 +98,22 @@ public class ServletClassNames {
         
         //Verify all _MAPPING vars are simply the _CLASSNAME + "/" character.
         verifyCorrectMapping_MAPPING();
+        
+        //Make sure verifications of CLASSNAME and MAPPING resulted in
+        //evenly paired calls. If this does not happen it signifies:
+        //1: Possible improperly set-up error checks.
+        //2: non-synchronized access to debuggin utility.
+        verifyMappingChecksWereEvenlyPaired();
       
+    }//FUNC::END
+    
+    /** ------------ Throws error if this check fails. --------------------- **/
+    private static void verifyMappingChecksWereEvenlyPaired(){
+        int v0 = _times_called_CHECK_CLASSNAME;
+        int v1 = _times_called_CHECK_MAPPING;
+        if(v0 != v1){//////////////////////////////////////////////////////
+            throw new MyError("[mapping checks were not evenly paired.]");
+        }//////////////////////////////////////////////////////////////////
     }//FUNC::END
     
     /** If any constant is identical to any other constant,
@@ -97,19 +131,25 @@ public class ServletClassNames {
     }//FUNC::END
     
     private static void verifyCorrectMapping_CLASSNAME(){
-        if( notEQ(TokenRestService_CLASSNAME, TokenRestService.class.getSimpleName()))
+        
+        //vcm_cn == "verify correct mapping _ class name"
+        //but we wnat to keep it short to help keep line length down.
+        
+        if( vcm_cn(TokenRestService_CLASSNAME, TokenRestService.class.getSimpleName()))
         {  mError(TokenRestService_CLASSNAME); }
         
-        if( notEQ(NinjaRestService_CLASSNAME, NinjaRestService.class.getSimpleName()))
+        if( vcm_cn(NinjaRestService_CLASSNAME, NinjaRestService.class.getSimpleName()))
         {  mError(NinjaRestService_CLASSNAME); }
         
-        if( notEQ(RiddleRhymeRestService_CLASSNAME, RiddleRhymeRestService.class.getSimpleName()))
+        if( vcm_cn(RiddleRhymeRestService_CLASSNAME, RiddleRhymeRestService.class.getSimpleName()))
         {  mError(RiddleRhymeRestService_CLASSNAME); }
         
-        if( notEQ(TransDebugRestService_CLASSNAME, TransDebugRestService.class.getSimpleName()))
+        if( vcm_cn(TransDebugRestService_CLASSNAME, TransDebugRestService.class.getSimpleName()))
         {  mError(TransDebugRestService_CLASSNAME); }
         
-        
+        if( vcm_cn(AdminRestService_CLASSNAME, AdminRestService.class.getSimpleName()))
+        {  mError(AdminRestService_CLASSNAME); }
+          
     }//FUNC::END
     
     private static void verifyCorrectMapping_MAPPING(){
@@ -124,9 +164,25 @@ public class ServletClassNames {
         
         checkMapping(TransDebugRestService_CLASSNAME,
                      TransDebugRestService_MAPPING);
+        
+        checkMapping(AdminRestService_CLASSNAME,
+                     AdminRestService_MAPPING);
                         
     }//FUNC::END
     
+    /**-------------------------------------------------------------------------
+     *  Wrapper so we can count how many times we checked the
+     *  classname mapping in verifyCorrectMapping_CLASSNAME function.
+     *  Our CLASSNAME and MAPPING verifications should have identical
+     *  number of calls in them when we are validating.
+     * @param s0 :CLASSNAME as string.
+     * @param s1 :CLASSNAME as string.
+     * @return   : results of notEQ
+     ------------------------------------------------------------------------**/
+    private static Boolean vcm_cn(String s0,String s1){
+        _times_called_CHECK_CLASSNAME++;
+        return notEQ(s0,s1);
+    }//FUNC::END
     
     /** All _MAPPING vars should be _CLASSNAME + "/" 
      *  Enforcing this so it is easier to refactor REST API URLS. **/
@@ -138,6 +194,9 @@ public class ServletClassNames {
             msg += "[className:[" + className + "]]";
             msg += "[mapping  :[" + mapping + "]]";
         }
+        
+        _times_called_CHECK_MAPPING++;
+        
     }//FUNC::END
     
     /** 

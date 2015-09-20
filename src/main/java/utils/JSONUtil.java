@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import primitives.BooleanWithComment;
 import primitives.IntegerWithComment;
 import test.MyError;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
@@ -94,13 +95,27 @@ public class JSONUtil {
         return Response.ok(jsonText, MediaType.APPLICATION_JSON).build();
     }//FUNC::END
     
-    /**
+    /**-------------------------------------------------------------------------
      * Converts a number to a JSON response.
-     * @param myValue
-     * @param myComment
-     * @return sdfjlsdjflsdjfljds */
+     * @param myValue :An INTEGER that we want to convert to json.
+     * @param myComment:A comment attached to the boolean. For debug.
+     * @return : A json response with .value set to myValue 
+     ------------------------------------------------------------------------**/
     public static Response numberToJSONResponse(int myValue, String myComment){
         IntegerWithComment obj = new IntegerWithComment();
+        obj.value   = myValue;
+        obj.comment = myComment;
+        return genericObjectToJSONResponse(obj);
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+     * Converts a number to a JSON response.
+     * @param myValue:boolean that is true or false.
+     * @param myComment:A comment attached to the boolean. For debug.
+     * @return : A json response with .value set to myValue  
+     ------------------------------------------------------------------------**/
+    public static Response booleanToJSONResponse(boolean myValue, String myComment){
+        BooleanWithComment obj = new BooleanWithComment();
         obj.value   = myValue;
         obj.comment = myComment;
         return genericObjectToJSONResponse(obj);

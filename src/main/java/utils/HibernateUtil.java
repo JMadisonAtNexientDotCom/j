@@ -10,6 +10,7 @@ import test.MyError;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import org.hibernate.boot.Metadata;
+import test.dbDataAbstractions.entities.tables.AdminTable;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
 import test.dbDataAbstractions.entities.tables.RhymeTable;
 import test.dbDataAbstractions.entities.tables.RiddleRhymeTruthTable;
@@ -193,6 +194,7 @@ public class HibernateUtil {
         addAnnoEntity(mds, RhymeTable .class );
         addAnnoEntity(mds, RiddleRhymeTruthTable.class);
         addAnnoEntity(mds, RiddleRhymeWrongTable.class);
+        addAnnoEntity(mds, AdminTable.class);
     }//FUNC::END
     
     /**-------------------------------------------------------------------------

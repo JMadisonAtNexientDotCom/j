@@ -7,9 +7,8 @@ package primitives;
  * style is minimal compared to the benefits you can gain from it.
  * @author jmadison
  */
-public class IntegerWithComment {
+public class IntegerWithComment extends TypeWithCommentBase{
     public int value = 0;
-    public String comment = "NO_COMMENT_SET";
     
     //Empty Constructor:
     public IntegerWithComment(){};

@@ -50,7 +50,9 @@ CREATE TABLE riddle_rhyme_truth_table (riddle_id INT UNSIGNED NOT NULL, rhyme_id
 CREATE TABLE riddle_rhyme_wrong_table (riddle_id INT UNSIGNED NOT NULL, rhyme_id  INT UNSIGNED NOT NULL);
 CREATE TABLE admin_table (id serial PRIMARY KEY, user_name varchar(80), pass_hash varchar (80) );
 
--- Make an entry into the admin_table --
+-- Make an entry into the admin_table                                         --
+-- ALL USER NAMES SHOULD BE STORED AS LOWERCASE BECAUSE WE WANT USER NAMES    --
+-- TO BE CASE-INSENSITIVE!!!                                                  --
 INSERT INTO admin_table (user_name, pass_hash) VALUES ('sensei', 'password_hashed');
 
 
