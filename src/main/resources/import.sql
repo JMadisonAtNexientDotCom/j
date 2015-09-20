@@ -40,6 +40,7 @@ DROP TABLE IF EXISTS riddle_table;
 DROP TABLE IF EXISTS rhyme_table;
 DROP TABLE IF EXISTS riddle_rhyme_truth_table;
 DROP TABLE IF EXISTS riddle_rhyme_wrong_table;
+DROP TABLE IF EXISTS admin_table;
 
 -- Max length == 800, as in: 10 lines max when each line is 80 chars. --
 -- Max length == 80 (one line) for our answers (rhymes).              --
@@ -47,6 +48,10 @@ CREATE TABLE riddle_table (id serial PRIMARY KEY, text varchar(800) );
 CREATE TABLE rhyme_table (id serial PRIMARY KEY, text varchar(80) );
 CREATE TABLE riddle_rhyme_truth_table (riddle_id INT UNSIGNED NOT NULL, rhyme_id INT UNSIGNED NOT NULL);
 CREATE TABLE riddle_rhyme_wrong_table (riddle_id INT UNSIGNED NOT NULL, rhyme_id  INT UNSIGNED NOT NULL);
+CREATE TABLE admin_table (id serial PRIMARY KEY, user_name varchar(80), pass_hash varchar (80) );
+
+-- Make an entry into the admin_table --
+INSERT INTO admin_table (user_name, pass_hash) VALUES ('sensei', 'password_hashed');
 
 
 -- RIDDLE + RHYME ENTRY --
