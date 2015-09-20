@@ -309,10 +309,10 @@ public class RiddleRhymeRestService extends BaseRestService {
     public Response postQuarForGrading(String jsonRequest){
         
         //Convert the request to JSON:
-        //Quar slateQuar = MapperUtil.readAsObjectOf(Quar.class, jsonRequest);
+        Quar slateQuar = MapperUtil.readAsObjectOf(Quar.class, jsonRequest);
         
         //Store it in temporary place for testing:
-        //TempServiceDataUtil.theQuar = slateQuar;
+        TempServiceDataUtil.theQuar = slateQuar;
         
         //Send back a 200OK response with nothing.
         return Response.ok().build();
