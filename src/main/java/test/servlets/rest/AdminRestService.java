@@ -1,6 +1,7 @@
 package test.servlets.rest;
 
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import test.config.constants.ServletClassNames;
@@ -32,7 +33,9 @@ public class AdminRestService extends BaseRestService{
      * @return :Returns TRUE if accepted credentials.
      ------------------------------------------------------------------------**/
     @Path("loginValidate")
-    public Response loginValidate(String userName, String passWord){
+    public Response loginValidate(
+            @QueryParam("userName") String userName, 
+            @QueryParam("passWord") String passWord){
         
         //Enter transaction:
         Session ses = TransUtil.enterTransaction();
