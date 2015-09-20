@@ -2,6 +2,7 @@ package test.dbDataAbstractions.entities.composites;
 
 import java.util.ArrayList;
 import java.util.List;
+import test.dbDataAbstractions.entities.bases.CompositeEntityBase;
 import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
 
 /**-----------------------------------------------------------------------------
@@ -11,7 +12,7 @@ import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.S
  * 
  * @author jmadison: 2015.09.18_0823PM
  -----------------------------------------------------------------------------*/
-public class Quar {
+public class Quar extends CompositeEntityBase{
     public List<Slate> slates;
     
     /**-------------------------------------------------------------------------

@@ -31,6 +31,16 @@ public class MyCorsFilter implements Filter {
                                          throws IOException, ServletException  {
         String accessSlug = "Access-Control-Allow-Origin";
       ((HttpServletResponse)response).addHeader(accessSlug, "*");
+        
+        
+        //Added to make HTTP POST work:
+        //http://www.codingpedia.org/ama/how-to-add-cors-support-on-the-server-side-in-java-with-jersey/
+        String methodSlug = "Access-Control-Allow-Methods";
+        String allowedMethods = "GET, POST, DELETE, PUT";
+        ((HttpServletResponse)response).addHeader(methodSlug, allowedMethods);
+     
+        //Huntch that this belongs below all of the header setting:
         chain.doFilter(request, response);
+      
     }//FUNC::END
 }//CLASS::END

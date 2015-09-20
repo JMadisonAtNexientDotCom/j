@@ -15,8 +15,10 @@ import test.config.debug.DebugConfig;
 import test.dbDataAbstractions.bundleTypes.TriviaBundle;
 import test.dbDataAbstractions.entities.bases.CompositeEntityBase;
 import test.dbDataAbstractions.entities.composites.CueCard;
+import test.dbDataAbstractions.entities.composites.Quar;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
+import test.debug.debugUtils.tempDataStore.TempServiceDataUtil;
 import test.servlets.rest.BaseRestService;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forBundleEntities.TriviaBundleTransUtil;
@@ -24,6 +26,7 @@ import test.transactions.util.forCompositeEntities.SlateTransUtil;
 import test.transactions.util.riddleRhyme.RiddleRhymeTransUtil;
 import test.transactions.util.riddleRhyme.rhymeRiddle.riddle.RiddleTransUtil;
 import utils.JSONUtil;
+import utils.MapperUtil;
 
 /** A rest service class that handles any api calls involving our --------------
  *  1: riddle table (questions)
@@ -259,8 +262,6 @@ public class RiddleRhymeRestService extends BaseRestService {
     
     }//FUNC::END
     
-    
-    
     @GET
     @Path("getRandomTriviaBundle")
     public Response getRandomTriviaBundle
@@ -285,6 +286,48 @@ public class RiddleRhymeRestService extends BaseRestService {
         //return response:
         return op;
         
+    }//FUNC::END
+         
+    // http://www.vogella.com/tutorials/REST/article.html
+    //http://stackoverflow.com/questions/1662490/consuming-json-object-in-jersey-service
+    /**-------------------------------------------------------------------------
+     * 
+     * Post the QUAR for grading.
+     * Will eventually need to include a session token as a handle
+     * that will allow you to get the results in a later GET call.
+     * 
+     * DESIGN THOUGHT:
+     * Best design choice is to return 201 for created and have a separate
+     * GET for getting the results of the POST.
+     * @param  jsonRequest: The JSON data sent from the client/ui side.
+     * @return :Results of post to UI front end.
+     ------------------------------------------------------------------------**/
+    @POST
+    //@Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("postQuarForGrading")
+    public Response postQuarForGrading(String jsonRequest){
+        
+        //Convert the request to JSON:
+        Quar slateQuar = MapperUtil.readAsObjectOf(Quar.class, jsonRequest);
+        
+        //Store it in temporary place for testing:
+        TempServiceDataUtil.theQuar = slateQuar;
+        
+        //Send back a 200OK response with nothing.
+        return Response.ok().build();
+    }//FUNC::END
+    
+    /**
+     * TEMPORARY: Gets results of last graded quar that is in a debug utility.
+     * Doing this until we get proper session management working.
+     * @return 
+     */
+    @GET
+    @Path("getLastPostedQuar")
+    public Response getLastPostedQuar(){
+        Quar theQuar = TempServiceDataUtil.theQuar;
+        return JSONUtil.compositeEntityToJSONResponse(theQuar);
     }//FUNC::END
     
     
