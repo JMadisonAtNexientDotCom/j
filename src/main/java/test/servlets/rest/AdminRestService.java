@@ -1,5 +1,6 @@
 package test.servlets.rest;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
@@ -32,6 +33,7 @@ public class AdminRestService extends BaseRestService{
      * @param passWord :Case-sensitive password.
      * @return :Returns TRUE if accepted credentials.
      ------------------------------------------------------------------------**/
+    @GET
     @Path("loginValidate")
     public Response loginValidate(
             @QueryParam("userName") String userName, 
