@@ -2,6 +2,7 @@ package test.dbDataAbstractions.entities.bases;
 
 import java.io.Serializable;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 
 /**
  * A base entity class from which all other entities are derived.
@@ -72,7 +73,13 @@ public class BaseEntity implements Serializable{
      * My understanding: You want to access entity properties via
      * getters and setters in case object gets wrapped into a proxy.
      * 
+     * DESIGN PROBLEM:
+     * I want this to be serialized. But NOT show up in SQL table.
+     * 
+     * 
+     * 
      ------------------------------------------------------------------------**/
+    @Transient
     private boolean isError      = false;
     public void setIsError(boolean tf){
         isError = tf;
