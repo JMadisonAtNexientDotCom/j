@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>THE PAGE</title>
+    <title>TRIVIA CHALLENGE FLOW -Test/Debug</title>
 		
 		<!-- ABOUT: Tests the basic flow of getting TriviaBundle from the server -->
 		<!-- And then re-submitting the Quar (slate container) section of the    -->
@@ -54,6 +54,11 @@
 			<br/>
 			<button data-ng-click="getLastPostedQuar();">Get Last Posted Quar</button>
 			<textarea wrap="off" readonly>{{JSON_AS_TEXT_getLastPostedQuar}}</textarea>
+			<p> NOTE: I have noticed that, if the server hasn't been active for a few
+			    hours, the first API call can result in an internal server error.
+					Something to take note of. As a test that fails may pass the second
+				  time.
+			</p>
 		</div>
 		
 		<script>
