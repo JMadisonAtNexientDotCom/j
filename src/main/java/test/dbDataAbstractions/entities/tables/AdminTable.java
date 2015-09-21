@@ -27,7 +27,7 @@ public class AdminTable extends BaseEntity {
     /** Unique ID of the admin user. **/
     @Id
     @Column(name=ID_COLUMN)
-    private String id;
+    private long id;
     
     /** Case-Insensitive user-name. **/
     @Column(name=USER_NAME_COLUMN)
@@ -50,7 +50,7 @@ public class AdminTable extends BaseEntity {
      *  Since it is primary key and should not be tampered with.
      * @return :The ID of the [admin/user]:
      ------------------------------------------------------------------------**/
-    public String getId() {
+    public long getId() {
         return id;
     }//FUNC::END
 

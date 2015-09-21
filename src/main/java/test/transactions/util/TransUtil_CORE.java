@@ -5,8 +5,10 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import test.MyError;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
+import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import utils.HibernateUtil;
 
 
@@ -426,4 +428,77 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         return unboxedOutput;
         
     }//FUNC::END
+    
+    /**
+     * Retrieve a random record from table.
+     * @param tableClass : The class we want a record from.
+     * @return :Container that will have a random record in it
+     *          IF the table has at least one record.
+     */
+    public BaseEntityContainer getRandomRecord(Class tableClass){
+        
+        //create our output variable:
+        BaseEntityContainer bec;
+        
+        //STEP 1: Get # of entries in the table:
+        long total = getNumberOfRecordsInTable(tableClass);
+        if(total <= 0){/////////////////////////////////////////////////////////
+            bec = BaseEntityContainer.make_NullAllowed(null);
+        }else{
+            
+            //Create a random index to sample:
+            int randIndex;
+            randIndex = (int)(Math.random() * total);
+            if(randIndex == total){randIndex = 0;}
+            
+            //Get transaction session and do setup criteria to
+            //give us the record indexed at randIndex:
+            //http://www.shredzone.de/cilla/page/53/
+            //                   how-to-fetch-a-random-entry-with-hibernate.html
+            Session ses = getActiveTransactionSession();
+            Criteria cri = ses.createCriteria( tableClass );
+            cri.setFirstResult(randIndex);
+            cri.setMaxResults(1);
+            BaseEntity theBase = (BaseEntity)cri.uniqueResult();
+            bec = BaseEntityContainer.make(theBase);
+        }///////////////////////////////////////////////////////////////////////
+        
+        //Return a container that may or may not contain a random record:
+        return bec;
+        
+    }//FUNC::END
+    
+    /** Gets an entity from a table using Long. The value is expected to be
+     *  UNIQUE. If there is more than one result, that would be an error.
+     * @param tableClass  :The class of the table entity.
+     * @param columnName  :column of the table we are looking at.
+     * @param columnValue :value column should have if 
+     *                     we are to return that record.
+     * @return :Returns a container that will have the entity in it IF
+     *          the entity was found.
+     */
+    public BaseEntityContainer getEntityFromTableUsingLong
+                        (Class tableClass, String columnName, long columnValue){
+     
+        //Error check:
+        throwErrorIfClassIsNotBaseEntity(tableClass);
+          
+        //Logic:
+        Session ses = getActiveTransactionSession();
+        Criteria cri = ses.createCriteria(tableClass);
+        cri.add(Restrictions.eq(columnName, columnValue));
+        BaseEntity bent = (BaseEntity)cri.uniqueResult();
+        BaseEntityContainer op;
+        op = BaseEntityContainer.make_NullAllowed(bent);
+        return op;
+                            
+    }//WRAPPER::END
+                        
+    private void throwErrorIfClassIsNotBaseEntity(Class tableClass){
+        boolean isValidEntityClass = (tableClass.isInstance(BaseEntity.class));
+        if(false == isValidEntityClass){
+            throw new MyError("TransUtil_CORE caught invalid entity class");
+        }//ERROR?
+    }//FUNC::END
+    
 }//CLASS::END

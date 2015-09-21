@@ -127,6 +127,37 @@ public class AdminTransUtil {
          
     }//FUNC::END
     
+     /**
+     * @return : TRUE if there is at least one entry in the admin table.
+     */
+    public static boolean getDoAdminsExist(){
+        TransUtil.insideTransactionCheck();
+        long amt =  TransUtil.getNumberOfRecordsInTable(AdminTable.class);
+        return (amt > 0);
+    }//FUNC::END
+    
+    /**
+     * Get a random admin's id from table.
+     * @return :id of that random admin.
+     */
+    public static long getRandomAdminID(){
+        TransUtil.insideTransactionCheck();
+        BaseEntityContainer bec;
+        bec = TransUtil.getRandomRecord(AdminTable.class);
+        
+        long op;
+        if(bec.exists){
+            AdminTable admin = (AdminTable)bec.entity;
+            op = admin.getId();
+        }else{
+            op = (-1); //return -1 for no ninja exists.
+        }//xx
+        
+        //return output:
+        return op;
+    }//FUNC::END
+    
+    
     /** Pseuedo-hash. Stub function. Offers basic sanitization from
      *  SQL injection. But for the moment, does not actually hide your
      *  password.

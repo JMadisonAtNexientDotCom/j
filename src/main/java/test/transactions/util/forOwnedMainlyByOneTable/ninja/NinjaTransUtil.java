@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
 import test.transactions.util.TransUtil;
 import test.MyError;
+import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 /**
  * Handles [transactions/operations] involving the ninja table.
  * AKA: Our table full of identification info for every ninja that
@@ -86,9 +87,37 @@ public class NinjaTransUtil {
         return n;
             
     }//FUNC::END
-            
-            
+        
+    /**
+     * @return : TRUE if there is at least one entry in the ninja_table
+     */
+    public static boolean getDoNinjasExist(){
+        TransUtil.insideTransactionCheck();
+        long amt =  TransUtil.getNumberOfRecordsInTable(NinjaTable.class);
+        return (amt > 0);
+    }//FUNC::END
     
+    /**
+     * Get a random ninja's id from table.
+     * @return :id of that random ninja.
+     */
+    public static long getRandomNinjaID(){
+        TransUtil.insideTransactionCheck();
+        BaseEntityContainer bec;
+        bec = TransUtil.getRandomRecord(NinjaTable.class);
+        
+        long op;
+        if(bec.exists){
+            NinjaTable ninja = (NinjaTable)bec.entity;
+            op = ninja.getIdOfNinja();
+        }else{
+            op = (-1); //return -1 for no ninja exists.
+        }
+        
+        //return output:
+        return op;
+    }//FUNC::END
+            
     /**
      * Set the basic info for the ninja.
      * Name, phone, email, portfolio url. Basic stuff.

@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 
 /**-----------------------------------------------------------------------------
  * The owner_table is a database table that keeps track of which users
@@ -16,7 +17,7 @@ import javax.persistence.Table;
  ----------------------------------------------------------------------------**/
 @Entity
 @Table(name= OwnerTable.TABLE_NAME)
-public class OwnerTable {
+public class OwnerTable extends BaseEntity{
     
     /** Name of table this entity refers to, for easy refactoring. **/
     public static final String TABLE_NAME        = "owner_table";
@@ -48,7 +49,43 @@ public class OwnerTable {
     @Column(name=ADMIN_ID_COLUMN)
     private long admin_id;
     
+    @Column(name=COMMENT_COLUMN)
+    private String comment;
+
+    //Auto-Generated getters + setters:
+    //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
+    public long getToken_id() {
+        return token_id;
+    }
+
+    public void setToken_id(long token_id) {
+        this.token_id = token_id;
+    }
+
+    public long getNinja_id() {
+        return ninja_id;
+    }
+
+    public void setNinja_id(long ninja_id) {
+        this.ninja_id = ninja_id;
+    }
+
+    public long getAdmin_id() {
+        return admin_id;
+    }
+
+    public void setAdmin_id(long admin_id) {
+        this.admin_id = admin_id;
+    }
     
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+    //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
     
-    
+     
 }//CLASS::END

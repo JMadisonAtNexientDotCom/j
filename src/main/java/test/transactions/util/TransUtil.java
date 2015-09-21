@@ -2,6 +2,7 @@ package test.transactions.util;
 
 import org.hibernate.Session;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
+import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 
 /**
  * PURPOSE/PATTERN OF THIS UTILITY:
@@ -146,6 +147,18 @@ public class TransUtil {
     public static long getNumberOfRecordsInTable(Class tableClass){
         return i().getNumberOfRecordsInTable(tableClass);
     }//WRAPPER::END
+    
+    public static BaseEntityContainer getEntityFromTableUsingLong
+                        (Class tableClass, String columnName, long columnValue){
+        return i().getEntityFromTableUsingLong
+                        (      tableClass,        columnName,      columnValue);
+    }//WRAPPER::END
+                        
+    public static BaseEntityContainer getRandomRecord(Class tableClass){
+        return i().getRandomRecord(tableClass);
+    }//WRAPPER::END   
     //WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
     
+                  
+                        
 }//END::CLASS
