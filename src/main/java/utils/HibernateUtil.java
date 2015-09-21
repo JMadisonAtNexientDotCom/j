@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import org.hibernate.boot.Metadata;
 import test.dbDataAbstractions.entities.tables.AdminTable;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
+import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.dbDataAbstractions.entities.tables.RhymeTable;
 import test.dbDataAbstractions.entities.tables.RiddleRhymeTruthTable;
 import test.dbDataAbstractions.entities.tables.RiddleRhymeWrongTable;
@@ -197,6 +198,7 @@ public class HibernateUtil {
         addAnnoEntity(mds, RiddleRhymeWrongTable.class);
         addAnnoEntity(mds, AdminTable.class);
         addAnnoEntity(mds, SessionTable.class);
+        addAnnoEntity(mds, OwnerTable.class);
     }//FUNC::END
     
     /**-------------------------------------------------------------------------

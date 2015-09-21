@@ -75,7 +75,9 @@ public class BaseEntity implements Serializable{
      * 
      * DESIGN PROBLEM:
      * I want this to be serialized. But NOT show up in SQL table.
-     * 
+     * NICE! It works this way. Meaning when UI people pull down the JSON
+     * they will have the .isError property, but when data is packed into
+     * database table, that .isError will be ignored.
      * 
      * 
      ------------------------------------------------------------------------**/
