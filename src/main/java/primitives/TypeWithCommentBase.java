@@ -16,4 +16,11 @@ package primitives;
  ----------------------------------------------------------------------------**/
 public class TypeWithCommentBase {
     public String comment = "NO_COMMENT_SET";
+    
+    /**-------------------------------------------------------------------------
+     *  Flagged to true if the object is an error.
+     *  We do this so that UI people have an easy standardized
+     *  structure with which to validate response json data.
+     ------------------------------------------------------------------------**/
+    public boolean isError = false;
 }//CLASS::END

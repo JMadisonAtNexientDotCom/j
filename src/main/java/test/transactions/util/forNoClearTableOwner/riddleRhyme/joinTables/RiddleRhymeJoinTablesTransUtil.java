@@ -1,4 +1,4 @@
-package test.transactions.util.riddleRhyme.joinTables;
+package test.transactions.util.forNoClearTableOwner.riddleRhyme.joinTables;
 
 import java.util.List;
 import org.hibernate.Criteria;

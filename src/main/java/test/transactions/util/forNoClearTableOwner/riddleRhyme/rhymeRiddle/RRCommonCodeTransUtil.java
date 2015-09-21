@@ -1,5 +1,5 @@
 
-package test.transactions.util.riddleRhyme.rhymeRiddle;
+package test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;

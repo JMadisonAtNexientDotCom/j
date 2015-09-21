@@ -5,9 +5,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
+import primitives.StringWithComment;
 import test.config.constants.ServletClassNames;
 import test.transactions.util.TransUtil;
-import test.transactions.util.admin.AdminTransUtil;
+import test.transactions.util.forOwnedMainlyByOneTable.admin.AdminTransUtil;
+import test.transactions.util.forOwnedMainlyByOneTable.session.SessionTransUtil;
 import utils.JSONUtil;
 
 /**-----------------------------------------------------------------------------
@@ -49,8 +51,53 @@ public class AdminRestService extends BaseRestService{
         TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
         
         //Return response:
-        return JSONUtil.booleanToJSONResponse(tf,"made by loginValidate");
+        String comment = "made by loginValidate";
+        return JSONUtil.booleanToJSONResponse(tf,comment, JSONUtil.ALL_IS_WELL);
         
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+     * Admin logs in and grants themselves a session token.
+     * Admin does not control what session token they get. 
+     * However, the token from the token_table should NOT be associated
+     * with any [Trials/Tests]
+     * @param userName :Admin's user name. NOT case sensitive.
+     * @param passWord :Case sensitive password.
+     * @return :Token from the token_table that will now grant admin access
+     *          because the token is also registered in the session_table.
+     ------------------------------------------------------------------------**/
+    @GET
+    @Path("loginAndGetTokenForSelf")
+    public Response loginAndGetTokenForSelf(String userName, String passWord){
+        
+        //Enter transaction:
+        Session ses = TransUtil.enterTransaction();
+        
+        StringWithComment adminToken;
+        boolean isValidLogin = AdminTransUtil.loginValidate(userName, passWord);
+        if(isValidLogin){
+            adminToken = SessionTransUtil.getActiveTokenForAdmin(userName);
+        }else{
+            adminToken = new StringWithComment();
+            adminToken.value = "ERROR:ACCESS_DENIED";
+            adminToken.isError = true;
+        }//Valid?
+        adminToken.comment = "last touched by loginAndGetTokenForSelf";
+        
+        //Exit transaction:
+        //We exit with saving, because getting admin token involves
+        //either creating a new entry in session_table, or re-activating
+        //a pre-existing entry in the session_table.
+        //TransUtil.exitTransaction(ses, TransUtil.EXIT_WITH_SAVE);
+        
+        //Temporary, until all the logic is in place and entities
+        //Are actually registered for saving.
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_WITH_SAVE);
+        
+        Response op;
+        op = JSONUtil.typeWithCommentToJSONResponse(adminToken);
+        
+        return op;
     }//FUNC::END
     
     

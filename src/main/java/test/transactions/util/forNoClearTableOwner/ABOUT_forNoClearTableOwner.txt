@@ -1,0 +1,20 @@
+This folder is for transaction utilites that have no clear table owner.
+For example: 
+
+A transaction function involving equally the admin_table and token_table
+cannot belong in either the AdminTransUtil or the TokenTransUtil
+since both tables can claim ownership to the function.
+
+Do we call the new utility:
+TokenAdminTransUtil?
+Or
+AdminTokenTransUtil?
+
+For convention, I think that should be solved ALPHABETICALLY.
+
+Also, organization in "forNoClearTableOwner" should be FLAT.
+So that we can quickly see that the combined naming convention is
+being followed.
+
+I have broken that with riddleRhyme folder because it existed before
+this restructure. But try to make the future commits fit this design.

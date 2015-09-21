@@ -1,4 +1,4 @@
-package test.transactions.util.riddleRhyme.rhymeRiddle.rhyme;
+package test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.rhyme;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +9,9 @@ import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.RhymeTable;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.transactions.util.TransUtil;
-import test.transactions.util.riddleRhyme.RiddleRhymeTransUtil;
-import test.transactions.util.riddleRhyme.joinTables.truth.RiddleRhymeTransUtil_Truth;
-import test.transactions.util.riddleRhyme.rhymeRiddle.RRCommonCodeTransUtil;
+import test.transactions.util.forNoClearTableOwner.riddleRhyme.RiddleRhymeTransUtil;
+import test.transactions.util.forNoClearTableOwner.riddleRhyme.joinTables.truth.RiddleRhymeTransUtil_Truth;
+import test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.RRCommonCodeTransUtil;
 
 /**
  * A utility for transactions that only involve the rhyme_table. (answer table)

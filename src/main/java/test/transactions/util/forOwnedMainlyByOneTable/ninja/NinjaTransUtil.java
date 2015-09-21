@@ -1,4 +1,4 @@
-package test.transactions.util.ninja;
+package test.transactions.util.forOwnedMainlyByOneTable.ninja;
 
 import org.hibernate.Session;
 import test.dbDataAbstractions.entities.tables.NinjaTable;

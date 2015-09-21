@@ -56,6 +56,37 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class BaseEntity implements Serializable{
 
+    /**-------------------------------------------------------------------------
+     * Used to let UI people know if the response sent back is an 
+     * error-response. Rather than change the STRUCTURE of information
+     * sent back, we simple edit these flags.
+     * 
+     * NOTE ON COMPILER WARNING:
+     * WARNING: http://forums.netbeans.org/topic53754.html
+     * 
+     * //http://forums.netbeans.org/topic53754.html
+     * Okay, it seems while Hibernate allows it, JPA explicitly forbids this:
+     * JPA 2.0 "2.2 Persistent Fields and Properties" (PDF p22): 
+     * 
+     * JMadison Note:
+     * My understanding: You want to access entity properties via
+     * getters and setters in case object gets wrapped into a proxy.
+     * 
+     ------------------------------------------------------------------------**/
+    private boolean isError      = false;
+    public void setIsError(boolean tf){
+        isError = tf;
+    }//FUNC::END
+    public boolean getIsError(){
+        return isError;
+    }//FUNC::END
+    
+    
+    //We don't need an errorMessage field. The comment property that
+    //I use on my entities should handle communication of what the error
+    //happens to be.
+    //XXX-dont-use-XXX//public String  errorMessage = "NOT_AN_ERROR";
+    
     //Boilerplate implementation of Serializable interface:
     //Usage: Keep compiler happy.
     ////////////////////////////////////////////////////////////////////////////

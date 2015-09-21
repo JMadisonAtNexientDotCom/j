@@ -7,7 +7,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import test.dbDataAbstractions.entities.tables.TokenTable;
-import test.transactions.util.token.TokenTransUtil;
+import test.transactions.util.forOwnedMainlyByOneTable.token.TokenTransUtil;
 import test.transactions.util.TransUtil;
 
 //Attempt to convert to object to JSON:

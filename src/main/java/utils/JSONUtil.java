@@ -9,6 +9,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import primitives.BooleanWithComment;
 import primitives.IntegerWithComment;
+import primitives.StringWithComment;
+import primitives.TypeWithCommentBase;
 import test.MyError;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.bases.BundleEntityBase;
@@ -20,6 +22,31 @@ import test.dbDataAbstractions.fracturedTypes.FracturedTypeBase;
  * my NinjaRestService.java and TokenRestService.java
  * @author jmadison **/
 public class JSONUtil {
+    
+    /**-------------------------------------------------------------------------
+     *  Used for when we are creating a JSON response.
+     *  When we supply IS_AN_ERROR as parameter, the
+     *  .isError flag of some of my entities will be
+     *  flagged to true. Might also want to NOT sent back 200OK.
+     * 
+     *  Current implementations of this are used in:
+     *  numberToJSONResponse
+     *  booleanToJSONResponse
+     *  stringToJSONResponse
+     ------------------------------------------------------------------------**/
+    public static final boolean IS_AN_ERROR = true;
+    
+    /**-------------------------------------------------------------------------
+     *  This is paired with IS_AN_ERROR,and is the opposite of IS_AN_ERROR.
+     *  A bit weird having ALL_IS_WELL == false... reading this would give
+     *  you wrong impression.
+     * 
+     *  Reason for this:
+     *  ALL_IS_WELL is meant to make function calls that use the
+     *  hasError parameter easier on the eyes to read without having to
+     *  go to the source and look at the parameter description.
+     ------------------------------------------------------------------------**/
+    public static final boolean ALL_IS_WELL = false;
     
     /** Converts an entity to pretty-formatted JSON Response.
      *  Used for creating rest services.
@@ -99,12 +126,16 @@ public class JSONUtil {
      * Converts a number to a JSON response.
      * @param myValue :An INTEGER that we want to convert to json.
      * @param myComment:A comment attached to the boolean. For debug.
+     * @param isAnError:UI people can check explicitly to see if this response
+     *                  is an error-response.
      * @return : A json response with .value set to myValue 
      ------------------------------------------------------------------------**/
-    public static Response numberToJSONResponse(int myValue, String myComment){
+    public static Response numberToJSONResponse
+                             (int myValue, String myComment, boolean isAnError){
         IntegerWithComment obj = new IntegerWithComment();
         obj.value   = myValue;
         obj.comment = myComment;
+        obj.isError = isAnError;
         return genericObjectToJSONResponse(obj);
     }//FUNC::END
     
@@ -112,12 +143,60 @@ public class JSONUtil {
      * Converts a number to a JSON response.
      * @param myValue:boolean that is true or false.
      * @param myComment:A comment attached to the boolean. For debug.
+     * @param isAnError:UI people can check explicitly to see if this response
+     *                  is an error-response.
      * @return : A json response with .value set to myValue  
      ------------------------------------------------------------------------**/
-    public static Response booleanToJSONResponse(boolean myValue, String myComment){
+    public static Response booleanToJSONResponse
+                         (boolean myValue, String myComment, boolean isAnError){
         BooleanWithComment obj = new BooleanWithComment();
         obj.value   = myValue;
         obj.comment = myComment;
+        obj.isError = isAnError;
+        return genericObjectToJSONResponse(obj);
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+     * Converts a string to a JSON response.
+     * @param myValue:boolean that is true or false.
+     * @param myComment:A comment attached to the boolean. For debug.
+     * @param isAnError:UI people can check explicitly to see if this response
+     *                  is an error-response.
+     * @return : A json response with .value set to myValue  
+     ------------------------------------------------------------------------**/
+    public static Response stringToJSONResponse
+                          (String myValue, String myComment, boolean isAnError){
+        StringWithComment obj = new StringWithComment();
+        obj.value   = myValue;
+        obj.comment = myComment;
+        obj.isError = isAnError;
+        return genericObjectToJSONResponse(obj);
+    }//FUNC::END
+                     
+    /**-------------------------------------------------------------------------
+     * Converts a value-type boxed with comment/debug information
+     * into a JSON response.
+     * 
+     * @param obj : An object extending TypeWithCommentBase
+     *              Examples:
+     *                  BooleanWithComment
+     *                  IntegerWithComment
+     *                  StringWithComment
+     * @return : A json response that has serialized the input object.
+     ------------------------------------------------------------------------**/
+    public static Response typeWithCommentToJSONResponse
+                                                      (TypeWithCommentBase obj){
+                                                          
+        //TODO: We might want to return something besides 200OK if the
+        //input object is configured as an error. However, maybe not if
+        //error response header breaks the UI. The idea is to keep the UI
+        //intact even when error happens. IF the error is something the
+        //back-end anticipated could happen.
+        //
+        //Populating the UI person's form with the words "ERROR"
+        //Via the expected object CONFIGURED as an error is much more
+        //friendly than giving the UI people something they do not expect
+        //when they make a mistake.
         return genericObjectToJSONResponse(obj);
     }//FUNC::END
     

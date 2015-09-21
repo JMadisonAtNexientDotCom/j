@@ -4,7 +4,7 @@ import primitives.Abacus;
 import test.MyError;
 import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
 import test.transactions.util.TransUtil;
-import test.transactions.util.riddleRhyme.RiddleRhymeTransUtil;
+import test.transactions.util.forNoClearTableOwner.riddleRhyme.RiddleRhymeTransUtil;
 
 /**-----------------------------------------------------------------------------
  * The SlateClerk works for the AbacusJudge. SlateClerk is an accountant

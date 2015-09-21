@@ -23,8 +23,8 @@ import test.servlets.rest.BaseRestService;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forBundleEntities.TriviaBundleTransUtil;
 import test.transactions.util.forCompositeEntities.SlateTransUtil;
-import test.transactions.util.riddleRhyme.RiddleRhymeTransUtil;
-import test.transactions.util.riddleRhyme.rhymeRiddle.riddle.RiddleTransUtil;
+import test.transactions.util.forNoClearTableOwner.riddleRhyme.RiddleRhymeTransUtil;
+import test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.riddle.RiddleTransUtil;
 import utils.JSONUtil;
 import utils.MapperUtil;
 
@@ -66,7 +66,7 @@ public class RiddleRhymeRestService extends BaseRestService {
             help += "1==CORRECT,-1==WRONG,0==UNDEFINED";
             help += " riddleID==" + riddleID + " rhymeID==" + rhymeID;
         }
-        return JSONUtil.numberToJSONResponse(op, help);
+        return JSONUtil.numberToJSONResponse(op, help, JSONUtil.ALL_IS_WELL);
         
     }//FUNC::END
     

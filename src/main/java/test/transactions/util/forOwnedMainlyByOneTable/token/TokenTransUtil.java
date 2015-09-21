@@ -1,4 +1,4 @@
-package test.transactions.util.token;
+package test.transactions.util.forOwnedMainlyByOneTable.token;
 
 import test.MyError;
 import org.hibernate.Criteria;

@@ -23,6 +23,13 @@ import test.dbDataAbstractions.entities.bases.BaseEntity;
  * @author jmadison 2015.09.02_0451PM */
 public class BaseEntityContainer {
     
+    /** Reference may or may not be null. **/
+    public BaseEntity entity;
+    
+    /** Flag tells us if BaseEntity reference should be null or not. **/
+    public Boolean    exists;
+    
+    
     public static BaseEntityContainer make(BaseEntity ent){
         
         //ERROR CHECK:
@@ -68,10 +75,18 @@ public class BaseEntityContainer {
         return op;
     }//FUNC::END
     
-    /** Reference may or may not be null. **/
-    public BaseEntity entity;
+    /**-------------------------------------------------------------------------
+     * Throws error if disagreement between .exists flag and .entity ref.
+     * @param bec :The base entity container we want to check for errors. 
+     ------------------------------------------------------------------------**/
+    public static void validate(BaseEntityContainer bec){
+        if( (null == bec.entity) && (true == bec.exists)){
+            throw new MyError("flag mismatch! null+exists");
+        }//ERRORCHECK
+        
+        if( (null != bec.entity) && (false == bec.exists)){
+            throw new MyError("flag mismatch! NOT-null + NOT-exists");
+        }//ERRORCHECK
+    }//FUNC::END
     
-    /** Flag tells us if BaseEntity reference should be null or not. **/
-    public Boolean    exists;
-    
-}//END::CLASS
+}//CLASS::END

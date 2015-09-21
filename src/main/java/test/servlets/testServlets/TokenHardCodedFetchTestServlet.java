@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import test.TestTransaction;
-import test.transactions.util.token.TokenTransUtil;
+import test.transactions.util.forOwnedMainlyByOneTable.token.TokenTransUtil;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.transactions.util.TransUtil;
 import org.hibernate.Session;

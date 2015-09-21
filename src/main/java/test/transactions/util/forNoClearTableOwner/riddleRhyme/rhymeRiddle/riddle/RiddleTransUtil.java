@@ -1,4 +1,4 @@
-package test.transactions.util.riddleRhyme.rhymeRiddle.riddle;
+package test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.riddle;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -11,7 +11,7 @@ import test.dbDataAbstractions.entities.tables.RhymeTable;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.transactions.util.TransUtil;
-import test.transactions.util.riddleRhyme.rhymeRiddle.RRCommonCodeTransUtil;
+import test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.RRCommonCodeTransUtil;
 
 /**
  * A utility for transactions involving only the riddle_table.

@@ -1,4 +1,4 @@
-package test.transactions.util.riddleRhyme.joinTables.truth;
+package test.transactions.util.forNoClearTableOwner.riddleRhyme.joinTables.truth;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -11,8 +11,8 @@ import test.dbDataAbstractions.entities.tables.RhymeTable;
 import test.dbDataAbstractions.entities.tables.RiddleRhymeTruthTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.transactions.util.TransUtil;
-import test.transactions.util.riddleRhyme.joinTables.RiddleRhymeJoinTablesTransUtil;
-import test.transactions.util.riddleRhyme.rhymeRiddle.rhyme.RhymeTransUtil;
+import test.transactions.util.forNoClearTableOwner.riddleRhyme.joinTables.RiddleRhymeJoinTablesTransUtil;
+import test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.rhyme.RhymeTransUtil;
 
 /**
  * CLASS SUMMARY:

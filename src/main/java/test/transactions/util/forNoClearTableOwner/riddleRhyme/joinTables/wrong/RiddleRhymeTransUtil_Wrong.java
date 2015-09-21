@@ -1,7 +1,7 @@
-package test.transactions.util.riddleRhyme.joinTables.wrong;
+package test.transactions.util.forNoClearTableOwner.riddleRhyme.joinTables.wrong;
 
 import test.dbDataAbstractions.entities.tables.RiddleRhymeWrongTable;
-import test.transactions.util.riddleRhyme.joinTables.RiddleRhymeJoinTablesTransUtil;
+import test.transactions.util.forNoClearTableOwner.riddleRhyme.joinTables.RiddleRhymeJoinTablesTransUtil;
 
 /**
  * CLASS SUMMARY:

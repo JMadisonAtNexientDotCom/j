@@ -36,8 +36,8 @@ public class TransDebugRestService extends BaseRestService{
         //Exit transaction state:
         TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
         
-        return JSONUtil.numberToJSONResponse
-                            (op,"TransDebugRestService.incrementSharedCounter");
+        String comment = "TransDebugRestService.incrementSharedCounter";
+        return JSONUtil.numberToJSONResponse(op, comment, JSONUtil.ALL_IS_WELL);
         
     }//FUNC::END
     
@@ -54,8 +54,8 @@ public class TransDebugRestService extends BaseRestService{
         //Exit transaction state:
         TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
         
-        return JSONUtil.numberToJSONResponse
-                            (op,"TransDebugRestService.getSharedCounterValue");
+        String comment = "TransDebugRestService.getSharedCounterValue";
+        return JSONUtil.numberToJSONResponse(op, comment, JSONUtil.ALL_IS_WELL);
         
     }//FUNC::END
     
@@ -73,8 +73,8 @@ public class TransDebugRestService extends BaseRestService{
         //Exit transaction state:
         TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
         
-        return JSONUtil.numberToJSONResponse
-                            (op,"TransDebugRestService.incrementHordedCounter");
+        String comment = "TransDebugRestService.incrementHordedCounter";
+        return JSONUtil.numberToJSONResponse(op, comment, JSONUtil.ALL_IS_WELL);
         
     }//FUNC::END
     
@@ -91,8 +91,8 @@ public class TransDebugRestService extends BaseRestService{
         //Exit transaction state:
         TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
         
-        return JSONUtil.numberToJSONResponse
-                            (op,"TransDebugRestService.getHordedCounterValue");
+        String comment = "TransDebugRestService.getHordedCounterValue";
+        return JSONUtil.numberToJSONResponse(op,comment, JSONUtil.ALL_IS_WELL);
         
     }//FUNC::END
     
@@ -114,10 +114,8 @@ public class TransDebugRestService extends BaseRestService{
         //Exit transaction state:
         TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
         
-        return JSONUtil.numberToJSONResponse
-                            (op,"TransDebugRestService.getUtilityInstanceID");
+        String comment = "TransDebugRestService.getUtilityInstanceID";
+        return JSONUtil.numberToJSONResponse(op,comment,JSONUtil.ALL_IS_WELL);
         
     }//FUNC::END
-    
-    
 }//CLASS::END

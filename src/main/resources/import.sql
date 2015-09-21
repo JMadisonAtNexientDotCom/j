@@ -60,6 +60,9 @@ CREATE TABLE session_table (id serial PRIMARY KEY, FOREIGN KEY (token_id) REFERE
 -- TO BE CASE-INSENSITIVE!!!                                                  --
 INSERT INTO admin_table (user_name, pass_hash) VALUES ('sensei', 'password_hashed');
 
+-- TODO: Is there a way to hack session_table into existance?                 --
+-- CREATE TABLE does not seem like enough.                                    --
+
 
 -- RIDDLE + RHYME ENTRY --
 INSERT INTO riddle_table (text) VALUES ('I build up castles but tear down mountains make some men blind but others to see. What am I?');

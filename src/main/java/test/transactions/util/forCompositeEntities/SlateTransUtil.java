@@ -6,8 +6,8 @@ import test.MyError;
 import test.dbDataAbstractions.entities.tables.RhymeTable;
 import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
 import test.transactions.util.TransUtil;
-import test.transactions.util.riddleRhyme.RiddleRhymeTransUtil;
-import test.transactions.util.riddleRhyme.rhymeRiddle.riddle.RiddleTransUtil;
+import test.transactions.util.forNoClearTableOwner.riddleRhyme.RiddleRhymeTransUtil;
+import test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.riddle.RiddleTransUtil;
 
 /**
  * A transaction utility that is responsible for managing transactions involving
