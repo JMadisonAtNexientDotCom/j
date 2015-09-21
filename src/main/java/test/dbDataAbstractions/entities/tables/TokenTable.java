@@ -18,7 +18,7 @@ import javax.persistence.Table;
  *
  ----------------------------------------------------------------------------**/
 @Entity
-@Table(name="token_table")  //<--can we replace this with TABLE_NAME ?
+@Table(name=TokenTable.TABLE_NAME)  //<--can we replace this with TABLE_NAME ?
 public class TokenTable extends BaseEntity{
     
     /** Name of table this entity refers to, for easy refactoring. **/

@@ -16,6 +16,7 @@ import test.dbDataAbstractions.entities.tables.RhymeTable;
 import test.dbDataAbstractions.entities.tables.RiddleRhymeTruthTable;
 import test.dbDataAbstractions.entities.tables.RiddleRhymeWrongTable;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
+import test.dbDataAbstractions.entities.tables.SessionTable;
 import test.dbDataAbstractions.entities.tables.TestTable01;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.debug.debugUtils.entity.EntityColumnDebugUtil;
@@ -195,6 +196,7 @@ public class HibernateUtil {
         addAnnoEntity(mds, RiddleRhymeTruthTable.class);
         addAnnoEntity(mds, RiddleRhymeWrongTable.class);
         addAnnoEntity(mds, AdminTable.class);
+        addAnnoEntity(mds, SessionTable.class);
     }//FUNC::END
     
     /**-------------------------------------------------------------------------

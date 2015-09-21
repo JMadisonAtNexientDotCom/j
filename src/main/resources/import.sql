@@ -53,7 +53,7 @@ CREATE TABLE rhyme_table (id serial PRIMARY KEY, text varchar(80) );
 CREATE TABLE riddle_rhyme_truth_table (riddle_id INT UNSIGNED NOT NULL, rhyme_id INT UNSIGNED NOT NULL);
 CREATE TABLE riddle_rhyme_wrong_table (riddle_id INT UNSIGNED NOT NULL, rhyme_id  INT UNSIGNED NOT NULL);
 CREATE TABLE admin_table (id serial PRIMARY KEY, user_name varchar(80), pass_hash varchar (80) );
-CREATE TABLE session_table (id serial PRIMARY KEY, FOREIGN KEY (token_id) REFERENCES token_table(id), opened_on INT, duration INT, is_active BOOLEAN); 
+CREATE TABLE session_table (id serial PRIMARY KEY, FOREIGN KEY (token_id) REFERENCES token_table(id), opened_on INT, duration INT, is_active BOOLEAN, comment varchar(80) ); 
 
 -- Make an entry into the admin_table                                         --
 -- ALL USER NAMES SHOULD BE STORED AS LOWERCASE BECAUSE WE WANT USER NAMES    --
