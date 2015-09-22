@@ -25,6 +25,8 @@ import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
 public class OwnerTransUtil {
     
     /**-------------------------------------------------------------------------
+     *  RESERVE 0 for un-used, because (-1) is INVALID FOR UNSIGNED DATA!
+     * 
      *  Owner table can link token+ninja or token+admin, but should
      *  not do a 3-way binding. So the field that is NOT binded should
      *  have this NEGATIVE value in it. This negative value [says/means],
@@ -52,7 +54,7 @@ public class OwnerTransUtil {
      *  be explicitly allocated by an admin. 
      * (AKA: Recruiter or other nexient employee with admin account)
      ------------------------------------------------------------------------**/
-    private static long UNUSED_ID = (-1);
+    private static long UNUSED_ID = (0);
     
     /**-------------------------------------------------------------------------
      * Make an entry into join table represented by this class.
@@ -73,7 +75,7 @@ public class OwnerTransUtil {
                                       
        //Niave error checks of inputs:
        //Make sure only ninja_id or admin_id was specified.
-       if(token_id < 0){ doError("negative token_id supplied");}                 
+       if(token_id <= (-1)){ doError("[[NEGATIVE token_id supplied!]]");}                 
        if(false == xor_id(ninja_id, admin_id)){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
            String msg = "";
            msg += "[XOR_ID ERROR:]";
@@ -238,15 +240,15 @@ public class OwnerTransUtil {
        throw new MyError(err);
     }//FUNC::END
     
-    /** A XOR of id_00 and id_01, where TRUE is anything
-     *  that is ZERO or POSITIVE. Zero == true because
-     *  0 is a valid id for a database. (Though not used by convention it seems)
+    /** A XOR of id_00 and id_01, where ONE must have a
+     *  valid id that is >UNUSED_ID and the other must have
+     *  an INVALID_ID that is <=UNUSED_ID
      * @param id_00 :1ST ID
      * @param id_01 :2ND ID
      */
     private static boolean xor_id(long id_00, long id_01){
-        if(id_00 >= 0 && id_01 < 0){ return true;}
-        if(id_00 <  0 && id_01 >=0){ return true;}
+        if(id_00 > UNUSED_ID && id_01 <=UNUSED_ID){ return true;}
+        if(id_00 <=UNUSED_ID && id_01 > UNUSED_ID){ return true;}
         return false;
     }//FUNC::END
     
