@@ -20,19 +20,19 @@ public class TransValidateUtil {
      * @param longValue : Value that should be in column of table.
      *                    BUT: Only validated if number provided is >=0
      */
-    public static void longValueShouldExistIfNonNegative
+    public static void longValueShouldExistIfPositive
                     (Class tableEntityClass, String columnName, long longValue){
                         
         //Make sure we are in a transaction state:
         TransUtil.insideTransactionCheck();
         Session ses = TransUtil.getActiveTransactionSession();
 
-        if(longValue <(-1)){////////////////////////////////////////////////////
-            doError("If you want to avoid check, must supply (-1)");
+        if(longValue <(0)){////////////////////////////////////////////////////
+            doError("[[If you want to avoid check, must supply (ZERO(0))]]");
         }///////////////////////////////////////////////////////////////////////
         
         //Ignore check if (-1) supplied.
-        if(longValue == (-1)){return;}
+        if(longValue == (0)){return;}
         
         //else, value is >= 0, and we need to make sure entry exists:
         Class tec = tableEntityClass; 
@@ -60,18 +60,18 @@ public class TransValidateUtil {
     }//FUNC::END
         
     /**
-     * A wrapper for longValueShouldExistIfNonNegative 
+     * A wrapper for longValueShouldExistIfPositive
      * that exists only for code readability.
      * @param tableEntityClass :Class of entity used to identify table.
      * @param columnName       :Column name to check for id.
      * @param id               :The ID to check for. If (-1), check
      *                          is ignored. if <(-1) error thrown.
      */
-    public static void idShouldExistIfNonNegative
+    public static void idShouldExistIfPositive
                     (Class tableEntityClass, String columnName, long id){
 
         TransUtil.insideTransactionCheck();
-        longValueShouldExistIfNonNegative(tableEntityClass, columnName, id);
+        longValueShouldExistIfPositive(tableEntityClass, columnName, id);
                         
     }//FUNC::END
      

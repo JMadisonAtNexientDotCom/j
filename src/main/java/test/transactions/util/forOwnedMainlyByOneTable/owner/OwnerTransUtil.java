@@ -86,11 +86,11 @@ public class OwnerTransUtil {
                
        //Non-Niave error checks:
        //Make sure supplied id's are in their respective tables!
-       TransValidateUtil.idShouldExistIfNonNegative
+       TransValidateUtil.idShouldExistIfPositive
                              (TokenTable.class, TokenTable.ID_COLUMN, token_id);
-       TransValidateUtil.idShouldExistIfNonNegative
+       TransValidateUtil.idShouldExistIfPositive
                              (NinjaTable.class, NinjaTable.ID_COLUMN, ninja_id);
-       TransValidateUtil.idShouldExistIfNonNegative
+       TransValidateUtil.idShouldExistIfPositive
                              (AdminTable.class, AdminTable.ID_COLUMN, admin_id);
                 
        //Actually make an entry:
@@ -245,7 +245,7 @@ public class OwnerTransUtil {
      *  an INVALID_ID that is <=UNUSED_ID
      * @param id_00 :1ST ID
      * @param id_01 :2ND ID
-     */
+     ------------------------------------------------------------------------**/
     private static boolean xor_id(long id_00, long id_01){
         if(id_00 > UNUSED_ID && id_01 <=UNUSED_ID){ return true;}
         if(id_00 <=UNUSED_ID && id_01 > UNUSED_ID){ return true;}
