@@ -36,9 +36,9 @@ public class TransValidateUtil {
         
         //else, value is >= 0, and we need to make sure entry exists:
         Class tec = tableEntityClass; 
-        boolean isEntityClass = (tec.isAssignableFrom(BaseEntity.class));
+        boolean isEntityClass = is_B_BaseClass_of_C(BaseEntity.class, tec);
         if(false == isEntityClass){/////////////////////////////////////////////
-            String msg = "Class supplied was not entity.";
+            String msg = "[[Class supplied was not entity.]]";
             String className = tableEntityClass.getCanonicalName();
             msg+="Class used:";
             msg+="[" + className + "]";
@@ -73,6 +73,20 @@ public class TransValidateUtil {
         TransUtil.insideTransactionCheck();
         longValueShouldExistIfNonNegative(tableEntityClass, columnName, id);
                         
+    }//FUNC::END
+     
+    /**
+     * Found isAssignableFrom to be a bit confusing to comprehend.
+     * So I wrapped it in grammer that is more understandable for
+     * what I am checking for.
+     * SOURCE: http://stackoverflow.com/questions/3949260/
+     *                           java-class-isinstance-vs-class-isassignablefrom
+     * @param b :The class that is the base-class.
+     * @param c :The class that extends base-class b.
+     * @return  :Returns true if this relationship exists.
+     */
+    private static boolean is_B_BaseClass_of_C(Class b, Class c){
+        return b.isAssignableFrom(c);
     }//FUNC::END
                     
     /**-------------------------------------------------------------------------
