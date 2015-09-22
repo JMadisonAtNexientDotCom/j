@@ -35,7 +35,8 @@ public class TransValidateUtil {
         if(longValue == (-1)){return;}
         
         //else, value is >= 0, and we need to make sure entry exists:
-        boolean isEntityClass = (tableEntityClass.isInstance(BaseEntity.class));
+        Class tec = tableEntityClass; 
+        boolean isEntityClass = (tec.isAssignableFrom(BaseEntity.class));
         if(false == isEntityClass){/////////////////////////////////////////////
             String msg = "Class supplied was not entity.";
             String className = tableEntityClass.getCanonicalName();

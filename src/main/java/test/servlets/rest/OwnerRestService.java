@@ -136,6 +136,5 @@ public class OwnerRestService extends BaseRestService{
         //RETURN RESPONSE:
         return JSONUtil.entityToJSONResponse(own);
     }//FUNC::END
-    
-    
+  
 }//CLASS::END
