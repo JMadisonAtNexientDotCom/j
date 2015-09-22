@@ -6,23 +6,37 @@ import test.servlets.rest.NinjaRestService;
 import test.servlets.rest.TokenRestService;
 import test.servlets.rest.debug.TransDebugRestService;
 import test.servlets.rest.riddleRhyme.RiddleRhymeRestService;
-
-/**
- * First off.... I would like to say... I am not 100% happy with this monstrosity.
- * There is probably a better way to do this.
- * 
- * In short, what this does:
- * 1. Makes refactoring of URLS to REST WEB-SERVICE APIs less prone to breakage.
- * 2. This class is also PART of what will make our api table possible.
- * 3. Finds servlet mapping collisions BEFORE Jersey has opportunity to
- *    throw you a cryptic and confusing error.
- * 
- * In an effort to make mapping easier to refactor, we are going to put a
- * master list of servlet class names here. These names will be used to build
- * our api table that keeps track of all of the URLS for our different 
- * rest-apis.
- * @author jmadison
- */
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+/**##########################CLASS HEADER FILE##################################
+//WHAT THIS CLASS DOES:
+// 1. Makes refactoring of URLS to REST WEB-SERVICE APIs less prone to breakage.
+//     In an effort to make mapping easier to refactor, we are going to put a
+//     master list of servlet class names here. These names will be used to 
+//     build our api table that keeps track of all of the URLS for our
+//     different rest-apis.
+// 2. This class is also PART of what will make our api table possible.
+// 3. Finds servlet mapping collisions BEFORE Jersey has opportunity to
+//    throw you a cryptic and confusing error.
+// 
+//ORIGINAL USE CASE:
+//I noticed inconsisencies in the url used to call my webservice and
+//the method name in the actual servlet. Wanted to force them to be consisent
+//so that we would.
+//1. Have less to remember.
+//2. Front-End + Back-End people will use same termonology for things.
+//3. I would eventually like to enforce the same strictness of the
+//   parameters of HTTP-GET requests.
+//
+//DESIGN NOTE (Justifications for why things are the way they are):
+//I am not 100% happy with this monstrosity.
+//There is probably a better way to do this.
+//
+//@author JMadison : 2015.??.??_????AMPM -don't remember when I first made this.
+//@author JMadison : 2015.09.22_1020AM   -updating header.
+//@author XXXXXXXX : 20XX.XX.XX_####AMPM 
+//@author XXXXXXXX : 20XX.XX.XX_####AMPM
+########10########20########30########40########50########60########70########*/
+//-------0---------0---------0---------0---------0---------0---------0---------0
 public class ServletClassNames {
     
     //There must be a better way!
@@ -135,22 +149,32 @@ public class ServletClassNames {
         //vcm_cn == "verify correct mapping _ class name"
         //but we wnat to keep it short to help keep line length down.
         
-        if( vcm_cn(TokenRestService_CLASSNAME, TokenRestService.class.getSimpleName()))
+        /** The actual class name to compare with our mapping constants.--------
+         *  to make sure they match! ----------------------------------------**/
+        String clazName;
+        
+        clazName = TokenRestService.class.getSimpleName();
+        if( vcm_cn(TokenRestService_CLASSNAME, clazName))
         {   mError(TokenRestService_CLASSNAME); }
         
-        if( vcm_cn(NinjaRestService_CLASSNAME, NinjaRestService.class.getSimpleName()))
+        clazName = NinjaRestService.class.getSimpleName();
+        if( vcm_cn(NinjaRestService_CLASSNAME, clazName))
         {   mError(NinjaRestService_CLASSNAME); }
         
-        if( vcm_cn(RiddleRhymeRestService_CLASSNAME, RiddleRhymeRestService.class.getSimpleName()))
+        clazName = RiddleRhymeRestService.class.getSimpleName();
+        if( vcm_cn(RiddleRhymeRestService_CLASSNAME, clazName))
         {   mError(RiddleRhymeRestService_CLASSNAME); }
         
-        if( vcm_cn(TransDebugRestService_CLASSNAME, TransDebugRestService.class.getSimpleName()))
+        clazName = TransDebugRestService.class.getSimpleName();
+        if( vcm_cn(TransDebugRestService_CLASSNAME, clazName))
         {   mError(TransDebugRestService_CLASSNAME); }
         
-        if( vcm_cn(AdminRestService_CLASSNAME, AdminRestService.class.getSimpleName()))
+        clazName = AdminRestService.class.getSimpleName();
+        if( vcm_cn(AdminRestService_CLASSNAME, clazName))
         {   mError(AdminRestService_CLASSNAME); }
         
-        if( vcm_cn(OwnerRestService_CLASSNAME, AdminRestService.class.getSimpleName()))
+        clazName = AdminRestService.class.getSimpleName();
+        if( vcm_cn(OwnerRestService_CLASSNAME, clazName))
         {   mError(OwnerRestService_CLASSNAME); }
           
     }//FUNC::END

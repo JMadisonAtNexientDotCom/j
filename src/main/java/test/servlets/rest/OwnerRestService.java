@@ -5,16 +5,12 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import org.hibernate.Session;
 import test.config.constants.ServletClassNames;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
+import test.transactions.util.TransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.owner.OwnerTransUtil;
 import utils.JSONUtil;
-
-
-/**
- * .
- * @author jmadison : 20
- */
 
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 /**##########################CLASS HEADER FILE##################################
@@ -53,8 +49,11 @@ public class OwnerRestService extends BaseRestService{
     public Response makeEntryUsing_ninja (
                      @DefaultValue("-1") @QueryParam("token_id") long token_id, 
                      @DefaultValue("-1") @QueryParam("ninja_id") long ninja_id){
-        OwnerTable own;
         
+        //ENTER TRANSACTION STATE:
+        Session ses = TransUtil.enterTransaction();
+        
+        OwnerTable own;
         if(token_id >= 0 && ninja_id >= 0){
             own = OwnerTransUtil.makeEntryUsing_ninja(token_id, ninja_id);
         }else{//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
@@ -65,6 +64,12 @@ public class OwnerRestService extends BaseRestService{
             own.setComment("[param was either missing or invalid. M.E.U.N.]");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
+        //EXIT TRANSACTION STATE:
+        ////We just send them back to UI/FrontEnd to notify them.
+        boolean doWeHaveAnEntityToSave = (false == own.getIsError() );
+        TransUtil.exitTransaction(ses, doWeHaveAnEntityToSave);
+        
+        //RETURN RESPONSE:
         return JSONUtil.entityToJSONResponse(own);
     }//FUNC::END
     
@@ -73,8 +78,11 @@ public class OwnerRestService extends BaseRestService{
     public Response makeEntryUsing_admin (
                      @DefaultValue("-1") @QueryParam("token_id") long token_id, 
                      @DefaultValue("-1") @QueryParam("admin_id") long admin_id){
-        OwnerTable own;
         
+        //ENTER TRANSACTION STATE:
+        Session ses = TransUtil.enterTransaction();
+        
+        OwnerTable own;
         if(token_id >= 0 && admin_id >=0){
             own = OwnerTransUtil.makeEntryUsing_ninja(token_id, admin_id);
         }else{//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
@@ -86,6 +94,13 @@ public class OwnerRestService extends BaseRestService{
             own.setComment("[param was either missing or invalid. M.E.U.A.]");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
+        //EXIT TRANSACTION STATE:
+        //We do NOT save entities to database if they are errors.
+        //We just send them back to UI/FrontEnd to notify them.
+        boolean doWeHaveAnEntityToSave = (false == own.getIsError() );
+        TransUtil.exitTransaction(ses, doWeHaveAnEntityToSave);
+        
+        //RETURN RESPONSE:
         return JSONUtil.entityToJSONResponse(own);
     }//FUNC::END
     
@@ -93,20 +108,32 @@ public class OwnerRestService extends BaseRestService{
     @Path("makeEntryUsing_random")
     public Response makeEntryUsing_random
                     (@DefaultValue("-1") @QueryParam("token_id") long token_id){
+                        
+        //ENTER TRANSACTION STATE:
+        Session ses = TransUtil.enterTransaction();                
+                        
         OwnerTable own;
-        
         if(token_id >= 0){
             own = OwnerTransUtil.makeEntryUsing_random(token_id);
         }else{//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             //Error response if API fails:
             own = new OwnerTable();
             own.setToken_id(token_id);
+            own.setNinja_id(-1337);
+            own.setAdmin_id(-1337);
             own.setIsError(true);
             String msg = "[makeEntryUsing_random:]";
             msg+="[param was either missing or invalid. M.E.U.R.]";
             own.setComment(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
+        //EXIT TRANSACTION STATE:
+        //We do NOT save entities to database if they are errors.
+        //We just send them back to UI/FrontEnd to notify them.
+        boolean doWeHaveAnEntityToSave = (false == own.getIsError() );
+        TransUtil.exitTransaction(ses, doWeHaveAnEntityToSave);
+        
+        //RETURN RESPONSE:
         return JSONUtil.entityToJSONResponse(own);
     }//FUNC::END
     
