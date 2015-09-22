@@ -5,15 +5,47 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import test.config.constants.ServletClassNames;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.transactions.util.forOwnedMainlyByOneTable.owner.OwnerTransUtil;
 import utils.JSONUtil;
 
 
 /**
- * Wrapper for OwnerTransUtil functions.
- * @author jmadison
+ * .
+ * @author jmadison : 20
  */
+
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+/**##########################CLASS HEADER FILE##################################
+//WHAT THIS CLASS DOES:
+//Wrapper for OwnerTransUtil functions
+// 
+//ORIGINAL USE CASE:
+//First step in creating the ability to have sessions and log-in + log-out
+//is for admins+ninjas to be able to own tokens.
+//In this context, token_table tokens become access tokens when associated
+//with a given Ninja or Admin.
+//
+//DESIGN NOTE (Justifications for why things are the way they are):
+//We have Admins and Ninjas rather than just "users" where some users
+//also happen to be admins because Ninjas do NOT:
+//1. Have user names.
+//2. Have a password.
+//Ninja's are basically invited into the system for a temporary amount of
+//time in order to perform a Trial (test). After that, they should no longer
+//have access to the system.
+//3. Ninja IDs and Admin IDs being their own tables makes it a lot cleaner
+//   to look at in PHPMyAdmin. I like the consistency.
+//
+//@author JMadison : 2015.09.21_????AMPM -95% of code written.
+//@author XXXXXXXX : 2015.09.22_1010AM   -preparing for testing.
+//@author XXXXXXXX : 20XX.XX.XX_####AMPM 
+//@author XXXXXXXX : 20XX.XX.XX_####AMPM
+########10########20########30########40########50########60########70########*/
+//-------0---------0---------0---------0---------0---------0---------0---------0
+
+@Path(ServletClassNames.OwnerRestService_MAPPING)
 public class OwnerRestService extends BaseRestService{
     
     @GET

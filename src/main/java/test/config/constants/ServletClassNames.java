@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package test.config.constants;
 
 import test.MyError;
@@ -54,6 +49,10 @@ public class ServletClassNames {
     //ADMIN SERVICE:
     public static final String AdminRestService_CLASSNAME = "AdminRestService";
     public static final String AdminRestService_MAPPING   = "AdminRestService/";
+    
+    //OWNER SERVICE: (for the token ownership table known as "owner_table" )
+    public static final String OwnerRestService_CLASSNAME = "OwnerRestService";
+    public static final String OwnerRestService_MAPPING   = "OwnerRestService/"; 
     
     
     /**-------------------------------------------------------------------------
@@ -137,19 +136,22 @@ public class ServletClassNames {
         //but we wnat to keep it short to help keep line length down.
         
         if( vcm_cn(TokenRestService_CLASSNAME, TokenRestService.class.getSimpleName()))
-        {  mError(TokenRestService_CLASSNAME); }
+        {   mError(TokenRestService_CLASSNAME); }
         
         if( vcm_cn(NinjaRestService_CLASSNAME, NinjaRestService.class.getSimpleName()))
-        {  mError(NinjaRestService_CLASSNAME); }
+        {   mError(NinjaRestService_CLASSNAME); }
         
         if( vcm_cn(RiddleRhymeRestService_CLASSNAME, RiddleRhymeRestService.class.getSimpleName()))
-        {  mError(RiddleRhymeRestService_CLASSNAME); }
+        {   mError(RiddleRhymeRestService_CLASSNAME); }
         
         if( vcm_cn(TransDebugRestService_CLASSNAME, TransDebugRestService.class.getSimpleName()))
-        {  mError(TransDebugRestService_CLASSNAME); }
+        {   mError(TransDebugRestService_CLASSNAME); }
         
         if( vcm_cn(AdminRestService_CLASSNAME, AdminRestService.class.getSimpleName()))
-        {  mError(AdminRestService_CLASSNAME); }
+        {   mError(AdminRestService_CLASSNAME); }
+        
+        if( vcm_cn(OwnerRestService_CLASSNAME, AdminRestService.class.getSimpleName()))
+        {   mError(OwnerRestService_CLASSNAME); }
           
     }//FUNC::END
     
@@ -168,6 +170,9 @@ public class ServletClassNames {
         
         checkMapping(AdminRestService_CLASSNAME,
                      AdminRestService_MAPPING);
+        
+        checkMapping(OwnerRestService_CLASSNAME,
+                     OwnerRestService_MAPPING);
                         
     }//FUNC::END
     
