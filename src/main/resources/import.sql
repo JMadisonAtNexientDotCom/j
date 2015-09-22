@@ -54,19 +54,25 @@ CREATE TABLE rhyme_table (id serial PRIMARY KEY, text varchar(80) );
 CREATE TABLE riddle_rhyme_truth_table (riddle_id INT UNSIGNED NOT NULL, rhyme_id INT UNSIGNED NOT NULL);
 CREATE TABLE riddle_rhyme_wrong_table (riddle_id INT UNSIGNED NOT NULL, rhyme_id  INT UNSIGNED NOT NULL);
 CREATE TABLE admin_table (id serial PRIMARY KEY, user_name varchar(80), pass_hash varchar (80) );
-CREATE TABLE session_table (id serial PRIMARY KEY, FOREIGN KEY (token_id) REFERENCES token_table(id), opened_on INT, duration INT, is_active BOOLEAN, comment varchar(80) ); 
-CREATE TABLE owner_table (FOREIGN KEY (token_id) REFERENCES token_table(id), FOREIGN KEY (ninja_id) REFERENCES ninja_table(id), FOREIGN KEY (admin_id) REFERENCES admin_table(id) , comment varchar(80) );
+CREATE TABLE session_table(id serial PRIMARY KEY, token_id INT UNSIGNED NOT NULL, opened_on INT UNSIGNED NOT NULL, duration INT UNSIGNED NOT NULL, is_active BOOLEAN NOT NULL, comment varchar(80) );
+CREATE TABLE owner_table(token_id INT UNSIGNED NOT NULL, ninja_id INT UNSIGNED NOT NULL, admin_id INT UNSIGNED NOT NULL, comment varchar(80));
+
+
 
 -- Make an entry into the admin_table                                         --
 -- ALL USER NAMES SHOULD BE STORED AS LOWERCASE BECAUSE WE WANT USER NAMES    --
 -- TO BE CASE-INSENSITIVE!!!                                                  --
 INSERT INTO admin_table (user_name, pass_hash) VALUES ('sensei', 'password_hashed');
 
+-- BUG: It seems that using FOREIGN KEY in import.sql FAILS... As much as I want to make
+-- A "proper" create-table file. I cannot.
+-- CREATE TABLE session_table (id serial PRIMARY KEY, FOREIGN KEY (token_id) REFERENCES token_table(id), opened_on INT, duration INT, is_active BOOLEAN, comment varchar(80) ); 
+-- CREATE TABLE owner_table (FOREIGN KEY (token_id) REFERENCES token_table(id), FOREIGN KEY (ninja_id) REFERENCES ninja_table(id), FOREIGN KEY (admin_id) REFERENCES admin_table(id) , comment varchar(80) );
 -- TODO: Is there a way to hack session_table into existance?                 --
 -- CREATE TABLE does not seem like enough.                                    --
 -- HACKING SOME TABLES INTO EXISTANCE THAT I WANTED TO START EMPTY            --
-INSERT INTO session_table(id, token_id, opened_on, duration, is_active, comment) VALUES (0,0,0,0,FALSE,"importSQLHACK");
-INSERT INTO owner_table(token_id, ninja_id, admin_id) VALUES (0,0,0);
+--INSERT INTO session_table(id, token_id, opened_on, duration, is_active, comment) VALUES (0,0,0,0,FALSE,"importSQLHACK");
+--INSERT INTO owner_table(token_id, ninja_id, admin_id) VALUES (0,0,0);
 
 -- RIDDLE + RHYME ENTRY --
 INSERT INTO riddle_table (text) VALUES ('I build up castles but tear down mountains make some men blind but others to see. What am I?');
