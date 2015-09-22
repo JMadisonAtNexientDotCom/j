@@ -64,7 +64,9 @@ INSERT INTO admin_table (user_name, pass_hash) VALUES ('sensei', 'password_hashe
 
 -- TODO: Is there a way to hack session_table into existance?                 --
 -- CREATE TABLE does not seem like enough.                                    --
-
+-- HACKING SOME TABLES INTO EXISTANCE THAT I WANTED TO START EMPTY            --
+INSERT INTO session_table(id, token_id, opened_on, duration, is_active, comment) VALUES (0,0,0,0,FALSE,"importSQLHACK");
+INSERT INTO owner_table(token_id, ninja_id, admin_id) VALUES (0,0,0);
 
 -- RIDDLE + RHYME ENTRY --
 INSERT INTO riddle_table (text) VALUES ('I build up castles but tear down mountains make some men blind but others to see. What am I?');
