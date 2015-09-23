@@ -70,10 +70,13 @@ public class TableDebugUtil {
         List<String> columnValues = c.list();
         Map<String,Integer> theMap = new HashMap<String, Integer>();
         
+        Object objectType;
         String cur;
         int len = columnValues.size();
         for(int i = 0; i < len; i++){
-            cur = columnValues.get(i);
+            objectType = columnValues.get(i);
+            cur = convertObjectTypeToString(objectType);
+            
             if( theMap.containsKey(cur))
             {//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
                 String msg = "[Duplicate Column Value found!]";
@@ -91,6 +94,25 @@ public class TableDebugUtil {
             
         }//NEXT i
         
+    }//FUNC::END
+    
+    /**
+     * Convert a generic object into a string so we can put it in a hash
+     * map. Original usage: seeing if column contains all unique entries.
+     * @param oType :object type to convert to string.
+     * @return :The object type converted to string.
+     */
+    public static String convertObjectTypeToString(Object oType){
+        if(oType instanceof Long){ 
+            return Long.toString( (Long)oType );
+        }else
+        if(oType instanceof String){ 
+            return (String)oType;
+        }else{
+            doError("[Niave Convert Fail: not Long and not String]");
+        }//IF::END
+        
+       return "[ERROR:FUNCTION_SHOULD_NOT_RETURN_THIS_STRING]";
     }//FUNC::END
     
     
