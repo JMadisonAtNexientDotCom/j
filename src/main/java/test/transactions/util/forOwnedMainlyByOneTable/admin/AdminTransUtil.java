@@ -2,19 +2,36 @@ package test.transactions.util.forOwnedMainlyByOneTable.admin;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Restrictions;
-import primitives.BooleanWithComment;
 import test.MyError;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.AdminTable;
-import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.transactions.util.TransUtil;
 
-/**-----------------------------------------------------------------------------
- * Utility that handles transactions primarily involving our admin_table.
- * @author jmadison :2015.09.20_0610PM
- ----------------------------------------------------------------------------**/
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+/**##########################CLASS HEADER FILE##################################
+//WHAT THIS CLASS DOES:
+//Utility that handles transactions primarily involving our admin_table.
+// 
+//ORIGINAL USE CASE:
+//Originally used in OwnerRestService.java
+//However, it's purpose is to enable us to have admins that can log in
+//and grant themselves session tokens. Ninjas (candidates) cannot do this.
+//Ninjas do not even have usernames or passwords. They can only get access
+//to the system when an admin grants them a token that is active in the
+//session_table.
+//
+//DESIGN NOTE (Justifications for why things are the way they are):
+//No justifications. Thinking springs Before and After advice would be
+//great for this project. But too late for now. Using Jersey.
+//Maybe after project is finished will convert to spring for practice?
+//
+//@author jmadison : 2015.09.20_0610PM -created.
+//@author jmadison : 2015.09.23_0712PM -made getDoesAdminWithThisIDExist func
+//@author XXXXXXXX : 20XX.XX.XX_####AMPM 
+//@author XXXXXXXX : 20XX.XX.XX_####AMPM
+########10########20########30########40########50########60########70########*/
+//-------0---------0---------0---------0---------0---------0---------0---------0
 public class AdminTransUtil {
     
     

@@ -67,6 +67,7 @@ public class OwnerRestService extends BaseRestService{
             own.setNinja_id(ninja_id);
             own.setIsError(true);
             own.setComment("MEU.NINJA: Ninja of this Id does not exist");
+            TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
             return JSONUtil.entityToJSONResponse(own);
         }///////////////////////////////////////////////////////////////////////
         
@@ -123,6 +124,7 @@ public class OwnerRestService extends BaseRestService{
             own.setAdmin_id(admin_id);
             own.setIsError(true);
             own.setComment("MEU.ADMIN: Admin of this ID does not exist.");
+            TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
             return JSONUtil.entityToJSONResponse(own);
         }///////////////////////////////////////////////////////////////////////
         
