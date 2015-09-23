@@ -544,10 +544,8 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
     }//FUNC::END
                         
     private void throwErrorIfClassIsNotBaseEntity(Class tableClass){
-        boolean isValidEntityClass = (tableClass.isInstance(BaseEntity.class));
-        if(false == isValidEntityClass){
-            throw new MyError("TransUtil_CORE caught invalid entity class");
-        }//ERROR?
+        
+        TransValidateUtil.assertIsEntityClass(tableClass);
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
