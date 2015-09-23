@@ -3,8 +3,6 @@ package test.transactions.util.forOwnedMainlyByOneTable.owner;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import test.MyError;
 import test.config.debug.DebugConfig;
@@ -19,17 +17,36 @@ import test.transactions.util.TransValidateUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.admin.AdminTransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
 
-/**
- * NOTE: In final production, this utility should NOT be exposed to rest.
- * However, in dev mode, we may want this exposed to rest to test it out.
- * 
- * Handles transactions mainly involving the owner_table.
- * Owner table being a join-table that joins:
- * 1. token_id  (token_table.id)
- * 2. ninja_id  (ninja_table.id)
- * 3. admin_id  (admin_table.id)
- * @author jmadison
- */
+//345678901234567890123456789012345678901234567890123456789012345678901234567890
+/**##########################CLASS HEADER FILE##################################
+//WHAT THIS CLASS DOES:
+//Handles transactions mainly involving the owner_table.
+// Owner table being a join-table that joins:
+// 1. token_id  (token_table.id)
+// 2. ninja_id  (ninja_table.id)
+// 3. admin_id  (admin_table.id) 
+// 
+//ORIGINAL USE CASE:
+//  A .html app that tested it. At time of writing this, I do not know
+//  how this will plug into the structure of the overall program. Just
+//  know it is vital to creating sessions in the session table that are
+//  associated with a token that is in turn associated with a Ninja Or Admin.
+//  HOWEVER: I am currently testing this code in an app that has 4 buttons:
+//          Button   #1  [ Make Token]
+//          Button   #2  [ Randomly Assign Token To Ninja Or Admin]
+//          Button   #3  [ Does Token Have Owner? ]
+//          Button   #4  [ Find Owner of Token    ]
+//
+//DESIGN NOTE:
+//In final production, this utility should NOT be exposed to rest.
+//However, in dev mode, we may want this exposed to rest to test it out.
+//
+//@author JMadison : 2015.??.??_????AMPM
+//@author JMadison : 2015.09.23_0545PM  --Testing OwnerRestService.java
+//@author XXXXXXXX : 20XX.XX.XX_####AMPM 
+//@author XXXXXXXX : 20XX.XX.XX_####AMPM
+########10########20########30########40########50########60########70########*/
+//-------0---------0---------0---------0---------0---------0---------0---------0
 public class OwnerTransUtil {
     
     /**-------------------------------------------------------------------------

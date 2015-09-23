@@ -99,7 +99,7 @@ public class OwnerRestService extends BaseRestService{
         
         OwnerTable own;
         if(token_id >= 0 && admin_id >=0 && tokenAvailable){
-            own = OwnerTransUtil.makeEntryUsing_ninja(token_id, admin_id);
+            own = OwnerTransUtil.makeEntryUsing_admin(token_id, admin_id);
         }else{//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             //Error response if API fails:
             own = new OwnerTable();
