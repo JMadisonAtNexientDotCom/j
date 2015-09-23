@@ -154,6 +154,12 @@ public class TransUtil {
                         (      tableClass,        columnName,      columnValue);
     }//WRAPPER::END
                         
+    public static BaseEntityContainer getEntityFromTableUsingPrimaryKey
+                        (Class tableClass, String columnName, long columnValue){
+        return i().getEntityFromTableUsingPrimaryKey
+                        (      tableClass,        columnName,      columnValue);
+    }//WRAPPER::END
+                        
     public static BaseEntityContainer getRandomRecord(Class tableClass){
         return i().getRandomRecord(tableClass);
     }//WRAPPER::END   

@@ -85,8 +85,28 @@ public class TransValidateUtil {
      * @param c :The class that extends base-class b.
      * @return  :Returns true if this relationship exists.
      */
-    private static boolean is_B_BaseClass_of_C(Class b, Class c){
+    public static boolean is_B_BaseClass_of_C(Class b, Class c){
         return b.isAssignableFrom(c);
+    }//FUNC::END
+    
+    /**
+     * Returns TRUE if the object is a BaseEntity or derives from
+     * BaseEntity somehow.
+     * @param c :The class we want to check.
+     * @return  :True if the class is an entity class.
+     */
+    public static boolean isEntityClass(Class c){
+        return is_B_BaseClass_of_C(BaseEntity.class, c);
+    }//FUNC::END
+    
+    /**
+     * Throws error if Class is not Derived from BaseEntity.
+     * @param c :Class to check.
+     */
+    public static void assertIsEntityClass(Class c){
+        if(false == isEntityClass(c)){
+            doError("Class is not derived from Base Entity!");
+        }//IF::END
     }//FUNC::END
                     
     /**-------------------------------------------------------------------------

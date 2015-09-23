@@ -1,6 +1,7 @@
 package test.transactions.util;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -492,13 +493,72 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         op = BaseEntityContainer.make_NullAllowed(bent);
         return op;
                             
-    }//WRAPPER::END
+    }//FUNC::END
+       
+    /**-------------------------------------------------------------------------
+     * Similar to getEntityFromTableUsingLong, however will throw error
+     * if multiple entries are found.
+     * @param tableClass :The class of the table entity.
+     * @param columnName :The column name used to find [record/entity]
+     * @param columnValue:The value the column should have.
+     * @return :A container that may or may not contain an entity.
+     ------------------------------------------------------------------------**/
+    public BaseEntityContainer getEntityFromTableUsingPrimaryKey
+                        (Class tableClass, String columnName, long columnValue){
+         //Error check:
+        throwErrorIfClassIsNotBaseEntity(tableClass);
+          
+        //Core Logic:
+        Session ses = getActiveTransactionSession();
+        Criteria cri = ses.createCriteria(tableClass);
+        cri.add(Restrictions.eq(columnName, columnValue));
+        
+        //Our output var:
+        BaseEntityContainer op = null;
+        
+        //Retrieval and error checking:
+        List<BaseEntity> queryResultList = cri.list();
+        int listLen = queryResultList.size();
+        if(listLen <= 0){
+            op = BaseEntityContainer.make_NullAllowed(null);
+        }else
+        if(listLen == 1){
+            BaseEntity uniqueResult = queryResultList.get(0);
+            op = BaseEntityContainer.make( uniqueResult );
+        }else{//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            String msg = "[ERROR from: getEntityFromTableUsingPrimaryKey]";
+            msg += "while attempting to get an entity using a primary key";
+            msg += "we ended up with multiple entries. Meaning the";
+            msg += "primary key column is NOT being used as such.";
+            msg += "if duplicates are allowed, use:";
+            msg += "getEntityFromTableUsingLong(...)";
+            msg += "but only if duplicates are allowed. Else you will";
+            msg += "introduce hard-to-find bugs into the code.";
+            doError(msg);
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        //Return the container that may or may not have
+        //an entity inside of it.
+        if(null==op){ doError("[should never return null. 4242345423fsdvs]"); }
+        return op;         
+    }//FUNC::END
                         
     private void throwErrorIfClassIsNotBaseEntity(Class tableClass){
         boolean isValidEntityClass = (tableClass.isInstance(BaseEntity.class));
         if(false == isValidEntityClass){
             throw new MyError("TransUtil_CORE caught invalid entity class");
         }//ERROR?
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+    * Wrapper function to throw errors from this class.
+    * @param msg :Specific error message.
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        err += TransUtil_CORE.class.getSimpleName();
+        err += msg;
+        throw new MyError(err);
     }//FUNC::END
     
 }//CLASS::END

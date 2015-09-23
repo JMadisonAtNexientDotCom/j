@@ -1,11 +1,19 @@
 package test.transactions.util.forOwnedMainlyByOneTable.owner;
 
+import java.util.List;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import test.MyError;
+import test.config.debug.DebugConfig;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.AdminTable;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
+import test.debug.debugUtils.table.TableDebugUtil;
 import test.transactions.util.TransUtil;
 import test.transactions.util.TransValidateUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.admin.AdminTransUtil;
@@ -92,6 +100,36 @@ public class OwnerTransUtil {
                              (NinjaTable.class, NinjaTable.ID_COLUMN, ninja_id);
        TransValidateUtil.idShouldExistIfPositive
                              (AdminTable.class, AdminTable.ID_COLUMN, admin_id);
+       
+       //DEBUG::DEBUG::DEBUG::DEBUG::DEBUG::DEBUG::DEBUG::DEBUG::DEBUG::DEBUG:::
+       //Check integrity of OwnerTable before we edit it:
+       //I cannot justify this error check running in production.
+       //It is too heavy.
+       if(DebugConfig.isDebugBuild){//DEBUG::DEBUG::DEBUG::DEBUG::DEBUG::DEBUG::
+            assertAllTokensAreUniqueInTable();
+       }//DEBUG::DEBUG::DEBUG::DEBUG::DEBUG::DEBUG::DEBUG::DEBUG::DEBUG::DEBUG::
+       
+       //See if exact entry already exists. If it does, we will create
+       //and send back an error object. With comment telling us that object
+       //already exists. Why error instead of ignore? Because the design I have
+       //in place expects that we will have an entity to save if one already
+       //exists:
+       boolean isDuplicate = doesRecordExist(token_id,ninja_id,admin_id);
+       
+       //If exact entry does not already exist:
+       //Make sure we are not using a token already in the table:
+       boolean tokenAlreadyExists = doesTokenExist(token_id);
+       if(tokenAlreadyExists){//////////////////////////////////////////////////
+           //Within this utility, this is a more serious error. 
+           //More serious than a duplicate entry.
+           //
+           //Throw an uncaught exception. It would be less serious IF
+           //we KNEW this call was made from a servlet API.
+           //So we should have servlet API also check for this and return less
+           //serious error that doesn't crash system.
+           String tID = Long.toString(token_id);
+           doError("[Token of ID AlreadyExists! TokenID==]"+ tID);
+       }////////////////////////////////////////////////////////////////////////
                 
        //Actually make an entry:
        OwnerTable theJoin = new OwnerTable();
@@ -99,9 +137,20 @@ public class OwnerTransUtil {
        theJoin.setNinja_id(ninja_id);
        theJoin.setAdmin_id(admin_id);
        
-       //Queue up this entry to be saved by hibernate when
-       //we exit the transaction:
-       TransUtil.markEntityForSaveOnExit(theJoin);
+       //Decide if theJoin should be saved to database:
+       //SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+       if(false==isDuplicate){
+            //save new entry:
+            TransUtil.markEntityForSaveOnExit(theJoin);
+       }else{
+           //NOT SURE IF THIS BELONGS HERE.
+           //Might only belong on the API layer. Not down into
+           //the logic of our actual transaction utilites.
+           //-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+           //do NOT save duplicates to database.
+           //mark them as error without crashing.
+           theJoin.setIsError(true);
+       }//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
        
        //Return the entry we made in case we want to operate on it.
        //Not sure why we would though... What can you really do by
@@ -110,13 +159,120 @@ public class OwnerTransUtil {
        return theJoin; //<--Seriously might want to consider returning void.
        
     }//FUNC::END
+          
+    /**
+     * Check to see if a record exists. 
+     * Used to prevent duplicate record insertion.
+     * @param token_id
+     * @param ninja_id
+     * @param admin_id 
+     * @return : Returns true if record exists. All records should be unique.
+     */
+    public static boolean doesRecordExist
+                                  (long token_id, long ninja_id, long admin_id){
+        boolean results = false;                        
+                                      
+        TransUtil.insideTransactionCheck();
+        Session ses = TransUtil.getActiveTransactionSession();
+        Criteria c = ses.createCriteria(OwnerTable.class);
+        c.add(Restrictions.eq(OwnerTable.TOKEN_ID_COLUMN, token_id));
+        c.add(Restrictions.eq(OwnerTable.NINJA_ID_COLUMN, ninja_id));
+        c.add(Restrictions.eq(OwnerTable.ADMIN_ID_COLUMN, admin_id));
+        List<OwnerTable> oneItemMax = c.list();
+        int numOwners = oneItemMax.size();
+        if(numOwners <= 0){ results = false;}else
+        if(numOwners == 1){ results = true; }else
+        if(numOwners >  1){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            String msg = "[When calling doesRecordExist()]";
+            msg+= "[We found multiple identical records]";
+            msg+= "[This cannot be allowed, because the token column]";
+            msg+= "[is a primary key. It is a primary key because only]";
+            msg+= "[one user can claim ownership to a given token.]";
+            msg+= "[In other words: Token cannot have multiple owners]";
+            throw new MyError(msg);
+        }else{
+            throw new MyError("[This line should never execute. drexst3242]");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        //Return results, was the record found?
+        return results;
+        
+    }//FUNC::END
+     
+    /**
+     * Used to prevent assigning a token to someone when it already has
+     * an owner. Also used to just, validate you are working with a token
+     * that has an owner.
+     * 
+     * Note: Proving token exists does NOT prove it has an owner!
+     * 
+     * @param token_id 
+     * @return : Returns true if the token exists in table.
+     *           Token should be a PRIMARY key.
+     */
+    public static boolean doesTokenExist(long token_id){
+        
+        //Error Checking:
+        TransUtil.insideTransactionCheck();
+        
+        //Logic:
+        BaseEntityContainer bec;
+        bec = TransUtil.getEntityFromTableUsingPrimaryKey
+                       (OwnerTable.class, OwnerTable.TOKEN_ID_COLUMN, token_id);
+        return bec.exists;
+    }//FUNC::END
+    
+    /**
+     * Does the token that may or may not be in the table
+     * have an owner?
+     * @param token_id :The token ID to use to find if owner exists.
+     * @return         :Returns true if token has owner associated with it.
+     */
+    public static boolean doesTokenHaveOwner(long token_id){
+        
+        //Error Checking:
+        TransUtil.insideTransactionCheck();
+        
+        //Logic:
+        BaseEntityContainer bec;
+        bec = TransUtil.getEntityFromTableUsingPrimaryKey
+                       (OwnerTable.class, OwnerTable.TOKEN_ID_COLUMN, token_id);
+       
+        //if record does not exist at all, then token cannot have owner.
+        if(false == bec.exists){ return false;}
+        if(null == bec.entity){ doError("entity should not be null");}
+        
+        boolean op = false; //output var set to false to make compiler happy.
+        OwnerTable table = (OwnerTable)bec.entity;
+        boolean hasNinjaOwner = (table.getAdmin_id() >UNUSED_ID);
+        boolean hasAdminOwner = (table.getNinja_id() >UNUSED_ID);
+        if(hasNinjaOwner && hasAdminOwner){
+            doError("token cannot be owned by admin and ninja");
+        }else
+        if(hasNinjaOwner || hasAdminOwner){
+            op = true; //one owner. But NOT more.
+        }else{
+            op = false;
+        }//IF:BLOCK:END
+        
+        //Return output. Does token have owner?
+        return op;
+        
+    }//FUNC::END
+       
+    /** Program will crash if this is not true. **/
+    private static void assertAllTokensAreUniqueInTable(){
+        Class theTableClass= OwnerTable.class;
+        String tokenColumn = OwnerTable.TOKEN_ID_COLUMN;
+        TableDebugUtil.assertUniqueColumn(theTableClass,tokenColumn);
+    }//FUNC::END
                 
     /**
      * Returns TRUE if the token is owned by an ADMIN or NINJA
      * @param token_id :id of token we want to find ownership of.
      * @return :Returns TRUE if token has an owner.
      */                         
-    private static boolean isTokenOwned(long token_id){
+    public static boolean isTokenOwned(long token_id){
         TransUtil.insideTransactionCheck();
         BaseEntityContainer bec = getTokenOwner(token_id);
         return bec.exists;
@@ -133,6 +289,31 @@ public class OwnerTransUtil {
         BaseEntityContainer bec;
         bec = TransUtil.getEntityFromTableUsingLong
                        (OwnerTable.class, OwnerTable.TOKEN_ID_COLUMN, token_id);
+        
+        //Verify that a ninja or admin has been set to owning this token.
+        if(bec.exists){
+            OwnerTable owner = (OwnerTable)bec.entity;
+            long admin_id = owner.getAdmin_id();
+            long ninja_id = owner.getNinja_id();
+            boolean oneOrTheOther = xor_id(admin_id, ninja_id);
+            if(false == oneOrTheOther){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                String msg = "[getTokenOwner returned bad results:]";
+                msg += "[It is alright for getTokenOwner to return]";
+                msg += "[an empty container. But it is not alright]";
+                msg += "[to return an improperly configured entity]";
+                msg += "[Possible cause of error:]";
+                msg += "[1: token has ZERO owners. But exists in table.]";
+                msg += "[   We probably should not allow token with zero ]";
+                msg += "[   owners to be in table. But I wouldn't consider ]";
+                msg += "[   it an error to avoid error, just use ]";
+                msg += "[   doesTokenHaveOwner() to look before you leap.]";
+                msg += "[2: token has MORE THAN ONE OWNER.]";
+                msg += "[   Maybe failed switch of ownership?]";
+                msg += "[   Hopefully NOT a synchronicity problem]";
+                doError(msg);
+            }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        }//bec.exists?
+        
         return bec;
     }//FUNC::END
                 
@@ -251,5 +432,5 @@ public class OwnerTransUtil {
         if(id_00 <=UNUSED_ID && id_01 > UNUSED_ID){ return true;}
         return false;
     }//FUNC::END
-    
+      
 }//CLASS::END
