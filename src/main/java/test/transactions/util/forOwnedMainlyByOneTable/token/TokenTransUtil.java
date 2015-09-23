@@ -184,6 +184,31 @@ public class TokenTransUtil {
         String op = "ENCRYPTED_TOKEN_" + Long.toString(tokenIndex);
         return op;
     }//FUNC::END
+    
+    /**
+     * Used to retrieve token entity using the ID column of the table.
+     * Rather than the hashed token string.
+     * @param token_id :The unique token ID.
+     * @return :A container that will contain token entity if token_id was
+     *          present in the database.
+     */
+    public static BaseEntityContainer getTokenEntityUsingTokenID(Long token_id){
+        //Test to see if we are currently in a transaction state.
+        //If we are not, code will crash.
+        Session session = TransUtil.getActiveTransactionSession();
+        
+        //Transaction Logic:
+        Criteria criteria = session.createCriteria(TokenTable.class);
+        criteria.add(Restrictions.eq(TokenTable.ID_COLUMN, token_id));
+        TokenTable theToken = (TokenTable) criteria.uniqueResult();
+
+        //Create output:
+        BaseEntityContainer op;
+        op = BaseEntityContainer.make_NullAllowed(theToken);
+        
+        //return the container with our result of query:
+        return op;
+    }//FUNC::END
      
     /** Gets an entity representing a [record/entry] in the token table.     ***
     *** Using the token's HASH value to fetch the [record/entry].            ***

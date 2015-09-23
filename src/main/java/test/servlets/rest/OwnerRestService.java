@@ -6,9 +6,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
+import primitives.BooleanWithComment;
 import test.config.constants.ServletClassNames;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.transactions.util.TransUtil;
+import test.transactions.util.forNoClearTableOwner.OwnerTokenTransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.owner.OwnerTransUtil;
 import utils.JSONUtil;
 
@@ -54,8 +56,12 @@ public class OwnerRestService extends BaseRestService{
         Session ses = TransUtil.enterTransaction();
         
         //Does ID already exist in table? If so, we have an error state:
-        boolean tokenTaken = OwnerTransUtil.doesTokenExist(token_id);
-        boolean tokenAvailable = (!tokenTaken);
+        //boolean tokenTaken = OwnerTransUtil.doesTokenExist(token_id);
+        //boolean tokenAvailable = (!tokenTaken);
+        BooleanWithComment tokenStatus = 
+             OwnerTokenTransUtil.isTokenAbleToBeEnteredIntoOwnerTable(token_id);
+        boolean tokenAvailable = tokenStatus.value;
+        boolean tokenTaken =   (!tokenAvailable);
         
         OwnerTable own;
         if(token_id >= 0 && ninja_id >= 0 && tokenAvailable){
@@ -67,7 +73,7 @@ public class OwnerRestService extends BaseRestService{
             own.setIsError(true);
             String msg;
             if(tokenTaken){
-                msg = "[token already claimed! M.E.U.NINJA]";
+                msg = "[M.E.U.NINJA]" + tokenStatus.comment;
             }else{
                 msg = "[param was either missing or invalid. M.E.U.NINJA]";
             }//IF::END
@@ -94,8 +100,12 @@ public class OwnerRestService extends BaseRestService{
         Session ses = TransUtil.enterTransaction();
         
         //Does ID already exist in table? If so, we have an error state:
-        boolean tokenTaken = OwnerTransUtil.doesTokenExist(token_id);
-        boolean tokenAvailable = (!tokenTaken);
+        //boolean tokenTaken = OwnerTransUtil.doesTokenExist(token_id);
+        //boolean tokenAvailable = (!tokenTaken);
+        BooleanWithComment tokenStatus = 
+             OwnerTokenTransUtil.isTokenAbleToBeEnteredIntoOwnerTable(token_id);
+        boolean tokenAvailable = tokenStatus.value;
+        boolean tokenTaken =   (!tokenAvailable);
         
         OwnerTable own;
         if(token_id >= 0 && admin_id >=0 && tokenAvailable){
@@ -108,7 +118,7 @@ public class OwnerRestService extends BaseRestService{
             own.setIsError(true);
             String msg;
             if(tokenTaken){
-                msg = "[token already claimed! M.E.U.ADMIN]";
+                msg = "M.E.U.ADMIN]" + tokenStatus.comment;
             }else{
                 msg = "[param was either missing or invalid. M.E.U.ADMIN]";
             }//IF::END
@@ -135,8 +145,12 @@ public class OwnerRestService extends BaseRestService{
         Session ses = TransUtil.enterTransaction();     
         
         //Does ID already exist in table? If so, we have an error state:
-        boolean tokenTaken = OwnerTransUtil.doesTokenExist(token_id);
-        boolean tokenAvailable = (!tokenTaken);
+        //boolean tokenTaken = OwnerTransUtil.doesTokenExist(token_id);
+        //boolean tokenAvailable = (!tokenTaken);
+        BooleanWithComment tokenStatus = 
+             OwnerTokenTransUtil.isTokenAbleToBeEnteredIntoOwnerTable(token_id);
+        boolean tokenAvailable = tokenStatus.value;
+        boolean tokenTaken =   (!tokenAvailable);
                         
         OwnerTable own;
         if(token_id >= 0 && tokenAvailable){
@@ -149,7 +163,7 @@ public class OwnerRestService extends BaseRestService{
             own.setIsError(true);
             String msg;
             if(tokenTaken){
-                msg = "[token already claimed! M.E.U.RANDOM]";
+                msg = "M.E.U.RANDOM]" + tokenStatus.comment;
             }else{
                 msg = "[param was either missing or invalid. M.E.U.RANDOM]";
             }//IF::END
