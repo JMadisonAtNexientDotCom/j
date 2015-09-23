@@ -32,11 +32,25 @@ public class NinjaTransUtil {
     }//FUNC::END
     
     /**
+     * Gets if a NINJA with this id exist. 
+     * @param ninja_id :The NINJA ID to query.
+     * @return :true if NINJA with this id exists.
+     */
+    public static boolean getDoesNinjaWithThisIDExist(long ninja_id){
+        //check to see if we are in a transaction state:
+        TransUtil.insideTransactionCheck();
+        
+        BaseEntityContainer bec;
+        bec = TransUtil.getEntityFromTableUsingPrimaryKey
+                             (NinjaTable.class, NinjaTable.ID_COLUMN, ninja_id);
+        return bec.exists;
+    }//FUNC::END
+    
+    /**
      * Retrieve the ninja entity using ID:
      * @param nid :The ninja id we want to use.
      * @return 
      */
-    
     public static NinjaTable getNinjaByID(long nid){
         
         //ErrorCheck: Are we in a transaction state?

@@ -11,6 +11,8 @@ import test.config.constants.ServletClassNames;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forNoClearTableOwner.OwnerTokenTransUtil;
+import test.transactions.util.forOwnedMainlyByOneTable.admin.AdminTransUtil;
+import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.owner.OwnerTransUtil;
 import utils.JSONUtil;
 
@@ -55,6 +57,19 @@ public class OwnerRestService extends BaseRestService{
         //ENTER TRANSACTION STATE:
         Session ses = TransUtil.enterTransaction();
         
+        OwnerTable own;
+        
+        boolean ninjaExists = 
+                           NinjaTransUtil.getDoesNinjaWithThisIDExist(ninja_id);
+        if(false == ninjaExists){/////////////////////////////////////////
+            own = new OwnerTable();
+            own.setToken_id(token_id);
+            own.setNinja_id(ninja_id);
+            own.setIsError(true);
+            own.setComment("MEU.NINJA: Ninja of this Id does not exist");
+            return JSONUtil.entityToJSONResponse(own);
+        }///////////////////////////////////////////////////////////////////////
+        
         //Does ID already exist in table? If so, we have an error state:
         //boolean tokenTaken = OwnerTransUtil.doesTokenExist(token_id);
         //boolean tokenAvailable = (!tokenTaken);
@@ -63,7 +78,6 @@ public class OwnerRestService extends BaseRestService{
         boolean tokenAvailable = tokenStatus.value;
         boolean tokenTaken =   (!tokenAvailable);
         
-        OwnerTable own;
         if(token_id >= 0 && ninja_id >= 0 && tokenAvailable){
             own = OwnerTransUtil.makeEntryUsing_ninja(token_id, ninja_id);
         }else{//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
@@ -99,6 +113,19 @@ public class OwnerRestService extends BaseRestService{
         //ENTER TRANSACTION STATE:
         Session ses = TransUtil.enterTransaction();
         
+        OwnerTable own;
+        
+        boolean adminExists = 
+                           AdminTransUtil.getDoesAdminWithThisIDExist(admin_id);
+        if(false == adminExists){/////////////////////////////////////////
+            own = new OwnerTable();
+            own.setToken_id(token_id);
+            own.setAdmin_id(admin_id);
+            own.setIsError(true);
+            own.setComment("MEU.ADMIN: Admin of this ID does not exist.");
+            return JSONUtil.entityToJSONResponse(own);
+        }///////////////////////////////////////////////////////////////////////
+        
         //Does ID already exist in table? If so, we have an error state:
         //boolean tokenTaken = OwnerTransUtil.doesTokenExist(token_id);
         //boolean tokenAvailable = (!tokenTaken);
@@ -107,7 +134,6 @@ public class OwnerRestService extends BaseRestService{
         boolean tokenAvailable = tokenStatus.value;
         boolean tokenTaken =   (!tokenAvailable);
         
-        OwnerTable own;
         if(token_id >= 0 && admin_id >=0 && tokenAvailable){
             own = OwnerTransUtil.makeEntryUsing_admin(token_id, admin_id);
         }else{//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE

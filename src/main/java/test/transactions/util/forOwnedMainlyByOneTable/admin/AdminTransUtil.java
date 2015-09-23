@@ -4,6 +4,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Restrictions;
+import primitives.BooleanWithComment;
 import test.MyError;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.AdminTable;
@@ -34,6 +35,22 @@ public class AdminTransUtil {
         BaseEntityContainer bec = getAdminEntity(lowerCaseUserName);
         return bec.exists;
         
+    }//FUNC::END
+    
+    /**
+     * Gets if an admin with this id exist. 
+     * @param admin_id :The admin ID to query.
+     * @return :true if admin with this id exists.
+     */
+    public static boolean getDoesAdminWithThisIDExist(Long admin_id){
+        
+        //check to see if we are in a transaction state:
+        TransUtil.insideTransactionCheck();
+        
+        BaseEntityContainer bec;
+        bec = TransUtil.getEntityFromTableUsingPrimaryKey
+                             (AdminTable.class, AdminTable.ID_COLUMN, admin_id);
+        return bec.exists;
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
