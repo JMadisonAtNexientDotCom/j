@@ -53,17 +53,28 @@ public class OwnerRestService extends BaseRestService{
         //ENTER TRANSACTION STATE:
         Session ses = TransUtil.enterTransaction();
         
+        //Does ID already exist in table? If so, we have an error state:
+        boolean tokenTaken = OwnerTransUtil.doesTokenExist(token_id);
+        boolean tokenAvailable = (!tokenTaken);
+        
         OwnerTable own;
-        if(token_id >= 0 && ninja_id >= 0){
+        if(token_id >= 0 && ninja_id >= 0 && tokenAvailable){
             own = OwnerTransUtil.makeEntryUsing_ninja(token_id, ninja_id);
         }else{//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             own = new OwnerTable();
             own.setToken_id(token_id);
             own.setNinja_id(ninja_id);
             own.setIsError(true);
-            own.setComment("[param was either missing or invalid. M.E.U.N.]");
+            String msg;
+            if(tokenTaken){
+                msg = "[token already claimed! M.E.U.NINJA]";
+            }else{
+                msg = "[param was either missing or invalid. M.E.U.NINJA]";
+            }//IF::END
+            //set error message to be read in comments of entity.
+            own.setComment(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-        
+       
         //EXIT TRANSACTION STATE:
         ////We just send them back to UI/FrontEnd to notify them.
         boolean doWeHaveAnEntityToSave = (false == own.getIsError() );
@@ -82,16 +93,27 @@ public class OwnerRestService extends BaseRestService{
         //ENTER TRANSACTION STATE:
         Session ses = TransUtil.enterTransaction();
         
+        //Does ID already exist in table? If so, we have an error state:
+        boolean tokenTaken = OwnerTransUtil.doesTokenExist(token_id);
+        boolean tokenAvailable = (!tokenTaken);
+        
         OwnerTable own;
-        if(token_id >= 0 && admin_id >=0){
+        if(token_id >= 0 && admin_id >=0 && tokenAvailable){
             own = OwnerTransUtil.makeEntryUsing_ninja(token_id, admin_id);
         }else{//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             //Error response if API fails:
             own = new OwnerTable();
-            own.setAdmin_id(admin_id);
             own.setToken_id(token_id);
+            own.setNinja_id(admin_id);
             own.setIsError(true);
-            own.setComment("[param was either missing or invalid. M.E.U.A.]");
+            String msg;
+            if(tokenTaken){
+                msg = "[token already claimed! M.E.U.ADMIN]";
+            }else{
+                msg = "[param was either missing or invalid. M.E.U.ADMIN]";
+            }//IF::END
+            //set error message to be read in comments of entity.
+            own.setComment(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //EXIT TRANSACTION STATE:
@@ -110,20 +132,28 @@ public class OwnerRestService extends BaseRestService{
                     (@DefaultValue("-1") @QueryParam("token_id") long token_id){
                         
         //ENTER TRANSACTION STATE:
-        Session ses = TransUtil.enterTransaction();                
+        Session ses = TransUtil.enterTransaction();     
+        
+        //Does ID already exist in table? If so, we have an error state:
+        boolean tokenTaken = OwnerTransUtil.doesTokenExist(token_id);
+        boolean tokenAvailable = (!tokenTaken);
                         
         OwnerTable own;
-        if(token_id >= 0){
+        if(token_id >= 0 && tokenAvailable){
             own = OwnerTransUtil.makeEntryUsing_random(token_id);
         }else{//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             //Error response if API fails:
             own = new OwnerTable();
-            own.setToken_id(token_id);
             own.setNinja_id(-1337);
             own.setAdmin_id(-1337);
             own.setIsError(true);
-            String msg = "[makeEntryUsing_random:]";
-            msg+="[param was either missing or invalid. M.E.U.R.]";
+            String msg;
+            if(tokenTaken){
+                msg = "[token already claimed! M.E.U.RANDOM]";
+            }else{
+                msg = "[param was either missing or invalid. M.E.U.RANDOM]";
+            }//IF::END
+            //set error message to be read in comments of entity.
             own.setComment(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
