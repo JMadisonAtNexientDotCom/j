@@ -114,11 +114,11 @@ public class OwnerRestService extends BaseRestService{
             //Error response if API fails:
             own = new OwnerTable();
             own.setToken_id(token_id);
-            own.setNinja_id(admin_id);
+            own.setAdmin_id(admin_id);
             own.setIsError(true);
             String msg;
             if(tokenTaken){
-                msg = "M.E.U.ADMIN]" + tokenStatus.comment;
+                msg = "[M.E.U.ADMIN]" + tokenStatus.comment;
             }else{
                 msg = "[param was either missing or invalid. M.E.U.ADMIN]";
             }//IF::END
@@ -163,7 +163,7 @@ public class OwnerRestService extends BaseRestService{
             own.setIsError(true);
             String msg;
             if(tokenTaken){
-                msg = "M.E.U.RANDOM]" + tokenStatus.comment;
+                msg = "[M.E.U.RANDOM]" + tokenStatus.comment;
             }else{
                 msg = "[param was either missing or invalid. M.E.U.RANDOM]";
             }//IF::END
