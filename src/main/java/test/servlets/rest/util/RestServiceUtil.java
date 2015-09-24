@@ -11,6 +11,6 @@ public class RestServiceUtil {
     }//FUNC::END
     
     public static String getServiceURL(int restServiceID){
-        return ("www.whatever.com");
+        return    "RAND==[" + Double.toString(Math.random()) + "]";
     }
 }
