@@ -4,7 +4,7 @@
 <p> hello world! </p>
 <jsp:include page="../dummys/htmlFrame/app_controller_divider.html" />
 
-serviceURL = <% RestServiceUtil.getServiceURL(RSIDS.ADMIN) %>
+serviceURL = <%= RestServiceUtil.getServiceURL(RSIDS.ADMIN); %>
 
 <jsp:include page="../dummys/htmlFrame/foot.html" />
 
