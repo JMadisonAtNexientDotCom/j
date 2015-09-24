@@ -1,0 +1,117 @@
+
+
+
+//SOURCE: #1:
+// https://css-tricks.com/centering-css-complete-guide/
+////////////////////////////////////////////////////////////////////////////////
+//////////////                  SOURCE #1 START                 ////////////////
+////////////////////////////////////////////////////////////////////////////////
+//METHOD #1:
+//111111111111111111111111111111111111111111111111111111111111111111111111111111
+.vertcen_parent {
+  position: relative;
+}
+.vertcen_child {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+//USAGE:
+/*
+  <div class="vertcen_parent">
+    <div class="vertcen_child">
+       <p> CENTERED</p>
+    </div>
+  </div>
+*/
+//111111111111111111111111111111111111111111111111111111111111111111111111111111
+////////////////////////////////////////////////////////////////////////////////
+//////////////                  SOURCE #1 END                   ////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Failed code below:
+//Ignore this section unless you'd like some debuggin excercises.
+//FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF//
+//FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF//
+
+
+
+
+//This method was taken from source#1:
+//https://css-tricks.com/centering-css-complete-guide/
+//METHOD #2 : NOTE: This seems to break HTML rules. Use method #1.
+//222222222222222222222222222222222222222222222222222222222222222222222222222222
+/*
+vert_cen_main {
+  background: white;
+  height: 300px;
+  margin: 20px;
+  width: 300px;
+  position: relative;
+  resize: vertical;
+  overflow: auto;
+}
+
+vert_cen_main div {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  right: 20px;
+  background: black;
+  color: white;
+  padding: 20px;
+  transform: translateY(-50%);
+  resize: vertical;
+  overflow: auto;
+}
+*/
+//USAGE:
+/*
+<vert_cen_main>
+  <div>
+     Vertically centered using custom elements.
+  </div>
+</vert_cen_main>
+*/
+//222222222222222222222222222222222222222222222222222222222222222222222222222222
+
+
+
+
+
+
+
+
+
+
+//CANNOT GET THIS TO WORK. Commented out this verison.
+//used to vertically center elements:
+//SOURCE: 
+//http://zerosixthree.se/vertical-align-anything-with-just-3-lines-of-css/
+/*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ver_div_parent {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.ver_div div {
+  position: relative;
+  top: 50%;
+  transform:         translateY(-50%);
+  -ms-transform:     translateY(-50%);
+  -webkit-transform: translateY(-50%);
+}
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/

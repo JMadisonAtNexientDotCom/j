@@ -1,0 +1,29 @@
+#roundeddivs_wireframe {
+    border-radius: 25px;
+    border: 5px solid #44AAFF;
+    padding: 20px;   
+}
+
+#roundeddivs_headertab{
+    border-radius: 25px;
+    background: #44AAFF;
+    padding: 10px;
+    padding-top: 1px;
+    margin-top: -25px;
+    margin-left: -25px;
+    margin-right: -25px;
+    
+    border-bottom-right-radius:0px;
+    border-bottom-left-radius:0px;
+    
+}
+
+#roundeddivs_divider {
+    border-radius: 5px;
+    background: #44AAFF;
+    padding: 0px;
+    margin-left: -20px;
+    margin-right: -20px;
+    //width: 100px;
+    height: 5px;   
+}

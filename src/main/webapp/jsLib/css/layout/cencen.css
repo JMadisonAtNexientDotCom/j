@@ -1,0 +1,48 @@
+
+////////////////////////////////////////////////////////////////////////////////
+//SOURCE: https://css-tricks.com/centering-in-the-unknown/
+//USAGE: NOTE: must be nested in a container of KNOWN height.
+//             does not fit the criteria I want for making a centered
+//             dialog box.
+/*
+<body style="height:200px;">
+  <div class="cencen_block">
+    <div class="cencen_centered">
+       <p> CENTERED</p>
+    </div>
+  </div>
+</body>
+*/
+.cencen_block {
+  text-align: center;
+  background: #c0c0c0;
+  border: #a0a0a0 solid 1px;
+  margin: 20px;
+  height: inherit;
+  
+  //May want to do this if there is risk the container 
+  //may be narrower than the element inside
+  white-space: nowrap;
+}
+ 
+.cencen_block:before {
+  content: '';
+  display: inline-block;
+  height: 100%; 
+  vertical-align: middle;
+  margin-right: -0.25em; /* Adjusts for spacing */
+    
+  /* For visualization 
+  background: #808080; width: 5px;
+  */
+ }
+ 
+.cencen_centered {
+  display: inline-block;
+  vertical-align: middle;
+  width: 300px;
+  padding: 10px 15px;
+  border: #a0a0a0 solid 1px;
+  background: #f5f5f5;
+ }
+ ///////////////////////////////////////////////////////////////////////////////
