@@ -8,6 +8,7 @@ import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import primitives.BooleanWithComment;
 import test.config.constants.ServletClassNames;
+import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forNoClearTableOwner.OwnerTokenTransUtil;
@@ -206,6 +207,51 @@ public class OwnerRestService extends BaseRestService{
         TransUtil.exitTransaction(ses, doWeHaveAnEntityToSave);
         
         //RETURN RESPONSE:
+        return JSONUtil.entityToJSONResponse(own);
+    }//FUNC::END
+                    
+    @GET
+    @Path("doesTokenHaveOwner")
+    public Response doesTokenHaveOwner
+                    (@DefaultValue("-1") @QueryParam("token_id") long token_id){
+        
+        //ENTER TRANSACTION STATE:
+        Session ses = TransUtil.enterTransaction();
+        
+        //LOGIC:
+        boolean results = OwnerTokenTransUtil.doesTokenHaveOwner(token_id);
+        Response op;
+        op = JSONUtil.booleanToJSONResponse
+                                        (results, "doesTokenHaveOwner?", false);
+        
+        //EXIT TRANSACTION STATE:
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+        
+        return op;
+    }//FUNC::END
+    
+    @GET
+    @Path("getTokenOwner")
+    public Response getTokenOwner
+                    (@DefaultValue("-1") @QueryParam("token_id") long token_id){
+        
+        //ENTER TRANSACTION STATE:
+        Session ses = TransUtil.enterTransaction();
+        
+        //LOGIC:
+        BaseEntityContainer bec;
+        bec = OwnerTransUtil.getTokenOwner(token_id);
+        OwnerTable own;
+        if(bec.exists){
+            own = (OwnerTable)bec.entity;
+        }else{//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            own = new OwnerTable();
+            own.setIsError(true);
+            own.setComment("no owner for this token!");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        //EXIT TRANSACTION STATE:
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
         return JSONUtil.entityToJSONResponse(own);
     }//FUNC::END
   

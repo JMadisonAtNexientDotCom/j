@@ -5,6 +5,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import test.MyError;
+import test.config.constants.DatabaseConsts;
 import test.config.debug.DebugConfig;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.AdminTable;
@@ -14,6 +15,7 @@ import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.debug.debugUtils.table.TableDebugUtil;
 import test.transactions.util.TransUtil;
 import test.transactions.util.TransValidateUtil;
+import test.transactions.util.forNoClearTableOwner.OwnerTokenTransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.admin.AdminTransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
 
@@ -79,7 +81,7 @@ public class OwnerTransUtil {
      *  be explicitly allocated by an admin. 
      * (AKA: Recruiter or other nexient employee with admin account)
      ------------------------------------------------------------------------**/
-    private static long UNUSED_ID = (0);
+    private static long UNUSED_ID = DatabaseConsts.UNUSED_ID;
     
     /**-------------------------------------------------------------------------
      * Make an entry into join table represented by this class.
@@ -250,31 +252,9 @@ public class OwnerTransUtil {
         //Error Checking:
         TransUtil.insideTransactionCheck();
         
-        //Logic:
-        BaseEntityContainer bec;
-        bec = TransUtil.getEntityFromTableUsingPrimaryKey
-                       (OwnerTable.class, OwnerTable.TOKEN_ID_COLUMN, token_id);
-       
-        //if record does not exist at all, then token cannot have owner.
-        if(false == bec.exists){ return false;}
-        if(null == bec.entity){ doError("entity should not be null");}
-        
-        boolean op = false; //output var set to false to make compiler happy.
-        OwnerTable table = (OwnerTable)bec.entity;
-        boolean hasNinjaOwner = (table.getAdmin_id() >UNUSED_ID);
-        boolean hasAdminOwner = (table.getNinja_id() >UNUSED_ID);
-        if(hasNinjaOwner && hasAdminOwner){
-            doError("token cannot be owned by admin and ninja");
-        }else
-        if(hasNinjaOwner || hasAdminOwner){
-            op = true; //one owner. But NOT more.
-        }else{
-            op = false;
-        }//IF:BLOCK:END
-        
-        //Return output. Does token have owner?
-        return op;
-        
+        //Involves owner_table + token_table, code belongs in
+        //OwnerTokenTransUtil.java
+        return OwnerTokenTransUtil.doesTokenHaveOwner(token_id);
     }//FUNC::END
        
     /** Program will crash if this is not true. **/
@@ -302,7 +282,7 @@ public class OwnerTransUtil {
      * @return :Returns a container. If has owner, the container
      *          will contain the entity that owns this token.
      */
-    private static BaseEntityContainer getTokenOwner(long token_id){
+    public static BaseEntityContainer getTokenOwner(long token_id){
         BaseEntityContainer bec;
         bec = TransUtil.getEntityFromTableUsingLong
                        (OwnerTable.class, OwnerTable.TOKEN_ID_COLUMN, token_id);

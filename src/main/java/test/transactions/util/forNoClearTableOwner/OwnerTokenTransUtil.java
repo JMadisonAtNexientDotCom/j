@@ -2,7 +2,10 @@ package test.transactions.util.forNoClearTableOwner;
 
 import primitives.BooleanWithComment;
 import primitives.StringWithComment;
+import test.MyError;
+import test.config.constants.DatabaseConsts;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
+import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.owner.OwnerTransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.token.TokenTransUtil;
@@ -48,6 +51,51 @@ import test.transactions.util.forOwnedMainlyByOneTable.token.TokenTransUtil;
 ########10########20########30########40########50########60########70########*/
 //-------0---------0---------0---------0---------0---------0---------0---------0
 public class OwnerTokenTransUtil {
+    
+    private static long UNUSED_ID = DatabaseConsts.UNUSED_ID;
+    
+    /**
+     * Does the token that may or may not be in the table
+     * have an owner?
+     * @param token_id :The token ID to use to find if owner exists.
+     * @return         :Returns true if token has owner associated with it.
+     */
+    public static boolean doesTokenHaveOwner(long token_id){
+        
+        //Error Checking:
+        TransUtil.insideTransactionCheck();
+        
+        //Involves owner_table + token_table, code belongs in
+        //OwnerTokenTransUtil.java
+        
+        
+        //Logic:
+        BaseEntityContainer bec;
+        bec = TransUtil.getEntityFromTableUsingPrimaryKey
+                       (OwnerTable.class, OwnerTable.TOKEN_ID_COLUMN, token_id);
+       
+        //if record does not exist at all, then token cannot have owner.
+        if(false == bec.exists){ return false;}
+        if(null == bec.entity){ doError("entity should not be null");}
+        
+        boolean op = false; //output var set to false to make compiler happy.
+        OwnerTable table = (OwnerTable)bec.entity;
+        boolean hasNinjaOwner = (table.getAdmin_id() >UNUSED_ID);
+        boolean hasAdminOwner = (table.getNinja_id() >UNUSED_ID);
+        if(hasNinjaOwner && hasAdminOwner){
+            doError("token cannot be owned by admin and ninja");
+        }else
+        if(hasNinjaOwner || hasAdminOwner){
+            op = true; //one owner. But NOT more.
+        }else{
+            op = false;
+        }//IF:BLOCK:END
+        
+        //Return output. Does token have owner?
+        return op;
+        
+    }//FUNC::END
+    
     
     /**
      * In order for a token to be able to be entered into the owner table,
@@ -102,5 +150,16 @@ public class OwnerTokenTransUtil {
        return op;
         
     }//FUNC::END
-    
+                                                                
+    /**-------------------------------------------------------------------------
+    * Wrapper function to throw errors from this class.
+    * @param msg :Specific error message.
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+    String err = "ERROR INSIDE:";
+    err += OwnerTokenTransUtil.class.getSimpleName();
+    err += msg;
+    throw new MyError(err);
+    }//FUNC::END
+
 }//CLASS::END
