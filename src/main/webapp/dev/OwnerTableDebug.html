@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Owner Table Tester</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+		
+		<!-- Enable spinners for ASYNC operations. -->
+		<!-- SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS -->
+		<!--
+		<script src="../jsLib/node_modules/angular-spinners/src/spinner-service.js"></script>
+		<script src="../jsLib/node_modules/angular-spinners/src/spinner-directive.js"></script>
+		<script src="../jsLib/node_modules/angular-spinners/dist/angular-spinners.js"></script>
+		<LINK REL=StyleSheet HREF="../jsLib/css/components/loading_spinner.css" TYPE="text/css">
+		-->
+		<!-- SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS -->
+		
+  </head>
+<!-- AUTHOR: JMadison.  ON:20##.##.##_####AMPM                               -->
+<!-- TABSIZE: 2 Spaces.                                                      -->
+<!-- This header belongs BELOW the <head></head> declaration.                -->
+<!--   10|       20|       30|       40|       50|       60|       70|       -->
+<!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
+
+  <body>
+	
+
+	
+		<div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="VI();" >
+		  <p> Basic Test of token ownership and assignment </p>
+			{{debugTraceVar}}
+		
+			<!-- Make a token -->
+			<p> Make a token </p>
+			<button data-ng-click="doMakeToken();">Click Me!</button>
+			<textarea wrap="off" readonly>{{JSON_01}}</textarea>
+			
+			<!-- Randomly assign token to ninja or admin -->
+			<p>Randomly assign token to ninja or admin</p>
+			<input type="text" data-ng-model="token_01"><br>
+			<button data-ng-click="doAssignToken();">Click Me!</button>
+			<textarea wrap="off" readonly>{{JSON_02}}</textarea>
+			
+			<!-- Does this token have an owner? -->
+			<p> Is the token OWNED? </p>
+			<button data-ng-click="doGetIsOwned();">Click Me!</button>
+			<textarea wrap="off" readonly>{{JSON_03}}</textarea>
+			
+			<!-- Query the owner of the token -->
+			<p> Who is the owner of this token? </p>
+			<button data-ng-click="doGetTokenOwner();">Click Me!</button>
+			<textarea wrap="off" readonly>{{JSON_04}}</textarea>
+			
+		  <!-- Follow up: You might want to be able to create ninjas  -->
+			<!-- So that you can assign them to random tokens. -->
+			<p> Put a ninja into the system? </p>
+			<button data-ng-click="doMakeNinja();">Click Me!</button>
+			<textarea wrap="off" readonly>{{JSON_05}}</textarea>
+			
+		</div>
+	
+	  <script>
+		var app = angular.module('myApp', []);
+		app.controller('myCtrl', function($scope, $http) {
+				
+			
+			//variable initialization: ////////////
+			$scope.VI = function(){////////////////
+				$scope.token_01 = "PUT TOKEN HERE!";
+				$scope.token_02 = "PUT TOKEN HERE!";
+			}//////////////////////////////////////
+			
+			//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+			//SSSS-----------------SERVICE CALLS START----------------------------SSSS
+			//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+			
+			//STEP #1:
+			//Make a token:
+			$scope.doMakeToken = function(){
+				$scope.debugTraceVar = "entered doMakeToken(...)";
+				
+				serviceURL = "http://j1clone01-madnamespace.rhcloud.com/api/TokenRestService/getNextToken";
+				//spinnerService.show('html5spinner'); //<--where is ref to spinnerService?
+				$http.get(serviceURL).success(function(response){ 
+					$scope.JSON_01 = response;
+					$scope.token_01 = response.id;
+				});
+			};
+			
+			//STEP #2:
+			//Assign token to random admin or ninja:
+			$scope.doAssignToken = function(){
+				$scope.debugTraceVar = "entered doAssignToken(...)";
+				
+				serviceURL = "http://j1clone01-madnamespace.rhcloud.com/api/OwnerRestService/makeEntryUsing_random";
+				call = serviceURL + "?token_id=" + $scope.token_01;
+				//spinnerService.show('html5spinner'); //<--where is ref to spinnerService?
+				$http.get(call).success(function(response){ 
+					$scope.JSON_02 = response;
+				});
+			};
+			
+			//STEP #3:
+			//Query if the token has an owner:
+			$scope.doGetIsOwned = function(){
+				$scope.debugTraceVar = "entered doGetIsOwned(...)";
+				
+				serviceURL = "http://j1clone01-madnamespace.rhcloud.com/api/OwnerRestService/doesTokenHaveOwner";
+				call = serviceURL + "?token_id=" + $scope.token_01;
+				//spinnerService.show('html5spinner'); //<--where is ref to spinnerService?
+				$http.get(call).success(function(response){ 
+					$scope.JSON_03 = response;
+				});
+			};
+			
+			//STEP #4:
+			//Get ownership details of a token that is owned:
+			$scope.doGetTokenOwner = function(){
+				$scope.debugTraceVar = "entered doGetTokenOwner(...)";
+				
+				serviceURL = "http://j1clone01-madnamespace.rhcloud.com/api/OwnerRestService/getTokenOwner";
+				call = serviceURL + "?token_id=" + $scope.token_01;
+				//spinnerService.show('html5spinner'); //<--where is ref to spinnerService?
+				$http.get(call).success(function(response){ 
+					$scope.JSON_04 = response;
+				});
+			};
+			
+			//STEP #5:
+			//Make a NINJA:
+			$scope.doMakeNinja = function(){
+				$scope.debugTraceVar = "entered doMakeNinja(...)";
+				
+				serviceURL = "http://j1clone01-madnamespace.rhcloud.com/api/NinjaRestService/getNextNinja";
+				//spinnerService.show('html5spinner'); //<--where is ref to spinnerService?
+				$http.get(serviceURL).success(function(response){ 
+					$scope.JSON_05 = response;
+				});
+			};
+			
+			//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+			//SSSS-----------------SERVICE CALLS END------------------------------SSSS
+			//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+		
+
+			
+			
+				
+		});
+		</script>
+		
+		
+  </body>
+</html>
+<!--   10|       20|       30|       40|       50|       60|       70|       -->
+<!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
