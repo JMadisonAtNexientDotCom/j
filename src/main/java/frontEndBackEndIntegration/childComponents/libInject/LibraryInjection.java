@@ -59,7 +59,13 @@ public class LibraryInjection {
      */
     private static String getResourceAsString(String relativePath){
         InputStream stream;
-        stream = LibraryInjection.class.getResourceAsStream(relativePath);
+        
+        //stream = LibraryInjection.class.getResourceAsStream(relativePath);
+        
+        //Another attempt to get resource:
+        //http://stackoverflow.com/questions/1108434/howto-load-a-resource-from-web-inf-directory-of-a-web-archive
+        stream = LibraryInjection.class.getClass().getClassLoader().getResourceAsStream(relativePath);
+        
         
         if(null == stream){
             String msg = "stream object was null. Is relativePath correct?";
