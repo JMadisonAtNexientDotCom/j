@@ -32,8 +32,7 @@ public class LibraryInjection {
     public static String getLibTagsJS(){
         String tags = "";
         tags +=  "<!-- todo, JS importing code -->";
-        FileContentFetcher fileService = new FileContentFetcher();
-        tags = fileService.getHTMLFileToInject("JSLibs.html");
+    
         
         return tags;
     }//FUNC::END
