@@ -131,12 +131,14 @@ public class ServiceUrls {
         API_COUNT++;
         
         /*
+        //Likely NOT the offending code. Did not un-crash program.
         if(API_MAP.containsKey(url)){
             doError("API_MAP already contains endpoint key! Bad setup!");
         }//ERROR!
         */
         
-        API_MAP.put(url, 1);
+        //Will this uncrash program?
+        //API_MAP.put(url, 1);
         
         
         return url;
