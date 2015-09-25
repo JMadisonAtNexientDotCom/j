@@ -129,9 +129,13 @@ public class ServiceUrls {
         //Put url into our map. Make sure no collisions. Also talley
         //How many there are.
         API_COUNT++;
+        
+        /*
         if(API_MAP.containsKey(url)){
             doError("API_MAP already contains endpoint key! Bad setup!");
         }//ERROR!
+        */
+        
         API_MAP.put(url, 1);
         
         
