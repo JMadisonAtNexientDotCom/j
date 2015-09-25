@@ -70,13 +70,17 @@ public class ConfigServlet extends HttpServlet{
             TestConfig.testVar01 += FileToTextUtil.inputStreamToText(stream);
         }
         
+        //Inject our front-end-back-end-integration utility. IIIIIIIIIIIIIIIIIII
+        //I == INTEGRATION. //IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
         String HTML_INJECT = ResourceRelativeFolderPaths.HTML_INJECT;
         String path_css = HTML_INJECT + "/" + "CSSLibs.html";
         String path_js  = HTML_INJECT + "/" + "JSLibs.html";
 
-        String wow = FileToTextUtil.getUsingServletContext(relFilePath, ctx);
-        TestConfig.testVar01 +="AGAIN??????";
-        TestConfig.testVar01 +=wow;
+        String css = FileToTextUtil.getUsingServletContext(path_css, ctx);
+        String js  = FileToTextUtil.getUsingServletContext(path_js, ctx);
+        I.INCLUDE_CSS = css;
+        I.INCLUDE_JS  = js;
+        //IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
         
         //TODO HACK:
         //Create initial session in session_table so that the table shows up.
