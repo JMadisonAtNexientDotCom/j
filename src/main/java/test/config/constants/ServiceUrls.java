@@ -24,12 +24,12 @@ public class ServiceUrls {
     
     //API ENDPOINTS:
     //////////////////////////////////
-    public static String OWNER;      
-    public static String TOKEN;
-    public static String FILE;
-    public static String NINJA;
-    public static String RIDDLERHYME;
-    public static String TRANSDEBUG;
+    public static String OWNER        = "NOT_INITED";      
+    public static String TOKEN        = "NOT_INITED"; ;
+    public static String FILE         = "NOT_INITED"; ;
+    public static String NINJA        = "NOT_INITED"; ;
+    public static String RIDDLERHYME  = "NOT_INITED"; ;
+    public static String TRANSDEBUG   = "NOT_INITED"; ;
     //////////////////////////////////                  
     
     /** map of all API endpoints. Needs to have same length as map
@@ -45,6 +45,7 @@ public class ServiceUrls {
      * to do after setup.
      */
     static{//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+        /*
         //Create fully-qualified api endpoints:
         OWNER       = makeURL(ServletClassNames.AdminRestService_MAPPING);
         TOKEN       = makeURL(ServletClassNames.OwnerRestService_MAPPING);
@@ -72,7 +73,7 @@ public class ServiceUrls {
             msg += "[Would be another reason the checksums do not agree.]";
             doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-        
+        */
     }//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
     
     
