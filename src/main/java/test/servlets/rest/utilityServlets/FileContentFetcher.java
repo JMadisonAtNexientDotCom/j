@@ -23,35 +23,13 @@ import utils.JSONUtil;
 //import ntsResponseMachine.containers.ReaderContainer;
 
 /**-----------------------------------------------------------------------------
- * A base rest service from which all other rest services will be derived.
- * Reason:
- * So we can setup new rest servlets in smaller incriments.
- * When creating a new servlet, we can make it a STUB that extends
- * BaseRestService. We can then use the ping methods on our new stub servlet
- * to make sure it is wired in correctly. Once we know the servlet is configured
- * correctly, we can go on writing more code.
+ Note: If you omit @QueryParam from servlet, you will be in for a world of pain.
+ *     You will get other weird errors that will not reflect the true problem.
  * 
- * //My design philosophy here:
- * /////////////////////////////////////////////////////////////////////////////
- * 1. Small change. 
- * 2. Small commit. 
- * 3. Test to make sure still working.
- * Repeat in smallest possible steps that will result in UNBROKEN product.
- * Planning out the increments to your final goal is a good idea.
- * /////////////////////////////////////////////////////////////////////////////
+ * This is a test servlet to attempt to fetch files from the server.
  * 
- * Debug notes:
- * This error may lead you to believe it is an entity serialization issue on
- * a JSON response from a servlet. But this actually happened to me because I
- * left off the @QueryParam annotations on the servlet function.
- * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- * HTTP Status 415 - Unsupported Media Type
-   type Status report
-   message: Unsupported Media Type
-   description: The server refused this request because the request entity is 
-   *            in a format not supported by the requested resource for the 
-   *            requested method.
-   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * Original Usage:
+ * To inject file contents from server into .JSP files.
  * 
  * @author jmadison ---------------------------------------------------------**/
 @Path(ServletClassNames.FileContentFetcher_MAPPING)
@@ -161,7 +139,7 @@ public class FileContentFetcher extends BaseRestService {
             @QueryParam("fileName") String fileName){
      */   
     /** is it possible to make this servlet for internal use only? **/
-    protected String getHTMLFileToInject(String fileName){   
+    public String getHTMLFileToInject(String fileName){   
         //resources/json ends up in:
         //ROOT.war/WEB-INF/classes/json/v1/test/
         String path = ResourceRelativeFolderPaths.HTML_INJECT +"/"+ fileName;
