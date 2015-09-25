@@ -102,6 +102,21 @@ public class ServletClassNames {
         verifyCorrectMapping();
     }
     
+    
+    
+    /**
+     * Get the number of unique apis that are mapped in this class.
+     * @return :# of unique apis.
+     * 
+     * NOTE: implimentation is kind of hackish. Expects that any API
+     *       represented in here has also had it's mapping checked.
+     * 
+     */
+    public static int getNumberOfMappings(){
+        verifyMappingChecksWereEvenlyPaired();
+        return _times_called_CHECK_MAPPING;
+    }//FUNC::END
+    
     private static void verifyCorrectMapping(){
         
         //Verify that no two servlet names are identical.
