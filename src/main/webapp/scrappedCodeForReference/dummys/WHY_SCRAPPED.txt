@@ -1,0 +1,15 @@
+Using dummies to carve up boiler plateHTML into sections
+sounded like a great idea.
+
+But then I remember what an old boss said..
+"Don't just do things to save lines of code"
+
+He was talking about how optimizations sometimes make the code harder
+to read. Sure, including the headers all the time will take up more memory.
+However:
+
+1. We want the .JSP pages to be pretty much identical to the .HTML
+pages our UI people make. Except with some special tags integrated
+into it to make the front-end and back end agree.
+
+Will be trying another test page using this concept.

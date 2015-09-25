@@ -1,0 +1,3 @@
+I think it is important to keep track of what NOT to do.
+That way, it could help prevent a new programmer program what
+you intentionally omitted from the code.
