@@ -1,7 +1,11 @@
 package test;
 
+import java.io.InputStream;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletException; //-------------tomcat/lib/servlet-api.jar
+
+import test.config.constants.ResourceRelativeFolderPaths;
 
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 /**##########################CLASS HEADER FILE##################################
@@ -43,7 +47,17 @@ public class ConfigServlet extends HttpServlet{
     public void init()throws ServletException{
         super.init();
         TestConfig.testVar01 = "ConfigServlet.init() was here!";
+        
+        ServletContext ctx = this.getServletContext();
+        
+        InputStream stream;
+        String rel = ResourceRelativeFolderPaths.HTML_INJECT;
+        String relFilePath = rel + "/CSSLibs.html";
+        stream = ctx.getClass().getClassLoader().getResourceAsStream(relFilePath);
+        
         TestConfig.testVar01 += "servletContext==[" + this.getServletContext().toString() + "]";
+        TestConfig.testVar01 += "steam==[" + stream.toString() + "]";
+        
         
         //TODO HACK:
         //Create initial session in session_table so that the table shows up.
