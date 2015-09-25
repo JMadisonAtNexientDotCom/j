@@ -57,7 +57,12 @@ public class ConfigServlet extends HttpServlet{
         
         TestConfig.testVar01 += "WOOOOOOH! HEllo??";
         TestConfig.testVar01 += "servletContext==[" + this.getServletContext().toString() + "]";
-        TestConfig.testVar01 += "steam==[" + stream.toString() + "]";
+        
+        if(null == stream){
+            TestConfig.testVar01 += "STREAM==NULL";
+        }else{
+            TestConfig.testVar01 += "STREAM IS OKAY!";
+        }
         
         
         //TODO HACK:
