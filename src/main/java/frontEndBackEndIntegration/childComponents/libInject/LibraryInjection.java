@@ -11,6 +11,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import javax.servlet.ServletContext;
+import javax.ws.rs.core.Context;
 import test.config.constants.ResourceRelativeFolderPaths;
 
 
@@ -20,6 +22,11 @@ import test.config.constants.ResourceRelativeFolderPaths;
  */
 public class LibraryInjection {
    
+    /** Hack to get resource.
+     *  http://stackoverflow.com/questions/2797162/getresourceasstream-is-always-returning-null
+     */
+    @Context public static ServletContext servletContext;
+    
     /**
      * Retrieves library tags used by the project. Uses ABSOLUTE PATHS
      * to all of the libraries so that this call can work anywhere.
@@ -64,7 +71,15 @@ public class LibraryInjection {
         
         //Another attempt to get resource:
         //http://stackoverflow.com/questions/1108434/howto-load-a-resource-from-web-inf-directory-of-a-web-archive
-        stream = LibraryInjection.class.getClass().getClassLoader().getResourceAsStream(relativePath);
+        //stream = LibraryInjection.class.getClass().getClassLoader().getResourceAsStream(relativePath);
+        
+        
+        if(null == servletContext){
+            String msg = "Servlet context was null";
+            return makeMSG(msg);
+        }//Null servlet context?
+        
+        stream = servletContext.getResourceAsStream(relativePath);
         
         
         if(null == stream){
