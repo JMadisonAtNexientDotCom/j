@@ -25,7 +25,7 @@ public class LibraryInjection {
     /** Hack to get resource.
      *  http://stackoverflow.com/questions/2797162/getresourceasstream-is-always-returning-null
      */
-    @Context public static ServletContext servletContext;
+    ///@Context public static ServletContext servletContext;
     
     /**
      * Retrieves library tags used by the project. Uses ABSOLUTE PATHS
@@ -73,13 +73,18 @@ public class LibraryInjection {
         //http://stackoverflow.com/questions/1108434/howto-load-a-resource-from-web-inf-directory-of-a-web-archive
         //stream = LibraryInjection.class.getClass().getClassLoader().getResourceAsStream(relativePath);
         
-        
+        /*
         if(null == servletContext){
             String msg = "Servlet context was null";
             return makeMSG(msg);
         }//Null servlet context?
-        
         stream = servletContext.getResourceAsStream(relativePath);
+        */
+        
+        //http://stackoverflow.com/questions/2797162/getresourceasstream-is-always-returning-null
+        stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(relativePath);
+        
+        
         
         
         if(null == stream){
