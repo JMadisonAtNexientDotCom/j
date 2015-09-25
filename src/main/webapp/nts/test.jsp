@@ -21,6 +21,6 @@
 <!--   10|       20|       30|       40|       50|       60|       70|       -->
 <!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
 
-<!-- This .JSP page should basically be a normal .JSP page except for this   -->
-<!-- ONE AND ONLY IMPORT and the references to it.                           -->
+<%-- This .JSP page should basically be a normal .JSP page except for this  --%>
+<%-- ONE AND ONLY IMPORT and the references to it.                          --%>
 <%@ page import="frontEndBackEndIntegration.I" %>
