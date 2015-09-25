@@ -39,13 +39,13 @@ public class LibraryInjection {
     public static String getLibTagsJS(){
         //String tags = "";
         //tags +=  "<!-- todo, JS importing code -->";
-        /*
+        
         String relativeFolder = ResourceRelativeFolderPaths.HTML_INJECT;
         String relativePath = relativeFolder + "/" + "JSLibs.html";
         return getResourceAsString(relativePath);
-        */
         
-        return "TESTING: getLibTagsJS()";
+        
+        //return "TESTING: getLibTagsJS()";
     }//FUNC::END
     
     /**
@@ -60,6 +60,12 @@ public class LibraryInjection {
     private static String getResourceAsString(String relativePath){
         InputStream stream;
         stream = LibraryInjection.class.getResourceAsStream(relativePath);
+        
+        if(null == stream){
+            String msg = "stream object was null. Is relativePath correct?";
+            msg+= "relative path used:[" + relativePath + "]";
+            return makeMSG(msg);
+        }//Null stream?
         
         BufferedReader reader;
         reader = new BufferedReader(new InputStreamReader(stream));
@@ -88,5 +94,19 @@ public class LibraryInjection {
         
         return docText;
     }//getResourceAsString
+    
+    /** Makes text meant for a non-fatal error. Meaning, we want the error
+     *  message to print out somewhere without crashing the program.
+     * @param msg :Unique error message.
+     * @return    :The msg with information associating it with this class
+     *             so we can know where the message originated from when
+     *             we see it in a string somewhere.
+     */
+    private static String makeMSG(String msg){
+        String whereAreWe = LibraryInjection.class.getCanonicalName();
+        String op = "ERROR AT:" + whereAreWe;
+        op += msg;
+        return op;
+    }//FUNC::END
     
 }//CLASS::END
