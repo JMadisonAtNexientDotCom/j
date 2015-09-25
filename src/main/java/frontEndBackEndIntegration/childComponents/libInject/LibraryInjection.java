@@ -95,7 +95,7 @@ public class LibraryInjection {
         
         
         
-        
+        /*
         if(null == stream){
             String msg = "stream object was null. Is relativePath correct?";
             msg+= "relative path used:[" + relativePath + "]";
@@ -128,6 +128,7 @@ public class LibraryInjection {
         }
         
         return docText;
+        */
     }//getResourceAsString
     
     /** Makes text meant for a non-fatal error. Meaning, we want the error
