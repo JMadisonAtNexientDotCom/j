@@ -48,9 +48,14 @@ public class ServiceUrls {
      * to do after setup.
      */
     static{//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+        
+        //Java seems to HATE your initializer code:
+        //http://stackoverflow.com/questions/1401111/
+        //                 noclassdeffounderror-could-not-initialize-class-error
         doStaticInit();
       
     }//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+    
     
     private static void doStaticInit(){
         
@@ -65,6 +70,7 @@ public class ServiceUrls {
         RIDDLERHYME = makeURL(ServletClassNames.RiddleRhymeRestService_MAPPING);
         TRANSDEBUG  = makeURL(ServletClassNames.TransDebugRestService_MAPPING);
         
+        /*
         //Create map that will be used for checksums:
         API_COUNT = 0;
         API_MAP     = new HashMap<String,Integer>();
@@ -84,6 +90,7 @@ public class ServiceUrls {
             msg += "[Would be another reason the checksums do not agree.]";
             doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        */
     }//FUNC::END
     
     /**
@@ -94,13 +101,16 @@ public class ServiceUrls {
      */
     private static String makeURL(String mappingEndPoint){
         
+        /*
         int len = mappingEndPoint.length();
         if(mappingEndPoint.charAt(len-1) != '/'){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             doError("API mappinEndPoint supplied must end with fwd-slash");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        */
             
         String url = APP_ROOT_DOMAIN + "/" + API + "/" + mappingEndPoint;
         
+        /*
         //Put url into our map. Make sure no collisions. Also talley
         //How many there are.
         API_COUNT++;
@@ -108,6 +118,7 @@ public class ServiceUrls {
             doError("API_MAP already contains endpoint key! Bad setup!");
         }//ERROR!
         API_MAP.put(url, 1);
+        */
         
         return url;
     }//FUNC::END
