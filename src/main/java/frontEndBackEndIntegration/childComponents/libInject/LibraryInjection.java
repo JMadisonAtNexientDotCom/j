@@ -39,8 +39,25 @@ public class LibraryInjection {
     public static String getLibTagsJS(){
         //String tags = "";
         //tags +=  "<!-- todo, JS importing code -->";
+        /*
         String relativeFolder = ResourceRelativeFolderPaths.HTML_INJECT;
         String relativePath = relativeFolder + "/" + "JSLibs.html";
+        return getResourceAsString(relativePath);
+        */
+        
+        return "TESTING: getLibTagsJS()";
+    }//FUNC::END
+    
+    /**
+     * Converts a resource from your resources folder into a string so that
+     * you can use it somewhere. Originally used to inject .css and .html
+     * imports into .jsp files.
+     * 
+     * @param relativePath :A relative path that terminates at a file name.
+     *                      Example: /resources/myFiles/file.html
+     * @return :The file as a string.
+     */
+    private static String getResourceAsString(String relativePath){
         InputStream stream;
         stream = LibraryInjection.class.getResourceAsStream(relativePath);
         
@@ -70,6 +87,6 @@ public class LibraryInjection {
         }
         
         return docText;
-    }//FUNC::END
+    }//getResourceAsString
     
 }//CLASS::END
