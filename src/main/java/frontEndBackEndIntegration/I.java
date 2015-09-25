@@ -3,6 +3,7 @@ package frontEndBackEndIntegration;
 //No package. At root to make less hazardous for refactoring.
 //Since it will be put into .JSP files.
 import frontEndBackEndIntegration.childComponents.FBVarNameRegistry;
+import frontEndBackEndIntegration.childComponents.libInject.LibraryInjection;
 
 
 /**
@@ -19,6 +20,26 @@ import frontEndBackEndIntegration.childComponents.FBVarNameRegistry;
  */
 public class I {
     
-    /** V == VARNAMES **/
-    public static final FBVarNameRegistry V = new FBVarNameRegistry();
+    /** Shared reference so that we can have shorthand and longhand versions
+     *  to be able to put into the code. **/
+    private static final FBVarNameRegistry _varNameRegSharedRef = 
+                                                        new FBVarNameRegistry();
+  
+    /** Shorthand version of VARNAME **/
+    public static final FBVarNameRegistry V = _varNameRegSharedRef;
+    
+    /** Container used to reference variable names that need to be consistent
+     *  amongst the front-end and back end. **/
+    public static final FBVarNameRegistry VARNAME = _varNameRegSharedRef;
+    
+    /** Used to include CSS libs in header of JSP file.
+     *  Usage: <%= I.INCLUDE_CSS %> 
+     *  Where "I" is the name of this class we are in. **/
+    public static final String INCLUDE_CSS = LibraryInjection.getLibTagsCSS();
+    
+    /** Used to include CSS libs in header of JSP file.
+     *  Usage: <%= I.INCLUDE_CSS %> 
+     *  Where "I" is the name of this class we are in. **/
+    public static final String INCLUDE_JS  = LibraryInjection.getLibTagsJS();
+            
 }//CLASS::END

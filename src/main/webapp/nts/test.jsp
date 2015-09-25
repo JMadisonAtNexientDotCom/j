@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>TITLExxxOFxxxTHISxxxPAGE</title>
-    <link rel="stylesheet" href="YOUR_STYLE_SHEET_URL_OR_URI.css">
-    <script src="YOUR_JAVA_SCRIPT_URL_OR_URI.js"></script>
+    <%= I.INCLUDE_CSS %>
+    <%= I.INCLUDE_JS %>
   </head>
 <!-- AUTHOR: JMadison.  ON:20##.##.##_####AMPM                               -->
 <!-- TABSIZE: 2 Spaces.                                                      -->
@@ -21,4 +21,6 @@
 <!--   10|       20|       30|       40|       50|       60|       70|       -->
 <!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
 
+<!-- This .JSP page should basically be a normal .JSP page except for this   -->
+<!-- ONE AND ONLY IMPORT and the references to it.                           -->
 <%@ page import="frontEndBackEndIntegration.I" %>
