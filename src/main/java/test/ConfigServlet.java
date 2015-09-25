@@ -50,25 +50,8 @@ public class ConfigServlet extends HttpServlet{
         super.init();
         TestConfig.testVar01 = "ConfigServlet.init() was here!";
         
+        //The vital piece that gives us access to WEB-INF:
         ServletContext ctx = this.getServletContext();
-        
-        InputStream stream;
-        String rel = ResourceRelativeFolderPaths.HTML_INJECT;
-        String relFilePath = rel + "/CSSLibs.html";
-        //stream = ctx.getClass().getClassLoader().getResourceAsStream(relFilePath);
-        stream = ctx.getResourceAsStream(relFilePath);
-        
-        TestConfig.testVar01 += "WOOOOOOH! HEllo??";
-        TestConfig.testVar01 += "servletContext==[" + this.getServletContext().toString() + "]";
-        
-        if(null == stream){
-            TestConfig.testVar01 += "STREAM==NULL";
-            TestConfig.testVar01 += "relFilePath==[" + relFilePath + "]";
-        }else{
-            TestConfig.testVar01 += "STREAM IS OKAY!";
-     
-            TestConfig.testVar01 += FileToTextUtil.inputStreamToText(stream);
-        }
         
         //Inject our front-end-back-end-integration utility. IIIIIIIIIIIIIIIIIII
         //I == INTEGRATION. //IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII

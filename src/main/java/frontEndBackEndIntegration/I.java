@@ -32,8 +32,15 @@ public class I {
      *  amongst the front-end and back end. **/
     public static final FBVarNameRegistry VARNAME = _varNameRegSharedRef;
     
-    public static String INCLUDE_CSS = "NOT_SET";
-    public static String INCLUDE_JS = "NOT_SET";
+    /** Reference this variable in .JSP file to include all of the standard
+     *  CSS files used in this application. **/
+    public static String INCLUDE_CSS = 
+    "BACK_END_PROBLEM(NOT UI PEOPLE'S FAULT)::INCLUDE_CSS_FAILED_TO_INITIALIZE";
+    
+    /** Reference this variable in .JSP file to include all of the standard
+     *  JS files used in this application. **/
+    public static String INCLUDE_JS = 
+     "BACK_END_PROBLEM(NOT UI PEOPLE'S FAULT)::INCLUDE_JS_FAILED_TO_INITIALIZE";
     
     //Turns out, I can't ask for resources from WEB-INF here. Only the
     //servlets can. So making a config servlet to cache the values.
