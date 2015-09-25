@@ -134,7 +134,7 @@ public class FileContentFetcher extends BaseRestService {
      */
     @GET
     @Path("getHTMLFileToInject")
-    protected Response getHTMLFileToInject(
+    public Response getHTMLFileToInject(
             @QueryParam("fileNameNoExt") String fileNameNoExt){
         
     /** is it possible to make this servlet for internal use only? **/
