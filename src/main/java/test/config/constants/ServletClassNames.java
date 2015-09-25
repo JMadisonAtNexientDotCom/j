@@ -68,6 +68,14 @@ public class ServletClassNames {
     public static final String OwnerRestService_CLASSNAME = "OwnerRestService";
     public static final String OwnerRestService_MAPPING   = "OwnerRestService/"; 
     
+    //Originally made so that .JSP files can inject .HTML and .CSS files
+    //on the server into themselves. Originally so we could use JSP
+    //expressions like <%= I.INCLUDE_CSS %> to include all the CSS libs
+    //we need.
+    public static final String FileContentFetcher_CLASSNAME = 
+                                                          "FileContentFetcher";
+    public static final String FileContentFetcher_MAPPING = 
+                                                          "FileContentFetcher/";
     
     /**-------------------------------------------------------------------------
      *  Keeps track of how many times was called. Possible that
@@ -176,6 +184,10 @@ public class ServletClassNames {
         clazName = AdminRestService.class.getSimpleName();
         if( vcm_cn(OwnerRestService_CLASSNAME, clazName))
         {   mError(OwnerRestService_CLASSNAME); }
+        
+        clazName = AdminRestService.class.getSimpleName();
+        if( vcm_cn(FileContentFetcher_CLASSNAME, clazName))
+        {   mError(FileContentFetcher_CLASSNAME); }
           
     }//FUNC::END
     
@@ -197,6 +209,9 @@ public class ServletClassNames {
         
         checkMapping(OwnerRestService_CLASSNAME,
                      OwnerRestService_MAPPING);
+        
+        checkMapping(FileContentFetcher_CLASSNAME,
+                     FileContentFetcher_MAPPING);
                         
     }//FUNC::END
     

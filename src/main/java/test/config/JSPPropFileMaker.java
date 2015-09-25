@@ -1,5 +1,7 @@
 package test.config;
 
+//DO NOT USE THIS CLASS.
+
 /**
  * Handles population of .properties file to be used by .JSP pages.
  * Specifically: Populates .properties file with API mappings so that
