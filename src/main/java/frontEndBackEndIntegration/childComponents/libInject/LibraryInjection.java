@@ -87,7 +87,7 @@ public class LibraryInjection {
         
         String localhostname;
         try{
-            localhostname = InetAddress.getLocalHost().getHostName();
+            localhostname = InetAddress.getLocalHost().getHostAddress();
             return("LocalHostName==" + localhostname);
         }catch(Exception e){
             return makeMSG("Failed to get localhost name");
