@@ -36,17 +36,21 @@ public class ServiceUrls {
      *  of ServletClassnames, else there is an integrity issue.
      *  Most likely would mean that not all ServiceUrls have been wired up.
      **/
-    private static final Map<String,Integer> API_MAP;
+    private static Map<String,Integer> API_MAP = null;
                                                   
-    private static int API_COUNT;
+    private static int API_COUNT = 0;
     
     /**
      * Need to do static init, because there is some checking we want
      * to do after setup.
      */
     static{//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
-        /*
-        //Create fully-qualified api endpoints:
+        
+      
+    }//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+    
+    private static void doStaticInit(){
+         //Create fully-qualified api endpoints:
         OWNER       = makeURL(ServletClassNames.AdminRestService_MAPPING);
         TOKEN       = makeURL(ServletClassNames.OwnerRestService_MAPPING);
         FILE        = makeURL(ServletClassNames.FileContentFetcher_MAPPING);
@@ -73,9 +77,7 @@ public class ServiceUrls {
             msg += "[Would be another reason the checksums do not agree.]";
             doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-        */
-    }//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
-    
+    }//FUNC::END
     
     /**
      * Builds fully qualified rest service url endpoint.
