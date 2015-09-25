@@ -13,6 +13,21 @@ import javax.servlet.ServletException; //-------------tomcat/lib/servlet-api.jar
 //Testing to see if it could be done.
 //Now using to hack some initial states I want during server bootup.
 //
+//NEW USE CASE: 2015.09.25:
+//Caching resources that should be available to me in WEB-INF folder.
+//I can get the resources from a servlet... But not otherwise.
+//Spent whole day looking for help and tried a few things.
+////stream = servletContext.getResourceAsStream(relativePath);
+////stream = LibraryInjection.class.getClass().getClassLoader().getResourceAsStream(relativePath);
+////stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(relativePath);
+//There were even people claiming that this is the way to do it if your
+//resources are packed in a .WAR file. But doesn't work for me. Could be
+//a tomcat security problem? I could use the openshift data directory. But
+//that would make the app dependent on running on an openshift server.
+//SO: For my classes that need to INJECT HTML into JSP files... This servlet
+//    will boot up and INJECT the HTML into the registry classes, where it will
+//    then be available.
+//
 //DESIGN NOTE (Justifications for why things are the way they are):
 //No justifications. This class feels like a hack to me.
 //If you have a better way, feel free to try it out.
@@ -28,6 +43,7 @@ public class ConfigServlet extends HttpServlet{
     public void init()throws ServletException{
         super.init();
         TestConfig.testVar01 = "ConfigServlet.init() was here!";
+        TestConfig.testVar01 += "servletContext==[" + this.getServletContext().toString() + "]";
         
         //TODO HACK:
         //Create initial session in session_table so that the table shows up.
