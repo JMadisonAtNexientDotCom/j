@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 import javax.servlet.ServletContext;
 import javax.ws.rs.core.Context;
 import test.config.constants.ResourceRelativeFolderPaths;
@@ -82,7 +83,15 @@ public class LibraryInjection {
         */
         
         //http://stackoverflow.com/questions/2797162/getresourceasstream-is-always-returning-null
-        stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(relativePath);
+        //stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(relativePath);
+        
+        String localhostname;
+        try{
+            localhostname = InetAddress.getLocalHost().getHostName();
+            return("LocalHostName==" + localhostname);
+        }catch(Exception e){
+            return makeMSG("Failed to get localhost name");
+        }
         
         
         
