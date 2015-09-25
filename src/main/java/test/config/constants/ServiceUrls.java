@@ -10,7 +10,8 @@ import java.util.Map;
 import test.MyError;
 
 /**
- *
+ * NOTE: If debug code fails, you might get a "noclassdeffounderror"
+ *       rather than the actual error that we are throwing. No clue why.
  * @author jmadison
  */
 public class ServiceUrls {
@@ -62,6 +63,10 @@ public class ServiceUrls {
         if(_hasBeenInitedBefore){ return; }
         _hasBeenInitedBefore = true;
         
+        //API COUNT BELONGS ABOVE makeURL calls. If you don't,
+        //You will get an ellusive: noclassdeffounderror
+        API_COUNT = 0;
+        
          //Create fully-qualified api endpoints:
         OWNER       = makeURL(ServletClassNames.AdminRestService_MAPPING);
         TOKEN       = makeURL(ServletClassNames.OwnerRestService_MAPPING);
@@ -70,14 +75,22 @@ public class ServiceUrls {
         RIDDLERHYME = makeURL(ServletClassNames.RiddleRhymeRestService_MAPPING);
         TRANSDEBUG  = makeURL(ServletClassNames.TransDebugRestService_MAPPING);
         
-        /*
+        
         //Create map that will be used for checksums:
-        API_COUNT = 0;
         API_MAP     = new HashMap<String,Integer>();
         
         //Compiler warns me about using API_COUNT, but this
         //Should be fine! Getting a bit urked by how java likes false positives.
         if(API_COUNT != ServletClassNames.getNumberOfMappings()){//EEEEEEEEEEEEE
+            
+            String cname = ServiceUrls.class.getCanonicalName();
+            OWNER       = "INITIALIZATION_ERROR IN:" + cname;
+            TOKEN       = "INITIALIZATION_ERROR IN:" + cname;
+            FILE        = "INITIALIZATION_ERROR IN:" + cname;
+            NINJA       = "INITIALIZATION_ERROR IN:" + cname;
+            RIDDLERHYME = "INITIALIZATION_ERROR IN:" + cname;
+            TRANSDEBUG  = "INITIALIZATION_ERROR IN:" + cname;
+            
             String msg = "[Mapping counts do not match]";
             msg += "[AKA: Not all API endpoints exposed to this class]";
             msg += "this class == " + ServiceUrls.class.getCanonicalName();
@@ -88,9 +101,9 @@ public class ServiceUrls {
             msg += "[Only knows about the mappings that have been bug checked.]";
             msg += "[Which should be ALL OF THEM. But if it isn't, that]";
             msg += "[Would be another reason the checksums do not agree.]";
-            doError(msg);
+            //doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-        */
+        
     }//FUNC::END
     
     /**
@@ -101,7 +114,7 @@ public class ServiceUrls {
      */
     private static String makeURL(String mappingEndPoint){
         
-        
+        //THIS BLOCK: NOT cause of init error.
         int len = mappingEndPoint.length();
         if(mappingEndPoint.charAt(len-1) != '/'){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             doError("API mappinEndPoint supplied must end with fwd-slash");
@@ -110,7 +123,7 @@ public class ServiceUrls {
             
         String url = APP_ROOT_DOMAIN + "/" + API + "/" + mappingEndPoint;
         
-        /*
+        
         //Put url into our map. Make sure no collisions. Also talley
         //How many there are.
         API_COUNT++;
@@ -118,7 +131,7 @@ public class ServiceUrls {
             doError("API_MAP already contains endpoint key! Bad setup!");
         }//ERROR!
         API_MAP.put(url, 1);
-        */
+        
         
         return url;
     }//FUNC::END
