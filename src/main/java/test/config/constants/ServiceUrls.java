@@ -101,12 +101,12 @@ public class ServiceUrls {
      */
     private static String makeURL(String mappingEndPoint){
         
-        /*
+        
         int len = mappingEndPoint.length();
         if(mappingEndPoint.charAt(len-1) != '/'){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             doError("API mappinEndPoint supplied must end with fwd-slash");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-        */
+        
             
         String url = APP_ROOT_DOMAIN + "/" + API + "/" + mappingEndPoint;
         
