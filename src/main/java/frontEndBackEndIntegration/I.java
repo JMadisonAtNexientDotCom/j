@@ -3,7 +3,7 @@ package frontEndBackEndIntegration;
 //No package. At root to make less hazardous for refactoring.
 //Since it will be put into .JSP files.
 import frontEndBackEndIntegration.childComponents.FBVarNameRegistry;
-import frontEndBackEndIntegration.childComponents.libInject.LibraryInjection;
+
 
 
 /**
@@ -32,9 +32,13 @@ public class I {
      *  amongst the front-end and back end. **/
     public static final FBVarNameRegistry VARNAME = _varNameRegSharedRef;
     
-    /** 
-     
-     * 
+    public static String INCLUDE_CSS = "NOT_SET";
+    public static String INCLUDE_JS = "NOT_SET";
+    
+    //Turns out, I can't ask for resources from WEB-INF here. Only the
+    //servlets can. So making a config servlet to cache the values.
+    /*
+    
      *  Used to include CSS libs in header of JSP file.
      *  Usage: <%= I.INCLUDE_CSS %> 
      *  Where "I" is the name of this class we are in. 
@@ -43,22 +47,23 @@ public class I {
      *  INCLUDE_CSS must be a function call rather than a cached property
      *  because of initialization orders involved in fetching resource.
      
-     **/
+
     public static final String INCLUDE_CSS(){
         return LibraryInjection.getLibTagsCSS();
     }
     
-    /** Used to include CSS libs in header of JSP file.
+     *  Used to include CSS libs in header of JSP file.
      *  Usage: <%= I.INCLUDE_CSS %> 
      *  Where "I" is the name of this class we are in. 
      
      DESIGN NOTE:
      *  INCLUDE_CSS must be a function call rather than a cached property
      *  because of initialization orders involved in fetching resource.
-     
-     **/
+   
     public static final String INCLUDE_JS(){
         return LibraryInjection.getLibTagsJS();
     }
+    
+    */
             
 }//CLASS::END

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletException; //-------------tomcat/lib/servlet-api.jar
 
 import test.config.constants.ResourceRelativeFolderPaths;
+import utils.files.StreamToTextUtil;
 
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 /**##########################CLASS HEADER FILE##################################
@@ -64,6 +65,8 @@ public class ConfigServlet extends HttpServlet{
             TestConfig.testVar01 += "relFilePath==[" + relFilePath + "]";
         }else{
             TestConfig.testVar01 += "STREAM IS OKAY!";
+     
+            TestConfig.testVar01 += StreamToTextUtil.inputStreamToText(stream);
         }
         
         
