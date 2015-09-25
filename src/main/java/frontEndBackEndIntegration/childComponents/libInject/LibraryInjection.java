@@ -67,7 +67,7 @@ public class LibraryInjection {
     private static String getResourceAsString(String relativePath){
         
          //hack: Try appending: ./WebContent/ to path?
-        relativePath = (relativePath + "./WebContent/");
+        relativePath = ("./WebContent" + relativePath);
        
      
         
