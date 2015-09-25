@@ -132,25 +132,26 @@ public class FileContentFetcher extends BaseRestService {
      * @param fileName
      * @return 
      */
-    /*
     @GET
     @Path("getHTMLFileToInject")
     protected Response getHTMLFileToInject(
-            @QueryParam("fileName") String fileName){
-     */   
+            @QueryParam("fileNameNoExt") String fileNameNoExt){
+        
     /** is it possible to make this servlet for internal use only? **/
-    public String getHTMLFileToInject(String fileName){   
+    //public String getHTMLFileToInject(String fileName){   
         //resources/json ends up in:
         //ROOT.war/WEB-INF/classes/json/v1/test/
-        String path = ResourceRelativeFolderPaths.HTML_INJECT +"/"+ fileName;
+        String folder = ResourceRelativeFolderPaths.HTML_INJECT;
+        String path = folder +"/"+ fileNameNoExt + ".html";
+        
         String sourceText = getFileText(path);
         
         //Return sourceText in response object:
-        //Response op;
-        //op = JSONUtil.stringToJSONResponse(sourceText,"success!",false);
-        //return op;
+        Response op;
+        op = JSONUtil.stringToJSONResponse(sourceText,"success!",false);
+        return op;
         
-        return sourceText;
+        //return sourceText;
     }//FUNC::END
     
     /**
