@@ -39,12 +39,12 @@ public class I {
     //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
     /** Shared reference so that we can have shorthand and longhand versions
      *  to be able to put into the code. **/
-   // private static final ServiceURLRegistry _restUrlsSharedRef = 
-   //                                                    new ServiceURLRegistry();
+     private static final ServiceURLRegistry _restUrlsSharedRef = 
+                                                       new ServiceURLRegistry();
     /** Shorthand version of REST_SERVICE_URLS **/
-    //public static final ServiceURLRegistry R = _restUrlsSharedRef;
+      public static final ServiceURLRegistry R = _restUrlsSharedRef;
     /** Container used to reference fully-qualified API endpoint URLS **/
-    //public static final ServiceURLRegistry REST_SERVICE_URL =_restUrlsSharedRef;
+      public static final ServiceURLRegistry REST_SERVICE_URL =_restUrlsSharedRef;
     //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
    
     
