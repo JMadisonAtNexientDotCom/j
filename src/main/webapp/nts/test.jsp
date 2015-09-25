@@ -16,7 +16,7 @@
     <p> varname: <%=I.V.ADMIN_ID%> </p>
     <p> varname: <%=I.V.NINJA_ID%> </p>
     <p> varname: <%=I.VARNAME.TOKEN_ID%> </p>
-    
+    <p> NINJA_SERVICE== <%=I.REST_SERVICE_URL.NINJA%></p>
   </body>
 </html>
 <!--   10|       20|       30|       40|       50|       60|       70|       -->
