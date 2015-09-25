@@ -79,6 +79,7 @@ public class ServiceUrls {
         //Create map that will be used for checksums:
         API_MAP     = new HashMap<String,Integer>();
         
+        /*
         //Compiler warns me about using API_COUNT, but this
         //Should be fine! Getting a bit urked by how java likes false positives.
         if(API_COUNT != ServletClassNames.getNumberOfMappings()){//EEEEEEEEEEEEE
@@ -103,6 +104,7 @@ public class ServiceUrls {
             msg += "[Would be another reason the checksums do not agree.]";
             //doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        */
         
     }//FUNC::END
     
