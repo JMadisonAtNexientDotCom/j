@@ -53,13 +53,15 @@ public class ConfigServlet extends HttpServlet{
         InputStream stream;
         String rel = ResourceRelativeFolderPaths.HTML_INJECT;
         String relFilePath = rel + "/CSSLibs.html";
-        stream = ctx.getClass().getClassLoader().getResourceAsStream(relFilePath);
+        //stream = ctx.getClass().getClassLoader().getResourceAsStream(relFilePath);
+        stream = ctx.getResourceAsStream(relFilePath);
         
         TestConfig.testVar01 += "WOOOOOOH! HEllo??";
         TestConfig.testVar01 += "servletContext==[" + this.getServletContext().toString() + "]";
         
         if(null == stream){
             TestConfig.testVar01 += "STREAM==NULL";
+            TestConfig.testVar01 += "relFilePath==[" + relFilePath + "]";
         }else{
             TestConfig.testVar01 += "STREAM IS OKAY!";
         }
