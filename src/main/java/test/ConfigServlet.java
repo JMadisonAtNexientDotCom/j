@@ -1,12 +1,13 @@
 package test;
 
+import frontEndBackEndIntegration.I;
 import java.io.InputStream;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletException; //-------------tomcat/lib/servlet-api.jar
 
 import test.config.constants.ResourceRelativeFolderPaths;
-import utils.files.StreamToTextUtil;
+import utils.files.FileToTextUtil;
 
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 /**##########################CLASS HEADER FILE##################################
@@ -66,9 +67,16 @@ public class ConfigServlet extends HttpServlet{
         }else{
             TestConfig.testVar01 += "STREAM IS OKAY!";
      
-            TestConfig.testVar01 += StreamToTextUtil.inputStreamToText(stream);
+            TestConfig.testVar01 += FileToTextUtil.inputStreamToText(stream);
         }
         
+        String HTML_INJECT = ResourceRelativeFolderPaths.HTML_INJECT;
+        String path_css = HTML_INJECT + "/" + "CSSLibs.html";
+        String path_js  = HTML_INJECT + "/" + "JSLibs.html";
+
+        String wow = FileToTextUtil.getUsingServletContext(relFilePath, ctx);
+        TestConfig.testVar01 +="AGAIN??????";
+        TestConfig.testVar01 +=wow;
         
         //TODO HACK:
         //Create initial session in session_table so that the table shows up.

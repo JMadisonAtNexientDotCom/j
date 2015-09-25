@@ -10,12 +10,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import javax.servlet.ServletContext;
 
 /**
  *
  * @author jmadison
  */
-public class StreamToTextUtil {
+public class FileToTextUtil {
+    
+    public static String getUsingServletContext
+                                  (String relativeFilePath, ServletContext ctx){
+        InputStream stream;
+        stream = ctx.getResourceAsStream(relativeFilePath);     
+        String text = inputStreamToText( stream );
+        return text;
+    }//FUNC::END
     
     /** Converts an InputStream into Text. **/
     public static String inputStreamToText(InputStream stream){
@@ -61,7 +70,7 @@ public class StreamToTextUtil {
      *             we see it in a string somewhere.
      */
     private static String makeMSG(String msg){
-        String whereAreWe = StreamToTextUtil.class.getCanonicalName();
+        String whereAreWe = FileToTextUtil.class.getCanonicalName();
         String op = "ERROR AT:" + whereAreWe;
         op += msg;
         return op;
