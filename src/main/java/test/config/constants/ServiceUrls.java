@@ -15,6 +15,9 @@ import test.MyError;
  */
 public class ServiceUrls {
     
+    /** Used to prevent re-initialization of this static class. **/
+    private static boolean _hasBeenInitedBefore = false;
+    
     /** wish this was not hardcoded, but at least it will be in only ONE place
      *  and will make service call URLS easier to refactor. **/
     public static final String APP_ROOT_DOMAIN = 
@@ -45,11 +48,15 @@ public class ServiceUrls {
      * to do after setup.
      */
     static{//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
-        
+        doStaticInit();
       
     }//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
     
     private static void doStaticInit(){
+        
+        if(_hasBeenInitedBefore){ return; }
+        _hasBeenInitedBefore = true;
+        
          //Create fully-qualified api endpoints:
         OWNER       = makeURL(ServletClassNames.AdminRestService_MAPPING);
         TOKEN       = makeURL(ServletClassNames.OwnerRestService_MAPPING);
