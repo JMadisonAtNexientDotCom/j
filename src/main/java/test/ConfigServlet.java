@@ -55,6 +55,7 @@ public class ConfigServlet extends HttpServlet{
         String relFilePath = rel + "/CSSLibs.html";
         stream = ctx.getClass().getClassLoader().getResourceAsStream(relFilePath);
         
+        TestConfig.testVar01 += "WOOOOOOH! HEllo??";
         TestConfig.testVar01 += "servletContext==[" + this.getServletContext().toString() + "]";
         TestConfig.testVar01 += "steam==[" + stream.toString() + "]";
         
