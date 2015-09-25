@@ -32,14 +32,33 @@ public class I {
      *  amongst the front-end and back end. **/
     public static final FBVarNameRegistry VARNAME = _varNameRegSharedRef;
     
-    /** Used to include CSS libs in header of JSP file.
+    /** 
+     
+     * 
+     *  Used to include CSS libs in header of JSP file.
      *  Usage: <%= I.INCLUDE_CSS %> 
-     *  Where "I" is the name of this class we are in. **/
-    public static final String INCLUDE_CSS = LibraryInjection.getLibTagsCSS();
+     *  Where "I" is the name of this class we are in. 
+     
+     *  DESIGN NOTE:
+     *  INCLUDE_CSS must be a function call rather than a cached property
+     *  because of initialization orders involved in fetching resource.
+     
+     **/
+    public static final String INCLUDE_CSS(){
+        return LibraryInjection.getLibTagsCSS();
+    }
     
     /** Used to include CSS libs in header of JSP file.
      *  Usage: <%= I.INCLUDE_CSS %> 
-     *  Where "I" is the name of this class we are in. **/
-    public static final String INCLUDE_JS  = LibraryInjection.getLibTagsJS();
+     *  Where "I" is the name of this class we are in. 
+     
+     DESIGN NOTE:
+     *  INCLUDE_CSS must be a function call rather than a cached property
+     *  because of initialization orders involved in fetching resource.
+     
+     **/
+    public static final String INCLUDE_JS(){
+        return LibraryInjection.getLibTagsJS();
+    }
             
 }//CLASS::END
