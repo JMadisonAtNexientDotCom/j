@@ -1,11 +1,15 @@
 package test.config.constants;
 
+import java.util.HashMap;
+import java.util.Map;
 import test.MyError;
 import test.servlets.rest.AdminRestService;
 import test.servlets.rest.NinjaRestService;
+import test.servlets.rest.OwnerRestService;
 import test.servlets.rest.TokenRestService;
 import test.servlets.rest.debug.TransDebugRestService;
 import test.servlets.rest.riddleRhyme.RiddleRhymeRestService;
+import test.servlets.rest.utilityServlets.FileContentFetcher;
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 /**##########################CLASS HEADER FILE##################################
 //WHAT THIS CLASS DOES:
@@ -90,6 +94,22 @@ public class ServletClassNames {
      *  NOT synchronized.
      ------------------------------------------------------------------------**/
     private static int _times_called_CHECK_MAPPING   = 0;
+    
+    /** used to make sure every time we check the mapping for CLASSNAME,
+     *  the first arguments for all the cumulative calls are all UNIQUE.
+     *  AKA: If we check mapping for "DOG" more than once, then we have error.
+        Multiple identical inputs are indicator that we mapped something wrong.
+    -------------------------------------------------------------------------**/
+    private static final Map<String,Integer> _vcm_dict_CLASSNAME_fromVar
+                                                = new HashMap<String,Integer>();
+    
+    /** used to make sure every time we check the mapping for CLASSNAME,
+     *  the 2ND arguments for all the cumulative calls are all UNIQUE.
+     *  AKA: If we check mapping for "DOG" more than once, then we have error. 
+        Multiple identical inputs are indicator that we mapped something wrong.
+    -------------------------------------------------------------------------**/
+    private static final Map<String,Integer> _vcm_dict_CLASSNAME_fromReflect 
+                                                = new HashMap<String,Integer>();
     
     //Static initializer.
     //I bundle it in a "doStaticInit()" function because
@@ -176,33 +196,33 @@ public class ServletClassNames {
          *  to make sure they match! ----------------------------------------**/
         String clazName;
         
-        clazName = TokenRestService.class.getSimpleName();
-        if( vcm_cn(TokenRestService_CLASSNAME, clazName))
-        {   mError(TokenRestService_CLASSNAME); }
+        clazName =         TokenRestService.class.getSimpleName();
+        if(         vcm_cn(TokenRestService_CLASSNAME, clazName))
+        {   doMappingError(TokenRestService_CLASSNAME); }
         
-        clazName = NinjaRestService.class.getSimpleName();
-        if( vcm_cn(NinjaRestService_CLASSNAME, clazName))
-        {   mError(NinjaRestService_CLASSNAME); }
+        clazName =         NinjaRestService.class.getSimpleName();
+        if(         vcm_cn(NinjaRestService_CLASSNAME, clazName))
+        {   doMappingError(NinjaRestService_CLASSNAME); }
         
-        clazName = RiddleRhymeRestService.class.getSimpleName();
-        if( vcm_cn(RiddleRhymeRestService_CLASSNAME, clazName))
-        {   mError(RiddleRhymeRestService_CLASSNAME); }
+        clazName =         RiddleRhymeRestService.class.getSimpleName();
+        if(         vcm_cn(RiddleRhymeRestService_CLASSNAME, clazName))
+        {   doMappingError(RiddleRhymeRestService_CLASSNAME); }
         
-        clazName = TransDebugRestService.class.getSimpleName();
-        if( vcm_cn(TransDebugRestService_CLASSNAME, clazName))
-        {   mError(TransDebugRestService_CLASSNAME); }
+        clazName =         TransDebugRestService.class.getSimpleName();
+        if(         vcm_cn(TransDebugRestService_CLASSNAME, clazName))
+        {   doMappingError(TransDebugRestService_CLASSNAME); }
         
-        clazName = AdminRestService.class.getSimpleName();
-        if( vcm_cn(AdminRestService_CLASSNAME, clazName))
-        {   mError(AdminRestService_CLASSNAME); }
+        clazName =         AdminRestService.class.getSimpleName();
+        if(         vcm_cn(AdminRestService_CLASSNAME, clazName))
+        {   doMappingError(AdminRestService_CLASSNAME); }
         
-        clazName = AdminRestService.class.getSimpleName();
-        if( vcm_cn(OwnerRestService_CLASSNAME, clazName))
-        {   mError(OwnerRestService_CLASSNAME); }
+        clazName =         OwnerRestService.class.getSimpleName();
+        if(         vcm_cn(OwnerRestService_CLASSNAME, clazName))
+        {   doMappingError(OwnerRestService_CLASSNAME); }
         
-        clazName = AdminRestService.class.getSimpleName();
-        if( vcm_cn(FileContentFetcher_CLASSNAME, clazName))
-        {   mError(FileContentFetcher_CLASSNAME); }
+        clazName =         FileContentFetcher.class.getSimpleName();
+        if(         vcm_cn(FileContentFetcher_CLASSNAME, clazName))
+        {   doMappingError(FileContentFetcher_CLASSNAME); }
           
     }//FUNC::END
     
@@ -235,13 +255,32 @@ public class ServletClassNames {
      *  classname mapping in verifyCorrectMapping_CLASSNAME function.
      *  Our CLASSNAME and MAPPING verifications should have identical
      *  number of calls in them when we are validating.
-     * @param s0 :CLASSNAME as string.
-     * @param s1 :CLASSNAME as string.
+     * @param classNameFromVariable   :CLASSNAME as string.
+     * @param classNameFromReflection :CLASSNAME as string.
      * @return   : results of notEQ
      ------------------------------------------------------------------------**/
-    private static Boolean vcm_cn(String s0,String s1){
+    private static Boolean vcm_cn
+                  (String classNameFromVariable,String classNameFromReflect){
         _times_called_CHECK_CLASSNAME++;
-        return notEQ(s0,s1);
+        
+        //add classNameFromReflection into hashmap.
+        //add classNameFromVariable into another hashmap.
+        //Do this so we can make sure each class name is only checked ONCE.
+        //Being checked more than once is indication of error:
+        if(_vcm_dict_CLASSNAME_fromVar.containsKey(classNameFromVariable)){
+           doTooManyChecksError_CLASSNAME_fromVar(classNameFromVariable);
+        }//ERROR?
+        
+        if(_vcm_dict_CLASSNAME_fromReflect.containsKey(classNameFromReflect)){
+           doTooManyChecksError_CLASSNAME_fromReflect(classNameFromReflect);
+        }//ERROR?
+        
+        //Add both of the keys to dictionary:
+        _vcm_dict_CLASSNAME_fromVar    .put(classNameFromVariable,1);
+        _vcm_dict_CLASSNAME_fromReflect.put(classNameFromReflect,1);
+        
+        
+        return notEQ(classNameFromVariable,classNameFromReflect);
     }//FUNC::END
     
     /** All _MAPPING vars should be _CLASSNAME + "/" 
@@ -271,9 +310,33 @@ public class ServletClassNames {
      * @param className :A string constant that should be IDENTICAL to the
      *                   name of the class.
      */
-    private static void mError(String className){
+    private static void doMappingError(String className){
         String msg = "";
         msg += "Mapping is incorrect for className:[" + className + "]";
+        throw new MyError(msg);
+    }//FUNC::END
+    
+    private static void doTooManyChecksError_CLASSNAME_fromVar
+                                                             (String className){
+        String msg = "";
+        msg += "1ST ARG ERROR:";
+        msg += "We found multiple classname mapping checks for the class:";
+        msg += className;
+        msg += "[within the FIRST ARGUMENT of our mapping checks.];";
+        msg += "[this is indicative that there ]";
+        msg += "[is a mapping mismatch in our setup.]";
+        throw new MyError(msg);
+    }//FUNC::END
+                                                             
+    private static void doTooManyChecksError_CLASSNAME_fromReflect
+                                                             (String className){
+        String msg = "";
+        msg += "2ND ARG ERROR:";
+        msg += "We found multiple classname mapping checks for the class:";
+        msg += className;
+        msg += "[within the SECOND (2ND) ARGUMENT of our mapping checks.];";
+        msg += "[this is indicative that there ]";
+        msg += "[is a mapping mismatch in our setup.]";
         throw new MyError(msg);
     }//FUNC::END
     
