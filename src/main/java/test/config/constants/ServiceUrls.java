@@ -78,10 +78,6 @@ public class ServiceUrls {
         RIDDLERHYME = makeURL(ServletClassNames.RiddleRhymeRestService_MAPPING);
         TRANSDEBUG  = makeURL(ServletClassNames.TransDebugRestService_MAPPING);
         
-        
-        
-        
-        
         //Compiler warns me about using API_COUNT, but this
         //Should be fine! Getting a bit urked by how java likes false positives.
         if(API_COUNT != ServletClassNames.getNumberOfMappings()){//EEEEEEEEEEEEE
@@ -142,9 +138,11 @@ public class ServiceUrls {
             doError("API_MAP already contains endpoint key! Bad setup!");
         }//ERROR!
         
+        /*
+        
         //Will this uncrash program?
         API_MAP.put(url, 1);
-        
+        */
         
         return url;
     }//FUNC::END
