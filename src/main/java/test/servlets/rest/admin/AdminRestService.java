@@ -8,6 +8,8 @@ import org.hibernate.Session;
 import primitives.StringWithComment;
 import test.config.constants.ServletClassNames;
 import test.servlets.rest.BaseRestService;
+import test.servlets.rest.MasterServiceDoc;
+import test.servlets.rest.admin.docs.LoginValidateDoc;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.admin.AdminTransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.session.SessionTransUtil;
@@ -37,7 +39,7 @@ public class AdminRestService extends BaseRestService{
      * @return :Returns TRUE if accepted credentials.
      ------------------------------------------------------------------------**/
     @GET
-    @Path("loginValidate")
+    @Path(LoginValidateDoc.PATH)
     public Response loginValidate(
             @QueryParam("userName") String userName, 
             @QueryParam("passWord") String passWord){
