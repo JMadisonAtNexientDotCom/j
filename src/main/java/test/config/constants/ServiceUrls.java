@@ -138,7 +138,8 @@ public class ServiceUrls {
         */
         
         //Will this uncrash program?
-        //API_MAP.put(url, 1);
+        Integer one = Integer.valueOf(1);
+        API_MAP.put(url, one);
         
         
         return url;
