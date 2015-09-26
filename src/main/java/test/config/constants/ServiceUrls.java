@@ -72,6 +72,14 @@ public class ServiceUrls {
         //Create map that will be used for checksums:
         API_MAP     = new HashMap<String,Integer>();
         
+        //NOTE: I had an error in here, but it was SUPER HARD TO FIND!
+        //Holy crap! There are more errors in here. TOKEN is using CLASSNAME rather
+        //than mapping... Need to make it so errors print out easier.
+        //
+        //Right now errors are just... not bubbling up when being thrown
+        //Inside initialization. Figure out how to fix that.
+        //Might have to throw you own noclassdeffounderror !!
+        //
          //Create fully-qualified api endpoints:
         ADMIN       = makeURL(ServletClassNames.OwnerRestService_MAPPING);
         OWNER       = makeURL(ServletClassNames.AdminRestService_MAPPING);
@@ -116,7 +124,7 @@ public class ServiceUrls {
         //THIS BLOCK: NOT cause of init error.
         int len = mappingEndPoint.length();
         if(mappingEndPoint.charAt(len-1) != '/'){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            doError("API mappinEndPoint supplied must end with fwd-slash");
+            //doError("API mappinEndPoint supplied must end with fwd-slash");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
             

@@ -19,4 +19,11 @@ public class ServiceURLRegistry {
     public final String NINJA       = ServiceUrls.NINJA;
     public final String RIDDLERHYME = ServiceUrls.RIDDLERHYME;
     public final String TRANSDEBUG  = ServiceUrls.TRANSDEBUG;
+    
+    //TODO: We need to be able to error check this.
+    //Maybe the HASHMAP in ServiceUrls should be used for that?
+    //Actually, just to a checksum check and confirm it matches the others.
+    //then confirm that all paths are unique. That should be good
+    //enough error checking for this class.
+    
 }//CLASS::END
