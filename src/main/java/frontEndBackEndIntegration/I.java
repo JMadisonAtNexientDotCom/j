@@ -4,6 +4,7 @@ package frontEndBackEndIntegration;
 //Since it will be put into .JSP files.
 import frontEndBackEndIntegration.childComponents.FBVarNameRegistry;
 import frontEndBackEndIntegration.childComponents.ServiceURLRegistry;
+import test.config.constants.ServiceUrlsInitializer;
 
 
 
@@ -40,7 +41,8 @@ public class I {
     /** Shared reference so that we can have shorthand and longhand versions
      *  to be able to put into the code. **/
      private static final ServiceURLRegistry _restUrlsSharedRef = 
-                                                       new ServiceURLRegistry();
+                                 ServiceUrlsInitializer.getServiceURLRegistry();
+                                                       
     /** Shorthand version of REST_SERVICE_URLS **/
       public static final ServiceURLRegistry R = _restUrlsSharedRef;
     /** Container used to reference fully-qualified API endpoint URLS **/
