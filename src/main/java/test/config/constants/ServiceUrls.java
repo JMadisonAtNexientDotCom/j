@@ -28,6 +28,7 @@ public class ServiceUrls {
     
     //API ENDPOINTS:
     //////////////////////////////////
+    public static String ADMIN        = "NOT_INITED;";
     public static String OWNER        = "NOT_INITED";      
     public static String TOKEN        = "NOT_INITED"; ;
     public static String FILE         = "NOT_INITED"; ;
@@ -41,7 +42,8 @@ public class ServiceUrls {
      *  Most likely would mean that not all ServiceUrls have been wired up.
      **/
     private static Map<String,Integer> API_MAP = null;
-                                                  
+                             
+    /** Why does IDE think API_COUNT is NOT used?? **/
     private static int API_COUNT = 0;
     
     /**
@@ -71,8 +73,9 @@ public class ServiceUrls {
         API_MAP     = new HashMap<String,Integer>();
         
          //Create fully-qualified api endpoints:
+        ADMIN       = makeURL(ServletClassNames.OwnerRestService_MAPPING);
         OWNER       = makeURL(ServletClassNames.AdminRestService_MAPPING);
-        TOKEN       = makeURL(ServletClassNames.OwnerRestService_MAPPING);
+        TOKEN       = makeURL(ServletClassNames.TokenRestService_CLASSNAME);
         FILE        = makeURL(ServletClassNames.FileContentFetcher_MAPPING);
         NINJA       = makeURL(ServletClassNames.NinjaRestService_MAPPING);
         RIDDLERHYME = makeURL(ServletClassNames.RiddleRhymeRestService_MAPPING);

@@ -12,7 +12,8 @@ import test.config.constants.ServiceUrls;
  * @author jmadison
  */
 public class ServiceURLRegistry {
-    public final String OWNER       = ServiceUrls.OWNER;      
+    public final String OWNER       = ServiceUrls.OWNER;   
+    public final String ADMIN       = ServiceUrls.ADMIN;
     public final String TOKEN       = ServiceUrls.TOKEN;
     public final String FILE        = ServiceUrls.FILE;
     public final String NINJA       = ServiceUrls.NINJA;
