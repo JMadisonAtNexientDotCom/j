@@ -27,41 +27,7 @@ import test.config.constants.ServiceUrlsInitializer;
  */
 public class I {
     
-    //Variable name getters:
-    //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-    /** Shared reference so that we can have shorthand and longhand versions
-     *  to be able to put into the code. **/
-    private static FBVarNameRegistry _varNameRegSharedRef = 
-                                                        new FBVarNameRegistry();
     
-    /** Short-handed accessor for GET_VARIABLE_NAMES **/
-    public static FBVarNameRegistry V(){
-        return getFBVarNameRegistry();
-    }//FUNC::END
-    
-    /**-------------------------------------------------------------------------
-     * @return Gets container holding variable names used by rest services. 
-     *  So you can use them in an HTTP-GET/POST/WHATEVER call.
-     *  This is a master list of all variables used in all functions. It does
-     *  NOT guarantee you are going to pass an invalid parameter to a call,
-     *  but minimizes the risk that you will be using invalid param names.
-     *  Example: Using this, we will avoid mistakes like using:
-     *  "tokenID" vs "token_id" because we will have standardized what variable
-     *  name we use for the token id variable.
-     -------------------------------------------------------------------------*/
-    public static FBVarNameRegistry GET_VARIABLE_NAMES(){
-        return getFBVarNameRegistry();
-    }//FUNC::END
-    
-    /** Common private accessor function **/
-    private static FBVarNameRegistry getFBVarNameRegistry(){
-        if(null == _varNameRegSharedRef){//EEEEEEEEEEEEEEEEEEE
-            doError("[_varNameRegSharedRef is null!]");
-        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-        
-        return _varNameRegSharedRef;
-    }//FUNC::END
-    //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     
     //Rest Service URLS:
     //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR     
@@ -115,6 +81,49 @@ public class I {
          
 }//CLASS::END
 
+
+//UPDATE: After testing out, have decided there is no place for using variable
+//        names directly. Variable names should be accessed through their
+//        respective service names. But that doesn't mean we still cannot
+//        have a master list of variable names for everything to reference.
+
+/*
+    //Variable name getters:
+    //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+    /## Shared reference so that we can have shorthand and longhand versions
+     *  to be able to put into the code. ##/
+    private static FBVarNameRegistry _varNameRegSharedRef = 
+                                                        new FBVarNameRegistry();
+    
+    /## Short-handed accessor for GET_VARIABLE_NAMES ##/
+    public static FBVarNameRegistry V(){
+        return getFBVarNameRegistry();
+    }//FUNC::END
+    
+    /##-------------------------------------------------------------------------
+     * @return Gets container holding variable names used by rest services. 
+     *  So you can use them in an HTTP-GET/POST/WHATEVER call.
+     *  This is a master list of all variables used in all functions. It does
+     *  NOT guarantee you are going to pass an invalid parameter to a call,
+     *  but minimizes the risk that you will be using invalid param names.
+     *  Example: Using this, we will avoid mistakes like using:
+     *  "tokenID" vs "token_id" because we will have standardized what variable
+     *  name we use for the token id variable.
+     ------------------------------------------------------------------------##/
+    public static FBVarNameRegistry GET_VARIABLE_NAMES(){
+        return getFBVarNameRegistry();
+    }//FUNC::END
+    
+    /## Common private accessor function ##/
+    private static FBVarNameRegistry getFBVarNameRegistry(){
+        if(null == _varNameRegSharedRef){//EEEEEEEEEEEEEEEEEEE
+            doError("[_varNameRegSharedRef is null!]");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        return _varNameRegSharedRef;
+    }//FUNC::END
+    //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+*/
 
 //Though syntatically, I would prefer to use properies, they create 2 problems:
 //1: Crashes during static init are hard to find.

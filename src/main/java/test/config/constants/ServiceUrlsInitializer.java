@@ -145,13 +145,17 @@ public class ServiceUrlsInitializer {
         //
         
         //Create fully-qualified api endpoints: //UUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
-        U.ADMIN       = mkURL(ServletClassNames.OwnerRestService_MAPPING);
-        U.OWNER       = mkURL(ServletClassNames.AdminRestService_MAPPING);
-        U.TOKEN       = mkURL(ServletClassNames.TokenRestService_MAPPING);
-        U.FILE        = mkURL(ServletClassNames.FileContentFetcher_MAPPING);
-        U.NINJA       = mkURL(ServletClassNames.NinjaRestService_MAPPING);
-        U.RIDDLERHYME = mkURL(ServletClassNames.RiddleRhymeRestService_MAPPING);
-        U.TRANSDEBUG  = mkURL(ServletClassNames.TransDebugRestService_MAPPING);
+        U.ADMIN.BASE  = mkURL(ServletClassNames.OwnerRestService_MAPPING);
+        U.OWNER.BASE  = mkURL(ServletClassNames.AdminRestService_MAPPING);
+        U.TOKEN.BASE  = mkURL(ServletClassNames.TokenRestService_MAPPING);
+        U.FILE.BASE   = mkURL(ServletClassNames.FileContentFetcher_MAPPING);
+        U.NINJA.BASE  = mkURL(ServletClassNames.NinjaRestService_MAPPING);
+        
+        String RIDDLERHYME_MAP = ServletClassNames.RiddleRhymeRestService_MAPPING;
+        String TRANSDEBUG_MAP = ServletClassNames.TransDebugRestService_MAPPING;
+        
+        U.RIDDLERHYME.BASE = mkURL(RIDDLERHYME_MAP);
+        U.TRANSDEBUG .BASE = mkURL(TRANSDEBUG_MAP);
         //UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
         
         
@@ -234,12 +238,12 @@ public class ServiceUrlsInitializer {
     
     private static void setAllVarsToErrorMessage(String extraMSG){
         String cname = ServiceUrlsInitializer.class.getCanonicalName();
-        U.OWNER       = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
-        U.TOKEN       = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
-        U.FILE        = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
-        U.NINJA       = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
-        U.RIDDLERHYME = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
-        U.TRANSDEBUG  = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
+        U.OWNER      .BASE = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
+        U.TOKEN      .BASE = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
+        U.FILE       .BASE = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
+        U.NINJA      .BASE = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
+        U.RIDDLERHYME.BASE = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
+        U.TRANSDEBUG .BASE = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
     }//FUNC::END
     
     /**-------------------------------------------------------------------------

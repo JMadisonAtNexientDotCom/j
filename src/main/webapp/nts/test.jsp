@@ -14,17 +14,19 @@
 
   <body>
     
+    <%--   Doing away with direct access to var names like this. 
     <p> varname: <%=I.V().ADMIN_ID%> </p>
     <p> varname: <%=I.V().NINJA_ID%> </p>
     <p> varname: <%=I.GET_VARIABLE_NAMES().TOKEN_ID%> </p>
+    --%>
     
-    <p> TOKEN      == <%=I.R().TOKEN%></p>
-    <p> ADMIN      == <%=I.GET_REST_SERVICE_URLS().ADMIN%></p>
-    <p> NINJA      == <%=I.R().NINJA%></p>
-    <p> OWNER      == <%=I.R().OWNER%></p>
-    <p> FILE       == <%=I.R().FILE  %></p>
-    <p> RIDDLERHYME== <%=I.R().RIDDLERHYME%></p>
-    <p> TRANSDEBUG == <%=I.R().TRANSDEBUG%></p>
+    <p> TOKEN      == <%=I.R().TOKEN.BASE%></p>
+    <p> ADMIN      == <%=I.GET_REST_SERVICE_URLS().ADMIN.BASE%></p>
+    <p> NINJA      == <%=I.R().NINJA.BASE%></p>
+    <p> OWNER      == <%=I.R().OWNER.BASE%></p>
+    <p> FILE       == <%=I.R().FILE.BASE  %></p>
+    <p> RIDDLERHYME== <%=I.R().RIDDLERHYME.BASE%></p>
+    <p> TRANSDEBUG == <%=I.R().TRANSDEBUG.BASE%></p>
     
   </body>
 </html>

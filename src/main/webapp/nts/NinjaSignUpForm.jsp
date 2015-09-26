@@ -78,7 +78,7 @@ app.controller('myCtrl', function($scope, $http, spinnerService) {
                        portfolioURL:$scope.nPortfolio });
 
         //url of rest-api responsible for making new ninja records using arguments:
-        apiURL= "<%=I.R().NINJA%>" + "?" + qs;
+        apiURL= "<%=I.R().NINJA.BASE%>" + "?" + qs;
         
         //for debugging:
         $scope.apiCallUsed = apiURL;

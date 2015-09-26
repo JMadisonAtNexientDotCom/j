@@ -5,6 +5,7 @@
  */
 package frontEndBackEndIntegration.childComponents;
 
+import frontEndBackEndIntegration.childComponents.restDoc.RestCallDocument;
 import test.MyError;
 import test.config.constants.ServiceUrlsInitializer;
 
@@ -66,13 +67,13 @@ public class ServiceURLRegistry {
     
     //----SERVICE VARIABLE----------|--Path inited to "NOT_INITIALIZED" to ----|
     //----For HTTP REST CALLS-------|--Help hunt down mapping errors       ----|
-    public String OWNER       = "[OWNER::NOT_INITIALIZED]";   
-    public String ADMIN       = "[ADMIN::NOT_INITIALIZED]";  
-    public String TOKEN       = "[TOKEN::NOT_INITIALIZED]"; 
-    public String FILE        = "[FILE::NOT_INITIALIZED]"; 
-    public String NINJA       = "[NINJA::NOT_INITIALIZED]"; 
-    public String RIDDLERHYME = "[RIDDLERHYME::NOT_INITIALIZED]"; 
-    public String TRANSDEBUG  = "[TRANSDEBUG::NOT_INITIALIZED]"; 
+    public RestCallDocument OWNER       = new RestCallDocument("OWNER");  
+    public RestCallDocument ADMIN       = new RestCallDocument("ADMIN");  
+    public RestCallDocument TOKEN       = new RestCallDocument("TOKEN"); 
+    public RestCallDocument FILE        = new RestCallDocument("FILE"); 
+    public RestCallDocument NINJA       = new RestCallDocument("NINJA"); 
+    public RestCallDocument RIDDLERHYME = new RestCallDocument("RIDDLERHYME"); 
+    public RestCallDocument TRANSDEBUG  = new RestCallDocument("TRANSDEBUG"); 
    
     /**-------------------------------------------------------------------------
     * Wrapper function to throw errors from this class.
