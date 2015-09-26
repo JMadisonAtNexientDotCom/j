@@ -13,6 +13,7 @@
 <!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
 
   <body>
+    <%--
     <p> varname: <%=I.V().ADMIN_ID%> </p>
     <p> varname: <%=I.V().NINJA_ID%> </p>
     <p> varname: <%=I.GET_VARIABLE_NAMES().TOKEN_ID%> </p>
@@ -24,6 +25,7 @@
     <p> FILE       == <%=I.R().FILE  %></p>
     <p> RIDDLERHYME== <%=I.R().RIDDLERHYME%></p>
     <p> TRANSDEBUG == <%=I.R().TRANSDEBUG%></p>
+    --%>
   </body>
 </html>
 <!--   10|       20|       30|       40|       50|       60|       70|       -->
