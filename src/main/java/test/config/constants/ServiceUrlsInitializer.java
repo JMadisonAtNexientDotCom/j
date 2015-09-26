@@ -201,6 +201,8 @@ public class ServiceUrlsInitializer {
         if(mappingEndPoint.charAt(len-1) != '/'){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             setAllVarsToErrorMessage("[Did not end with '/']");
             makeInitErrorLog("[API mappinEndPoint must end with fwd-slash]");
+            makeInitErrorLog("[Offending mapping end point:]");
+            makeInitErrorLog("[" + mappingEndPoint + "]");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
             
