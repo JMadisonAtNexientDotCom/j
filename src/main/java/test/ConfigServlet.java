@@ -1,6 +1,7 @@
 package test;
 
 import frontEndBackEndIntegration.I;
+import frontEndBackEndIntegration.childComponents.TextFileCacheRegistry;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletException; //-------------tomcat/lib/servlet-api.jar
@@ -60,8 +61,8 @@ public class ConfigServlet extends HttpServlet{
 
         String css = FileToTextUtil.getUsingServletContext(path_css, ctx);
         String js  = FileToTextUtil.getUsingServletContext(path_js, ctx);
-        I.INCLUDE_CSS = css;
-        I.INCLUDE_JS  = js;
+        TextFileCacheRegistry.INCLUDE_CSS = css;
+        TextFileCacheRegistry.INCLUDE_JS  = js;
         //IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
         
         //TODO HACK:

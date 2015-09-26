@@ -38,11 +38,12 @@ public class ServiceUrlsInitializer {
         return _serviceEndPointsContainer;
     }//FUNC::END //UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
     
-    /** To allow errors to bubble-up in our stack, we will have the class that--
+    /*
+    ## To allow errors to bubble-up in our stack, we will have the class that--
      *  DEPENDS on this class to be able to call this function during 
      *  it's initialization.
      * @return :Returns TRUE if error happens in this class during init.
-     ------------------------------------------------------------------------**/
+     ------------------------------------------------------------------------##
     public static boolean getDidErrorsOccurDuringInit(){////////////////////////
         if(false == _hasBeenInitedBefore){
             doStaticInit();
@@ -51,11 +52,11 @@ public class ServiceUrlsInitializer {
         return _errorOccurredDuringStaticInitialization;
     }//FUNC::END////////////////////////////////////////////////////////////////
     
-    /** Return the initialization errors that happened in this class. **/
+    ## Return the initialization errors that happened in this class. ##
     public static String getInitErrors(){
         return _initErrorLog;
     }////////////////////////////////////
-    
+    */
     
     /** Used to prevent re-initialization of this static class. **/
     private static boolean _hasBeenInitedBefore = false;
