@@ -78,31 +78,27 @@ public class ServiceUrls {
         RIDDLERHYME = makeURL(ServletClassNames.RiddleRhymeRestService_MAPPING);
         TRANSDEBUG  = makeURL(ServletClassNames.TransDebugRestService_MAPPING);
         
+        /*
         //Compiler warns me about using API_COUNT, but this
         //Should be fine! Getting a bit urked by how java likes false positives.
         if(API_COUNT != ServletClassNames.getNumberOfMappings()){//EEEEEEEEEEEEE
             
-            String cname = ServiceUrls.class.getCanonicalName();
-            OWNER       = "INITIALIZATION_ERROR IN:" + cname;
-            TOKEN       = "INITIALIZATION_ERROR IN:" + cname;
-            FILE        = "INITIALIZATION_ERROR IN:" + cname;
-            NINJA       = "INITIALIZATION_ERROR IN:" + cname;
-            RIDDLERHYME = "INITIALIZATION_ERROR IN:" + cname;
-            TRANSDEBUG  = "INITIALIZATION_ERROR IN:" + cname;
+            setAllVarsToErrorMessage();
             
-            String msg = "[Mapping counts do not match]";
-            msg += "[AKA: Not all API endpoints exposed to this class]";
-            msg += "this class == " + ServiceUrls.class.getCanonicalName();
-            msg += "[Did you forget to include one of the mappings found]";
-            msg += "in:" + ServletClassNames.class.getCanonicalName() + "?";
-            msg += "[OTHER POSSIBLE PROBLEM:]";
-            msg += ServletClassNames.class.getSimpleName();
-            msg += "[Only knows about the mappings that have been bug checked.]";
-            msg += "[Which should be ALL OF THEM. But if it isn't, that]";
-            msg += "[Would be another reason the checksums do not agree.]";
+            
+            //String msg = "[Mapping counts do not match]";
+            //msg += "[AKA: Not all API endpoints exposed to this class]";
+            //msg += "this class == " + ServiceUrls.class.getCanonicalName();
+            //msg += "[Did you forget to include one of the mappings found]";
+            //msg += "in:" + ServletClassNames.class.getCanonicalName() + "?";
+            //msg += "[OTHER POSSIBLE PROBLEM:]";
+            //msg += ServletClassNames.class.getSimpleName();
+            //msg += "[Only knows about the mappings that have been bug checked.]";
+            //msg += "[Which should be ALL OF THEM. But if it isn't, that]";
+            //msg += "[Would be another reason the checksums do not agree.]";
             //doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-        
+        */
         
     }//FUNC::END
     
@@ -129,7 +125,9 @@ public class ServiceUrls {
         API_COUNT++;
         
         if(null == API_MAP){
-            doError("API_MAP was not initialized before makeURL call");
+            
+            //doError("API_MAP was not initialized before makeURL call");
+            setAllVarsToErrorMessage();
         }
         
         /*
@@ -146,6 +144,16 @@ public class ServiceUrls {
         */
         
         return url;
+    }//FUNC::END
+    
+    private static void setAllVarsToErrorMessage(){
+        String cname = ServiceUrls.class.getCanonicalName();
+        OWNER       = "INITIALIZATION_ERROR IN:" + cname;
+        TOKEN       = "INITIALIZATION_ERROR IN:" + cname;
+        FILE        = "INITIALIZATION_ERROR IN:" + cname;
+        NINJA       = "INITIALIZATION_ERROR IN:" + cname;
+        RIDDLERHYME = "INITIALIZATION_ERROR IN:" + cname;
+        TRANSDEBUG  = "INITIALIZATION_ERROR IN:" + cname;
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
