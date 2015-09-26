@@ -4,9 +4,9 @@ package frontEndBackEndIntegration.childComponents.restDoc;
  *
  * @author jmadison
  */
-public class RestCallDocument {
+public class RestDocument {
     
-    public RestCallDocument(String non_inited_message_text){
+    public RestDocument(String non_inited_message_text){
         BASE = non_inited_message_text;
     }//Constructor!
     
@@ -16,7 +16,7 @@ public class RestCallDocument {
      */
     public String BASE = "CONSTRUCTION_FAILURE";
     
-    /** Eventually, put the different service calls that can be made here. **/
-    public String CALL = "blaBlabla";
+    ///** Eventually, put the different service calls that can be made here. **/
+    //public String DOCS = "blaBlabla";
     
 }//CLASS::END

@@ -1,4 +1,4 @@
-package test.servlets.rest;
+package test.servlets.rest.admin;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import primitives.StringWithComment;
 import test.config.constants.ServletClassNames;
+import test.servlets.rest.BaseRestService;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.admin.AdminTransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.session.SessionTransUtil;

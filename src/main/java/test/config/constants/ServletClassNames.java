@@ -3,7 +3,7 @@ package test.config.constants;
 import java.util.HashMap;
 import java.util.Map;
 import test.MyError;
-import test.servlets.rest.AdminRestService;
+import test.servlets.rest.admin.AdminRestService;
 import test.servlets.rest.NinjaRestService;
 import test.servlets.rest.OwnerRestService;
 import test.servlets.rest.TokenRestService;

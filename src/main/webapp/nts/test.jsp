@@ -19,7 +19,7 @@
     <p> varname: <%=I.V().NINJA_ID%> </p>
     <p> varname: <%=I.GET_VARIABLE_NAMES().TOKEN_ID%> </p>
     --%>
-    
+   
     <p> TOKEN      == <%=I.R().TOKEN.BASE%></p>
     <p> ADMIN      == <%=I.GET_REST_SERVICE_URLS().ADMIN.BASE%></p>
     <p> NINJA      == <%=I.R().NINJA.BASE%></p>
