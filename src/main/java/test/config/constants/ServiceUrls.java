@@ -8,6 +8,7 @@ package test.config.constants;
 import java.util.HashMap;
 import java.util.Map;
 import test.MyError;
+import errors.MyInitError;
 
 /**
  * NOTE: If debug code fails, you might get a "noclassdeffounderror"
@@ -124,7 +125,7 @@ public class ServiceUrls {
         //THIS BLOCK: NOT cause of init error.
         int len = mappingEndPoint.length();
         if(mappingEndPoint.charAt(len-1) != '/'){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            //doError("API mappinEndPoint supplied must end with fwd-slash");
+            doInitErr("API mappinEndPoint supplied must end with fwd-slash");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
             
@@ -176,6 +177,18 @@ public class ServiceUrls {
        err += ServiceUrls.class.getSimpleName();
        err += msg;
        throw new MyError(err);
+   }//FUNC::END
+   
+   /**
+    * Thrown specifically for errors during initialization.
+    * @param msg :The error message detailing what went wrong
+    *             and possible solutions.
+    */
+   private static void doInitErr(String msg){
+       String err = "INITIALIZATION ERROR:";
+       err += ServiceUrls.class.getSimpleName();
+       err += msg;
+       throw new MyInitError(err);
    }//FUNC::END
     
 }//CLASS::END
