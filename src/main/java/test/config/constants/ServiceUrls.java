@@ -100,7 +100,7 @@ public class ServiceUrls {
             msg += "[Only knows about the mappings that have been bug checked.]";
             msg += "[Which should be ALL OF THEM. But if it isn't, that]";
             msg += "[Would be another reason the checksums do not agree.]";
-            doError(msg);
+            //doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         
@@ -132,11 +132,12 @@ public class ServiceUrls {
             doError("API_MAP was not initialized before makeURL call");
         }
         
-        
+        /*
         //Likely NOT the offending code. Did not un-crash program.
         if(API_MAP.containsKey(url)){
             doError("API_MAP already contains endpoint key! Bad setup!");
         }//ERROR!
+        */
         
         /*
         
