@@ -38,6 +38,24 @@ public class ServiceUrlsInitializer {
         return _serviceEndPointsContainer;
     }//FUNC::END //UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
     
+    /** To allow errors to bubble-up in our stack, we will have the class that--
+     *  DEPENDS on this class to be able to call this function during 
+     *  it's initialization.
+     * @return :Returns TRUE if error happens in this class during init.
+     ------------------------------------------------------------------------**/
+    public static boolean getDidErrorsOccurDuringInit(){////////////////////////
+        if(false == _hasBeenInitedBefore){
+            doStaticInit();
+        }/////////////////////////////////
+        
+        return _errorOccurredDuringStaticInitialization;
+    }//FUNC::END////////////////////////////////////////////////////////////////
+    
+    /** Return the initialization errors that happened in this class. **/
+    public static String getInitErrors(){
+        return _initErrorLog;
+    }////////////////////////////////////
+    
     
     /** Used to prevent re-initialization of this static class. **/
     private static boolean _hasBeenInitedBefore = false;
@@ -64,7 +82,8 @@ public class ServiceUrlsInitializer {
     
     /** Log of any errors that happened during initialization. Don't listen to
      *  IDE. This variable IS used! Contrary to what warning says. -----------*/
-    private static String  _initErrorLog = "";
+    private static String  _initErrorLog = 
+      "[NO_INIT_ERRORS_IN::]" + ServiceUrlsInitializer.class.getCanonicalName();
     
     
     

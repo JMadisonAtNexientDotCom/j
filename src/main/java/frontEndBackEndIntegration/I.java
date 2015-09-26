@@ -4,6 +4,7 @@ package frontEndBackEndIntegration;
 //Since it will be put into .JSP files.
 import frontEndBackEndIntegration.childComponents.FBVarNameRegistry;
 import frontEndBackEndIntegration.childComponents.ServiceURLRegistry;
+import test.MyError;
 import test.config.constants.ServiceUrlsInitializer;
 
 
@@ -22,17 +23,42 @@ import test.config.constants.ServiceUrlsInitializer;
  */
 public class I {
     
+    private static boolean _hasBeenStaticallyInitialized = false;
+    static{//////////////
+        doStaticInit();
+    }////////////////////
+    
+    private static void doStaticInit(){//IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+        if(_hasBeenStaticallyInitialized){return;}
+        _hasBeenStaticallyInitialized = true;
+        
+        //VARIABLE NAMES CONTAINER:
+        _varNameRegSharedRef = new FBVarNameRegistry();
+        V                    =  _varNameRegSharedRef;
+        VARNAME              = _varNameRegSharedRef;
+        
+        //REST URLS CONTAINER:
+        if(ServiceUrlsInitializer.getDidErrorsOccurDuringInit()){//EEEEEEEEEEEEE
+            String bubbleUpErrors = ServiceUrlsInitializer.getInitErrors();
+            doError("BUBBLED-UP-ERRORS!::" + bubbleUpErrors);
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        _restUrlsSharedRef = ServiceUrlsInitializer.getServiceURLRegistry();
+        R                  = _restUrlsSharedRef;
+        REST_SERVICE_URL   = _restUrlsSharedRef;
+    }//INIT! IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+    
     //Variable names used by services:
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     /** Shared reference so that we can have shorthand and longhand versions
      *  to be able to put into the code. **/
-    private static final FBVarNameRegistry _varNameRegSharedRef = 
-                                                        new FBVarNameRegistry();
+    private static FBVarNameRegistry _varNameRegSharedRef;
+                                                        
     /** Shorthand version of VARNAME **/
-    public static final FBVarNameRegistry V = _varNameRegSharedRef;
+    public static FBVarNameRegistry V;
     /** Container used to reference variable names that need to be consistent
      *  amongst the front-end and back end. **/
-    public static final FBVarNameRegistry VARNAME = _varNameRegSharedRef;
+    public static FBVarNameRegistry VARNAME;
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     
    
@@ -40,13 +66,11 @@ public class I {
     //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
     /** Shared reference so that we can have shorthand and longhand versions
      *  to be able to put into the code. **/
-     private static final ServiceURLRegistry _restUrlsSharedRef = 
-                                 ServiceUrlsInitializer.getServiceURLRegistry();
-                                                       
+     private static ServiceURLRegistry _restUrlsSharedRef;                                        
     /** Shorthand version of REST_SERVICE_URLS **/
-      public static final ServiceURLRegistry R = _restUrlsSharedRef;
+      public static ServiceURLRegistry R;
     /** Container used to reference fully-qualified API endpoint URLS **/
-      public static final ServiceURLRegistry REST_SERVICE_URL =_restUrlsSharedRef;
+      public static ServiceURLRegistry REST_SERVICE_URL;
     //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
    
     
@@ -60,7 +84,32 @@ public class I {
     public static String INCLUDE_JS = 
      "BACK_END_PROBLEM(NOT UI PEOPLE'S FAULT)::INCLUDE_JS_FAILED_TO_INITIALIZE";
     
-    //Turns out, I can't ask for resources from WEB-INF here. Only the
+    /**-------------------------------------------------------------------------
+    * Wrapper function to throw errors from this class.
+    * @param msg :Specific error message.
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+    String err = "ERROR INSIDE:";
+    err += I.class.getSimpleName();
+    err += msg;
+    throw new MyError(err);
+    }//FUNC::END
+         
+}//CLASS::END
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+//Notes / Messy area you don't have to pay attention to.
+
+
+//Turns out, I can't ask for resources from WEB-INF here. Only the
     //servlets can. So making a config servlet to cache the values.
     /*
     
@@ -90,5 +139,3 @@ public class I {
     }
     
     */
-            
-}//CLASS::END
