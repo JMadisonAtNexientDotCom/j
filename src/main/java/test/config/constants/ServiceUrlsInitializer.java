@@ -105,7 +105,7 @@ public class ServiceUrlsInitializer {
         //Create map that will be used for checksums:
         API_MAP     = new HashMap<String,Integer>();
         
-        _serviceEndPointsContainer = new ServiceURLRegistry();
+        _serviceEndPointsContainer = new ServiceURLRegistry(initPassword);
         /** Shorthand variable for setting up mapping. **/
         U = _serviceEndPointsContainer;
         //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
