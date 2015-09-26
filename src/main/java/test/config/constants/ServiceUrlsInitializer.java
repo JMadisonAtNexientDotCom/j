@@ -147,7 +147,7 @@ public class ServiceUrlsInitializer {
         //Create fully-qualified api endpoints: //UUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
         U.ADMIN       = mkURL(ServletClassNames.OwnerRestService_MAPPING);
         U.OWNER       = mkURL(ServletClassNames.AdminRestService_MAPPING);
-        U.TOKEN       = mkURL(ServletClassNames.TokenRestService_CLASSNAME);
+        U.TOKEN       = mkURL(ServletClassNames.TokenRestService_MAPPING);
         U.FILE        = mkURL(ServletClassNames.FileContentFetcher_MAPPING);
         U.NINJA       = mkURL(ServletClassNames.NinjaRestService_MAPPING);
         U.RIDDLERHYME = mkURL(ServletClassNames.RiddleRhymeRestService_MAPPING);
@@ -182,8 +182,8 @@ public class ServiceUrlsInitializer {
         
         //before we exit, make absolutely sure shorthand and long-hand
         //references are identical.
-        if(U.equals(_serviceEndPointsContainer)){///////////////////////////////
-            makeInitErrorLog("ShortHand does not match longHand ref!");
+        if(false == (U.equals(_serviceEndPointsContainer)) ){///////////////////
+            makeInitErrorLog("[ShortHand does not match longHand ref!]");
         }///////////////////////////////////////////////////////////////////////
         
     }//FUNC::END
