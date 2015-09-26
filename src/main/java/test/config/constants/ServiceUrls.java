@@ -67,6 +67,9 @@ public class ServiceUrls {
         //You will get an ellusive: noclassdeffounderror
         API_COUNT = 0;
         
+        //Create map that will be used for checksums:
+        API_MAP     = new HashMap<String,Integer>();
+        
          //Create fully-qualified api endpoints:
         OWNER       = makeURL(ServletClassNames.AdminRestService_MAPPING);
         TOKEN       = makeURL(ServletClassNames.OwnerRestService_MAPPING);
@@ -76,10 +79,9 @@ public class ServiceUrls {
         TRANSDEBUG  = makeURL(ServletClassNames.TransDebugRestService_MAPPING);
         
         
-        //Create map that will be used for checksums:
-        API_MAP     = new HashMap<String,Integer>();
         
-        /*
+        
+        
         //Compiler warns me about using API_COUNT, but this
         //Should be fine! Getting a bit urked by how java likes false positives.
         if(API_COUNT != ServletClassNames.getNumberOfMappings()){//EEEEEEEEEEEEE
@@ -102,9 +104,9 @@ public class ServiceUrls {
             msg += "[Only knows about the mappings that have been bug checked.]";
             msg += "[Which should be ALL OF THEM. But if it isn't, that]";
             msg += "[Would be another reason the checksums do not agree.]";
-            //doError(msg);
+            doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-        */
+        
         
     }//FUNC::END
     
@@ -130,16 +132,18 @@ public class ServiceUrls {
         //How many there are.
         API_COUNT++;
         
-        /*
+        if(null == API_MAP){
+            doError("API_MAP was not initialized before makeURL call");
+        }
+        
+        
         //Likely NOT the offending code. Did not un-crash program.
         if(API_MAP.containsKey(url)){
             doError("API_MAP already contains endpoint key! Bad setup!");
         }//ERROR!
-        */
         
         //Will this uncrash program?
-        Integer one = Integer.valueOf(1);
-        API_MAP.put(url, one);
+        API_MAP.put(url, 1);
         
         
         return url;
