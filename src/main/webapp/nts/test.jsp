@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>TEST PAGE!</title>
-    <%= I.INCLUDE_CSS %>
-    <%= I.INCLUDE_JS %>
+    <%= I.INCLUDE_CSS() %>
+    <%= I.INCLUDE_JS() %>
   </head>
 <!-- AUTHOR: JMadison.  ON:20##.##.##_####AMPM                               -->
 <!-- TABSIZE: 2 Spaces.                                                      -->
