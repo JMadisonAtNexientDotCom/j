@@ -31,7 +31,8 @@ public class I {
     //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     /** Shared reference so that we can have shorthand and longhand versions
      *  to be able to put into the code. **/
-    private static FBVarNameRegistry _varNameRegSharedRef;
+    private static FBVarNameRegistry _varNameRegSharedRef = 
+                                                        new FBVarNameRegistry();
     
     /** Short-handed accessor for GET_VARIABLE_NAMES **/
     public static FBVarNameRegistry V(){
