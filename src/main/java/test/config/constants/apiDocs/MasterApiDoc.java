@@ -244,7 +244,10 @@ public class MasterApiDoc {
         //end of it's url. It not, indicates bad setup.
         int dexOf = urlToServlet.lastIndexOf(servletName);
         if(dexOf < 0){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            doError("[urlToServlet does not contain servletName");
+            String msg = "[urlToServlet does not contain servletName]";
+            msg += "urlToServlet==[" + urlToServlet + "]";
+            msg += "servletName ==[" + servletName  + "]";
+            doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //If the servlet name is in the url to servlet, we still need to make
