@@ -2,7 +2,7 @@ package frontEndBackEndIntegration;
 
 //No package. At root to make less hazardous for refactoring.
 //Since it will be put into .JSP files.
-import frontEndBackEndIntegration.childComponents.FBVarNameRegistry;
+import test.config.constants.identifiers.VarNameReg;
 import frontEndBackEndIntegration.childComponents.ServiceURLRegistry;
 import frontEndBackEndIntegration.childComponents.TextFileCacheRegistry;
 import test.MyError;

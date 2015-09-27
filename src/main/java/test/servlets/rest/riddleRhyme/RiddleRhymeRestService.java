@@ -11,6 +11,8 @@ import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import test.MyError;
 import test.config.constants.ServletClassNames;
+import test.config.constants.identifiers.FuncNameRegistry;
+import test.config.constants.identifiers.VarNameReg;
 import test.config.debug.DebugConfig;
 import test.dbDataAbstractions.bundleTypes.TriviaBundle;
 import test.dbDataAbstractions.entities.bases.CompositeEntityBase;
@@ -36,21 +38,22 @@ import utils.MapperUtil;
 public class RiddleRhymeRestService extends BaseRestService {
     
     /** Returns an integer code telling you if the answer is correct or not.----
-     * @param riddleID :The ID# of riddle (question) being asked.
-     * @param rhymeID  :The ID# of rhyme answering the [riddle/question].
+     * @param riddle_id :The ID# of riddle (question) being asked.
+     * @param rhyme_id  :The ID# of rhyme answering the [riddle/question].
      * @return : 1 == TRUE
      *          -1 == FALSE
      *           0 == UNDEFINED ----------------------------------------------*/
     @GET
-    @Path("getIsCorrect")
-    public Response getIsCorrect(@QueryParam("riddleID") long riddleID, 
-                                 @QueryParam("rhymeID")  long rhymeID ){
+    @Path(FuncNameRegistry.GET_IS_CORRECT)
+    public Response get_is_correct(
+            @QueryParam(VarNameReg.RIDDLE_ID) long riddle_id, 
+            @QueryParam(VarNameReg.RHYME_ID)  long rhyme_id ){
         
         //Enter transaction state:
         Session ses = TransUtil.enterTransaction();
         
         //Use utility to figure out if riddle+rhyme pair is correct:
-        int op = RiddleRhymeTransUtil.getIsCorrect(riddleID, rhymeID);
+        int op = RiddleRhymeTransUtil.getIsCorrect(riddle_id, rhyme_id);
         
         //Exit transaction state, with NOTHING TO SAVE:
         TransUtil.exitTransaction(ses,TransUtil.EXIT_NO_SAVING);
@@ -64,7 +67,7 @@ public class RiddleRhymeRestService extends BaseRestService {
         if(DebugConfig.isDebugBuild){
             help = "";
             help += "1==CORRECT,-1==WRONG,0==UNDEFINED";
-            help += " riddleID==" + riddleID + " rhymeID==" + rhymeID;
+            help += " riddleID==" + riddle_id + " rhymeID==" + rhyme_id;
         }
         return JSONUtil.numberToJSONResponse(op, help, JSONUtil.ALL_IS_WELL);
         
@@ -73,7 +76,7 @@ public class RiddleRhymeRestService extends BaseRestService {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("gradeOneBlankSlate")
+    @Path(FuncNameRegistry.GRADE_ONE_BLANK_SLATE)
     public Response gradeOneBlankSlate(){
         return null;
     }//FUNC::END
@@ -87,18 +90,18 @@ public class RiddleRhymeRestService extends BaseRestService {
      *  This slate should be populated so that when it is graded it checks
      *  out as being 100% correct.
      * 
-     * @param riddleID: The riddleID we want to make a filled out slate for.
+     * @param riddle_id: The riddleID we want to make a filled out slate for.
      *                  A slate being basically a contestant answer card.
      * 
      *                  If riddle ID <=-1, we will retrieve random.
      *                  Otherwise, we retrieve for specific riddle.
      * @return : A slate populated with the CORRECT [rhyme/answer](s) **/
     @GET
-    @Path("getFilledOutTestSlate_TRUTH")
-    public Response getFilledOutTestSlate_TRUTH(
-                     @DefaultValue("-1") @QueryParam("riddleID") long riddleID){
+    @Path(FuncNameRegistry.GET_FILLED_OUT_TEST_SLATE_TRUTH)
+    public Response get_filled_out_test_slate_truth(
+          @DefaultValue("-1") @QueryParam(VarNameReg.RIDDLE_ID) long riddle_id){
         return getFilledOutTestSlate_COMMON
-                                       (riddleID, Slate.SLATE_DEBUG_TYPE_TRUTH);                     
+                                      (riddle_id, Slate.SLATE_DEBUG_TYPE_TRUTH);                     
     }//FUNC::END
     
     /**
@@ -108,20 +111,21 @@ public class RiddleRhymeRestService extends BaseRestService {
      *  This slate should be populated so that when it is graded it checks
      *  out as being 100% FALSE/INCORRECT.
      * 
-     * @param riddleID: The riddleID we want to make a filled out slate for.
+     * @param riddle_id: The riddleID we want to make a filled out slate for.
      *                  A slate being basically a contestant answer card.
      * 
      *                  If riddle ID <=-1, we will retrieve random.
      *                  Otherwise, we retrieve for specific riddle.
      * @return : A slate populated with the WRONG [rhyme/answers] **/
     @GET
-    @Path("getFilledOutTestSlate_WRONG")
-    public Response getFilledOutTestSlate_WRONG(
-                     @DefaultValue("-1") @QueryParam("riddleID") long riddleID){
+    @Path(FuncNameRegistry.GET_FILLED_OUT_TEST_SLATE_WRONG)
+    public Response get_filled_out_test_slate_wrong(
+          @DefaultValue("-1") @QueryParam(VarNameReg.RIDDLE_ID) long riddle_id){
         return getFilledOutTestSlate_COMMON
-                                       (riddleID, Slate.SLATE_DEBUG_TYPE_WRONG); 
+                                      (riddle_id, Slate.SLATE_DEBUG_TYPE_WRONG); 
     }//FUNC::END
     
+    /** NOT WIRED TO OUTSIDE. So we can leave named as is **/
     private Response getFilledOutTestSlate_COMMON
                                          (long riddleID, String slateDebugType){
         //Enter transaction state:
@@ -159,14 +163,14 @@ public class RiddleRhymeRestService extends BaseRestService {
      *  Because it is part of the board game. So we give the ninja a 
      *  blank slate that they can fill out.
      *
-     * @param riddleID :The riddle ID this ninja's slate is attempting
+     * @param riddle_id :The riddle ID this ninja's slate is attempting
      *                  to answer.
      * @return : A blank slate the UI developer can fill out and send back
      *           to the server for grading.                                  **/
     @GET
-    @Path("getOneBlankSlate")
-    public Response getOneBlankSlate( @QueryParam("riddleID") 
-                                           long riddleID){
+    @Path(FuncNameRegistry.GET_ONE_BLANK_SLATE)
+    public Response get_one_blank_slate( 
+                               @QueryParam(VarNameReg.RIDDLE_ID)long riddle_id){
         
         //Enter transaction state:
         Session ses = TransUtil.enterTransaction();
@@ -176,12 +180,12 @@ public class RiddleRhymeRestService extends BaseRestService {
         //The slate will be populated with an ERROR_ID as it's riddleID
         //To notify the [UI/FRONT-END] dev and hopefully prevent error
         //from being graded.
-        boolean riddleExists = RiddleTransUtil.doesRiddleExist(riddleID);
+        boolean riddleExists = RiddleTransUtil.doesRiddleExist(riddle_id);
         Slate s;
         if(riddleExists){
-            s = Slate.makeBlankSlate(riddleID);
+            s = Slate.makeBlankSlate(riddle_id);
         }else{
-            s = Slate.makeErrorSlate(riddleID);
+            s = Slate.makeErrorSlate(riddle_id);
         }//BLOCK::END
         
         if(null == s){ //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
@@ -197,7 +201,7 @@ public class RiddleRhymeRestService extends BaseRestService {
     }//FUNC::END
     
     @GET
-    @Path("getOneRandomRiddle")
+    @Path(FuncNameRegistry.GET_ONE_RANDOM_RIDDLE)
     public Response getOneRandomRiddle(){
         
         //Enter transaction state:
@@ -215,11 +219,11 @@ public class RiddleRhymeRestService extends BaseRestService {
     }//FUNC::END
     
     @GET
-    @Path("makeFilledOutCueCard")
-    public Response makeFilledOutCueCard(
-                             @QueryParam("riddleID")        long riddleID, 
-                             @QueryParam("numberOfChoices") int numberOfChoices,
-                             @QueryParam("numberOfTruths")  int numberOfTruths){
+    @Path(FuncNameRegistry.MAKE_FILLED_OUT_CUE_CARD)
+    public Response make_filled_out_cue_card(
+                @QueryParam(VarNameReg.RIDDLE_ID)        long riddle_id, 
+                @QueryParam(VarNameReg.NUMBER_OF_CHOICES) int number_of_choices,
+                @QueryParam(VarNameReg.NUMBER_OF_TRUTHS)  int number_of_truths){
         //Enter transaction state:
         Session ses = TransUtil.enterTransaction();
         
@@ -229,28 +233,28 @@ public class RiddleRhymeRestService extends BaseRestService {
         //Handle Error checking more gracefully on REST servlet by returning
         //An "Error Cue Card" Still respond with 200/OK. But the information
         //Sent back will indicate an error on the non-server side.
-        if(numberOfChoices < 1){
+        if(number_of_choices < 1){
             String msg = "[makeFilledOutCueCard needs at least one choice!]";
-            c = CueCard.makeErrorCueCard(msg, numberOfChoices);
+            c = CueCard.makeErrorCueCard(msg, number_of_choices);
         }else
-        if(numberOfTruths < 0){
+        if(number_of_truths < 0){
             String msg = "[CAN have zero truths, but NEVER negative!!]";
-            c = CueCard.makeErrorCueCard(msg, numberOfChoices);
+            c = CueCard.makeErrorCueCard(msg, number_of_choices);
         }else
-        if(false == RiddleTransUtil.doesRiddleExist(riddleID)){
+        if(false == RiddleTransUtil.doesRiddleExist(riddle_id)){
             String msg = "[riddle of that id does not exist in database]:";
-            msg+= "id==" + riddleID +"]";
-            if(riddleID < 0){ msg+= "[(riddle ID is NEGATIVE)]";}
-            c = CueCard.makeErrorCueCard(msg, numberOfChoices);
+            msg+= "id==" + riddle_id +"]";
+            if(riddle_id < 0){ msg+= "[(riddle ID is NEGATIVE)]";}
+            c = CueCard.makeErrorCueCard(msg, number_of_choices);
         }else
-        if(numberOfTruths > numberOfChoices)
+        if(number_of_truths > number_of_choices)
         {
             String msg = "[numberOfTruths>numberOfChoices]";
-            c = CueCard.makeErrorCueCard(msg, numberOfChoices);
+            c = CueCard.makeErrorCueCard(msg, number_of_choices);
         }else{
             //Our non-error case. Note that ZERO number of truths is allowed.
             c = RiddleRhymeTransUtil.makeFilledOutCueCard
-                                    (riddleID, numberOfChoices, numberOfTruths);
+                                    (riddle_id, number_of_choices, number_of_truths);
         }//BLOCK::END
         
         //EXIT TRANSACTION!!!
@@ -263,19 +267,19 @@ public class RiddleRhymeRestService extends BaseRestService {
     }//FUNC::END
     
     @GET
-    @Path("getRandomTriviaBundle")
-    public Response getRandomTriviaBundle
-                    (@DefaultValue("5") @QueryParam("cardCount") int cardCount, 
-                     @DefaultValue("4") @QueryParam("numQuips")  int numQuips, 
-                     @DefaultValue("0") @QueryParam("truMIN")    int truMIN, 
-                     @DefaultValue("2") @QueryParam("truMAX")    int truMAX){
+    @Path(FuncNameRegistry.GET_RANDOM_TRIVIA_BUNDLE)
+    public Response get_random_trivia_bundle
+                    (@DefaultValue("5") @QueryParam(VarNameReg.CARD_COUNT) int card_count, 
+                     @DefaultValue("4") @QueryParam(VarNameReg.NUM_QUIPS)  int num_quips, 
+                     @DefaultValue("0") @QueryParam(VarNameReg.TRU_MIN)    int tru_min, 
+                     @DefaultValue("2") @QueryParam(VarNameReg.TRU_MAX)    int tru_max){
                             
         //Enter a transaction state:
         Session ses = TransUtil.enterTransaction();
         
         //Core Logic:
         TriviaBundle bund = TriviaBundleTransUtil.getRandomTrivaBundle
-                                          (cardCount, numQuips, truMIN, truMAX);
+                                          (card_count, num_quips, tru_min, tru_max);
         
         //Create our output response:
         Response op = JSONUtil.bundleEntityToJSONResponse(bund);
@@ -305,8 +309,8 @@ public class RiddleRhymeRestService extends BaseRestService {
     @POST
     //@Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("postQuarForGrading")
-    public Response postQuarForGrading(String jsonRequest){
+    @Path(FuncNameRegistry.POST_QUAR_FOR_GRADING)
+    public Response post_quar_for_grading(String jsonRequest){
         
         //Convert the request to JSON:
         Quar slateQuar = MapperUtil.readAsObjectOf(Quar.class, jsonRequest);
@@ -324,8 +328,8 @@ public class RiddleRhymeRestService extends BaseRestService {
      * @return 
      */
     @GET
-    @Path("getLastPostedQuar")
-    public Response getLastPostedQuar(){
+    @Path(FuncNameRegistry.GET_LAST_POSTED_QUAR)
+    public Response get_last_posted_quar(){
         Quar theQuar = TempServiceDataUtil.theQuar;
         return JSONUtil.compositeEntityToJSONResponse(theQuar);
     }//FUNC::END

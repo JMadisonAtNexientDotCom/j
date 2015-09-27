@@ -1,4 +1,4 @@
-package test.servlets.rest.admin;
+package test.servlets.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -7,13 +7,16 @@ import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import primitives.StringWithComment;
 import test.config.constants.ServletClassNames;
+import test.config.constants.identifiers.FuncNameRegistry;
+import test.config.constants.identifiers.VarNameReg;
 import test.servlets.rest.BaseRestService;
-import test.servlets.rest.MasterServiceDoc;
-import test.servlets.rest.admin.docs.LoginValidateDoc;
+
+
 import test.transactions.util.TransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.admin.AdminTransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.session.SessionTransUtil;
 import utils.JSONUtil;
+
 
 /**-----------------------------------------------------------------------------
  * Servlet that handles requests involving the admin_table.
@@ -39,10 +42,10 @@ public class AdminRestService extends BaseRestService{
      * @return :Returns TRUE if accepted credentials.
      ------------------------------------------------------------------------**/
     @GET
-    @Path(LoginValidateDoc.PATH)
-    public Response loginValidate(
-            @QueryParam("userName") String userName, 
-            @QueryParam("passWord") String passWord){
+    @Path(FuncNameRegistry.LOGIN_VALIDATE)
+    public Response login_validate(
+            @QueryParam(VarNameReg.USER_NAME) String userName, 
+            @QueryParam(VarNameReg.PASS_WORD) String passWord){
         
         //Enter transaction:
         Session ses = TransUtil.enterTransaction();
@@ -70,8 +73,10 @@ public class AdminRestService extends BaseRestService{
      *          because the token is also registered in the session_table.
      ------------------------------------------------------------------------**/
     @GET
-    @Path("loginAndGetTokenForSelf")
-    public Response loginAndGetTokenForSelf(String userName, String passWord){
+    @Path(FuncNameRegistry.LOGIN_AND_GET_TOKEN_FOR_SELF)
+    public Response login_and_get_token_for_self(
+                       @QueryParam(VarNameReg.USER_NAME) String userName, 
+                       @QueryParam(VarNameReg.PASS_WORD) String passWord){
         
         //Enter transaction:
         Session ses = TransUtil.enterTransaction();

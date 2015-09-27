@@ -1,7 +1,7 @@
 package frontEndBackEndIntegration.childComponents.restDoc;
 
 /**
- *
+ * Delete this. AKA: Reverse the refactor responsible for this. Did not work.
  * @author jmadison
  */
 public class RestDocument {

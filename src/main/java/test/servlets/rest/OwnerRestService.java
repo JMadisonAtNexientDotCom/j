@@ -8,6 +8,8 @@ import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import primitives.BooleanWithComment;
 import test.config.constants.ServletClassNames;
+import test.config.constants.identifiers.FuncNameRegistry;
+import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.transactions.util.TransUtil;
@@ -50,10 +52,10 @@ import utils.JSONUtil;
 public class OwnerRestService extends BaseRestService{
     
     @GET
-    @Path("makeEntryUsing_ninja")
-    public Response makeEntryUsing_ninja (
-                     @DefaultValue("-1") @QueryParam("token_id") long token_id, 
-                     @DefaultValue("-1") @QueryParam("ninja_id") long ninja_id){
+    @Path(FuncNameRegistry.MAKE_ENTRY_USING_NINJA)
+    public Response make_entry_using_ninja (
+            @DefaultValue("-1") @QueryParam(VarNameReg.TOKEN_ID) long token_id, 
+            @DefaultValue("-1") @QueryParam(VarNameReg.NINJA_ID) long ninja_id){
         
         //ENTER TRANSACTION STATE:
         Session ses = TransUtil.enterTransaction();
@@ -107,10 +109,10 @@ public class OwnerRestService extends BaseRestService{
     }//FUNC::END
     
     @GET
-    @Path("makeEntryUsing_admin")
-    public Response makeEntryUsing_admin (
-                     @DefaultValue("-1") @QueryParam("token_id") long token_id, 
-                     @DefaultValue("-1") @QueryParam("admin_id") long admin_id){
+    @Path(FuncNameRegistry.MAKE_ENTRY_USING_ADMIN)
+    public Response make_entry_using_admin (
+            @DefaultValue("-1") @QueryParam(VarNameReg.TOKEN_ID) long token_id, 
+            @DefaultValue("-1") @QueryParam(VarNameReg.ADMIN_ID) long admin_id){
         
         //ENTER TRANSACTION STATE:
         Session ses = TransUtil.enterTransaction();
@@ -166,9 +168,9 @@ public class OwnerRestService extends BaseRestService{
     }//FUNC::END
     
     @GET
-    @Path("makeEntryUsing_random")
-    public Response makeEntryUsing_random
-                    (@DefaultValue("-1") @QueryParam("token_id") long token_id){
+    @Path(FuncNameRegistry.MAKE_ENTRY_USING_RANDOM)
+    public Response make_entry_using_random
+           (@DefaultValue("-1") @QueryParam(VarNameReg.TOKEN_ID) long token_id){
                         
         //ENTER TRANSACTION STATE:
         Session ses = TransUtil.enterTransaction();     
@@ -211,9 +213,9 @@ public class OwnerRestService extends BaseRestService{
     }//FUNC::END
                     
     @GET
-    @Path("doesTokenHaveOwner")
-    public Response doesTokenHaveOwner
-                    (@DefaultValue("-1") @QueryParam("token_id") long token_id){
+    @Path(FuncNameRegistry.DOES_TOKEN_HAVE_OWNER)
+    public Response does_token_have_owner
+           (@DefaultValue("-1") @QueryParam(VarNameReg.TOKEN_ID) long token_id){
         
         //ENTER TRANSACTION STATE:
         Session ses = TransUtil.enterTransaction();
@@ -231,9 +233,9 @@ public class OwnerRestService extends BaseRestService{
     }//FUNC::END
     
     @GET
-    @Path("getTokenOwner")
-    public Response getTokenOwner
-                    (@DefaultValue("-1") @QueryParam("token_id") long token_id){
+    @Path(FuncNameRegistry.GET_TOKEN_OWNER)
+    public Response get_token_owner
+                    (@DefaultValue("-1") @QueryParam(VarNameReg.TOKEN_ID) long token_id){
         
         //ENTER TRANSACTION STATE:
         Session ses = TransUtil.enterTransaction();

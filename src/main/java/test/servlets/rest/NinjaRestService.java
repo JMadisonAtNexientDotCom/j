@@ -26,6 +26,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import test.MyError;
 import test.config.constants.ServletClassNames;
+import test.config.constants.identifiers.FuncNameRegistry;
 import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
 import utils.JSONUtil;
@@ -37,8 +38,8 @@ import utils.JSONUtil;
 public class NinjaRestService extends BaseRestService {
  
     @GET
-    @Path("makeNinjaRecord")
-    public Response makeNinjaRecord(
+    @Path(FuncNameRegistry.MAKE_NINJA_RECORD)
+    public Response make_ninja_record(
             @QueryParam("name")         String name ,
             @QueryParam("phone")        long   phone,
             @QueryParam("email")        String email,
@@ -63,8 +64,8 @@ public class NinjaRestService extends BaseRestService {
     }//FUNC::END
         
     @GET
-    @Path("getNinjaByID")
-    public Response getNinjaByID(@QueryParam("id") long nid){
+    @Path(FuncNameRegistry.GET_NINJA_BY_ID)
+    public Response get_ninja_by_id(@QueryParam("id") long nid){
         //ENTER transaction:
         Session ses = TransUtil.enterTransaction();
         
@@ -83,8 +84,8 @@ public class NinjaRestService extends BaseRestService {
     }//FUNC::END
         
     @GET
-    @Path("getNextNinja") //removed slash at end. Lets try again.
-    public Response getNextNinja(@QueryParam("msg") int msg){
+    @Path(FuncNameRegistry.GET_NEXT_NINJA) //removed slash at end. Lets try again.
+    public Response get_next_ninja(){
 
         //message msg is discarded and not used for now.
 
