@@ -2,17 +2,12 @@
 <!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
 <html lang="en-US">
     <head>
-        <%= I.INCLUDE_JS() %>
-				
+        <%-- Inject JavaScript and CSS Libraries --%>
+        <%= I.INCLUDE_JS()  %>
+        <%= I.INCLUDE_CSS() %>		
         <title>Ninja Sign Up Form</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-				
-        <!-- spinner animation for waiting after pressing button that -->
-        <!-- results in an asynchronous call. AKA: Wait for something to load and -->
-        <!-- let user know the UI is still responsive. -->
-        <LINK REL=StyleSheet HREF="../jsLib/css/components/loading_spinner.css" TYPE="text/css">
-							
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">						
     </head>
 <body>
 
@@ -72,13 +67,14 @@ app.controller('myCtrl', function($scope, $http, spinnerService) {
         //SOURCE: http://stackoverflow.com/questions/316781/
         //                             how-to-build-query-string-with-javascript
         qs = "";
-        qs = $.param({ name: $scope.nName, 
-                       phone:$scope.nPhone,
-                       email:$scope.nEmail,
-                       portfolioURL:$scope.nPortfolio });
+        qs = $.param({ 
+        <%=I.API.MAKE_NINJA_RECORD.ARG.NAME         %>:$scope.nName, 
+        <%=I.API.MAKE_NINJA_RECORD.ARG.PHONE        %>:$scope.nPhone,
+        <%=I.API.MAKE_NINJA_RECORD.ARG.EMAIL        %>:$scope.nEmail,
+        <%=I.API.MAKE_NINJA_RECORD.ARG.PORTFOLIO_URL%>:$scope.nPortfolio });
 
         //url of rest-api responsible for making new ninja records using arguments:
-        apiURL= "<%=I.R().NINJA.BASE%>" + "?" + qs;
+        apiURL= "<%=I.API.MAKE_NINJA_RECORD.URL%>" + "?" + qs;
         
         //for debugging:
         $scope.apiCallUsed = apiURL;

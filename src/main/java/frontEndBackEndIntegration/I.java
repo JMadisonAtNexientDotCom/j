@@ -67,7 +67,7 @@ public class I {
     }//FUNC::END
 
     /** Gives us auto-complete access for writing services in JSP files. **/
-    public static MasterApiDoc API = new MasterApiDoc();
+    public static final MasterApiDoc API = new MasterApiDoc();
     
     
    
