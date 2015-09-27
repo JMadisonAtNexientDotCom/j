@@ -2,21 +2,14 @@
 <!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
 <html lang="en-US">
     <head>
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-				
-        <!-- for async spinners. THEY WORK! -->
-        <script src="../jsLib/node_modules/angular-spinners/src/spinner-service.js"></script>
-        <script src="../jsLib/node_modules/angular-spinners/src/spinner-directive.js"></script>
-        <script src="../jsLib/node_modules/angular-spinners/dist/angular-spinners.js"></script>
+      
+        <%= I.INCLUDE_JS()  %>
+        <%= I.INCLUDE_CSS() %>
 				
         <title>NINJA MAKER 2000</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-				
-        <!-- spinner animation for waiting after pressing button that -->
-        <!-- results in an asynchronous call. AKA: Wait for something to load and -->
-        <!-- let user know the UI is still responsive. -->
-        <LINK REL=StyleSheet HREF="../jsLib/css/components/loading_spinner.css" TYPE="text/css">
+
 			
     </head>
     <body>
@@ -65,7 +58,7 @@ app.controller('customersCtrl', function($scope, $http, spinnerService) {
     {
       //serviceURL is potential refactoring nightmare. //
       //Can we use a .jsp page and dynamically pull URLs from classes? //
-      serviceURL = "http://j1clone01-madnamespace.rhcloud.com/api/NinjaRestService/getNextNinja";
+      serviceURL = "<%=I.API.GET_NEXT_NINJA.URL%>";
       //$http.get(serviceURL).success(function (response) {$scope.name = response;});
 			
 			spinnerService.show('html5spinner'); //<--where is ref to spinnerService?
