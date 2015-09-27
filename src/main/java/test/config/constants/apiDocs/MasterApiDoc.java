@@ -197,7 +197,9 @@ public class MasterApiDoc {
         endPT.SERVLET_NAME  = _sname;
         
         //Construct servlet function endpoint:
-        endPT.URL = _surl + "/" + funcName;
+        //BUG_FIX: Do not put "/" between variables. Because
+        //the servlet url ends with "/".
+        endPT.URL = _surl + funcName;
         
     }//add
     
