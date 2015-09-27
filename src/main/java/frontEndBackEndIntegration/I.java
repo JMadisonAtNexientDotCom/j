@@ -2,6 +2,7 @@ package frontEndBackEndIntegration;
 
 //No package. At root to make less hazardous for refactoring.
 //Since it will be put into .JSP files.
+import test.config.constants.apiDocs.MasterApiDoc;
 import test.config.constants.identifiers.VarNameReg;
 import frontEndBackEndIntegration.childComponents.ServiceURLRegistry;
 import frontEndBackEndIntegration.childComponents.TextFileCacheRegistry;
@@ -64,7 +65,9 @@ public class I {
     public static String INCLUDE_JS(){
         return TextFileCacheRegistry.INCLUDE_JS;
     }//FUNC::END
-    
+
+    /** Gives us auto-complete access for writing services in JSP files. **/
+    public static MasterApiDoc API = new MasterApiDoc();
     
     
    
