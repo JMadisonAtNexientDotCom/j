@@ -145,8 +145,8 @@ public class ServiceUrlsInitializer {
         //
         
         //Create fully-qualified api endpoints: //UUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
-        U.ADMIN  = mkURL(ServletClassNames.OwnerRestService_MAPPING);
-        U.OWNER  = mkURL(ServletClassNames.AdminRestService_MAPPING);
+        U.ADMIN  = mkURL(ServletClassNames.AdminRestService_MAPPING);
+        U.OWNER  = mkURL(ServletClassNames.OwnerRestService_MAPPING);
         U.TOKEN  = mkURL(ServletClassNames.TokenRestService_MAPPING);
         U.FILE   = mkURL(ServletClassNames.FileContentFetcher_MAPPING);
         U.NINJA  = mkURL(ServletClassNames.NinjaRestService_MAPPING);

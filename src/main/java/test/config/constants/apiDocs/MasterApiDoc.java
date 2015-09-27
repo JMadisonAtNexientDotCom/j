@@ -247,6 +247,21 @@ public class MasterApiDoc {
             String msg = "[urlToServlet does not contain servletName]";
             msg += "urlToServlet==[" + urlToServlet + "]";
             msg += "servletName ==[" + servletName  + "]";
+            msg += "NOTE on where to find bug:";
+            msg += "If bug is NOT in this class, it could be:";
+            msg += "Incorrectly mapped constants in:";
+            msg += "[" + ServiceURLRegistry.class.getCanonicalName() + "]";
+            msg += "If this is the case, it may be because the setup";
+            msg += "for populating this code is WRONG.";
+            msg += "setup happens in this class:";
+            msg += "[" + ServiceUrlsInitializer.class.getCanonicalName() + "]";
+            msg += "I made this mistake before by SWAPPING references where:";
+            msg += "[ADMIN was paired with OWNER-serviceURL]";
+            msg += "AND";
+            msg += "[OWNER was paired with ADMIN-serviceURL]";
+            msg += "[" + ServiceUrlsInitializer.class.getCanonicalName() + "]";
+            msg += "was not able to find the error because each path was used";
+            msg += "exactly once.";
             doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
