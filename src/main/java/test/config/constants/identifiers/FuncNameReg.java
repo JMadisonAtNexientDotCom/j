@@ -11,7 +11,7 @@ package test.config.constants.identifiers;
  * 
  * @author jmadison
  */
-public class FuncNameRegistry {
+public class FuncNameReg {
     
     //ADMIN SERVICE:
     public static final String LOGIN_VALIDATE = "login_validate";

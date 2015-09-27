@@ -6,7 +6,7 @@ import test.config.constants.identifiers.VarNameReg;
  * CAN WE AUTO-GENERATE THESE CLASSES SOMEHOW???
  * @author jmadison
  */
-public class UserName_PassWord {
-    public final String USER_NAME = VarNameReg.USER_NAME;
-    public final String PASS_WORD = VarNameReg.PASS_WORD;
-}//CLASS::END
+public class TokenId_NinjaId {
+    public final String TOKEN_ID = VarNameReg.TOKEN_ID;
+    public final String NINJA_ID = VarNameReg.NINJA_ID;
+}

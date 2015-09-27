@@ -28,7 +28,7 @@ import javax.ws.rs.core.MediaType;
 import test.MyError;
 import test.debug.DebugConsts;
 import test.config.constants.ServletClassNames;
-import test.config.constants.identifiers.FuncNameRegistry;
+import test.config.constants.identifiers.FuncNameReg;
 import utils.JSONUtil;
 
 
@@ -42,7 +42,7 @@ public class TokenRestService extends BaseRestService {
     public static final String CLASS_MAPPING = TokenRestService.class.getSimpleName() + "/";
    
           @GET
-          @Path(FuncNameRegistry.GET_NEXT_TOKEN) //removed slash at end. Lets try again.
+          @Path(FuncNameReg.GET_NEXT_TOKEN) //removed slash at end. Lets try again.
           public Response get_next_token(){
             
             //ENTER transaction:

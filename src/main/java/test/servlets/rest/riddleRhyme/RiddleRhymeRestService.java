@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import test.MyError;
 import test.config.constants.ServletClassNames;
-import test.config.constants.identifiers.FuncNameRegistry;
+import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.config.debug.DebugConfig;
 import test.dbDataAbstractions.bundleTypes.TriviaBundle;
@@ -44,7 +44,7 @@ public class RiddleRhymeRestService extends BaseRestService {
      *          -1 == FALSE
      *           0 == UNDEFINED ----------------------------------------------*/
     @GET
-    @Path(FuncNameRegistry.GET_IS_CORRECT)
+    @Path(FuncNameReg.GET_IS_CORRECT)
     public Response get_is_correct(
             @QueryParam(VarNameReg.RIDDLE_ID) long riddle_id, 
             @QueryParam(VarNameReg.RHYME_ID)  long rhyme_id ){
@@ -76,7 +76,7 @@ public class RiddleRhymeRestService extends BaseRestService {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path(FuncNameRegistry.GRADE_ONE_BLANK_SLATE)
+    @Path(FuncNameReg.GRADE_ONE_BLANK_SLATE)
     public Response gradeOneBlankSlate(){
         return null;
     }//FUNC::END
@@ -97,7 +97,7 @@ public class RiddleRhymeRestService extends BaseRestService {
      *                  Otherwise, we retrieve for specific riddle.
      * @return : A slate populated with the CORRECT [rhyme/answer](s) **/
     @GET
-    @Path(FuncNameRegistry.GET_FILLED_OUT_TEST_SLATE_TRUTH)
+    @Path(FuncNameReg.GET_FILLED_OUT_TEST_SLATE_TRUTH)
     public Response get_filled_out_test_slate_truth(
           @DefaultValue("-1") @QueryParam(VarNameReg.RIDDLE_ID) long riddle_id){
         return getFilledOutTestSlate_COMMON
@@ -118,7 +118,7 @@ public class RiddleRhymeRestService extends BaseRestService {
      *                  Otherwise, we retrieve for specific riddle.
      * @return : A slate populated with the WRONG [rhyme/answers] **/
     @GET
-    @Path(FuncNameRegistry.GET_FILLED_OUT_TEST_SLATE_WRONG)
+    @Path(FuncNameReg.GET_FILLED_OUT_TEST_SLATE_WRONG)
     public Response get_filled_out_test_slate_wrong(
           @DefaultValue("-1") @QueryParam(VarNameReg.RIDDLE_ID) long riddle_id){
         return getFilledOutTestSlate_COMMON
@@ -168,7 +168,7 @@ public class RiddleRhymeRestService extends BaseRestService {
      * @return : A blank slate the UI developer can fill out and send back
      *           to the server for grading.                                  **/
     @GET
-    @Path(FuncNameRegistry.GET_ONE_BLANK_SLATE)
+    @Path(FuncNameReg.GET_ONE_BLANK_SLATE)
     public Response get_one_blank_slate( 
                                @QueryParam(VarNameReg.RIDDLE_ID)long riddle_id){
         
@@ -201,7 +201,7 @@ public class RiddleRhymeRestService extends BaseRestService {
     }//FUNC::END
     
     @GET
-    @Path(FuncNameRegistry.GET_ONE_RANDOM_RIDDLE)
+    @Path(FuncNameReg.GET_ONE_RANDOM_RIDDLE)
     public Response getOneRandomRiddle(){
         
         //Enter transaction state:
@@ -219,7 +219,7 @@ public class RiddleRhymeRestService extends BaseRestService {
     }//FUNC::END
     
     @GET
-    @Path(FuncNameRegistry.MAKE_FILLED_OUT_CUE_CARD)
+    @Path(FuncNameReg.MAKE_FILLED_OUT_CUE_CARD)
     public Response make_filled_out_cue_card(
                 @QueryParam(VarNameReg.RIDDLE_ID)        long riddle_id, 
                 @QueryParam(VarNameReg.NUMBER_OF_CHOICES) int number_of_choices,
@@ -267,7 +267,7 @@ public class RiddleRhymeRestService extends BaseRestService {
     }//FUNC::END
     
     @GET
-    @Path(FuncNameRegistry.GET_RANDOM_TRIVIA_BUNDLE)
+    @Path(FuncNameReg.GET_RANDOM_TRIVIA_BUNDLE)
     public Response get_random_trivia_bundle
                     (@DefaultValue("5") @QueryParam(VarNameReg.CARD_COUNT) int card_count, 
                      @DefaultValue("4") @QueryParam(VarNameReg.NUM_QUIPS)  int num_quips, 
@@ -309,7 +309,7 @@ public class RiddleRhymeRestService extends BaseRestService {
     @POST
     //@Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path(FuncNameRegistry.POST_QUAR_FOR_GRADING)
+    @Path(FuncNameReg.POST_QUAR_FOR_GRADING)
     public Response post_quar_for_grading(String jsonRequest){
         
         //Convert the request to JSON:
@@ -328,7 +328,7 @@ public class RiddleRhymeRestService extends BaseRestService {
      * @return 
      */
     @GET
-    @Path(FuncNameRegistry.GET_LAST_POSTED_QUAR)
+    @Path(FuncNameReg.GET_LAST_POSTED_QUAR)
     public Response get_last_posted_quar(){
         Quar theQuar = TempServiceDataUtil.theQuar;
         return JSONUtil.compositeEntityToJSONResponse(theQuar);

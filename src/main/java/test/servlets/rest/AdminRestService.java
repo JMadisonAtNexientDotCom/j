@@ -7,7 +7,7 @@ import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import primitives.StringWithComment;
 import test.config.constants.ServletClassNames;
-import test.config.constants.identifiers.FuncNameRegistry;
+import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.servlets.rest.BaseRestService;
 
@@ -42,7 +42,7 @@ public class AdminRestService extends BaseRestService{
      * @return :Returns TRUE if accepted credentials.
      ------------------------------------------------------------------------**/
     @GET
-    @Path(FuncNameRegistry.LOGIN_VALIDATE)
+    @Path(FuncNameReg.LOGIN_VALIDATE)
     public Response login_validate(
             @QueryParam(VarNameReg.USER_NAME) String userName, 
             @QueryParam(VarNameReg.PASS_WORD) String passWord){
@@ -73,7 +73,7 @@ public class AdminRestService extends BaseRestService{
      *          because the token is also registered in the session_table.
      ------------------------------------------------------------------------**/
     @GET
-    @Path(FuncNameRegistry.LOGIN_AND_GET_TOKEN_FOR_SELF)
+    @Path(FuncNameReg.LOGIN_AND_GET_TOKEN_FOR_SELF)
     public Response login_and_get_token_for_self(
                        @QueryParam(VarNameReg.USER_NAME) String userName, 
                        @QueryParam(VarNameReg.PASS_WORD) String passWord){

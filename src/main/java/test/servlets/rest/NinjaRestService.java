@@ -26,7 +26,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import test.MyError;
 import test.config.constants.ServletClassNames;
-import test.config.constants.identifiers.FuncNameRegistry;
+import test.config.constants.identifiers.FuncNameReg;
+import test.config.constants.identifiers.VarNameReg;
 import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
 import utils.JSONUtil;
@@ -38,19 +39,19 @@ import utils.JSONUtil;
 public class NinjaRestService extends BaseRestService {
  
     @GET
-    @Path(FuncNameRegistry.MAKE_NINJA_RECORD)
+    @Path(FuncNameReg.MAKE_NINJA_RECORD)
     public Response make_ninja_record(
-            @QueryParam("name")         String name ,
-            @QueryParam("phone")        long   phone,
-            @QueryParam("email")        String email,
-            @QueryParam("portfolioURL") String portfolioURL){
+            @QueryParam(VarNameReg.NAME)         String name ,
+            @QueryParam(VarNameReg.PHONE)        long   phone,
+            @QueryParam(VarNameReg.EMAIL)        String email,
+            @QueryParam(VarNameReg.PORTFOLIO_URL)String portfolio_url){
         
         //ENTER transaction:
         Session ses = TransUtil.enterTransaction();
         
         //Transaction logic:
         NinjaTable nt = NinjaTransUtil.
-                                makeNinjaRecord(name,phone,email,portfolioURL);
+                                makeNinjaRecord(name,phone,email,portfolio_url);
         
         //Mark entity for save:
         TransUtil.markEntityForSaveOnExit(nt);
@@ -64,13 +65,13 @@ public class NinjaRestService extends BaseRestService {
     }//FUNC::END
         
     @GET
-    @Path(FuncNameRegistry.GET_NINJA_BY_ID)
-    public Response get_ninja_by_id(@QueryParam("id") long nid){
+    @Path(FuncNameReg.GET_NINJA_BY_ID)
+    public Response get_ninja_by_id(@QueryParam(VarNameReg.ID) long id){
         //ENTER transaction:
         Session ses = TransUtil.enterTransaction();
         
         //Transaction logic:
-        NinjaTable nt = NinjaTransUtil.getNinjaByID( nid );
+        NinjaTable nt = NinjaTransUtil.getNinjaByID(id);
         
         //DO NOT MARK ENTITY FOR SAVE! 
         //Getting method is not meant to mutate.
@@ -84,7 +85,7 @@ public class NinjaRestService extends BaseRestService {
     }//FUNC::END
         
     @GET
-    @Path(FuncNameRegistry.GET_NEXT_NINJA) //removed slash at end. Lets try again.
+    @Path(FuncNameReg.GET_NEXT_NINJA) //removed slash at end. Lets try again.
     public Response get_next_ninja(){
 
         //message msg is discarded and not used for now.

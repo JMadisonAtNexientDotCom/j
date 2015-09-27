@@ -8,7 +8,7 @@ import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import primitives.BooleanWithComment;
 import test.config.constants.ServletClassNames;
-import test.config.constants.identifiers.FuncNameRegistry;
+import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
@@ -52,7 +52,7 @@ import utils.JSONUtil;
 public class OwnerRestService extends BaseRestService{
     
     @GET
-    @Path(FuncNameRegistry.MAKE_ENTRY_USING_NINJA)
+    @Path(FuncNameReg.MAKE_ENTRY_USING_NINJA)
     public Response make_entry_using_ninja (
             @DefaultValue("-1") @QueryParam(VarNameReg.TOKEN_ID) long token_id, 
             @DefaultValue("-1") @QueryParam(VarNameReg.NINJA_ID) long ninja_id){
@@ -109,7 +109,7 @@ public class OwnerRestService extends BaseRestService{
     }//FUNC::END
     
     @GET
-    @Path(FuncNameRegistry.MAKE_ENTRY_USING_ADMIN)
+    @Path(FuncNameReg.MAKE_ENTRY_USING_ADMIN)
     public Response make_entry_using_admin (
             @DefaultValue("-1") @QueryParam(VarNameReg.TOKEN_ID) long token_id, 
             @DefaultValue("-1") @QueryParam(VarNameReg.ADMIN_ID) long admin_id){
@@ -168,7 +168,7 @@ public class OwnerRestService extends BaseRestService{
     }//FUNC::END
     
     @GET
-    @Path(FuncNameRegistry.MAKE_ENTRY_USING_RANDOM)
+    @Path(FuncNameReg.MAKE_ENTRY_USING_RANDOM)
     public Response make_entry_using_random
            (@DefaultValue("-1") @QueryParam(VarNameReg.TOKEN_ID) long token_id){
                         
@@ -213,7 +213,7 @@ public class OwnerRestService extends BaseRestService{
     }//FUNC::END
                     
     @GET
-    @Path(FuncNameRegistry.DOES_TOKEN_HAVE_OWNER)
+    @Path(FuncNameReg.DOES_TOKEN_HAVE_OWNER)
     public Response does_token_have_owner
            (@DefaultValue("-1") @QueryParam(VarNameReg.TOKEN_ID) long token_id){
         
@@ -233,7 +233,7 @@ public class OwnerRestService extends BaseRestService{
     }//FUNC::END
     
     @GET
-    @Path(FuncNameRegistry.GET_TOKEN_OWNER)
+    @Path(FuncNameReg.GET_TOKEN_OWNER)
     public Response get_token_owner
                     (@DefaultValue("-1") @QueryParam(VarNameReg.TOKEN_ID) long token_id){
         

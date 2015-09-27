@@ -67,13 +67,13 @@ public class ServiceURLRegistry {
     
     //----SERVICE VARIABLE----------|--Path inited to "NOT_INITIALIZED" to ----|
     //----For HTTP REST CALLS-------|--Help hunt down mapping errors       ----|
-    public RestDocument OWNER       = new RestDocument("OWNER");  
-    public RestDocument ADMIN       = new RestDocument("ADMIN");  
-    public RestDocument TOKEN       = new RestDocument("TOKEN"); 
-    public RestDocument FILE        = new RestDocument("FILE"); 
-    public RestDocument NINJA       = new RestDocument("NINJA"); 
-    public RestDocument RIDDLERHYME = new RestDocument("RIDDLERHYME"); 
-    public RestDocument TRANSDEBUG  = new RestDocument("TRANSDEBUG"); 
+    public String OWNER       = "OWNER:ServiceUrl_NOT_INITIALIZED";
+    public String ADMIN       = "ADMIN:ServiceUrl_NOT_INITIALIZED"; 
+    public String TOKEN       = "TOKEN:ServiceUrl_NOT_INITIALIZED"; 
+    public String FILE        = "FILE:ServiceUrl_NOT_INITIALIZED";
+    public String NINJA       = "NINJA:ServiceUrl_NOT_INITIALIZED";
+    public String RIDDLERHYME = "RIDDLERHYME:ServiceUrl_NOT_INITIALIZED";
+    public String TRANSDEBUG  = "TRANSDEBUG:ServiceUrl_NOT_INITIALIZED";
    
     /**-------------------------------------------------------------------------
     * Wrapper function to throw errors from this class.

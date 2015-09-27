@@ -6,7 +6,6 @@ import primitives.EndPoint;
  * CAN WE AUTO-GENERATE THESE CLASSES SOMEHOW???
  * @author jmadison
  */
-public class UserName_PassWord_EndPoint extends EndPoint {
-    public final UserName_PassWord ARG = 
-             new UserName_PassWord();
+public class RiddleId_RhymeId_EndPoint extends EndPoint {
+    public final RiddleId_RhymeId ARG = new RiddleId_RhymeId();
 }
