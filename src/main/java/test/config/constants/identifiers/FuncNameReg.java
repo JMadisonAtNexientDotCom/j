@@ -48,7 +48,7 @@ public class FuncNameReg {
     public static final String MAKE_FILLED_OUT_CUE_CARD = "make_filled_out_cue_card";
     public static final String GET_RANDOM_TRIVIA_BUNDLE = "get_random_trivia_bundle";
     public static final String POST_QUAR_FOR_GRADING    = "post_quar_for_grading";
-    public static final String GET_LAST_POSTED_QUAR     = "get_last_posted_quar";
+    public static final String GET_LAST_POSTED_QUAR     = "get_last_posted_quar88";
     
     /** Validates itself. Will this work? **/
     private static void validate(){//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
