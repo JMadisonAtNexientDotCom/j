@@ -8,6 +8,7 @@ import javax.servlet.ServletException; //-------------tomcat/lib/servlet-api.jar
 
 import test.config.constants.ResourceRelativeFolderPaths;
 import test.config.debug.ProjectConstValidator;
+import test.debug.GlobalErrorState;
 import utils.files.FileToTextUtil;
 
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -54,7 +55,14 @@ public class ConfigServlet extends HttpServlet{
         //validate constants in the project:
         boolean valid = ProjectConstValidator.validate();
         if(false==valid){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            throw new MyError("ProjectConstValidator.validate failed!");
+            //Do not throw error right away. This is an error that effects
+            //the entire program, so register it with the global error state.
+            //Whenever a servlet request is made, it will be re-thrown.
+            String msg = "[ProjectConstValidator.validate failed.]";
+            msg +="[This message has been registred by the config servlet]";
+            msg +="ConfigServlet's class:";
+            msg += "[" + ConfigServlet.class.getCanonicalName() + "]";   
+            GlobalErrorState.addError(ProjectConstValidator.class, msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //The vital piece that gives us access to WEB-INF:
