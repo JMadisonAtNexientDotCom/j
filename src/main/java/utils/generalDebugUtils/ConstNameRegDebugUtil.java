@@ -30,10 +30,15 @@ import test.MyError;
 public class ConstNameRegDebugUtil {
     
     /** Validates only the static variables of class passed. **/
-    public static void validateStaticVars(Class clazz){
+    public static boolean validateStaticVars
+                                             (Class clazz, Boolean throwErrors){
         
         if(null == clazz){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            doError("clazz==null. Maybe can't check yourself?");
+            if(throwErrors){
+                doError("clazz==null. Maybe can't check yourself?");
+            }else{
+                return false;
+            }/////////////////
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //count how many times loop executes:
@@ -59,8 +64,14 @@ public class ConstNameRegDebugUtil {
         }//Next variable in class.
         
         if(debugCounter_inst <= 0){/////////
-            doError("No static vars found.");
+            if(throwErrors){
+                doError("No static vars found.");
+            }else{
+                return false;
+            }///////////////
         }///////////////////////////////////
+        
+        return true;
         
     }//FUNC::END
     
@@ -70,10 +81,15 @@ public class ConstNameRegDebugUtil {
      * Validates only the static variables of class passed.
      * @param inst :The INSTANCE we want to look at.
      */
-    public static void validateInstanceVars(Object inst){
+    public static boolean validateInstanceVars
+                                             (Object inst, boolean throwErrors){
         
         if(null == inst){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            doError("inst==null. While attempt to check inst vars");
+            if(throwErrors){
+                doError("inst==null. While attempt to check inst vars");
+            }else{
+                return false;
+            }////
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //count how many times loop executes:
@@ -100,8 +116,14 @@ public class ConstNameRegDebugUtil {
         }//Next variable in class.
         
         if(debugCounter_inst <= 0){/////////
-            doError("No inst vars found.");
+            if(throwErrors){
+                doError("No inst vars found.");
+            }else{
+                return false;
+            }/////////////////////////////////
         }///////////////////////////////////
+        
+        return true;
         
     }//FUNC::END
     

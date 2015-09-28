@@ -52,7 +52,10 @@ public class ConfigServlet extends HttpServlet{
         TestConfig.testVar01 = "ConfigServlet.init() was here!";
         
         //validate constants in the project:
-        ProjectConstValidator.validate();
+        boolean valid = ProjectConstValidator.validate();
+        if(false==valid){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            throw new MyError("ProjectConstValidator.validate failed!");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //The vital piece that gives us access to WEB-INF:
         ServletContext ctx = this.getServletContext();

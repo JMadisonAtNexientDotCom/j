@@ -51,10 +51,35 @@ public class FuncNameReg {
     public static final String POST_QUAR_FOR_GRADING    = "post_quar_for_grading";
     public static final String GET_LAST_POSTED_QUAR     = "get_last_posted_quar";
     
-    // /** Validates itself. Will this work? NO. **/
-   // private static void validate(){//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-    //    ConstNameRegDebugUtil.validateStaticVars(FuncNameReg.class);
-    //    throw new MyError("will it throw444?");
-    //}//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+    /* cannot do to final vars.
+    XX populate all consts will error message to help find error. XXX
+    public static void wreckIt(String msg){
+        LOGIN_VALIDATE                  = msg;
+        LOGIN_AND_GET_TOKEN_FOR_SELF    = msg;
+
+        GET_NINJA_BY_ID                 = msg;
+        GET_NEXT_NINJA                  = msg;
+        MAKE_NINJA_RECORD               = msg;
+
+        MAKE_ENTRY_USING_NINJA          = msg;
+        MAKE_ENTRY_USING_ADMIN          = msg;
+        MAKE_ENTRY_USING_RANDOM         = msg;
+        DOES_TOKEN_HAVE_OWNER           = msg;
+        GET_TOKEN_OWNER                 = msg;
+
+        GET_NEXT_TOKEN                  = msg;
+
+        GET_IS_CORRECT                  = msg;
+        GRADE_ONE_BLANK_SLATE           = msg;
+        GET_FILLED_OUT_TEST_SLATE_TRUTH = msg;
+        GET_FILLED_OUT_TEST_SLATE_WRONG = msg;
+        GET_ONE_BLANK_SLATE             = msg;
+        GET_ONE_RANDOM_RIDDLE           = msg;
+        MAKE_FILLED_OUT_CUE_CARD        = msg;
+        GET_RANDOM_TRIVIA_BUNDLE        = msg;
+        POST_QUAR_FOR_GRADING           = msg;
+        GET_LAST_POSTED_QUAR            = msg;
+    }//FUNC::END
+    */
     
-}//FUNC::END
+}//CLASS::END

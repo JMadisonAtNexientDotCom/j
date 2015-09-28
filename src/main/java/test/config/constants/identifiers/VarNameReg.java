@@ -53,11 +53,32 @@ public class VarNameReg {
     //For HTTP POST:
     public static final String JSON_OBJ          = "json_obj";
     
-    ///** Validates itself. Will this work? **/
-    //private static void validate(){//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-    //    
-    //    ConstNameRegDebugUtil.validateStaticVars(VarNameReg.class);
-    //    throw new MyError("will it throw?");
-    //}//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+    /*
+    xx Replaces all variable names with error message to help bring attention
+     *  to the problem. xx
+    public static void wreckIt(String msg){
+        ID                = msg;
+        TOKEN_ID          = msg;
+        ADMIN_ID          = msg;
+        NINJA_ID          = msg;
+        RIDDLE_ID         = msg;
+        RHYME_ID          = msg;
+        NAME              = msg;
+        PHONE             = msg;
+        EMAIL             = msg;
+        PORTFOLIO_URL     = msg;
+
+        USER_NAME         = msg;
+        PASS_WORD         = msg;
+        NUMBER_OF_CHOICES = msg;
+        NUMBER_OF_TRUTHS  = msg;
+        CARD_COUNT        = msg;
+        NUM_QUIPS         = msg;
+        TRU_MIN           = msg;
+        TRU_MAX           = msg;
+
+        JSON_OBJ          = msg;
+    }//FUNC::END
+    */
     
 }//CLASS::END
