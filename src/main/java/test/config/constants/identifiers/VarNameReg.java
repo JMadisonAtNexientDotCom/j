@@ -1,5 +1,7 @@
 package test.config.constants.identifiers;
 
+import utils.generalDebugUtils.ConstNameRegDebugUtil;
+
 
 /**
  * Registry class used to store variable names that are used in:
@@ -20,6 +22,10 @@ package test.config.constants.identifiers;
  * @author jmadison
  */
 public class VarNameReg {
+    
+    static{//////////
+        validate();
+    }////////////////
     
     //Names used as table columns or parameters:
     public static final String ID        = "id";
@@ -46,5 +52,9 @@ public class VarNameReg {
     //For HTTP POST:
     public static final String JSON_OBJ          = "json_obj";
     
+    /** Validates itself. Will this work? **/
+    private static void validate(){//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+        ConstNameRegDebugUtil.validateStaticVars(VarNameReg.class);
+    }//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     
 }//CLASS::END
