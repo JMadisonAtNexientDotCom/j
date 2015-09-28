@@ -25,7 +25,7 @@ public class FuncNameReg {
     public static final String LOGIN_AND_GET_TOKEN_FOR_SELF = "login_and_get_token_for_self";
     
     //NINJA SERVICE:
-    public static final String GET_NINJA_BY_ID   = "get_ninja_by_id";
+    public static final String GET_NINJA_BY_ID   = "get_ninja_by_id777777777777777777777777777777777777777777777777";
     public static final String GET_NEXT_NINJA    = "get_next_ninja";
     public static final String MAKE_NINJA_RECORD = "make_ninja_record";
     
