@@ -45,6 +45,10 @@ public class GlobalErrorState {
         
     }//FUNC::END
     
+    public static boolean doErrorsExist(){
+        return (_errors.size() > 0);
+    }//FUNC::END
+    
     /** If any errors are stored in the global error state, it will
      *  throw errors.
      */
@@ -55,11 +59,11 @@ public class GlobalErrorState {
     }//FUNC::END
     
     private static void generateErrorMessageAndThrow(){
-        String errorMsg = buildErrorMessage();
+        String errorMsg = getLog();
         throw new MyError(errorMsg);
     }//FUNC::END
     
-    private static String buildErrorMessage(){
+    public static String getLog(){
         
         //Make error message header:
         String msg = "";

@@ -9,6 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import test.MyError;
 import test.debug.GlobalErrorState;
 
 /**
@@ -57,7 +58,14 @@ public class ServletContainerWithDebug extends ServletContainer {
      * Done to make absolutely sure program will not run with errors.
      */
     private void beforeAdvice(){////////////
-        GlobalErrorState.throwIfHasErrors();
+        if( GlobalErrorState.doErrorsExist() )
+        {
+            //Try to throw errors outside of GlobalErrorState class
+            //So error message is displayed??
+            String msg;
+            msg = GlobalErrorState.getLog();
+            throw new MyError(msg);
+        }
     }///////////////////////////////////////
     
 }//FUNC::END
