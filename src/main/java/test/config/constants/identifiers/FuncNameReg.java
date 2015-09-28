@@ -1,5 +1,7 @@
 package test.config.constants.identifiers;
 
+import utils.generalDebugUtils.ConstNameRegDebugUtil;
+
 /** 
  *  TODO: Validate that all constants are upper-case 
  *        versions of the lower-case values.
@@ -12,6 +14,10 @@ package test.config.constants.identifiers;
  * @author jmadison
  */
 public class FuncNameReg {
+    
+    static{//////////
+        validate();
+    }////////////////
     
     //ADMIN SERVICE:
     public static final String LOGIN_VALIDATE = "login_validate";
@@ -43,5 +49,10 @@ public class FuncNameReg {
     public static final String GET_RANDOM_TRIVIA_BUNDLE = "get_random_trivia_bundle";
     public static final String POST_QUAR_FOR_GRADING    = "post_quar_for_grading";
     public static final String GET_LAST_POSTED_QUAR     = "get_last_posted_quar";
+    
+    /** Validates itself. Will this work? **/
+    private static void validate(){//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+        ConstNameRegDebugUtil.validateStaticVars(FuncNameReg.class);
+    }//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     
 }//FUNC::END

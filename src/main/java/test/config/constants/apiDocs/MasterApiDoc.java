@@ -6,8 +6,6 @@ import test.MyError;
 import test.config.constants.ServiceUrlsInitializer;
 import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
-import test.config.constants.identifiers.VarNameReg;
-import test.config.constants.signatures.SigReg;
 import test.config.constants.signatures.sig.CardCount_NumQuips_TruMin_TruMax_EndPoint;
 import test.config.constants.signatures.sig.HttpPost_EndPoint;
 import test.config.constants.signatures.sig.Id_EndPoint;
