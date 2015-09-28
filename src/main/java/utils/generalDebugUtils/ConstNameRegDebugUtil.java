@@ -36,12 +36,17 @@ public class ConstNameRegDebugUtil {
             doError("clazz==null. Maybe can't check yourself?");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
+        //count how many times loop executes:
+        int debugCounter_field = 0;
+        int debugCounter_inst  = 0;
+        
         Field[] farr = clazz.getDeclaredFields();
         String var_name;
         String var_value;
         for(Field f : farr){
+            debugCounter_field++;
             if( Modifier.isStatic( f.getModifiers() ) ){
-                
+                debugCounter_inst++;
                 var_name = f.getName();
                 var_value= getStringValueFromField_STATIC(f);
                 if(notEQ_CaseInsensitive(var_name,var_value)){//EEEEEEEEEEEEEEEE
@@ -52,6 +57,11 @@ public class ConstNameRegDebugUtil {
                 }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             }//Is it static?
         }//Next variable in class.
+        
+        if(debugCounter_inst <= 0){/////////
+            doError("No static vars found.");
+        }///////////////////////////////////
+        
     }//FUNC::END
     
   
@@ -66,12 +76,18 @@ public class ConstNameRegDebugUtil {
             doError("inst==null. While attempt to check inst vars");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
+        //count how many times loop executes:
+        int debugCounter_field = 0;
+        int debugCounter_inst = 0;
+        
         Class clazz = inst.getClass();
         Field[] farr = clazz.getDeclaredFields();
         String var_name;
         String var_value;
         for(Field f : farr){
+            debugCounter_field++;
             if( false == Modifier.isStatic(f.getModifiers() ) ){ //<---DIF#1
+                debugCounter_inst++;
                 var_name = f.getName();
                 var_value= getStringValueFromField_INSTANCE(inst, f);
                 if(notEQ_CaseInsensitive(var_name,var_value)){//EEEEEEEEEEEEEEEE
@@ -82,6 +98,11 @@ public class ConstNameRegDebugUtil {
                 }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             }//Is it static?
         }//Next variable in class.
+        
+        if(debugCounter_inst <= 0){/////////
+            doError("No inst vars found.");
+        }///////////////////////////////////
+        
     }//FUNC::END
     
     /**
