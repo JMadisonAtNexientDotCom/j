@@ -1,5 +1,6 @@
 package test.config.constants.identifiers;
 
+import test.MyError;
 import utils.generalDebugUtils.ConstNameRegDebugUtil;
 
 
@@ -54,7 +55,9 @@ public class VarNameReg {
     
     /** Validates itself. Will this work? **/
     private static void validate(){//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+        
         ConstNameRegDebugUtil.validateStaticVars(VarNameReg.class);
+        throw new MyError("will it throw?");
     }//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     
 }//CLASS::END
