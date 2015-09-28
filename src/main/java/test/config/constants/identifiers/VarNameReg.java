@@ -24,9 +24,9 @@ import utils.generalDebugUtils.ConstNameRegDebugUtil;
  */
 public class VarNameReg {
     
-    static{//////////
-        validate();
-    }////////////////
+   // static{//////////
+   //     validate();
+   // }////////////////
     
     //Names used as table columns or parameters:
     public static final String ID        = "id";
@@ -53,11 +53,11 @@ public class VarNameReg {
     //For HTTP POST:
     public static final String JSON_OBJ          = "json_obj";
     
-    /** Validates itself. Will this work? **/
-    private static void validate(){//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-        
-        ConstNameRegDebugUtil.validateStaticVars(VarNameReg.class);
-        throw new MyError("will it throw?");
-    }//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+    ///** Validates itself. Will this work? **/
+    //private static void validate(){//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+    //    
+    //    ConstNameRegDebugUtil.validateStaticVars(VarNameReg.class);
+    //    throw new MyError("will it throw?");
+    //}//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     
 }//CLASS::END

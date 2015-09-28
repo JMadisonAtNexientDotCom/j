@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletException; //-------------tomcat/lib/servlet-api.jar
 
 import test.config.constants.ResourceRelativeFolderPaths;
+import test.config.debug.ProjectConstValidator;
 import utils.files.FileToTextUtil;
 
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -49,6 +50,9 @@ public class ConfigServlet extends HttpServlet{
     public void init()throws ServletException{
         super.init();
         TestConfig.testVar01 = "ConfigServlet.init() was here!";
+        
+        //validate constants in the project:
+        ProjectConstValidator.validate();
         
         //The vital piece that gives us access to WEB-INF:
         ServletContext ctx = this.getServletContext();

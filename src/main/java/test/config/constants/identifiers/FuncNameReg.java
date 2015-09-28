@@ -16,9 +16,9 @@ import utils.generalDebugUtils.ConstNameRegDebugUtil;
  */
 public class FuncNameReg {
     
-    static{//////////
-        validate();
-    }////////////////
+   // static{//////////
+    //    validate();
+   // }////////////////
     
     //ADMIN SERVICE:
     public static final String LOGIN_VALIDATE = "login_validate";
@@ -51,10 +51,10 @@ public class FuncNameReg {
     public static final String POST_QUAR_FOR_GRADING    = "post_quar_for_grading";
     public static final String GET_LAST_POSTED_QUAR     = "get_last_posted_quar";
     
-    /** Validates itself. Will this work? **/
-    private static void validate(){//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-        ConstNameRegDebugUtil.validateStaticVars(FuncNameReg.class);
-        throw new MyError("will it throw444?");
-    }//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+    // /** Validates itself. Will this work? NO. **/
+   // private static void validate(){//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+    //    ConstNameRegDebugUtil.validateStaticVars(FuncNameReg.class);
+    //    throw new MyError("will it throw444?");
+    //}//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     
 }//FUNC::END
