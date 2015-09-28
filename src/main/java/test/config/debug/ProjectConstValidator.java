@@ -5,6 +5,12 @@ import test.config.constants.identifiers.VarNameReg;
 import utils.generalDebugUtils.ConstNameRegDebugUtil;
 
 /**
+ * NOTE: Even though checking in CONFIG servlet... Errors are very hard to
+ *       notice when they happen. Even though I am throwing them without
+ *       handling them... Maybe have a GLOBAL ERROR STATE that will check
+ *       flag and if that flag is TRUE the program will crash?
+ *       So there are multiple chances to notice problem.
+ * 
  * From experimentation, does not look like static registry classes are
  * able to validate themselves during initialization. So this class will
  * do it!
