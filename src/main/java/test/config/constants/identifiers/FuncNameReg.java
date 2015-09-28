@@ -26,7 +26,7 @@ public class FuncNameReg {
     //NINJA SERVICE:
     public static final String GET_NINJA_BY_ID   = "get_ninja_by_id";
     public static final String GET_NEXT_NINJA    = "get_next_ninja";
-    public static final String MAKE_NINJA_RECORD = "make_ninja_record";
+    public static final String MAKE_NINJA_RECORD = "make_ninja_record88";
     
     //OWNER SERVICE:
     public static final String MAKE_ENTRY_USING_NINJA   = "make_entry_using_ninja";
@@ -48,7 +48,7 @@ public class FuncNameReg {
     public static final String MAKE_FILLED_OUT_CUE_CARD = "make_filled_out_cue_card";
     public static final String GET_RANDOM_TRIVIA_BUNDLE = "get_random_trivia_bundle";
     public static final String POST_QUAR_FOR_GRADING    = "post_quar_for_grading";
-    public static final String GET_LAST_POSTED_QUAR     = "get_last_posted_quar88";
+    public static final String GET_LAST_POSTED_QUAR     = "get_last_posted_quar";
     
     /** Validates itself. Will this work? **/
     private static void validate(){//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
