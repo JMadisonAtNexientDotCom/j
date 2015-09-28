@@ -31,6 +31,11 @@ public class ConstNameRegDebugUtil {
     
     /** Validates only the static variables of class passed. **/
     public static void validateStaticVars(Class clazz){
+        
+        if(null == clazz){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            doError("clazz==null. Maybe can't check yourself?");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
         Field[] farr = clazz.getDeclaredFields();
         String var_name;
         String var_value;
@@ -56,6 +61,10 @@ public class ConstNameRegDebugUtil {
      * @param inst :The INSTANCE we want to look at.
      */
     public static void validateInstanceVars(Object inst){
+        
+        if(null == inst){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            doError("inst==null. While attempt to check inst vars");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         Class clazz = inst.getClass();
         Field[] farr = clazz.getDeclaredFields();
