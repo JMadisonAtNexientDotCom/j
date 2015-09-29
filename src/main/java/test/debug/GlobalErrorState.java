@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import primitives.ClassWithComment;
 import test.MyError;
+import frontEndBackEndIntegration.I;
 
 /**
  * A global error state for when something goes wrong.
@@ -42,6 +43,9 @@ public class GlobalErrorState {
         
         //add to our list:
         _errors.add(er);
+        
+        //KILL I: De-reference I.API so that .JSP pages crash.
+        I.API = null;
         
     }//FUNC::END
     

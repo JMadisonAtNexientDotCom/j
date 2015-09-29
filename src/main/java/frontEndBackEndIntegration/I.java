@@ -66,8 +66,11 @@ public class I {
         return TextFileCacheRegistry.INCLUDE_JS;
     }//FUNC::END
 
-    /** Gives us auto-complete access for writing services in JSP files. **/
-    public static final MasterApiDoc API = new MasterApiDoc();
+    /** Gives us auto-complete access for writing services in JSP files.
+     *  I would like this to be FINAL. But I also want to set this object
+     *  to null in order to enduce crashes in .JSP files when serious problems
+     *  occur and are logged in the global error state. **/
+    public static MasterApiDoc API = new MasterApiDoc();
     
     
    
