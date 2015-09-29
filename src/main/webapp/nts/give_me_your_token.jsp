@@ -23,7 +23,7 @@
 
         <div id="roundeddivs_headertab" align="center">
 
-          <h2 style="color:#fff">Welcome!</h2>
+          <h2 style="color:#fff">Token?</h2>
 
         </div>
           <p></p>
@@ -52,7 +52,7 @@
         callService();
     };
 
-    $scope.callService = function()
+    function callService()
     {
         serviceURL ="<%= I.API().DOES_TOKEN_HAVE_OWNER.URL %>";
         
@@ -76,7 +76,7 @@
         }
             
         
-    }//FUNC::END
+    };//FUNC::END
       
   });
   </script>
