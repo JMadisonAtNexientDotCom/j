@@ -1,17 +1,89 @@
-<%-- 
-    Document   : NinjaTokenSubmit
-    Created on : Sep 29, 2015, 12:48:40 PM
-    Author     : jmadison
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>JSP Page</title>
+    <meta charset="utf-8">
+    <title>Token Submit</title>
+    <link rel="stylesheet" href="YOUR_STYLE_SHEET_URL_OR_URI.css">
+    <script src="YOUR_JAVA_SCRIPT_URL_OR_URI.js"></script>
   </head>
-  <body>
-    <h1>Hello World!</h1>
-  </body>
+<!-- AUTHOR: JMadison.  ON:20##.##.##_####AMPM                               -->
+<!-- TABSIZE: 2 Spaces.                                                      -->
+<!-- This header belongs BELOW the <head></head> declaration.                -->
+<!--   10|       20|       30|       40|       50|       60|       70|       -->
+<!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
+
+<body>
+  <div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="VI();" >
+    <!-- Vertically + horizontally centered dialog -->
+    <div class="horcen_parent" > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+    <div class="horcen_child"  > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+    <div class="vertcen_parent"> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+    <div class="vertcen_child" > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+      <div id="roundeddivs_wireframe" style="width:200px;">
+
+        <div id="roundeddivs_headertab" align="center">
+
+          <h2 style="color:#fff">Welcome!</h2>
+
+        </div>
+          <p></p>
+          <p> {{msg_for_user}} </p>
+          <input type="text" data-ng-model="token_input"><br>
+          <button data-ng-click="submitToken();">SUBMIT</button>
+      </div>
+    </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+    </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+    </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+    </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+  </div>
+  
+  <script>
+  var app = angular.module('myApp', []);
+  app.controller('myCtrl', function($scope) {
+  
+    //variable initialization:
+    $scope.VI = function(){
+        $scope.token_input = "PUT_TOKEN_HERE";
+    };
+
+    $scope.submitToken = function(){
+        msg_for_user = "Please Wait...";
+        callService();
+    };
+
+    $scope.callService = function()
+    {
+        serviceURL = <%= I.API().DOES_TOKEN_HAVE_OWNER.URL %>
+        
+        qs = ""; //query string.
+        qs = $.param({ 
+        <%=I.API().DOES_TOKEN_HAVE_OWNER.ARG.TOKEN_ID %>:$scope.token_input
+        });//QUERYSTRING::END
+        
+        spinnerService.show('html5spinner'); //<--where is ref to spinnerService?
+        $http.get(serviceURL).success( onResponded );
+    };//FUNC::END
+    
+    function onResponded(response){
+	$scope.instancedJSON_RESPONSE = response;
+	spinnerService.hide('html5spinner');
+        
+        if(response.value === true){
+            $scope.msg_for_user = "VALID!";
+        }else{
+            $scope.msg_for_user = "BAD TOKEN!";
+        }
+            
+        
+    }//FUNC::END
+      
+  });
+  </script>
+</body>
 </html>
+<!--   10|       20|       30|       40|       50|       60|       70|       -->
+<!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
+        
+<%-- This .JSP page should basically be a normal .JSP page except for this  --%>
+<%-- ONE AND ONLY IMPORT and the references to it.                          --%>
+<%@ page import="frontEndBackEndIntegration.I" %>
