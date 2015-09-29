@@ -22,7 +22,7 @@ public class AdminTokenTransUtil {
      *                   only admin_table and token_table transactions.
      ------------------------------------------------------------------------**/
     public static void linkAdminToToken(AdminTable theAdmin){
-        throw new MyError("finish this 3456745642322");
+        doError("finish this 3456745642322");
     }//FUNC::END
     
     /**------------------------------------------------------------------------*
@@ -32,12 +32,19 @@ public class AdminTokenTransUtil {
      -------------------------------------------------------------------------*/
     public static void explicitLinkAdminToToken
                                      (AdminTable theAdmin, TokenTable theToken){
-        throw new MyError("Finish this. 3453453");
+        doError("Finish this. 3453453");
     }//FUNC::END
              
-    //Function always throws and 
-    //public static void errorStubThatEvadesCompilerError(){
-    //    
-    //}
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = AdminTokenTransUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
+    }//FUNC::END
     
 }//CLASS::END

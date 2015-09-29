@@ -87,8 +87,7 @@ public class HibernateUtil {
             msg += ":_debug_class_state_msg==" + _debug_class_state_msg;
             msg += "log:::::";
             msg += _debug_log;
-            me = new MyError(msg);
-            throw me;
+            doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //Variable integrity check:
@@ -137,7 +136,7 @@ public class HibernateUtil {
         if(false == f.exists())
         { 
             log("file reference is INVALID PATH");
-            throw new MyError("Path is invalid!:" +
+            doError("Path is invalid!:" +
                     "absolutePathAsString==[" + absolutePathAsString + "]");
         }
         log("file reference for hbm.cfg.xml was valid!");
@@ -145,7 +144,7 @@ public class HibernateUtil {
         //HACK: Throw error no matter what to see what that absolute path is!!
         if(false)
         {
-            throw new MyError("Path is VALID!:" +
+            doError("Path is VALID!:" +
                     "absolutePathAsString==[" + absolutePathAsString + "]");
         }
         
@@ -227,17 +226,29 @@ public class HibernateUtil {
         {
             String e1;
             e1 = "_sessionFactory==null, yet _hasSessionFactory==true";
-            throw new MyError(e1);
+            doError(e1);
         }else
         if( (false==_hasSessionFactory) && (null != _sessionFactory))
         {
             String e2;
             e2 = "_sessionFactory!=null, but _hasSessionFactory==false";
-            throw new MyError(e2);
+            doError(e2);
         }//---------------------------------------------------------------------
     }//FUNC::END
     
     private static void log(String inMSG){
         _debug_log += inMSG + "\n";
     }
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = HibernateUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
+    }//FUNC::END
 }//CLASS::END

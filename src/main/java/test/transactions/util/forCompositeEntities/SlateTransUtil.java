@@ -44,7 +44,7 @@ public class SlateTransUtil {
             msg+="[1:slateDebugType is UNKNOWN/INVALID]";
             msg+="[2:logic of code block is making the WRONG COMPARISONS]";
             msg+="[3:forgot to support a new slateDebugType added to system.]";
-            throw new MyError(msg);
+            doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
            
         //return the results!
@@ -137,6 +137,18 @@ public class SlateTransUtil {
         //Return the output:
         return op;
     }//FUNC::END
-                                         
+          
+                                                      
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = SlateTransUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
+    }//FUNC::END
                                          
 }//FUNC::END

@@ -83,7 +83,7 @@ public class AdminTransUtil {
             String msg = "";
             msg+="[All usernames should be stored as]";
             msg+="[lowercase in database.]";
-            throw new MyError(msg);
+            doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //Error check: Make sure we are in transaction state:
@@ -109,7 +109,7 @@ public class AdminTransUtil {
             bec.entity = theAdmin;
             bec.exists = true;
         }else{
-            throw new MyError("this line should never execute.");
+            doError("this line should never execute.");
         }//RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
         
         //Return the container that
@@ -136,7 +136,7 @@ public class AdminTransUtil {
         //core logic:
         //Convert user name to lowercase.
         //Find the user in the table:
-        AdminTable theAdmin;
+        AdminTable theAdmin=null;
         String lower_cased_user = userName.toLowerCase();
         BaseEntityContainer bec = getAdminEntity(lower_cased_user);
         if(false == bec.exists){////////////////////////////////////////////////
@@ -145,8 +145,11 @@ public class AdminTransUtil {
         if(true == bec.exists){
             theAdmin = (AdminTable)bec.entity;
         }else{
-            throw new MyError("This line should never execute.");
+            doError("[This line should never execute.]");
         }///////////////////////////////////////////////////////////////////////
+        
+        //if we get to here, and admin is null, that is error.
+        if(null == theAdmin){doError("[theAdmin should not be null here]");}
         
         //If user exists, we want to get their stored password hash in
         //the database and compare it to the hash resulting from submission.
@@ -223,6 +226,18 @@ public class AdminTransUtil {
     private static boolean isAllLowercase(String s0){
         String lower = s0.toLowerCase();
         return lower.equals(s0);
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = AdminTransUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
     }//FUNC::END
     
 }//CLASS::END

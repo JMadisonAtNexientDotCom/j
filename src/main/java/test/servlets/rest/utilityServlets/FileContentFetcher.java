@@ -113,7 +113,7 @@ public class FileContentFetcher extends BaseRestService {
         //But without this wrapper the build fails because:
         //ERROR: variable reader may have not been initialized.
         if(null == reader){
-            throw new MyError("How on earth did our reader become null?");
+            doError("How on earth did our reader become null?");
         }
         else
         {
@@ -196,6 +196,18 @@ public class FileContentFetcher extends BaseRestService {
         //Return the text. 
         //In the same format as the original file we read from:
         return outputText;
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = FileContentFetcher.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
     }//FUNC::END
     
 }//CLASS::END

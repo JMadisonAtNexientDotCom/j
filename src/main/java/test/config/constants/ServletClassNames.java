@@ -3,6 +3,7 @@ package test.config.constants;
 import java.util.HashMap;
 import java.util.Map;
 import test.MyError;
+import test.debug.GlobalErrorState;
 import test.servlets.rest.AdminRestService;
 import test.servlets.rest.NinjaRestService;
 import test.servlets.rest.OwnerRestService;
@@ -169,7 +170,9 @@ public class ServletClassNames {
         int v0 = _times_called_CHECK_CLASSNAME;
         int v1 = _times_called_CHECK_MAPPING;
         if(v0 != v1){//////////////////////////////////////////////////////
-            throw new MyError("[mapping checks were not evenly paired.]");
+            Class clazz = ServletClassNames.class;
+            String eMsg = "[mapping checks were not evenly paired.]";
+            throw new MyError(clazz, eMsg);
         }//////////////////////////////////////////////////////////////////
     }//FUNC::END
     
@@ -313,7 +316,8 @@ public class ServletClassNames {
     private static void doMappingError(String className){
         String msg = "";
         msg += "Mapping is incorrect for className:[" + className + "]";
-        throw new MyError(msg);
+        //GlobalErrorState.addError(ServletClassNames.class, msg);
+        throw new MyError(ServletClassNames.class, msg);
     }//FUNC::END
     
     private static void doTooManyChecksError_CLASSNAME_fromVar
@@ -325,7 +329,7 @@ public class ServletClassNames {
         msg += "[within the FIRST ARGUMENT of our mapping checks.];";
         msg += "[this is indicative that there ]";
         msg += "[is a mapping mismatch in our setup.]";
-        throw new MyError(msg);
+        throw new MyError(ServletClassNames.class, msg);
     }//FUNC::END
                                                              
     private static void doTooManyChecksError_CLASSNAME_fromReflect
@@ -337,7 +341,7 @@ public class ServletClassNames {
         msg += "[within the SECOND (2ND) ARGUMENT of our mapping checks.];";
         msg += "[this is indicative that there ]";
         msg += "[is a mapping mismatch in our setup.]";
-        throw new MyError(msg);
+        throw new MyError(ServletClassNames.class,msg);
     }//FUNC::END
     
     /** Returns TRUE if the two strings compared are NOT equal. **/

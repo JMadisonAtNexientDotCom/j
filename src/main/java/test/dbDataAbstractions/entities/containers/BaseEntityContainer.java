@@ -35,7 +35,7 @@ public class BaseEntityContainer {
         //ERROR CHECK:
         //If input is null, throw unhandled exception:
         //This behavior is NOT allowed.
-        if(null == ent){ throw new MyError("Supplied base entity was null");}
+        if(null == ent){ doError("Supplied base entity was null");}
         
         //Create and configure container:
         BaseEntityContainer op = new BaseEntityContainer();
@@ -81,12 +81,24 @@ public class BaseEntityContainer {
      ------------------------------------------------------------------------**/
     public static void validate(BaseEntityContainer bec){
         if( (null == bec.entity) && (true == bec.exists)){
-            throw new MyError("flag mismatch! null+exists");
+            doError("flag mismatch! null+exists");
         }//ERRORCHECK
         
         if( (null != bec.entity) && (false == bec.exists)){
-            throw new MyError("flag mismatch! NOT-null + NOT-exists");
+            doError("flag mismatch! NOT-null + NOT-exists");
         }//ERRORCHECK
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = BaseEntityContainer.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
     }//FUNC::END
     
 }//CLASS::END

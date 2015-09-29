@@ -237,7 +237,20 @@ public class TokenTransUtil {
     }//END::FUNC
     
     public static void getAllTokens(){
-        throw new MyError("TODO: getAllTokens function.");
+        doError("TODO: getAllTokens function.");
     }
+    
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = TokenTransUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
+    }//FUNC::END
     
 }//CLASS::END

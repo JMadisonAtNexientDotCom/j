@@ -77,7 +77,8 @@ public class ServletContainerWithDebug extends ServletContainer {
                 throw new WebApplicationException(Response.temporaryRedirect(location).build());
             } catch (URISyntaxException e) {
                 String em = "Problem with global error state";
-                throw new MyError("e==" + e.toString() + em);
+                em += "e==" + e.toString();
+                throw new MyError(ServletContainerWithDebug.class, em);
             }
 
             

@@ -124,7 +124,7 @@ public class TableDebugUtil {
        String err = "ERROR INSIDE:";
        err += TableDebugUtil.class.getSimpleName();
        err += msg;
-       throw new MyError(err);
+       throw new MyError(TableDebugUtil.class, err);
    }//FUNC::END
     
 }//CLASS::END

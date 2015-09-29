@@ -52,7 +52,7 @@ public class RRCommonCodeTransUtil {
             em1+="[we are querying either:]";
             em1+="[1: Table Entity With Name:["+ name1 +"]]";
             em1+="[2: Table Entity With Name:["+ name2 +"]]";
-            throw new MyError(em1);
+            doError(em1);
         }else 
         if(ec > 1){
             String em2 = "";
@@ -60,7 +60,7 @@ public class RRCommonCodeTransUtil {
             em2+="Error in this function's logic most likely.";
             em2+="Check the class references you used.";
             em2+="possible duplicates.";
-            throw new MyError(em2);
+            doError(em2);
         }///////////////////////////////////////////////////////////////////////
 
         //Transaction Logic:
@@ -76,4 +76,17 @@ public class RRCommonCodeTransUtil {
         return op;
         
     }//FUNC::END 
+                                               
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = RRCommonCodeTransUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
+    }//FUNC::END                                       
+                                               
 }//CLASS::END

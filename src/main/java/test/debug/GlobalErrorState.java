@@ -3,7 +3,6 @@ package test.debug;
 import java.util.ArrayList;
 import java.util.List;
 import primitives.ClassWithComment;
-import test.MyError;
 import frontEndBackEndIntegration.I;
 
 /**
@@ -45,7 +44,9 @@ public class GlobalErrorState {
         _errors.add(er);
         
         //KILL I: De-reference I.API so that .JSP pages crash.
+        I.API_WAS_SET_TO_NULL_TO_BRING_ATTENTION_TO_ERRORS = true;
         I.API = null;
+        
         
     }//FUNC::END
     
@@ -64,7 +65,7 @@ public class GlobalErrorState {
     
     private static void generateErrorMessageAndThrow(){
         String errorMsg = getLog();
-        throw new MyError(errorMsg);
+        throw new GlobalErrorStateError(errorMsg);
     }//FUNC::END
     
     public static String getLog(){

@@ -106,15 +106,20 @@ public class RiddleRhymeTransUtil {
         TransUtil.insideTransactionCheck();
         
         //get the riddle entry using the id:
-        RiddleTable rt;
+        RiddleTable rt = null;
         BaseEntityContainer rtCon = RiddleTransUtil.getRiddleByID(riddleID);
         if(false == rtCon.exists){
-            throw new MyError("riddle of this id does not exist");
+            doError("riddle of this id does not exist");
         }else{
+            if(null==rtCon.entity){doError("rtCon.entity is null");}
             rt = (RiddleTable)(rtCon.entity);
         }////
         
-        //RAAAAWWWWEEEERRR!!!!            
+        //if RT is null, that is an error!
+        if(null == rt){doError("rt is null");}
+        
+        
+        //Make our cue card!         
         CueCard op = CueCard.makeCueCard_WithJest_And_EmptyQuips(rt);
         
         //create a choice list:
@@ -153,8 +158,8 @@ public class RiddleRhymeTransUtil {
        //If something goes wrong, god help your string function searching works:
        int actual_wrong = wrong.size();
        int actual_truth = truth.size();
-       if(actual_wrong > numWantedFalse){throw new MyError("[424jkl234jl2f]");}
-       if(actual_truth > numWantedTrue ){throw new MyError("[6654ggdsfgf34]");}
+       if(actual_wrong > numWantedFalse){doError("[424jkl234jl2f]");}
+       if(actual_truth > numWantedTrue ){doError("[6654ggdsfgf34]");}
        
        //Concat the lists together and output:
        List<RhymeTable> tf = new ArrayList<RhymeTable>();
@@ -164,7 +169,7 @@ public class RiddleRhymeTransUtil {
        if(actual_sum != tf.size()){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
            String msg = "Concat did not work as expected.";
            msg+="RiddleRhymeTransUtil.java :: getRhymesTrueFalse(...)";
-           throw new MyError(msg);
+           doError(msg);
        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
        
        //return the list of Rhymes(answers) to the riddle supplied.
@@ -207,7 +212,7 @@ public class RiddleRhymeTransUtil {
                 msg+="[op[i].getText()==[" + op.get(i).getText() + "]]";
             }
             
-            throw new MyError(msg);
+            doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 
         return op;
@@ -233,7 +238,7 @@ public class RiddleRhymeTransUtil {
                                                (riddleID, numberOfWrongsDesired);
 
         if(op.size() > numberOfWrongsDesired){ //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-             throw new MyError("Exceeded number of WRONGS desired");
+            doError("Exceeded number of WRONGS desired");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 
         return op;
@@ -319,8 +324,30 @@ public class RiddleRhymeTransUtil {
         else{//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             //This probably means the answer is in BOTH
             //the TRUTH table and the WRONG table.
-            throw new MyError("[grading an undefined result type.]");
+            doError("[grading an undefined result type.]");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        
+        //[NEVER][NEVER][NEVER][NEVER][NEVER][NEVER][NEVER][NEVER][NEVER][NEVER]
+        //This is only here to make the compiler happy.
+        if(resultCode !=0 || resultCode == 0){
+            doError("this line should have never executed.");
+        }
+        return false;
+        //[NEVER][NEVER][NEVER][NEVER][NEVER][NEVER][NEVER][NEVER][NEVER][NEVER]
+        
     }//-------------------------------------------------------------------------
-                       
+                  
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = RiddleRhymeTransUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
+    }//FUNC::END
+    
 }//CLASS::END

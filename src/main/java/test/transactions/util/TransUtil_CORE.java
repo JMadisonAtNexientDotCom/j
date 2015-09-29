@@ -93,7 +93,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
             //multiple times in a row. 
             //Question:Why not just exit rather than error?
             //Answer:  The stricter you are, the easier it is to find errors.
-            throw new MyError("marking entity 2X for save on exit.");
+            doError("marking entity 2X for save on exit.");
         }
         else
         {
@@ -179,7 +179,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
             msg +="[Closing utility with a different session instance]";
             msg +="[Than the once used to close it. Concurrency problem]";
             msg +="[Most likely.]";
-            throw new MyError(msg);
+            doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         
@@ -273,7 +273,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
             msg += "[User has made incorrect assumption about the]";
             msg += "[State of their program that is utilizing this]";
             msg += "[static utility.]";
-            throw new MyError(msg);
+            doError(msg);
         }
     }//FUNC::EXIT
    
@@ -287,7 +287,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
             String msg = "";
             msg += "[insideTransactionCheck FAILED]";
             msg += "[Please check your transaction enter/exit balancing.]";
-            throw new MyError(msg);
+            doError(msg);
         }
         
         //when in a transaction state, this utility should keep track of
@@ -297,7 +297,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
             String msg2 = "";
             msg2 += "[insideTransactionCheck FAILED]";
             msg2 += "[Session reference is null for some reason.]";
-            throw new MyError(msg2);
+            doError(msg2);
         }
         
     }//FUNC::END
@@ -313,7 +313,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
             msg += "[outsideTransactionCheck FAILED]";
             msg += "[Please check your transaction enter/exit balancing.]";
             msg += "[ALSO: Could be concurrency/multi-thread problem.]";
-            throw new MyError(msg);
+            doError(msg);
         }
         
         //For good upkeep, we should NOT be tracking a session if we are
@@ -325,7 +325,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
             msg2 += "[Session reference should have been]";
             msg2 += "[nullifed upon exiting the transaction state.]";
             msg2 += "[ALSO: Could be concurrency/multi-thread problem.]";
-            throw new MyError(msg2);
+            doError(msg2);
         }
         
     }//FUNC::END
@@ -348,7 +348,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
                 String msg01 = "";
                 msg01 += "balancing broken:";
                 msg01 += "ENTERING transaction multiple times in a row.";
-                throw new MyError(msg01);
+                doError(msg01);
             }
             else
             {
@@ -362,7 +362,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
                 String msg02 = "";
                 msg02 += "balancing broken:";
                 msg02 += "EXITING transaction multiple times in a row.";
-                throw new MyError(msg02);
+                doError(msg02);
             }
             else
             {
@@ -549,14 +549,15 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
-    * Wrapper function to throw errors from this class.
-    * @param msg :Specific error message.
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
     -------------------------------------------------------------------------**/
     private static void doError(String msg){
         String err = "ERROR INSIDE:";
-        err += TransUtil_CORE.class.getSimpleName();
+        Class clazz = TransUtil_CORE.class;
+        err += clazz.getSimpleName();
         err += msg;
-        throw new MyError(err);
+        throw new MyError(clazz, err);
     }//FUNC::END
     
 }//CLASS::END

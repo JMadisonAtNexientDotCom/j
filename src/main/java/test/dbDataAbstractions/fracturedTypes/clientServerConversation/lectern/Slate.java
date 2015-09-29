@@ -136,14 +136,15 @@ public class Slate extends FracturedTypeBase{
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
-    * Wrapper function to throw errors from this class.
-    * @param msg :Specific error message.
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
     -------------------------------------------------------------------------**/
     private static void doError(String msg){
-       String err = "ERROR INSIDE:";
-       err += Slate.class.getSimpleName();
-       err += msg;
-       throw new MyError(err);
+        String err = "ERROR INSIDE:";
+        Class clazz = Slate.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
     }//FUNC::END
     
     public static void doError_badSlateIndex(){

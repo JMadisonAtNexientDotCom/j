@@ -72,6 +72,15 @@ public class I {
      *  occur and are logged in the global error state. **/
     public static MasterApiDoc API = new MasterApiDoc();
     
+    /** If we intentionally nullify API in order to bring errors to our
+     *  attention, set this flagt to TRUE so that we know the null is
+     *  intentional sabotage.
+     * 
+     *  Noticing some errors in the web app that I introduced are not
+     *  showing up. Even though I threw exceptions in the app.
+     *  Silent failure is not acceptable. Also, Try-Catch is stupid. **/
+    public static boolean 
+            API_WAS_SET_TO_NULL_TO_BRING_ATTENTION_TO_ERRORS = false;
     
    
     /**-------------------------------------------------------------------------
@@ -82,7 +91,7 @@ public class I {
     String err = "ERROR INSIDE:";
     err += I.class.getSimpleName();
     err += msg;
-    throw new MyError(err);
+    throw new MyError(I.class, err);
     }//FUNC::END
          
 }//CLASS::END

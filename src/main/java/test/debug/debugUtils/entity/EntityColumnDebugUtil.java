@@ -262,11 +262,15 @@ public class EntityColumnDebugUtil {
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(EntityColumnDebugUtil.class.getName()).log
                                                        (Level.SEVERE, null, ex);
-            throw new MyError("unable to retrieve value of static var. #1");
+            String msg = "unable to retrieve value of static var. #1";
+            Class  clz = EntityColumnDebugUtil.class;
+            throw new MyError(clz, msg);
         } catch (IllegalAccessException ex) {
             Logger.getLogger(EntityColumnDebugUtil.class.getName()).log
                                                        (Level.SEVERE, null, ex);
-            throw new MyError("unable to retrieve value of static var. #2");
+            String msg = "unable to retrieve value of static var. #2";
+            Class  clz = EntityColumnDebugUtil.class;
+            throw new MyError(clz, msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //cast the object to string:
@@ -355,7 +359,7 @@ public class EntityColumnDebugUtil {
         msg+="The variable name should be:";
         msg+="[" + columnName + "]";
         msg+="[In short: Variable name should be identical to column name.]";
-        throw new MyError(msg);
+        throw new MyError(EntityColumnDebugUtil.class, msg);
     }//FUNC::END
   
     /** Returns TRUE if the two strings are not equivalent in value. **/
@@ -395,7 +399,9 @@ public class EntityColumnDebugUtil {
         if(errorAmount<=0){
             //Do nothing.
         }else{
-            throw new MyError("We should never execute this line. hjjlsfjslfs");
+            String msg ="We should never execute this line. hjjlsfjslfs";
+            Class clz = EntityColumnDebugUtil.class;
+            throw new MyError(clz,msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
     }//FUNC::END
@@ -426,7 +432,7 @@ public class EntityColumnDebugUtil {
         }//APPEND MSG
         
         //BUGFIX: Forgot the most important part...Throwing the error.
-        throw new MyError(msg);
+        throw new MyError(EntityColumnDebugUtil.class, msg);
         
     }//FUNC::END
     

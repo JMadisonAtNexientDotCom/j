@@ -43,7 +43,7 @@ public class RhymeTransUtil {
                 msg+="[" + RhymeTable.class.getSimpleName() + "]";
                 msg+="[Error is mostly in logic of this function.]";
                 msg+="[Check that the correct class references were used.]";
-                throw new MyError(msg);
+                doError(msg);
             }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
@@ -84,7 +84,7 @@ public class RhymeTransUtil {
         if(numberOfChoices < numberOfTruthsDesired){////////////////////////////
             //Example illustrating why this is an error:
             //Imagine a question where 10 out of 5 questions are correct.
-            throw new MyError("ERROR:You are asking for an improper fraction.");
+            doError("ERROR:You are asking for an improper fraction.");
         }///////////////////////////////////////////////////////////////////////
                          
         //Attempt to get the number of Rhymes (answers) that are true
@@ -111,12 +111,12 @@ public class RhymeTransUtil {
         //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         if(actualNumberOfTruths > numberOfTruthsDesired)                    //EE
         {                                                                   //EE
-            throw new MyError("got more truths than asked for!");           //EE
+            doError("got more truths than asked for!");                     //EE
         }                                                                   //EE
                                                                             //EE
         if(actualNumberOfWrongs > numberOfWrongAnswersNeeded)               //EE
         {                                                                   //EE
-            throw new MyError("got more wrongs than asked for!");           //EE
+            doError("got more wrongs than asked for!");                     //EE
         }                                                                   //EE
                                                                             //EE
         if(allRhymesTotal > numberOfChoices)                                //EE
@@ -124,7 +124,7 @@ public class RhymeTransUtil {
             String msg = "";                                                //EE
             msg += "[total number of choices to return]";                   //EE
             msg += "[exceeds what was asked for.]";                         //EE
-            throw new MyError(msg);                                           //EE
+            doError(msg);                                                   //EE
         }                                                                   //EE
         //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
@@ -138,11 +138,24 @@ public class RhymeTransUtil {
         {   
             //always do error check when you are uncertain of the results
             //of an operation. Example: Functions you've never used before.
-            throw new MyError("Concatination did not work as expected.");
+            doError("Concatination did not work as expected.");
         }/////
         
         //Return the Rhyme
         return op; 
         
     }//FUNC::END
+                
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = RhymeTransUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
+    }//FUNC::END        
+                
 }//CLASS::END

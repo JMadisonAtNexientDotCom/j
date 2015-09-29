@@ -180,7 +180,7 @@ public class CueCard extends CompositeEntityBase{
        String err = "ERROR INSIDE:";
        err += CueCard.class.getSimpleName();
        err += msg;
-       throw new MyError(err);
+       throw new MyError(CueCard.class, err);
     }//FUNC::END
     
 }//CLASS::END

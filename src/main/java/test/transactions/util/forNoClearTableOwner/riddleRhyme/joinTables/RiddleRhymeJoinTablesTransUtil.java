@@ -53,13 +53,25 @@ public class RiddleRhymeJoinTablesTransUtil {
             String msg="";
             msg+="DATABASE INTEGRITY ERROR:";
             msg+="RiddleRhyme Pair not unique in table:" + tableName;
-            throw new MyError(msg);
+            doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         ////////////////////////////////////////////////////////////////////////
         
         //return the output result:
         return output;
                               
+    }//FUNC::END
+                           
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = RiddleRhymeJoinTablesTransUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
     }//FUNC::END
     
 }//CLASS::END

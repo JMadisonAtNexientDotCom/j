@@ -77,13 +77,15 @@ public class DeckTransUtil {
     }//FUNC::END
                       
     /**-------------------------------------------------------------------------
-     * Throws an error
-     * @param msg :Specific error message.
-     ------------------------------------------------------------------------**/
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
     private static void err(String msg){
-        String errorMSG = DeckTransUtil.class.getSimpleName() + "::";
-        errorMSG += "[" + msg + "]";
-        throw new MyError(errorMSG);
+        String err = "ERROR INSIDE:";
+        Class clazz = DeckTransUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
     }//FUNC::END
     
 }//CLASS::END

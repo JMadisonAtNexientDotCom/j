@@ -126,14 +126,14 @@ public class RiddleRhymeTransUtil_Truth {
             return emptyList;
         }else
         if(amountToReturn < 0){
-            throw new MyError("Asking to return negative amount of matches.");
+            doError("Asking to return negative amount of matches.");
         }///////////////////////////////////////////////////////////////////////
         
         //Use criteria to get list of random results that DO NOT MATCH the
         //riddleID supplied: Use "ne" (NOT EQUALS) restriction.
         String riddleIDColumn = RiddleRhymeTruthTable.RIDDLE_ID_COLUMN;
         Criteria criteria = ses.createCriteria(RiddleRhymeTruthTable.class);
-        SimpleExpression matchingRestriction;
+        SimpleExpression matchingRestriction = null; //<--make compiler happy.
         if(true == shouldMatch){  //use EQUAL restriction:  ////////////////////
             matchingRestriction = Restrictions.eq(riddleIDColumn, riddleID);
         }else
@@ -143,8 +143,12 @@ public class RiddleRhymeTransUtil_Truth {
             String msg = "";
             msg+="Bool can only be true or false.";
             msg+="So else block should never be called.";
-            throw new MyError(msg);
+            doError(msg);
         }///////////////////////////////////////////////////////////////////////
+        
+        if(null == matchingRestriction){//////////////////
+            doError("Just here to make compiler happy.");
+        }/////////////////////////////////////////////////
         
         //Add the matching criteria and return a list of results:
         criteria.add(matchingRestriction);
@@ -195,7 +199,7 @@ public class RiddleRhymeTransUtil_Truth {
                 msg += "[The join table entity:" + name1 + "]";
                 msg += "[Was not able to resolve]";
                 msg += "[record in table:" + name2 + "]";
-                throw new MyError(msg);
+                doError(msg);
             }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             
             currentEntity    = (RhymeTable)currentContainer.entity;
@@ -206,12 +210,24 @@ public class RiddleRhymeTransUtil_Truth {
         if(joinTableEntries.size() != rhymes.size())
         {//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             String msg = "output list size does not match input list size;";
-            throw new MyError(msg);
+            doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //return output:
         return rhymes;                                 
                                                            
+    }//FUNC::END
+                                 
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = RiddleRhymeTransUtil_Truth.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
     }//FUNC::END
     
 }//CLASS::START

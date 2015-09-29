@@ -56,7 +56,7 @@ public class JSONUtil {
     public static Response entityToJSONResponse(BaseEntity ent){
         
         if(null==ent){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            throw new MyError("null argument given to entityToJSONResponse");
+            doError("null argument given to entityToJSONResponse");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         return genericObjectToJSONResponse(ent);
@@ -65,7 +65,7 @@ public class JSONUtil {
     public static Response fracturedTypeToJSONResponse(FracturedTypeBase frac){
         
         if(null==frac){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            throw new MyError("null arg given to fracturedTypeToJSONResponse");
+            doError("null arg given to fracturedTypeToJSONResponse");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         return genericObjectToJSONResponse(frac);
@@ -80,7 +80,7 @@ public class JSONUtil {
      ------------------------------------------------------------------------**/
     public static Response bundleEntityToJSONResponse(BundleEntityBase be){
         if(null==be){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            throw new MyError("bundleEntityToJSONResponse(null)==BAD!");
+            doError("bundleEntityToJSONResponse(null)==BAD!");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE                                                  
                                                                                                        
         return genericObjectToJSONResponse(be);
@@ -96,7 +96,7 @@ public class JSONUtil {
                                                        (CompositeEntityBase ce){
                                                            
         if(null==ce){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            throw new MyError("compositeEntityToJSONResponse(null)==BAD!");
+            doError("compositeEntityToJSONResponse(null)==BAD!");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE                                                  
                                                                                                        
         return genericObjectToJSONResponse(ce);
@@ -110,15 +110,20 @@ public class JSONUtil {
         //This huge chunk of code could go in a JSON utility
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter prettyPrinter = mapper.writerWithDefaultPrettyPrinter();
-        String jsonText;
+        String jsonText = null;
         try {
             jsonText = prettyPrinter.writeValueAsString( obj );
         } catch (JsonProcessingException ex) {
             Logger.getLogger(JSONUtil.class.getName()).log(Level.SEVERE, null, ex);
             //Writing code to keep compiler happy, never a good reason.
             //This is horrible code. Now I am going to re-throw the exception I just caught.
-            throw new MyError("Yeah, we are not really catching this exception. JSONUtil.java");
+            doError("Yeah, we are not really catching this exception. JSONUtil.java");
         }
+        
+        if(obj != null && null == jsonText){/////////////////////////
+            doError("jsonText should not be null if input was not.");
+        }////////////////////////////////////////////////////////////
+        
         return Response.ok(jsonText, MediaType.APPLICATION_JSON).build();
     }//FUNC::END
     
@@ -198,6 +203,18 @@ public class JSONUtil {
         //friendly than giving the UI people something they do not expect
         //when they make a mistake.
         return genericObjectToJSONResponse(obj);
+    }//FUNC::END
+                                                      
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = JSONUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
     }//FUNC::END
     
 }//CLASS::END

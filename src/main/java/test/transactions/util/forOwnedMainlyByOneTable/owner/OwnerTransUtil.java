@@ -208,9 +208,9 @@ public class OwnerTransUtil {
             msg+= "[is a primary key. It is a primary key because only]";
             msg+= "[one user can claim ownership to a given token.]";
             msg+= "[In other words: Token cannot have multiple owners]";
-            throw new MyError(msg);
+            doError(msg);
         }else{
-            throw new MyError("[This line should never execute. drexst3242]");
+            doError("[This line should never execute. drexst3242]");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //Return results, was the record found?
@@ -383,10 +383,10 @@ public class OwnerTransUtil {
             //this function sometimes can have NO ENTITIES needed to be saved.
             //And that would wreck my error checking designs.
             String msg = "No users exist which to assign ownership of token";
-            throw new MyError(msg);
+            doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
-        OwnerTable own;
+        OwnerTable own=null;
         if(userCode == NINJA_USER_CODE){
            long ninja_id = NinjaTransUtil.getRandomNinjaID();
            own = makeEntryUsing_ninja(token_id, ninja_id); 
@@ -395,12 +395,14 @@ public class OwnerTransUtil {
             long admin_id = AdminTransUtil.getRandomAdminID();
             own = makeEntryUsing_admin(token_id, admin_id);
         }else{
-            throw new MyError("This error should have been caught earlier.");
+            doError("This error should have been caught earlier.");
         }
         
         //NOTE: We do NOT have to mark own for save, because
         //that is handled by the makeEntryUsing_.... functions we are
         //wrapping in this function. Calling it twice == error.
+        
+        if(null==own){doError("[own is null. This is not acceptable]");}
         
         //return the owner table that has the entry:
         return own;
@@ -408,14 +410,15 @@ public class OwnerTransUtil {
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
-    * Wrapper function to throw errors from this class.
-    * @param msg :Specific error message.
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
     -------------------------------------------------------------------------**/
     private static void doError(String msg){
-       String err = "ERROR INSIDE:";
-       err += OwnerTransUtil.class.getSimpleName();
-       err += msg;
-       throw new MyError(err);
+        String err = "ERROR INSIDE:";
+        Class clazz = OwnerTransUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
     }//FUNC::END
     
     /** A XOR of id_00 and id_01, where ONE must have a

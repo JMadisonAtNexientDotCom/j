@@ -146,7 +146,7 @@ public class RiddleRhymeRestService extends BaseRestService {
         }//BLOCK::END
         
         if(null == s){ //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            throw new MyError("how did s become null??");
+            doError("how did s become null??");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //EXIT TRANSACTION!!!
@@ -189,7 +189,7 @@ public class RiddleRhymeRestService extends BaseRestService {
         }//BLOCK::END
         
         if(null == s){ //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            throw new MyError("how did s become null??");
+            doError("how did s become null??");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //EXIT TRANSACTION!!!
@@ -334,6 +334,16 @@ public class RiddleRhymeRestService extends BaseRestService {
         return JSONUtil.compositeEntityToJSONResponse(theQuar);
     }//FUNC::END
     
-    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = RiddleRhymeRestService.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
+    }//FUNC::END
     
 }//CLASS::END

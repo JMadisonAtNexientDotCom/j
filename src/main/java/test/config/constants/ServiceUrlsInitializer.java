@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import test.MyError;
 import frontEndBackEndIntegration.childComponents.ServiceURLRegistry;
+import test.debug.GlobalErrorState;
 
 /**
  * NOTE: If debug code fails, you might get a "noclassdeffounderror"
@@ -252,9 +253,12 @@ public class ServiceUrlsInitializer {
     ------------------------------------------------------------------------**/
    private static void doError(String msg){
        String err = "ERROR INSIDE:";
-       err += ServiceUrlsInitializer.class.getSimpleName();
+       Class  clazz = ServiceUrlsInitializer.class;
+       String cName = clazz.getCanonicalName();
+       err += cName;
        err += msg;
-       throw new MyError(err);
+       //GlobalErrorState.addError(clazz, err);
+       throw new MyError(ServiceUrlsInitializer.class, err);
    }//FUNC::END
    
     /**------------------------------------------------------------------------- 

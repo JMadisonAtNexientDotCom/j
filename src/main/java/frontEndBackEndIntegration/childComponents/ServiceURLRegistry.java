@@ -70,14 +70,15 @@ public class ServiceURLRegistry {
     public String TRANSDEBUG  = "TRANSDEBUG:ServiceUrl_NOT_INITIALIZED";
    
     /**-------------------------------------------------------------------------
-    * Wrapper function to throw errors from this class.
-    * @param msg :Specific error message.
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
     -------------------------------------------------------------------------**/
     private static void doError(String msg){
-    String err = "ERROR INSIDE:";
-    err += ServiceURLRegistry.class.getSimpleName();
-    err += msg;
-    throw new MyError(err);
+        String err = "ERROR INSIDE:";
+        Class clazz = ServiceURLRegistry.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
     }//FUNC::END
     
     private static boolean notEQ(String s01, String s02){

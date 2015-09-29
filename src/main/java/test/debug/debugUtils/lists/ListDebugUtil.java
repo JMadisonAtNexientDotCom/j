@@ -55,7 +55,7 @@ public class ListDebugUtil {
        err += "Class Error Check Originated From:";
        err += "[" + c.getCanonicalName() + "]";
        err += msg;
-       throw new MyError(err);
+       throw new MyError(ListDebugUtil.class, err);
     }//FUNC::END                 
                           
 }//CLASS::END

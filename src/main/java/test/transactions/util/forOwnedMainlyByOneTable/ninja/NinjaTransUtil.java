@@ -57,7 +57,7 @@ public class NinjaTransUtil {
         TransUtil.insideTransactionCheck();
         
         //our output variable:
-        NinjaTable nt;
+        NinjaTable nt = null;
         
         //TODO: Is there a way to check if ninja of given ID exists and
         //return negative one (-1) if it does not exist??
@@ -67,8 +67,10 @@ public class NinjaTransUtil {
             nt =  (NinjaTable) ses.get(NinjaTable.class, nid);
         } catch (Exception e) {
             //Not really catching exception. Just making compiler happy.
-            throw new MyError(e.toString() );
+            doError(e.toString() );
         }
+        
+        if(null==nt){doError("getNinjaByID has returned null");}
         
         //return our ninja output variable:
         return nt;
@@ -167,6 +169,18 @@ public class NinjaTransUtil {
         //return the ninja!
         return ninja;
             
+    }//FUNC::END
+        
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = NinjaTransUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
     }//FUNC::END
     
 }//CLASS::END

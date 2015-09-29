@@ -110,14 +110,15 @@ public class TransValidateUtil {
     }//FUNC::END
                     
     /**-------------------------------------------------------------------------
-     * Wrapper function to throw errors from this class.
-     * @param msg :Specific error message.
-     ------------------------------------------------------------------------**/
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
     private static void doError(String msg){
         String err = "ERROR INSIDE:";
-        err += TransValidateUtil.class.getSimpleName();
+        Class clazz = TransValidateUtil.class;
+        err += clazz.getSimpleName();
         err += msg;
-        throw new MyError(err);
+        throw new MyError(clazz, err);
     }//FUNC::END
         
 }//CLASS::END

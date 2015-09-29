@@ -90,8 +90,8 @@ public class SlateClerk {
         
         //This function relies on side-effects put into the slate.
         //Lets do null-checks to make sure input references exist:
-        if(null==talley){throw new MyError("talley supplied cannot be null.");}
-        if(null==s     ){throw new MyError("slate supplied cannot be null.");}
+        if(null==talley){doError("talley supplied cannot be null.");}
+        if(null==s     ){doError("slate supplied cannot be null.");}
         
         //[mst][mst][mst][mst][mst][mst][mst][mst][mst][mst][mst][mst][mst][mst]
         int     numOriginalQuips = s.originalQuips.size();
@@ -102,7 +102,7 @@ public class SlateClerk {
             msg += "From the CueCard this Slate is answering.";
             msg += "Nor do you have a valid CueCardConfigHash to identify";
             msg += "The ID of the original CueCard that was asked.";
-            throw new MyError(msg);
+            doError(msg);
             
             //TODO: I don't think crashing is a good idea here.
             //Maybe a .tampered results flag set to true and abort
@@ -121,13 +121,13 @@ public class SlateClerk {
                 msg+="[2:cueCardConfig hash is bad.]";
                 msg+="[3:improperly configured card in CUE_CARD_REPO_TABLE]";
                 msg+="[4:bad-logic in cueCardHashToNumberOfQuips function]";
-                throw new MyError(msg);
+                doError(msg);
             }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         }else
         if(numOriginalQuips > 0){
             talley.mainSelections_total = numOriginalQuips;
         }else{
-            throw new MyError("This line should never execute");
+            doError("This line should never execute");
         }
         //[mst][mst][mst][mst][mst][mst][mst][mst][mst][mst][mst][mst][mst][mst]
     }//FUNC::END
@@ -155,14 +155,26 @@ public class SlateClerk {
         //HACK: Make sure we throw error if this function executes.
         //But make compiler unaware that return is unreachable.
         if(hash==""){
-           throw new MyError("TODO! cueCardHashToNumberOfQuips"); 
+           doError("TODO! cueCardHashToNumberOfQuips"); 
         }else
         if(hash!=""){
-            throw new MyError("TODO! cueCardHashToNumberOfQuips"); 
+            doError("TODO! cueCardHashToNumberOfQuips"); 
         }
         
         
         return (0-7777);
+    }//FUNC::END
+    
+        /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = SlateClerk.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
     }//FUNC::END
     
 }//CLASS::END

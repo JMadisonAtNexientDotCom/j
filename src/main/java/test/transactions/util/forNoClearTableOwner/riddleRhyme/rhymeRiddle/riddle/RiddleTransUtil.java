@@ -49,7 +49,7 @@ public class RiddleTransUtil {
         //ERROR CHECK: Are we inside a transaction state?
         TransUtil.insideTransactionCheck();
         
-        RiddleTable op;
+        RiddleTable op = null;
         if(riddleID < 0){//-----------------------------------------------------
             op = getOneRandomRiddle();
         }else
@@ -59,20 +59,20 @@ public class RiddleTransUtil {
                 String msg = "[getRiddleByID_or_Random asked for.]";
                 msg+="[A non-existant riddle of ]";
                 msg+="[ID:" + Long.toString(riddleID) + "]";
-                throw new MyError(msg);
+                doError(msg);
             }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             BaseEntityContainer con = getRiddleByID(riddleID);
             op = (RiddleTable)con.entity;
         }else{
             //if you get here. Logic of block is messed up.
-            throw new MyError("This should be an unreachable statement.");
+            doError("This should be an unreachable statement.");
         }//---------------------------------------------------------------------
         
         //Null output is considered an error:
         if(null==op){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             String m2 = "[op should not be null if ]";
             m2+="[we get to this line of execution.]";
-            throw new MyError(m2);
+            doError(m2);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //return the output:
@@ -99,7 +99,7 @@ public class RiddleTransUtil {
         long randomIndex = (long)(maxRiddleID * randPercentage);
         if(0==randomIndex){randomIndex = 1;} 
         BaseEntityContainer boxedOutput = getRiddleByID(randomIndex);
-        RiddleTable op;
+        RiddleTable op = null;
         if(false == boxedOutput.exists)
         {//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             String msg = "";
@@ -109,17 +109,18 @@ public class RiddleTransUtil {
             msg+="[2. Holes exist in your data. Example: A set: [1,50,100]]";
             msg+="[Has a max index of 100, but 2 very large holes exist in]";
             msg+="[The set of data, seeing that only 3 entries exist.]";
-            throw new MyError("");
+            doError("");
         }else{//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             op = (RiddleTable)boxedOutput.entity;
         }//BLOCK::END
         
         if(null==boxedOutput.entity){ //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
                 String m2= "Entity Integrity Problem in getOneRandomRiddle()";
-                throw new MyError(m2);
+                doError(m2);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //return our random riddle:
+        if(null == op){doError("output should never be null on this line");}
         return op;
         
     }//FUNC::END
@@ -173,7 +174,7 @@ public class RiddleTransUtil {
                 msg+="[" + RiddleTable.class.getSimpleName() + "]";
                 msg+="[Error is mostly in logic of this function.]";
                 msg+="[Check that the correct class references were used.]";
-                throw new MyError(msg);
+                doError(msg);
             }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
@@ -181,7 +182,17 @@ public class RiddleTransUtil {
         
     }//FUNC::END
     
-    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = RiddleTransUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
+    }//FUNC::END
     
     
 }//CLASS::END
