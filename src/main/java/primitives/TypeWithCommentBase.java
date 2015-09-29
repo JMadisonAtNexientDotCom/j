@@ -1,5 +1,7 @@
 package primitives;
 
+import test.config.constants.EntityErrorCodes;
+
 /**-----------------------------------------------------------------------------
  * Base class for BooleanWithComment.java and IntegerWithComment.java
  * For when we want to serialize simple primitives into JSON response.
@@ -13,6 +15,7 @@ package primitives;
  * product.
  * 
  * @author jmadison :2015.09.20_0705PM
+ * @author jmadison :2015.09.29_0428PM -added errorCode field.
  ----------------------------------------------------------------------------**/
 public class TypeWithCommentBase {
     public String comment = "NO_COMMENT_SET";
@@ -22,5 +25,6 @@ public class TypeWithCommentBase {
      *  We do this so that UI people have an easy standardized
      *  structure with which to validate response json data.
      ------------------------------------------------------------------------**/
-    public boolean isError = false;
+    public boolean isError   = false;
+    public String  errorCode = EntityErrorCodes.NONE_SET;
 }//CLASS::END

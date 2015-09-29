@@ -6,6 +6,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import primitives.StringWithComment;
+import test.config.constants.EntityErrorCodes;
 import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.identifiers.VarNameReg;
@@ -89,6 +90,7 @@ public class AdminRestService extends BaseRestService{
             adminToken = new StringWithComment();
             adminToken.value = "ERROR:ACCESS_DENIED";
             adminToken.isError = true;
+            adminToken.errorCode = EntityErrorCodes.ACCESS_DENIED;
         }//Valid?
         adminToken.comment = "last touched by loginAndGetTokenForSelf";
         
