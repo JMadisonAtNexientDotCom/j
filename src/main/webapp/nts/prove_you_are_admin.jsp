@@ -67,7 +67,7 @@
 
     function callService()
     {
-        serviceURL ="<%= I.API().LOGIN_AND_GET_TOKEN_FOR_SELF.URL";
+        serviceURL ="<%= I.API().LOGIN_AND_GET_TOKEN_FOR_SELF.URL %>";
         
         qs = ""; //query string.
         qs = $.param({ 
