@@ -4,11 +4,14 @@ package test.servlets.jerseyServletContainer;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 import test.MyError;
 import test.debug.GlobalErrorState;
 
@@ -62,9 +65,23 @@ public class ServletContainerWithDebug extends ServletContainer {
         {
             //Try to throw errors outside of GlobalErrorState class
             //So error message is displayed??
-            String msg;
-            msg = GlobalErrorState.getLog();
-            throw new MyError(msg);
+            //String msg;
+            //msg = GlobalErrorState.getLog();
+            //throw new MyError(msg);
+            
+            //A hack to redirect if error happens:
+            //http://stackoverflow.com/questions/11116687/
+            //                       redirecting-to-a-page-using-restful-methods
+            try {
+                java.net.URI location = new java.net.URI("../WeHaveError.jsp");
+                throw new WebApplicationException(Response.temporaryRedirect(location).build());
+            } catch (URISyntaxException e) {
+                String em = "Problem with global error state";
+                throw new MyError("e==" + e.toString() + em);
+            }
+
+            
+            
         }
     }///////////////////////////////////////
     
