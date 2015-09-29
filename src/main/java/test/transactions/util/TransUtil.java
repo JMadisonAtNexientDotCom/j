@@ -165,6 +165,10 @@ public class TransUtil {
     }//WRAPPER::END   
     //WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
     
-                  
+    public static BaseEntityContainer getEntityFromTableUsingUniqueString
+                      (Class tableClass, String columnName, String columnValue){
+        return i().getEntityFromTableUsingUniqueString
+                      (      tableClass,        columnName,      columnValue);                   
+    }//WRAPPER::END    
                         
 }//END::CLASS

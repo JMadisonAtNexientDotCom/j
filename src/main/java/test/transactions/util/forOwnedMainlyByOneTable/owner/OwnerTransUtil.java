@@ -247,14 +247,14 @@ public class OwnerTransUtil {
      * @param token_id :The token ID to use to find if owner exists.
      * @return         :Returns true if token has owner associated with it.
      */
-    public static boolean doesTokenHaveOwner(long token_id){
+    public static boolean isTokenIDOwned(long token_id){
         
         //Error Checking:
         TransUtil.insideTransactionCheck();
         
         //Involves owner_table + token_table, code belongs in
         //OwnerTokenTransUtil.java
-        return OwnerTokenTransUtil.doesTokenHaveOwner(token_id);
+        return OwnerTokenTransUtil.isTokenIDOwned(token_id);
     }//FUNC::END
        
     /** Program will crash if this is not true. **/

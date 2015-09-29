@@ -52,6 +52,42 @@ import utils.JSONUtil;
 public class OwnerRestService extends BaseRestService{
     
     @GET
+    @Path(FuncNameReg.IS_TOKEN_HASH_OWNED_BY_NINJA)
+    public Response is_token_hash_owned_by_ninja(@DefaultValue("NOT_SET") 
+                          @QueryParam(VarNameReg.TOKEN_HASH) String token_hash){
+        //ENTER TRANSACTION STATE:
+        Session ses = TransUtil.enterTransaction();
+        
+        //LOGIC:
+        boolean result;
+        result = OwnerTokenTransUtil.isTokenHashOwnedByNinja(token_hash);
+        
+        String comment = "touched by is_token_hash_owned_by_ninja";
+        Response output_response;
+        output_response = JSONUtil.booleanToJSONResponse
+                                        (result, comment, JSONUtil.ALL_IS_WELL);
+        return output_response;
+    }//FUNC::END
+    
+    @GET
+    @Path(FuncNameReg.IS_TOKEN_HASH_OWNED_BY_ADMIN)
+    public Response is_token_hash_owned_by_admin(@DefaultValue("NOT_SET") 
+                          @QueryParam(VarNameReg.TOKEN_HASH) String token_hash){
+        //ENTER TRANSACTION STATE:
+        Session ses = TransUtil.enterTransaction();
+        
+        //LOGIC:
+        boolean result;
+        result = OwnerTokenTransUtil.isTokenHashOwnedByAdmin(token_hash);
+        
+        String comment = "touched by is_token_hash_owned_by_admin";
+        Response output_response;
+        output_response = JSONUtil.booleanToJSONResponse
+                                        (result, comment, JSONUtil.ALL_IS_WELL);
+        return output_response;
+    }//FUNC::END
+    
+    @GET
     @Path(FuncNameReg.MAKE_ENTRY_USING_NINJA)
     public Response make_entry_using_ninja (
             @DefaultValue("-1") @QueryParam(VarNameReg.TOKEN_ID) long token_id, 
@@ -213,18 +249,18 @@ public class OwnerRestService extends BaseRestService{
     }//FUNC::END
                     
     @GET
-    @Path(FuncNameReg.DOES_TOKEN_HAVE_OWNER)
-    public Response does_token_have_owner
+    @Path(FuncNameReg.IS_TOKEN_ID_OWNED)
+    public Response is_token_id_owned
            (@DefaultValue("-1") @QueryParam(VarNameReg.TOKEN_ID) long token_id){
         
         //ENTER TRANSACTION STATE:
         Session ses = TransUtil.enterTransaction();
         
         //LOGIC:
-        boolean results = OwnerTokenTransUtil.doesTokenHaveOwner(token_id);
+        boolean results = OwnerTokenTransUtil.isTokenIDOwned(token_id);
         Response op;
         op = JSONUtil.booleanToJSONResponse
-                                        (results, "doesTokenHaveOwner?", false);
+                                        (results, "isTokenIdOwned?", false);
         
         //EXIT TRANSACTION STATE:
         TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);

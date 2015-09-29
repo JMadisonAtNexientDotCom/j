@@ -5,7 +5,9 @@ import primitives.StringWithComment;
 import test.MyError;
 import test.config.constants.DatabaseConsts;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
+import test.dbDataAbstractions.entities.entityHelpers.WhoOwnsToken;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
+import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.owner.OwnerTransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.token.TokenTransUtil;
@@ -55,45 +57,135 @@ public class OwnerTokenTransUtil {
     private static long UNUSED_ID = DatabaseConsts.UNUSED_ID;
     
     /**
+     * Use the token hash to see who owns that token. Returns an enum
+     * for who owns that token.
+     * @param token_hash :The hash representation of the token.
+     * @return :An enum representing what type of user owns token.
+     */
+    public static int getWhoOwnsToken(String token_hash){
+        //Error Checking:
+        TransUtil.insideTransactionCheck();
+        
+        //in an error state unless otherwise set:
+        int ownerResult = WhoOwnsToken.ERROR_ENUM;
+        
+        BaseEntityContainer bec;
+        bec = TokenTransUtil.getTokenEntityUsingTokenString(token_hash);
+        if(false == bec.exists){
+            ownerResult = WhoOwnsToken.DOES_NOT_EXIST_IN_TOKEN_TABLE;
+        }else{
+            
+            //We found a token in our master token table, so it is now
+            //time to see if this token is in the owner table:
+            TokenTable tok = (TokenTable)bec.entity;
+            long token_id = tok.getId();
+            BaseEntityContainer own_container;
+            own_container = TransUtil.getEntityFromTableUsingPrimaryKey
+                       (OwnerTable.class, OwnerTable.TOKEN_ID_COLUMN, token_id);
+            
+            if(false == own_container.exists){
+                ownerResult = WhoOwnsToken.DOES_NOT_EXIST_IN_OWNER_TABLE;
+            }else{
+                OwnerTable own;
+                own = (OwnerTable)own_container.entity;
+                
+                //Find the owner: 
+                //(If no owner at this point, it is considered an error)
+                boolean hasOneValidOwner = false;
+                boolean hasNinjaOwner = (own.getAdmin_id() >UNUSED_ID);
+                boolean hasAdminOwner = (own.getNinja_id() >UNUSED_ID);
+                if(hasNinjaOwner && hasAdminOwner){
+                    doError("token cannot be owned by admin and ninja");
+                }else
+                if(hasNinjaOwner || hasAdminOwner){
+                    hasOneValidOwner = true; //one owner. But NOT more.
+                }else{
+                    doError("token should not be in owner table if not claimed");
+                }//IF:BLOCK:END
+                
+                if(hasOneValidOwner){
+                    if(hasNinjaOwner){ ownerResult = WhoOwnsToken.NINJA_OWNS;}
+                    if(hasAdminOwner){ ownerResult = WhoOwnsToken.ADMIN_OWNS;}
+                }else{
+                    throw new Error("Error should have been caught earlier");
+                }/////
+            }//BLOCK::END
+        }//BLOCK::END
+        
+        //return enum for who owns the token:
+        return ownerResult;
+        
+    }//FUNC::END
+    
+    /**Get if the token is owned by a ninja.
+     * @param token_hash: The HASH representation of the tokenID.
+     * @return :Returns TRUE if token is owned by Ninja.
+     *          Returns FALSE if token does not exist. **/
+    public static boolean isTokenHashOwnedByNinja(String token_hash){
+        //Error Checking:
+        TransUtil.insideTransactionCheck();
+        
+        //Logic:
+        int owner_enum = getWhoOwnsToken(token_hash);
+        return (owner_enum == WhoOwnsToken.NINJA_OWNS);
+    }//FUNC::END
+    
+    /**Get if the token is owned by a admin.
+     * @param token_hash: The HASH representation of the tokenID.
+     * @return :Returns TRUE if token is owned by Admin.
+     *          Returns FALSE if token does not exist. **/
+    public static boolean isTokenHashOwnedByAdmin(String token_hash){
+        //Error Checking:
+        TransUtil.insideTransactionCheck();
+        
+        //Logic:
+        int owner_enum = getWhoOwnsToken(token_hash);
+        return (owner_enum == WhoOwnsToken.ADMIN_OWNS); 
+    }//FUNC::END
+    
+    /**
      * Does the token that may or may not be in the table
      * have an owner?
-     * @param token_id :The token ID to use to find if owner exists.
+     * @param token_hash :The token HASH to use to find if owner exists.
      * @return         :Returns true if token has owner associated with it.
      */
-    public static boolean doesTokenHaveOwner(long token_id){
+    public static boolean doesTokenHashHaveOwner(String token_hash){
         
         //Error Checking:
         TransUtil.insideTransactionCheck();
         
-        //Involves owner_table + token_table, code belongs in
-        //OwnerTokenTransUtil.java
+        //If there is a valid owner, return true:
+        int owner_enum = getWhoOwnsToken(token_hash);
+        if(owner_enum == WhoOwnsToken.ADMIN_OWNS){return true;}
+        if(owner_enum == WhoOwnsToken.NINJA_OWNS){return true;}
+        return false;
         
+    }//FUNC::END
+   
+    /**
+     * Used for testing.
+     * @param token_id
+     * @return:Returns TRUE if the tokenID is owned by someone.
+     */
+    public static boolean isTokenIDOwned(long token_id){
         
-        //Logic:
+        //error check: Make sure in transaction state:
+        TransUtil.insideTransactionCheck();
+        
+        //use token id to fetch token record from token table:
         BaseEntityContainer bec;
         bec = TransUtil.getEntityFromTableUsingPrimaryKey
-                       (OwnerTable.class, OwnerTable.TOKEN_ID_COLUMN, token_id);
-       
-        //if record does not exist at all, then token cannot have owner.
-        if(false == bec.exists){ return false;}
-        if(null == bec.entity){ doError("entity should not be null");}
+                             (TokenTable.class, TokenTable.ID_COLUMN, token_id);
         
-        boolean op = false; //output var set to false to make compiler happy.
-        OwnerTable table = (OwnerTable)bec.entity;
-        boolean hasNinjaOwner = (table.getAdmin_id() >UNUSED_ID);
-        boolean hasAdminOwner = (table.getNinja_id() >UNUSED_ID);
-        if(hasNinjaOwner && hasAdminOwner){
-            doError("token cannot be owned by admin and ninja");
-        }else
-        if(hasNinjaOwner || hasAdminOwner){
-            op = true; //one owner. But NOT more.
+        //return trueor false:
+        if(false == bec.exists){
+            return false;
         }else{
-            op = false;
-        }//IF:BLOCK:END
-        
-        //Return output. Does token have owner?
-        return op;
-        
+            TokenTable tt = (TokenTable)bec.entity;
+            String token_hash = tt.getToken();
+            return doesTokenHashHaveOwner( token_hash );
+        }//BLOCK::END
+       
     }//FUNC::END
     
     

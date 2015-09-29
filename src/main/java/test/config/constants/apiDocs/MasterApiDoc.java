@@ -152,7 +152,7 @@ public class MasterApiDoc {
         add(MAKE_ENTRY_USING_NINJA ,FuncNameReg.MAKE_ENTRY_USING_NINJA);
         add(MAKE_ENTRY_USING_ADMIN ,FuncNameReg.MAKE_ENTRY_USING_ADMIN);
         add(MAKE_ENTRY_USING_RANDOM,FuncNameReg.MAKE_ENTRY_USING_RANDOM);
-        add(DOES_TOKEN_HAVE_OWNER  ,FuncNameReg.DOES_TOKEN_HAVE_OWNER);
+        add(DOES_TOKEN_HAVE_OWNER  ,FuncNameReg.IS_TOKEN_ID_OWNED);
         add(GET_TOKEN_OWNER        ,FuncNameReg.GET_TOKEN_OWNER);
         exit_CFG();
         

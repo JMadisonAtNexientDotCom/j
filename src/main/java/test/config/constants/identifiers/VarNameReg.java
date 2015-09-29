@@ -31,6 +31,7 @@ public class VarNameReg {
     //Names used as table columns or parameters:
     public static final String ID        = "id";
     public static final String TOKEN_ID  = "token_id";
+    public static final String TOKEN_HASH= "token_hash"; //string representation of token.
     public static final String ADMIN_ID  = "admin_id";
     public static final String NINJA_ID  = "ninja_id";
     public static final String RIDDLE_ID = "riddle_id";

@@ -30,11 +30,13 @@ public class FuncNameReg {
     public static final String MAKE_NINJA_RECORD = "make_ninja_record";
     
     //OWNER SERVICE:
-    public static final String MAKE_ENTRY_USING_NINJA   = "make_entry_using_ninja";
-    public static final String MAKE_ENTRY_USING_ADMIN   = "make_entry_using_admin";
-    public static final String MAKE_ENTRY_USING_RANDOM  = "make_entry_using_random";
-    public static final String DOES_TOKEN_HAVE_OWNER    = "does_token_have_owner";
-    public static final String GET_TOKEN_OWNER          = "get_token_owner";
+    public static final String MAKE_ENTRY_USING_NINJA       = "make_entry_using_ninja";
+    public static final String MAKE_ENTRY_USING_ADMIN       = "make_entry_using_admin";
+    public static final String MAKE_ENTRY_USING_RANDOM      = "make_entry_using_random";
+    public static final String IS_TOKEN_ID_OWNED            = "is_token_id_owned";
+    public static final String GET_TOKEN_OWNER              = "get_token_owner";
+    public static final String IS_TOKEN_HASH_OWNED_BY_NINJA = "is_token_hash_owned_by_ninja";
+    public static final String IS_TOKEN_HASH_OWNED_BY_ADMIN = "is_token_hash_owned_by_admin";
     
     //TOKEN SERVICE
     public static final String GET_NEXT_TOKEN = "get_next_token";

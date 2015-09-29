@@ -543,6 +543,47 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         return op;         
     }//FUNC::END
                         
+    public BaseEntityContainer getEntityFromTableUsingUniqueString
+                      (Class tableClass, String columnName, String columnValue){
+         //Error check:
+        throwErrorIfClassIsNotBaseEntity(tableClass);
+        
+        //Core Logic:
+        Session ses = getActiveTransactionSession();
+        Criteria cri = ses.createCriteria(tableClass);
+        cri.add(Restrictions.eq(columnName, columnValue));
+        
+        //Our output var:
+        BaseEntityContainer op = null;
+        
+        //Retrieval and error checking:
+        List<BaseEntity> queryResultList = cri.list();
+        int listLen = queryResultList.size();
+        if(listLen <= 0){
+            op = BaseEntityContainer.make_NullAllowed(null);
+        }else
+        if(listLen == 1){
+            BaseEntity uniqueResult = queryResultList.get(0);
+            op = BaseEntityContainer.make( uniqueResult );
+        }else{//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            String msg = "[ERROR from: getEntityFromTableUsingUniqueString]";
+            msg += "while attempting to get an entity using a primary key";
+            msg += "we ended up with multiple entries. Meaning the";
+            msg += "primary key column is NOT being used as such.";
+            msg += "if duplicates are allowed, use:";
+            msg += "getEntityFromTableUsingLong(...)";
+            msg += "but only if duplicates are allowed. Else you will";
+            msg += "introduce hard-to-find bugs into the code.";
+            doError(msg);
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        //Return the container that may or may not have
+        //an entity inside of it.
+        if(null==op){ doError("[should never return null. 644566655445]"); }
+        return op;         
+        
+    }//FUNC::END
+                        
     private void throwErrorIfClassIsNotBaseEntity(Class tableClass){
         
         TransValidateUtil.assertIsEntityClass(tableClass);
