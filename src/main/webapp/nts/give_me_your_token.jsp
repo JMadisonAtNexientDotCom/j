@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>Token Submit</title>
-    <link rel="stylesheet" href="YOUR_STYLE_SHEET_URL_OR_URI.css">
-    <script src="YOUR_JAVA_SCRIPT_URL_OR_URI.js"></script>
+    <%= I.INCLUDE_JS() %>
+    <%= I.INCLUDE_CSS()%>
   </head>
 <!-- AUTHOR: JMadison.  ON:20##.##.##_####AMPM                               -->
 <!-- TABSIZE: 2 Spaces.                                                      -->
