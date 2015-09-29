@@ -49,11 +49,11 @@
       };//FUNC::END
       
       $scope.ninjaLogin = function(){
-        location.href = '/nts/test.jsp';
+        location.href = '/nts/give_me_your_token.jsp';
       };//FUNC::END
       
       $scope.adminLogin = function(){
-        location.href = location.href = '/nts/test.jsp';
+        location.href = '/nts/prove_you_are_admin.jsp';
         
       };//FUNC::END
       
