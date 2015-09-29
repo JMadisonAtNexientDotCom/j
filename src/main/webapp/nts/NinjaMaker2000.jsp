@@ -58,7 +58,7 @@ app.controller('customersCtrl', function($scope, $http, spinnerService) {
     {
       //serviceURL is potential refactoring nightmare. //
       //Can we use a .jsp page and dynamically pull URLs from classes? //
-      serviceURL = "<%=I.API.GET_NEXT_NINJA.URL%>";
+      serviceURL = "<%=I.API().GET_NEXT_NINJA.URL%>";
       //$http.get(serviceURL).success(function (response) {$scope.name = response;});
 			
 			spinnerService.show('html5spinner'); //<--where is ref to spinnerService?
