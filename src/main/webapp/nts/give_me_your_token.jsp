@@ -30,7 +30,18 @@
           <p> {{msg_for_user}} </p>
           <input type="text" data-ng-model="token_input"><br>
           <button data-ng-click="submitToken();">SUBMIT</button>
-      </div>
+          
+          <!-- quick test to make sure we have relative .css URL correct. -->
+          <spinner name="html5spinner">  
+            <div class="overlay"></div>
+            <div class="spinner">
+                  <div class="double-bounce1"></div>
+                  <div class="double-bounce2"></div>
+            </div>
+            <div class="please-wait">Test of loading spinner...</div>
+          </spinner> 
+        
+        </div>
     </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
     </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
     </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
