@@ -16,7 +16,7 @@ public class EntityErrorCodes {
     public static final String ACCESS_DENIED = "access_denied";
     
     /** Error produced by the application. Not working as expected. **/
-    public static final String FATAL_APP_BUG = "app_bug";
+    public static final String FATAL_APP_BUG = "fatal_app_bug";
     
     /** Used for when no error exists, or when error exists, but
      *  no one has bothered to specify the details of the error. **/
