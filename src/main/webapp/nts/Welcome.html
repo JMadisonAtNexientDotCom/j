@@ -47,6 +47,7 @@
 <!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
   <body>
     
+    <div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="VI();" >
       <!-- Vertically + horizontally centered dialog -->
       <div class="horcen_parent" > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
       <div class="horcen_child"  > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
@@ -68,6 +69,30 @@
       </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
       </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
       </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+    </div>
+      
+    <script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope, $http) {
+      
+      //variable initialization:
+      $scope.VI = function(){
+        $scope.appInitialized = true;
+      };//FUNC::END
+      
+      $scope.ninjaLogin = function(){
+        location.href = '/nts/test.jsp';
+      };//FUNC::END
+      
+      $scope.adminLogin = function(){
+        location.href = location.href = '/nts/test.jsp';
+        
+      };//FUNC::END
+      
+      
+      
+    });
+    </script>
       
   </body>
 </html>
