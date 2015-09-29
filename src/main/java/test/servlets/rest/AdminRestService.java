@@ -100,9 +100,9 @@ public class AdminRestService extends BaseRestService{
         //a pre-existing entry in the session_table.
         //TransUtil.exitTransaction(ses, TransUtil.EXIT_WITH_SAVE);
         
-        //Temporary, until all the logic is in place and entities
-        //Are actually registered for saving.
-        TransUtil.exitTransaction(ses, TransUtil.EXIT_WITH_SAVE);
+        //We only save the transaction IF it was NOT an error:
+        boolean should_we_save = (false == adminToken.isError);
+        TransUtil.exitTransaction(ses, should_we_save);
         
         Response op;
         op = JSONUtil.typeWithCommentToJSONResponse(adminToken);
