@@ -38,11 +38,12 @@
   </div>
   
   <script>
-  var app = angular.module('myApp', []);
-  app.controller('myCtrl', function($scope) {
+  var app = angular.module('myApp', ['angularSpinners']);
+  app.controller('myCtrl', function($scope, $http, spinnerService) {
   
     //variable initialization:
     $scope.VI = function(){
+        $scope.msg_for_user = "Insert Token:";
         $scope.token_input = "PUT_TOKEN_HERE";
     };
 
