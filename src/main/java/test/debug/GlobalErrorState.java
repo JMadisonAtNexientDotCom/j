@@ -43,10 +43,13 @@ public class GlobalErrorState {
         //add to our list:
         _errors.add(er);
         
+        //This worked decently... Null pointer exception definitely got my
+        //attention... But see if you can throw a more specific error.
+        //----------------------------------------------------------------------
         //KILL I: De-reference I.API so that .JSP pages crash.
-        I.API_WAS_SET_TO_NULL_TO_BRING_ATTENTION_TO_ERRORS = true;
-        I.API = null;
-        
+        //I.API_WAS_SET_TO_NULL_TO_BRING_ATTENTION_TO_ERRORS = true;
+        //I.API = null;
+        //----------------------------------------------------------------------
         
     }//FUNC::END
     

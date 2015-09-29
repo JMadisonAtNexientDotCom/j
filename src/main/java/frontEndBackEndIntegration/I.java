@@ -8,6 +8,7 @@ import frontEndBackEndIntegration.childComponents.ServiceURLRegistry;
 import frontEndBackEndIntegration.childComponents.TextFileCacheRegistry;
 import test.MyError;
 import test.config.constants.ServiceUrlsInitializer;
+import test.debug.GlobalErrorState;
 
 
 
@@ -70,7 +71,16 @@ public class I {
      *  I would like this to be FINAL. But I also want to set this object
      *  to null in order to enduce crashes in .JSP files when serious problems
      *  occur and are logged in the global error state. **/
-    public static MasterApiDoc API = new MasterApiDoc();
+    private static MasterApiDoc _API = new MasterApiDoc();
+    
+    /** Made this a getter so we can throw error if asked for when
+     *  the global error state is set:
+     * @return 
+     */
+    public static MasterApiDoc API(){
+        GlobalErrorState.throwIfHasErrors();
+        return _API;
+    }//rawer.
     
     /** If we intentionally nullify API in order to bring errors to our
      *  attention, set this flagt to TRUE so that we know the null is

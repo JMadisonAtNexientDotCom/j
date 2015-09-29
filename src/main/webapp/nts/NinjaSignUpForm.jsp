@@ -68,13 +68,13 @@ app.controller('myCtrl', function($scope, $http, spinnerService) {
         //                             how-to-build-query-string-with-javascript
         qs = "";
         qs = $.param({ 
-        <%=I.API.MAKE_NINJA_RECORD.ARG.NAME         %>:$scope.nName, 
-        <%=I.API.MAKE_NINJA_RECORD.ARG.PHONE        %>:$scope.nPhone,
-        <%=I.API.MAKE_NINJA_RECORD.ARG.EMAIL        %>:$scope.nEmail,
-        <%=I.API.MAKE_NINJA_RECORD.ARG.PORTFOLIO_URL%>:$scope.nPortfolio });
+        <%=I.API().MAKE_NINJA_RECORD.ARG.NAME         %>:$scope.nName, 
+        <%=I.API().MAKE_NINJA_RECORD.ARG.PHONE        %>:$scope.nPhone,
+        <%=I.API().MAKE_NINJA_RECORD.ARG.EMAIL        %>:$scope.nEmail,
+        <%=I.API().MAKE_NINJA_RECORD.ARG.PORTFOLIO_URL%>:$scope.nPortfolio });
 
         //url of rest-api responsible for making new ninja records using arguments:
-        apiURL= "<%=I.API.MAKE_NINJA_RECORD.URL%>" + "?" + qs;
+        apiURL= "<%=I.API().MAKE_NINJA_RECORD.URL%>" + "?" + qs;
         
         //for debugging:
         $scope.apiCallUsed = apiURL;
