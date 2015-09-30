@@ -125,7 +125,7 @@ public class NinjaTransUtil {
         long op;
         if(bec.exists){
             NinjaTable ninja = (NinjaTable)bec.entity;
-            op = ninja.getIdOfNinja();
+            op = ninja.getId();
         }else{
             op = (-1); //return -1 for no ninja exists.
         }

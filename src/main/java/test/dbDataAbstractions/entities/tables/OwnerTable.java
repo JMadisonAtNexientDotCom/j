@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import test.config.constants.identifiers.TableNameReg;
+import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 
 /**-----------------------------------------------------------------------------
@@ -20,16 +22,16 @@ import test.dbDataAbstractions.entities.bases.BaseEntity;
 public class OwnerTable extends BaseEntity{
     
     /** Name of table this entity refers to, for easy refactoring. **/
-    public static final String TABLE_NAME        = "owner_table";
+    public static final String TABLE_NAME        = TableNameReg.OWNER_TABLE;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String TOKEN_ID_COLUMN   = "token_id";
+    public static final String TOKEN_ID_COLUMN   = VarNameReg.TOKEN_ID;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String NINJA_ID_COLUMN   = "ninja_id";
+    public static final String NINJA_ID_COLUMN   = VarNameReg.NINJA_ID;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String ADMIN_ID_COLUMN   = "admin_id";
+    public static final String ADMIN_ID_COLUMN   = VarNameReg.ADMIN_ID;
    
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String COMMENT_COLUMN    = "comment";
+    public static final String COMMENT_COLUMN    = VarNameReg.COMMENT;
     
     /** Primary foreign key **/
     @Id
@@ -49,8 +51,9 @@ public class OwnerTable extends BaseEntity{
     @Column(name=ADMIN_ID_COLUMN)
     private long admin_id;
     
-    @Column(name=COMMENT_COLUMN)
-    private String comment;
+    //DELE, now in base entity.
+    //@Column(name=COMMENT_COLUMN)
+    //private String comment;
 
     //Auto-Generated getters + setters:
     //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
@@ -78,13 +81,14 @@ public class OwnerTable extends BaseEntity{
         this.admin_id = admin_id;
     }
     
-    public String getComment() {
-        return comment;
-    }
+    //DELE, now in base entity.
+    //xx public String getComment() {
+    //xx     return comment;
+    //xx }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
+    //xx public void setComment(String comment) {
+    //xx     this.comment = comment;
+    //xx }
     //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
     
      

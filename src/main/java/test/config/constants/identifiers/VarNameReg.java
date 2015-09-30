@@ -85,8 +85,12 @@ public class VarNameReg {
     
     
     //Names only used as params to rest services:
+    /** Username admin uses to login. **/
     public static final String USER_NAME         = "user_name";
+    /** Password that admin enters to login. **/
     public static final String PASS_WORD         = "pass_word";
+    /** A hash of PASS_WORD that is stored in database. **/
+    public static final String PASS_HASH         = "pass_hash";
     public static final String NUMBER_OF_CHOICES = "number_of_choices";
     public static final String NUMBER_OF_TRUTHS  = "number_of_truths";
     public static final String CARD_COUNT        = "card_count";

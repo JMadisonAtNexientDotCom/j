@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import test.config.constants.identifiers.TableNameReg;
+import test.config.constants.identifiers.VarNameReg;
 
 /**-----------------------------------------------------------------------------
  * Represents the ninja(s) that are registered in the system.
@@ -17,21 +19,23 @@ import javax.persistence.Table;
 public class NinjaTable extends BaseEntity {
     
     /** Name of table this entity refers to, for easy refactoring. **/
-    public static final String TABLE_NAME             = "ninja_table";
+    public static final String TABLE_NAME           = TableNameReg.NINJA_TABLE;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String ID_COLUMN              = "id";
+    public static final String ID_COLUMN            = VarNameReg.ID;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String NAME_COLUMN            = "name";
+    public static final String NAME_COLUMN          = VarNameReg.NAME;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String PHONE_COLUMN           = "phone";
+    public static final String PHONE_COLUMN         = VarNameReg.PHONE;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String EMAIL_COLUMN           = "email";
+    public static final String EMAIL_COLUMN         = VarNameReg.EMAIL;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String PORTFOLIO_URL_COLUMN   = "portfolio_url";
+    public static final String PORTFOLIO_URL_COLUMN = VarNameReg.PORTFOLIO_URL;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String COMMENT_COLUMN         = "comment";
+    public static final String COMMENT_COLUMN       = VarNameReg.COMMENT;
     
     
+    //DELE, now in base entity.
+    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   /** named "idOfNinja" instead of simply "id" because I am trying to
    *  track down a bug that seems to be involved with the name "id"
    *  colliding in my token table and ninja table. 
@@ -39,10 +43,11 @@ public class NinjaTable extends BaseEntity {
    *  Called "idOfNinja" rather than "ninjaID" because postfixes are
    *  more friendly with intellisense than prefixes.
    */
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name=ID_COLUMN)
-  private long id;
+  //@Id
+  //@GeneratedValue(strategy = GenerationType.IDENTITY)
+  //@Column(name=ID_COLUMN)
+  //private long id;
+     //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   
   @Column(name=NAME_COLUMN)
   private String name;
@@ -58,14 +63,17 @@ public class NinjaTable extends BaseEntity {
   @Column(name=PORTFOLIO_URL_COLUMN)
   private String portfolio_url;
   
-  @Column(name=COMMENT_COLUMN)
-  private String comment;
+  //DELE, now in base entity.
+  //xx @Column(name=COMMENT_COLUMN)
+  //xx private String comment;
   
 
   //Getters and setters:
   //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
-  public Long getIdOfNinja(){ return id;}
-  public void setIdOfNinja(Long idOfNinja){ this.id = idOfNinja;}
+  
+  //DELE: now in base entity.
+  //xx public Long getIdOfNinja(){ return id;}
+  //xx public void setIdOfNinja(Long idOfNinja){ this.id = idOfNinja;}
   
   public String getName(){ return name;}
   public void setName(String name){ this.name = name;}
@@ -80,8 +88,9 @@ public class NinjaTable extends BaseEntity {
   public void setPortfolioURL(String portfolio_url)
   { this.portfolio_url = portfolio_url;}
   
-  public String getComment(){ return comment;}
-  public void setComment(String comment){ this.comment = comment;}
+  //DELE: Now in base entity.
+  //xx public String getComment(){ return comment;}
+  //xx public void setComment(String comment){ this.comment = comment;}
   //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
     
 }//CLASS::END

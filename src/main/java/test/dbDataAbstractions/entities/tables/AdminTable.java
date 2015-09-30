@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import test.config.constants.identifiers.TableNameReg;
+import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 
 /**
@@ -16,18 +18,19 @@ import test.dbDataAbstractions.entities.bases.BaseEntity;
 public class AdminTable extends BaseEntity {
     
     /** Name of table this entity refers to, for easy refactoring. **/
-    public static final String TABLE_NAME          = "admin_table";
+    public static final String TABLE_NAME          = TableNameReg.ADMIN_TABLE;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String ID_COLUMN           = "id";
+    public static final String ID_COLUMN           = VarNameReg.ID;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String USER_NAME_COLUMN    = "user_name";
+    public static final String USER_NAME_COLUMN    = VarNameReg.USER_NAME;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String PASS_HASH_COLUMN    = "pass_hash";
+    public static final String PASS_HASH_COLUMN    = VarNameReg.PASS_HASH;
     
+    //DELE, now in base entity.
     /** Unique ID of the admin user. **/
-    @Id
-    @Column(name=ID_COLUMN)
-    private long id;
+    //x//@Id
+    //x//@Column(name=ID_COLUMN)
+    //x//private long id;
     
     /** Case-Insensitive user-name. **/
     @Column(name=USER_NAME_COLUMN)
@@ -45,14 +48,19 @@ public class AdminTable extends BaseEntity {
     
     //Getters and setters:
     //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
+    
+    //DELE, now in base entity... Should we only have getter for id column in
+    //the base entity?
+    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     /**------------------------------------------------------------------------- 
      *  We only have a getter. NO SETTER for the ID.
      *  Since it is primary key and should not be tampered with.
      * @return :The ID of the [admin/user]:
      ------------------------------------------------------------------------**/
-    public long getId() {
-        return id;
-    }//FUNC::END
+    //public long getId() {
+    //    return id;
+    //}//FUNC::END
+    //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
     public String getUser_name() {
         return user_name;
