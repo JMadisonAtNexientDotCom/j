@@ -10,7 +10,10 @@ import org.hibernate.criterion.Restrictions;
 import test.MyError;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
-import test.globalState.SynchronizedMutationCounter;
+import test.dbDataAbstractions.entities.tables.TransTable;
+import test.globalState.SynchronizedConversationCounter;
+import test.globalState.SynchronizedGlobalSaveCounter;
+import test.globalState.SynchronizedLogCounter;
 import utils.HibernateUtil;
 
 
@@ -33,6 +36,14 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
      *  4. forgetting to close a transaction.
      *  5. forgetting to open a transaction. */
     private Boolean areWeInTransaction = false;
+    
+    /** ID that keeps track of unique order in which this conversation was
+     *  BEGAN relative to all other conversations in the app. **/
+    private long _convo_open_id = (-1);
+    
+    /** ID that keeps track of unique order in which this conversation was
+     *  [ENDED/CLOSED] relative to all other conversations in the app. **/
+    private long _convo_close_id = (-1);
     
     /** The session object created when we entered a transaction state.
      *  When in a transaction state, this reference should be NON-null.
@@ -137,6 +148,10 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         //before we return this session, store it in static class variable:
         activeTransactionSession = session;
         
+        //give the conversation that happesn between enterTransaction() and
+        //exitTransaction() a unique global ID.
+        _convo_open_id = SynchronizedConversationCounter.getNextOpenID();
+        
         //We now need a new list of entities for the new transaction:
         _saveTheseEntitiesOnExit = new ArrayList<BaseEntity>(0);
         
@@ -200,6 +215,10 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         //and save them. 
         saveTheEntitiesErrorCheck(weHaveEntitiesThatNeedSaving);
         
+        //regardless of if we have anything that needs saving,
+        //we need to get the unique id for this closed conversation:
+        _convo_close_id = SynchronizedConversationCounter.getNextCloseID();
+        
         if(weHaveEntitiesThatNeedSaving)
         {
             saveMyEntities(ses,_saveTheseEntitiesOnExit);
@@ -231,26 +250,51 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
     private void saveMyEntities(Session ses, ArrayList<BaseEntity> arr){
         //loop through and save all entities:
         int len = arr.size();
-        long mutate_id;
+        long global_save_id;
         long new_save_counter_value;
         BaseEntity bent = null;
         for(int i = 0; i < len; i++)
-        {
+        {//FOR I:
+            //Get entity to save:
             bent = arr.get(i);
-            mutate_id = SynchronizedMutationCounter.getNextMutateID();
-            bent.setGlobal_save_id(mutate_id);
+            global_save_id = SynchronizedGlobalSaveCounter.getNextGlobalSaveID();
+            bent.setGlobal_save_id(global_save_id);
             
             //incriment save counter:
             new_save_counter_value = bent.getRecord_local_save_count() + 1;
             bent.setRecord_local_save_count(new_save_counter_value);
             
             //debug:
-            if(bent.getRecord_local_save_count() > 1){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            if(bent.getRecord_local_save_count() > 1){//EEEEEEEEEEEEEEEEEEEEEEEE
                 doError("We shouldn't be saving an entity more than once");
             }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             
+            //Create linear log of this edit to database.
+            //Will hopefully aid in debugging concurrent transactions.
+            createTransTableLogForEntityWeAreSaving(bent, ses);
+          
+            //Save the entity:
             ses.save( bent );
-        }
+        }//NEXT I (entity)
+    }//FUNC::END
+    
+    private void createTransTableLogForEntityWeAreSaving
+                                                 (BaseEntity bent, Session ses){
+        //Create a log of this in our transaction table:
+        long log_count;
+        TransTable log = new TransTable();
+        log_count = SynchronizedLogCounter.getNextLogID();
+        log.setLog_id(log_count); //<--should match primary key.
+                                  //unless in production and server was
+                                  //stopped and started. Then will see an
+                                  //offset between the two values.
+        log.setConvo_open_id (_convo_open_id);
+        log.setConvo_close_id(_convo_close_id);
+        log.setComment("log"); //<<We don't use the inherited comment here.
+        log.setForeign_record_comment(bent.getComment());
+        log.setForeign_record_id(bent.getId());
+        log.setForeign_table_name(bent.getClass().getSimpleName() );
+        ses.save( log );
     }//FUNC::END
     
     /** Throws are error if boolean does not match the 

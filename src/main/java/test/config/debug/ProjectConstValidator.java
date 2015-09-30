@@ -2,6 +2,7 @@ package test.config.debug;
 
 import test.config.constants.EntityErrorCodes;
 import test.config.constants.identifiers.FuncNameReg;
+import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import utils.generalDebugUtils.ConstNameRegDebugUtil;
 
@@ -32,9 +33,11 @@ public class ProjectConstValidator {
         boolean t1;
         boolean t2;
         boolean t3;
+        boolean t4;
         t1 = ConstNameRegDebugUtil.validateStaticVars(VarNameReg.class,er);
         t2 = ConstNameRegDebugUtil.validateStaticVars(FuncNameReg.class,er);
         t3 = ConstNameRegDebugUtil.validateStaticVars(EntityErrorCodes.class, er);
+        t4 = ConstNameRegDebugUtil.validateStaticVars(TableNameReg.class, er);
   
         /*XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
         I would like to wreck these values on error. But they
@@ -51,6 +54,7 @@ public class ProjectConstValidator {
         if(false == t1){return false;}
         if(false == t2){return false;}
         if(false == t3){return false;}
+        if(false == t4){return false;}
         return true;
         
     }//FUNC::END

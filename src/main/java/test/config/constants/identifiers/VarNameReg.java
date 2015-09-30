@@ -29,6 +29,9 @@ public class VarNameReg {
    // }////////////////
     
     //Names used as: TableColumns + Parameters + Required of Base Entities:
+    //BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+    //BBBBBBBBBBBBBB------------START------------------BBBBBBBBBBBBBBBBBBBBBBBBB
+    //BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
     public static final String ID           = "id";
     
     /** A comment that can be added to a record to help us debug. 
@@ -61,9 +64,14 @@ public class VarNameReg {
      *  (Which should be NEVER according to my current design)
      *  The number is incremented. **/
     public static final String RECORD_LOCAL_SAVE_COUNT = "record_local_save_count";
-    
+    //BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+    //BBBBBBBBBBBBBB------------END--------------------BBBBBBBBBBBBBBBBBBBBBBBBB
+    //BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
     
     //Names used as table columns or parameters:
+    //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+    //TTTTTTTTTTTTTTT----------START------------------------TTTTTTTTTTTTTTTTTTTT
+    //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
     public static final String TOKEN_ID  = "token_id";
     public static final String TOKEN_HASH= "token_hash"; //string representation of token.
     public static final String ADMIN_ID  = "admin_id";
@@ -83,8 +91,22 @@ public class VarNameReg {
     /** Is the session active/valid? (NOT expired) **/
     public static final String IS_ACTIVE = "is_active";
     
+    public static final String CONVO_OPEN_ID         = "convo_open_id";
+    public static final String CONVO_CLOSE_ID        = "convo_close_id";
+    public static final String LOG_ID                = "log_id";
+    public static final String FOREIGN_TABLE_NAME    = "foreign_table_name";
+    public static final String FOREIGN_RECORD_ID     = "foreign_record_id";
+    public static final String FOREIGN_RECORD_COMMENT= "foreign_record_comment";
+    
+    
+    //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+    //TTTTTTTTTTTTTTT----------END--------------------------TTTTTTTTTTTTTTTTTTTT
+    //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
     
     //Names only used as params to rest services:
+    //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+    //RRRRRRR--------------START----------------------------RRRRRRRRRRRRRRRRRRRR
+    //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
     /** Username admin uses to login. **/
     public static final String USER_NAME         = "user_name";
     /** Password that admin enters to login. **/
@@ -97,6 +119,9 @@ public class VarNameReg {
     public static final String NUM_QUIPS         = "num_quips";
     public static final String TRU_MIN           = "tru_min";
     public static final String TRU_MAX           = "tru_max";
+    //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+    //RRRRRRR--------------END------------------------------RRRRRRRRRRRRRRRRRRRR
+    //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
     
     //For HTTP POST:
     public static final String JSON_OBJ          = "json_obj";

@@ -20,6 +20,7 @@ import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.dbDataAbstractions.entities.tables.SessionTable;
 import test.dbDataAbstractions.entities.tables.TestTable01;
 import test.dbDataAbstractions.entities.tables.TokenTable;
+import test.dbDataAbstractions.entities.tables.TransTable;
 import test.debug.debugUtils.entity.EntityColumnDebugUtil;
 
 /**-----------------------------------------------------------------------------
@@ -188,16 +189,17 @@ public class HibernateUtil {
      *              AnnotationConfiguration object in previous
      *              versions of hibernate. ----------------------------------**/
     private static void addAnnotations(MetadataSources mds){
-        addAnnoEntity(mds, TestTable01.class );
-        addAnnoEntity(mds, TokenTable .class );
-        addAnnoEntity(mds, NinjaTable .class );
-        addAnnoEntity(mds, RiddleTable.class );
-        addAnnoEntity(mds, RhymeTable .class );
-        addAnnoEntity(mds, RiddleRhymeTruthTable.class);
-        addAnnoEntity(mds, RiddleRhymeWrongTable.class);
-        addAnnoEntity(mds, AdminTable.class);
-        addAnnoEntity(mds, SessionTable.class);
-        addAnnoEntity(mds, OwnerTable.class);
+        addAnnoEntity(mds, TestTable01 .class );
+        addAnnoEntity(mds, TokenTable  .class );
+        addAnnoEntity(mds, NinjaTable  .class );
+        addAnnoEntity(mds, RiddleTable .class );
+        addAnnoEntity(mds, RhymeTable  .class );
+        addAnnoEntity(mds, AdminTable  .class );
+        addAnnoEntity(mds, SessionTable.class );
+        addAnnoEntity(mds, OwnerTable  .class );
+        addAnnoEntity(mds, TransTable  .class );
+        addAnnoEntity(mds, RiddleRhymeTruthTable.class );
+        addAnnoEntity(mds, RiddleRhymeWrongTable.class );
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
