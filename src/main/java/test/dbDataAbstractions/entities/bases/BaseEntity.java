@@ -93,7 +93,7 @@ public class BaseEntity implements Serializable{
      *  ignored. Objects marked as "dele" should not be taken into consideration
      *  when validating the integrity of a database.
      */
-    @Column(name=VarNameReg.DELE, nullable = false)
+    @Column(name=VarNameReg.DELE, nullable = true)
     private Long dele;
     public boolean getIsMarkedForDeletion(){
         return (dele > 0);
