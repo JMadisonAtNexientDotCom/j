@@ -76,6 +76,14 @@ public class VarNameReg {
     public static final String PORTFOLIO_URL = "portfolio_url";
     public static final String TEXT          = "text"; //used in TextTableBaseEntity.java
     
+    /** Time in milliseconds that a session was opened in the session table. **/
+    public static final String OPENED_ON = "opened_on";
+    /** Duration in milliseconds that session should last. **/
+    public static final String DURATION  = "duration";
+    /** Is the session active/valid? (NOT expired) **/
+    public static final String IS_ACTIVE = "is_active";
+    
+    
     //Names only used as params to rest services:
     public static final String USER_NAME         = "user_name";
     public static final String PASS_WORD         = "pass_word";

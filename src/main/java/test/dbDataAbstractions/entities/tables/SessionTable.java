@@ -5,6 +5,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import test.config.constants.identifiers.TableNameReg;
+import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 
 /**##########################CLASS HEADER FILE##################################
@@ -40,23 +42,25 @@ import test.dbDataAbstractions.entities.bases.BaseEntity;
 public class SessionTable extends BaseEntity {
     
     /** Name of table this entity refers to, for easy refactoring. **/
-    public static final String TABLE_NAME        = "session_table";
+    public static final String TABLE_NAME        = TableNameReg.SESSION_TABLE;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String ID_COLUMN         = "id";
+    public static final String ID_COLUMN         = VarNameReg.ID;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String TOKEN_ID_COLUMN   = "token_id";
+    public static final String TOKEN_ID_COLUMN   = VarNameReg.TOKEN_ID;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String OPENED_ON_COLUMN  = "opened_on";
+    public static final String OPENED_ON_COLUMN  = VarNameReg.OPENED_ON;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String DURATION_COLUMN   = "duration";
+    public static final String DURATION_COLUMN   = VarNameReg.DURATION;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String IS_ACTIVE_COLUMN  = "is_active";
+    public static final String IS_ACTIVE_COLUMN  = VarNameReg.IS_ACTIVE;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String COMMENT_COLUMN    = "comment";
+    public static final String COMMENT_COLUMN    = VarNameReg.COMMENT;
     
-    @Id
-    @Column(name=ID_COLUMN)
-    private long id;
+    //DELETE:
+    //part of base entity now.
+    //@Id
+    //@Column(name=ID_COLUMN)
+    //private long id;
     
     /**-------------------------------------------------------------------------
      * Though this is a FORIEGN KEY taken from token_table,
@@ -78,18 +82,21 @@ public class SessionTable extends BaseEntity {
     @Column(name=IS_ACTIVE_COLUMN)
     private boolean is_active;
     
-    @Column(name=COMMENT_COLUMN)
-    private String comment;
+    //DELE, part of base entity now.
+    //@Column(name=COMMENT_COLUMN)
+    //private String comment;
 
     //Boiler-plate auto-generated getters+setters for all columns:
     //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
-    public long getId() {
-        return id;
-    }//FUNC::END
-
-    public void setId(long id) {
-        this.id = id;
-    }//FUNC::END
+    
+    //Delete. Part of base entity now.
+    //xx public long getId() {
+    //xx     return id;
+    //xx }//FUNC::END
+    //xx 
+    //xx public void setId(long id) {
+    //xx     this.id = id;
+    //xx }//FUNC::END
 
     public long getToken_id() {
         return token_id;
@@ -123,13 +130,14 @@ public class SessionTable extends BaseEntity {
         this.is_active = is_active;
     }//FUNC::END
 
-    public String getComment() {
-        return comment;
-    }//FUNC::END
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }//FUNC::END
+    //Delete: Part of base entity now.
+    //xx public String getComment() {
+    //xx     return comment;
+    //xx }//FUNC::END
+    //xx 
+    //xx public void setComment(String comment) {
+    //xx     this.comment = comment;
+    //xx }//FUNC::END
     //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
     
     

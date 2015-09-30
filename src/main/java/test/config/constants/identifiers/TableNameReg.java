@@ -6,6 +6,7 @@ package test.config.constants.identifiers;
  */
 public class TableNameReg {
     
-    public static final String TOKEN_TABLE = "token_table";
+    public static final String TOKEN_TABLE   = "token_table";
+    public static final String SESSION_TABLE = "session_table";
     
 }//CLASS::END
