@@ -1,6 +1,8 @@
 package test.dbDataAbstractions.entities.bases;
 
 import java.io.Serializable;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -75,6 +77,7 @@ public class BaseEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name=VarNameReg.ID) // unique = true, nullable = false)
+    @Access(AccessType.PROPERTY)
     private long id;
     public long getId(){ return this.id;}
     
