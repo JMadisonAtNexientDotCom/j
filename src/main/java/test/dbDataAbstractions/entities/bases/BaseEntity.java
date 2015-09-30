@@ -78,9 +78,12 @@ public class BaseEntity implements Serializable{
     private long id;
     public long getId(){ return this.id;}
     
-    //ID COLUMN SHOULD NOT BE SET! Only gotten. Hibernate auto-generates
-    //the ID and the ID should NOT be tampered with!
-    //xxx//public void setId(long id){ this.id = id;}
+    /** We use setId when configuring entities as error responses.
+     *  Other than that, setId should not be used. As it is auto generated
+     *  primary key used by hibernate.
+     * @param id :The ID value to set.
+     */
+    public void setId(long id){ this.id = id;}
     
     /** DELE != DELETE. DELE == To mark something for deletion.
      *  I was thinking about the word "kill" but "dele" is more descriptive

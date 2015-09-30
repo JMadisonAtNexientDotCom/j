@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import test.config.constants.identifiers.TableNameReg;
 import test.dbDataAbstractions.entities.bases.TextTableBaseEntity;
 
 /**
@@ -16,11 +17,11 @@ import test.dbDataAbstractions.entities.bases.TextTableBaseEntity;
 @Table(name=RiddleTable.TABLE_NAME)
 public class RiddleTable extends TextTableBaseEntity {
      /** Name of table this entity refers to, for easy refactoring. **/
-    public static final String TABLE_NAME             = "riddle_table";
+    public static final String TABLE_NAME      = TableNameReg.RIDDLE_TABLE;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String ID_COLUMN              = TextTableBaseEntity.ID_COLUMN;
+    public static final String ID_COLUMN       = TextTableBaseEntity.ID_COLUMN;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String TEXT_COLUMN            = TextTableBaseEntity.TEXT_COLUMN;
+    public static final String TEXT_COLUMN     = TextTableBaseEntity.TEXT_COLUMN;
     
     /** An invalid index (hence negative) used to identify error objects
      *  that have been intentionally made by the programmer of this application.

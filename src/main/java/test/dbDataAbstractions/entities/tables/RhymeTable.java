@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import test.config.constants.identifiers.TableNameReg;
 import test.dbDataAbstractions.entities.bases.TextTableBaseEntity;
 
 /**
@@ -16,11 +17,11 @@ import test.dbDataAbstractions.entities.bases.TextTableBaseEntity;
 @Table(name = RhymeTable.TABLE_NAME)
 public class RhymeTable extends TextTableBaseEntity {
     /** Name of table this entity refers to, for easy refactoring. **/
-    public static final String TABLE_NAME             = "rhyme_table";
+    public static final String TABLE_NAME     = TableNameReg.RHYME_TABLE;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String ID_COLUMN              = TextTableBaseEntity.ID_COLUMN;
+    public static final String ID_COLUMN      = TextTableBaseEntity.ID_COLUMN;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String TEXT_COLUMN            = TextTableBaseEntity.TEXT_COLUMN;
+    public static final String TEXT_COLUMN    = TextTableBaseEntity.TEXT_COLUMN;
     
     /** Index/ID to be used for when when we intentionally make a RhymeTable
      *  with bogus info. Negative so that it is an invalid database index.    */

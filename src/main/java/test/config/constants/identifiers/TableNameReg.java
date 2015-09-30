@@ -6,6 +6,8 @@ package test.config.constants.identifiers;
  */
 public class TableNameReg {
     
+    public static final String RHYME_TABLE   = "rhyme_table";
+    public static final String RIDDLE_TABLE  = "riddle_table";
     public static final String ADMIN_TABLE   = "admin_table";
     public static final String NINJA_TABLE   = "ninja_table";
     public static final String TOKEN_TABLE   = "token_table";
