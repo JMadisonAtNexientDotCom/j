@@ -60,7 +60,7 @@ CREATE TABLE riddle_rhyme_wrong_table (riddle_id INT UNSIGNED NOT NULL, rhyme_id
 CREATE TABLE admin_table              (id serial PRIMARY KEY, user_name varchar(80), pass_hash varchar (80) );
 CREATE TABLE session_table            (id serial PRIMARY KEY, token_id INT UNSIGNED NOT NULL, opened_on INT UNSIGNED NOT NULL, duration INT UNSIGNED NOT NULL, is_active BOOLEAN NOT NULL, comment varchar(80) );
 CREATE TABLE owner_table              (token_id INT UNSIGNED NOT NULL, ninja_id INT UNSIGNED NOT NULL, admin_id INT UNSIGNED NOT NULL, comment varchar(80));
-
+CREATE TABLE trans_table              (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, convo_open_id INT UNSIGNED, convo_close_id INT UNSIGNED, log_id INT UNSIGNED, foreign_table_name varchar(80), foreign_record_id INT UNSIGNED(80), foreign_record_comment varchar(80) );
 
 
 -- Make an entry into the admin_table                                         --
