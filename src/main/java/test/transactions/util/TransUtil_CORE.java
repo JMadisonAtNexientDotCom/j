@@ -292,7 +292,10 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         log.setConvo_close_id(_convo_close_id);
         log.setComment("log"); //<<We don't use the inherited comment here.
         log.setForeign_record_comment(bent.getComment());
-        log.setForeign_record_id(bent.getId());
+        
+        //log.setForeign_record_id(bent.getId());
+        log.setForeign_record_id(5);
+        
         log.setForeign_table_name(bent.getClass().getSimpleName() );
         ses.save( log );
     }//FUNC::END
