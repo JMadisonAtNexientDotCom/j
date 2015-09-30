@@ -71,24 +71,9 @@ import test.config.constants.identifiers.VarNameReg;
  * 
  * @author jmadison */
 @MappedSuperclass
-public class BaseEntity implements Serializable{
+public class BaseEntity extends KernelEntity{
     
-    //Deciding on some required fields for entities:
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name=VarNameReg.ID) // unique = true, nullable = false)
-    //@Access(AccessType.PROPERTY)
-    @Access(AccessType.FIELD)
-    private long id;
-    public long getId(){ return this.id;}
-    
-    /** We use setId when configuring entities as error responses.
-     *  Other than that, setId should not be used. As it is auto generated
-     *  primary key used by hibernate.
-     * @param id :The ID value to set.
-     */
-    public void setId(long id){ this.id = id;}
-    
+   
     /** DELE != DELETE. DELE == To mark something for deletion.
      *  I was thinking about the word "kill" but "dele" is more descriptive
      *  and more proper grammar for what I intend to communicate.
@@ -201,31 +186,6 @@ public class BaseEntity implements Serializable{
     public boolean getIsError(){
         return isError;
     }//FUNC::END
-    
-    //We don't need an errorMessage field. The comment property that
-    //I use on my entities should handle communication of what the error
-    //happens to be.
-    //XXX-dont-use-XXX//public String  errorMessage = "NOT_AN_ERROR";
-    
-    //Boilerplate implementation of Serializable interface:
-    //Usage: Keep compiler happy.
-    ////////////////////////////////////////////////////////////////////////////
-    @Override
-    public boolean equals(Object obj) {
-        //BS type checking to keep compiler  happy:
-        if(obj instanceof Object){}
-        return super.equals(obj);
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode(); //To change body of generated methods, choose Tools | Templates.
-    }
-    ////////////////////////////////////////////////////////////////////////////
-   
-    //This is completely empty for the moment.
-    //I only want a "BaseEntity" class so that I can
-    //Have stricter typing with my TransactionUtil.
     
     /**-------------------------------------------------------------------------
     -*- Wrapper function to throw errors from this class.   --------------------

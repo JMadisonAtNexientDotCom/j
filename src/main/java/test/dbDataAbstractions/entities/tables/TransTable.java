@@ -6,6 +6,7 @@ import javax.persistence.Table;
 import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
+import test.dbDataAbstractions.entities.bases.KernelEntity;
 
 /**
  * A table that helps with debugging. Every time we save an entity, we will
@@ -18,7 +19,7 @@ import test.dbDataAbstractions.entities.bases.BaseEntity;
  */
 @Entity
 @Table(name= TransTable.TABLE_NAME) 
-public class TransTable extends BaseEntity{
+public class TransTable extends KernelEntity{
     
     /** Name of table this entity refers to, for easy refactoring. **/
     public static final String TABLE_NAME           = TableNameReg.TRANS_TABLE;
