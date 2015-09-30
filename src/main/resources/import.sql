@@ -52,7 +52,7 @@ DROP TABLE IF EXISTS trans_table; -- helps us debug concurrency by seeing linear
 -- Max length == 80 (one line) for our answers (rhymes).              --
 -- -----------------------------------| [B][B][B][B][B] BASE ENTITY FIELDS [B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B]-------|
 CREATE TABLE token_table              (id serial PRIMARY KEY, token_hash varchar(80));
-CREATE TABLE ninja_table              (id serial PRIMARY KEY);
+CREATE TABLE ninja_table              (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, name varchar(80), phone INT UNSIGNED, email varchar(80), portfolio_url varchar(80) );
 CREATE TABLE riddle_table             (id serial PRIMARY KEY, text varchar(800) );
 CREATE TABLE rhyme_table              (id serial PRIMARY KEY, text varchar(80) );
 CREATE TABLE riddle_rhyme_truth_table (riddle_id INT UNSIGNED NOT NULL, rhyme_id INT UNSIGNED NOT NULL);
