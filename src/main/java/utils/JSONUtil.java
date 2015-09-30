@@ -113,12 +113,17 @@ public class JSONUtil {
         String jsonText = null;
         try {
             jsonText = prettyPrinter.writeValueAsString( obj );
-        } catch (JsonProcessingException ex) {
+        } catch (JsonProcessingException ex) {//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             Logger.getLogger(JSONUtil.class.getName()).log(Level.SEVERE, null, ex);
             //Writing code to keep compiler happy, never a good reason.
-            //This is horrible code. Now I am going to re-throw the exception I just caught.
-            doError("Yeah, we are not really catching this exception. JSONUtil.java");
-        }
+            //This is horrible code. Now I am going to re-throw the exception 
+            //I just caught.
+            String msg = "";
+            msg += "[Yeah, we are not really catching this exception.]";
+            if(null == obj){ msg+= "[input object was null!]";}
+            if(null != obj){ msg+= "[obj==[" + obj.toString() + "]]";}
+            doError(msg);
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         if(obj != null && null == jsonText){/////////////////////////
             doError("jsonText should not be null if input was not.");
