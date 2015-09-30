@@ -28,8 +28,42 @@ public class VarNameReg {
    //     validate();
    // }////////////////
     
+    //Names used as: TableColumns + Parameters + Required of Base Entities:
+    public static final String ID           = "id";
+    
+    /** A comment that can be added to a record to help us debug. 
+     *  Usually tells us what function last touched the record. **/
+    public static final String COMMENT      = "comment";
+    
+    /** DELE != DELETE. DELE means to "mark for deletion".
+     *  Drew mentioned deleting information from a database can lead to all
+     *  sorts of trouble. Combine that with the fact that deleting or 
+     *  overwriting records will make it harder to debug... I think a good
+     *  solution is to mark records as DELE. Objects marked as dele will
+     *  be ignored in transactions.
+     * 
+     *  Then LATER we could have a clean-up method pessimistically locks
+     *  the entire database and cleans up records marked for deletion.
+     * 
+     *  Splitting up clean-up into a whole different procedure rather than
+     *  mixing it in with the transaction logic seems like a good separation
+     *  of concerns which will make this easier. **/
+    public static final String DELE         = "dele";
+    
+    /** A unique ID that is unique to the ENTIRE database. It represents
+     *  the order in which the record was created or edited. Using this so when
+     *  I run into concurrency issues I can have some insight into what is
+     *  going wrong. **/
+    public static final String MUTATE_ID     = "mutate_id";
+    
+    /** When a record is first made, the SAVE_COUNTER == 1.
+     *  When a record is edited and re-saved
+     *  (Which should be NEVER according to my current design)
+     *  The number is incremented. **/
+    public static final String SAVE_COUNTER = "save_counter";
+    
+    
     //Names used as table columns or parameters:
-    public static final String ID        = "id";
     public static final String TOKEN_ID  = "token_id";
     public static final String TOKEN_HASH= "token_hash"; //string representation of token.
     public static final String ADMIN_ID  = "admin_id";
@@ -40,6 +74,7 @@ public class VarNameReg {
     public static final String PHONE         = "phone";
     public static final String EMAIL         = "email";
     public static final String PORTFOLIO_URL = "portfolio_url";
+    public static final String TEXT          = "text"; //used in TextTableBaseEntity.java
     
     //Names only used as params to rest services:
     public static final String USER_NAME         = "user_name";

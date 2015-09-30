@@ -76,7 +76,7 @@ public class SessionTable extends BaseEntity {
     private long duration;
     
     @Column(name=IS_ACTIVE_COLUMN)
-    private long is_active;
+    private boolean is_active;
     
     @Column(name=COMMENT_COLUMN)
     private String comment;
@@ -115,11 +115,11 @@ public class SessionTable extends BaseEntity {
         this.duration = duration;
     }//FUNC::END
 
-    public long getIs_active() {
+    public boolean getIs_active() {
         return is_active;
     }//FUNC::END
 
-    public void setIs_active(long is_active) {
+    public void setIs_active(boolean is_active) {
         this.is_active = is_active;
     }//FUNC::END
 

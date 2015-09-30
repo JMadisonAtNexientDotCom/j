@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import test.MyError;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
+import test.globalState.SynchronizedMutationCounter;
 import utils.HibernateUtil;
 
 
@@ -103,6 +104,16 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
            _saveTheseEntitiesOnExit.add(ent); 
         }
     }//FUNC::END
+    
+    //---Decided NOT to do this. Rather than delete. We will overwrite.      ---
+    //---This will de-complexify making new entries into the table a bit when---
+    //---Concurrent transactions happen.                                     ---
+    //public static void markEntityForDeletionOnExit(BaseEntity be){
+    //    insideTransactionCheck();
+    //}//FUNC::END
+    //public static void markEntitiesForDeletionOnExit(List<BaseEntity> entList){
+    //    insideTransactionCheck(); 
+    //}//FUNC::END
     
     /** Boilerplate code for beginning a transaction.
      * @return : Returns object representing the transaction we have entered **/
@@ -220,9 +231,21 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
     private void saveMyEntities(Session ses, ArrayList<BaseEntity> arr){
         //loop through and save all entities:
         int len = arr.size();
+        long mutate_id;
+        BaseEntity bent;
         for(int i = 0; i < len; i++)
         {
-            ses.save( arr.get(i) );
+            bent = arr.get(i);
+            mutate_id = SynchronizedMutationCounter.getNextMutateID();
+            bent.setMutateId(mutate_id);
+            bent.incrimentSaveCounter();
+            
+            //debug:
+            if(bent.getSaveCounter()>1){
+                doError("We shouldn't be saving an entity more than once");
+            }//FUNC::END
+            
+            ses.save( bent );
         }
     }//FUNC::END
     

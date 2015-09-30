@@ -5,10 +5,11 @@ import primitives.StringWithComment;
 import test.MyError;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.AdminTable;
+import test.dbDataAbstractions.entities.tables.SessionTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.transactions.util.TransUtil;
-import test.transactions.util.forNoClearTableOwner.AdminTokenTransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.admin.AdminTransUtil;
+import test.transactions.util.forNoClearTableOwner.AdminTokenTransUtil;
 
 /**##########################CLASS HEADER FILE##################################
 //WHAT THIS CLASS DOES:
@@ -83,17 +84,106 @@ public class SessionTransUtil {
         AdminTable theAdmin;
         TokenTable theToken;
         theAdmin = (AdminTable)bec.entity;
-        //theToken = AdminTokenTransUtil.linkAdminToToken(theAdmin);
+        theToken = AdminTokenTransUtil.linkAdminToNewToken(theAdmin);
         
         //Return the string representing admin's token:
-        //return theToken.token;
-        
-        op.value = "TODO: Finish actual logic for getActiveTokenForAdmin";
+        op.value = theToken.getToken(); //Return the token HASH value.
         op.isError = false;
+        op.comment = "success in getActiveTokenForAdmin";
         return op;
         
     }//FUNC::END
     
+    /** Make a new session using token. Expects that token does NOT
+     *  exist in the session table already. If token already exists in
+     *  the session table, will throw error.
+     * @param token_id :The token id to put into the session table.
+     */
+    public static void makeSessionUsingToken(long token_id){
+        //check to see if we are in a transaction state:
+        TransUtil.insideTransactionCheck();
+        
+        //see if token already exists:
+        boolean alreadyHere = isTokenInSessionTable(token_id);
+        if(alreadyHere){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            String msg = "";
+            msg+="Token already exists in the session table.";
+            msg+="Cannot insert again.";
+            doError(msg);
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        //Makes a blank session object that will need 
+        //to be populated and saved.
+        SessionTable st = makeNextSession();
+        
+        //associate this session with the token ID and make
+        //sure the session is fresh:
+        st.setComment("touched by makeSessionUsingToken");
+        st.setDuration( hours_to_milliseconds(24));
+        st.setIs_active(true);
+        st.setOpened_on( System.currentTimeMillis() );
+        st.setToken_id(token_id);
+        
+        //no need to return anything, we log what needs to be saved
+        //with the transaction utility.
+        TransUtil.markEntityForSaveOnExit(st);
+        
+    }//FUNC::END
     
+    /**
+     * Similar to makeNextToken in the token transaction utility.
+     * Makes a new entry in the session table. It is up to you to
+     * populate it with data.
+     * @return :A new session table entity.
+     */
+    public static SessionTable makeNextSession(){
+        
+        //Error check: Make sure inside transaction state:
+        TransUtil.insideTransactionCheck();
+        
+        //Create the session object:
+        SessionTable st = new SessionTable();
+        st.setComment("touched by makeNextSession");
+        
+        //Mark it for saving upon exiting:
+        TransUtil.markEntityForSaveOnExit(st);
+        
+        return st;
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+     * @param token_id :The ID of the token we wish to check for.
+     * @return :Returns TRUE if the token_id is present in the table.
+     * It does not matter the state of the token. It could have
+     * all null fields, be active, or in-active. Does not matter.
+     ------------------------------------------------------------------------**/
+    public static boolean isTokenInSessionTable(long token_id){
+        BaseEntityContainer bec;
+        bec = TransUtil.getEntityFromTableUsingLong
+                   (SessionTable.class, SessionTable.TOKEN_ID_COLUMN, token_id);
+        
+        return (bec.exists);
+        
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = SessionTransUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
+    }//FUNC::END
+    
+    private static long hours_to_milliseconds(long hours){
+        return (hours * 3600000);
+    }//FUNC::END
+    
+    private static long milliseconds_to_hours(long ms){
+        return (long)(ms / 3600000);
+    }//FUNC::END
 
 }//CLASS::END

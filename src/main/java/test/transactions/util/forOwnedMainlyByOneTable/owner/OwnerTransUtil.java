@@ -15,6 +15,7 @@ import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.debug.debugUtils.table.TableDebugUtil;
 import test.transactions.util.TransUtil;
 import test.transactions.util.TransValidateUtil;
+import test.transactions.util.forNoClearTableOwner.AdminTokenTransUtil;
 import test.transactions.util.forNoClearTableOwner.OwnerTokenTransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.admin.AdminTransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
@@ -241,7 +242,14 @@ public class OwnerTransUtil {
         return bec.exists;
     }//FUNC::END
     
+    //we've managed to make two functions that seem identical.
+    ////////////////////////////////////////////////////////////////////////////
+    //222222222222222222222222222222222222222222222222222222222222222222222222//
+    ////////////////////////////////////////////////////////////////////////////
     /**
+     * UDPATE! What si the difference between this function and
+     *         isTokenOwned function?
+     * 
      * Does the token that may or may not be in the table
      * have an owner?
      * @param token_id :The token ID to use to find if owner exists.
@@ -256,14 +264,7 @@ public class OwnerTransUtil {
         //OwnerTokenTransUtil.java
         return OwnerTokenTransUtil.isTokenIDOwned(token_id);
     }//FUNC::END
-       
-    /** Program will crash if this is not true. **/
-    private static void assertAllTokensAreUniqueInTable(){
-        Class theTableClass= OwnerTable.class;
-        String tokenColumn = OwnerTable.TOKEN_ID_COLUMN;
-        TableDebugUtil.assertUniqueColumn(theTableClass,tokenColumn);
-    }//FUNC::END
-                
+    
     /**
      * Returns TRUE if the token is owned by an ADMIN or NINJA
      * @param token_id :id of token we want to find ownership of.
@@ -274,6 +275,18 @@ public class OwnerTransUtil {
         BaseEntityContainer bec = getTokenOwner(token_id);
         return bec.exists;
     }//FUNC::END
+    ////////////////////////////////////////////////////////////////////////////
+    //222222222222222222222222222222222222222222222222222222222222222222222222//
+    ////////////////////////////////////////////////////////////////////////////
+       
+    /** Program will crash if this is not true. **/
+    private static void assertAllTokensAreUniqueInTable(){
+        Class theTableClass= OwnerTable.class;
+        String tokenColumn = OwnerTable.TOKEN_ID_COLUMN;
+        TableDebugUtil.assertUniqueColumn(theTableClass,tokenColumn);
+    }//FUNC::END
+                
+    
     
     /**
      * Returns a container that will have the owner of the token
@@ -339,7 +352,30 @@ public class OwnerTransUtil {
      */
     public static OwnerTable makeEntryUsing_admin(long token_id, long admin_id){
         TransUtil.insideTransactionCheck();
+        
+        boolean admin_already_exists = OwnerTransUtil.doesAdminExist(admin_id);
+        if(admin_already_exists){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            String msg = "";
+            msg += "[Cannot make entry like this.]";
+            msg += "[Admin only allowed in table once.]";
+            msg += "Try using from class:";
+            msg += AdminTokenTransUtil.class.getCanonicalName();
+            msg += "[function called: linkAdminToNewToken()]";
+            doError(msg);
+        }//Already exists? EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
         return makeEntry(token_id, UNUSED_ID, admin_id);
+    }//FUNC::END
+    
+    /*
+     * @param admin_id :The id of the admin.
+     * @return : Returns TRUE if the admin exists in the table.
+     */
+    public static boolean doesAdminExist(long admin_id){
+        BaseEntityContainer bec;
+        bec = TransUtil.getEntityFromTableUsingLong
+                       (OwnerTable.class, OwnerTable.ADMIN_ID_COLUMN, admin_id);
+        return (bec.exists);
     }//FUNC::END
     
     /**
@@ -408,6 +444,27 @@ public class OwnerTransUtil {
         return own;
         
     }//FUNC::END
+    
+    /*
+    --This is going to lead to concurrency problems.                          --
+    --A more appropriate solution I think is to OVERWRITE entries that are    --
+    --no longer valid. For example, since the admin can only have ONE entry   --
+    --In the session table, we should overwrite the admin's entry. When admin --
+    --Gets a new token.                                                       --
+     X Removes tokens associated with a given admin from the owner table.
+     X Only tokens that are currently owned are allowed in this table.
+     X @param admin_id :The id of the admin.
+     X
+    public static void reliquishOwnershipOfAllTokens_ADMIN(long admin_id){
+        List<OwnerTable> deleteThese = getRecordsBelongingToAdmin(admin_id);
+        
+        //DO NOT clear entities before deleting them.
+        //That will just mess up the query that searches for them!
+        //(Unless you can delete by ID)
+        TransUtil.markEntitiesForDeletionOnExit( deleteThese );
+    }//FUNC::END
+    */
+   
     
     /**-------------------------------------------------------------------------
     -*- Wrapper function to throw errors from this class.   --------------------

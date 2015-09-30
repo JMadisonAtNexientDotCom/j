@@ -1,5 +1,6 @@
 package test.transactions.util;
 
+import java.util.List;
 import org.hibernate.Session;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
@@ -139,6 +140,11 @@ public class TransUtil {
     public static void markEntityForSaveOnExit(BaseEntity ent){
         i().markEntityForSaveOnExit(ent);
     }//WRAPPER::END
+    
+    //Don't delete anything. Just overwrite data that already exists.
+    //public static void markEntitiesForDeletionOnExit(List<BaseEntity> entList){
+    //     i().markEntitiesForDeletionOnExit(entList);
+    //}//WRAPPER::END
     
     public static long getHighestKeyInTable(Class tableClass, String keyName){
         return i().getHighestKeyInTable(tableClass, keyName);

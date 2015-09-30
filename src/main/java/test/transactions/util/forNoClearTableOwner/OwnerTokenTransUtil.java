@@ -177,7 +177,7 @@ public class OwnerTokenTransUtil {
         bec = TransUtil.getEntityFromTableUsingPrimaryKey
                              (TokenTable.class, TokenTable.ID_COLUMN, token_id);
         
-        //return trueor false:
+        //return true or false:
         if(false == bec.exists){
             return false;
         }else{

@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import test.config.constants.identifiers.TableNameReg;
+import test.config.constants.identifiers.VarNameReg;
 /**-----------------------------------------------------------------------------
  * Table that stores the tokens.
  * Each token has a comment that is directly associated with it.
@@ -22,47 +24,51 @@ import javax.persistence.Table;
 public class TokenTable extends BaseEntity{
     
     /** Name of table this entity refers to, for easy refactoring. **/
-    public static final String TABLE_NAME     = "token_table";
+    public static final String TABLE_NAME        = TableNameReg.TOKEN_TABLE;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String ID_COLUMN      = "id";
+    public static final String ID_COLUMN         = VarNameReg.ID;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String TOKEN_COLUMN   = "token";
+    public static final String TOKEN_HASH_COLUMN = VarNameReg.TOKEN_HASH;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String COMMENT_COLUMN = "comment";
+    public static final String COMMENT_COLUMN    = VarNameReg.COMMENT;
     
    /** A sequential integer used to identify the token.                      ***
    *** Internally, we should be using this id value rather than the token.   ***
    *** The token ~meerly~ exists as an ~encripted~ representation of the ID. ***
    *** So that people can't just be all like "TOKEN + 1" and access someone  ***
    *** else's data over public HTTP.                                         **/
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name=ID_COLUMN)
-  private long id;
+    
+    //REPLACED BY BASE_ENTITY!
+ // @Id
+ // @GeneratedValue(strategy = GenerationType.IDENTITY)
+  //@Column(name=ID_COLUMN)
+  //private long id;
    
     
    /**  The TOKEN the outside world sees.                                    ***
    ***  An ENCRYPTED version of the Id. Encrypted so that there is no        ***
    ***  chance of token collision if all Ids in the table are unique.        **/
    //@Id //<--TEMP ID till we fix bugs.
-   @Column(name=TOKEN_COLUMN)
+   @Column(name=TOKEN_HASH_COLUMN)
     private String token;
     
+    //NOW IN BASE ENTITY.
     /** A comment attached to this token entry in the token table            ***
     *** Used for debugging. Planned as ~permenant~ installment in this       ***
     *** architecture. ~Huntch~ that the maintainability gained by this       ***
     *** addition will trump the slight performance hit on the database.      **/
-    @Column(name=COMMENT_COLUMN)
-    private String comment;
+    //@Column(name=COMMENT_COLUMN)
+    //private String comment;
     
+    //now exists in base entity.
     //Is this getter+setter necessary?
-    public Long getId(){ return id;}
-    public void setId(Long id){ this.id = id;}
+    //public Long getId(){ return id;}
+    //public void setId(Long id){ this.id = id;}
     
     public String getToken(){ return token;}
     public void setToken(String value){ this.token = value;}
     
-    public String getComment(){ return comment;}
-    public void setComment(String comment){ this.comment = comment;}
+    //public String getComment(){ return comment;}
+    //public void setComment(String comment){ this.comment = comment;}
     
 }//CLASS::END

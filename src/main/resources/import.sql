@@ -48,14 +48,15 @@ DROP TABLE IF EXISTS owner_table; -- JOINS: { token_table(id), ninja_table(id), 
 
 -- Max length == 800, as in: 10 lines max when each line is 80 chars. --
 -- Max length == 80 (one line) for our answers (rhymes).              --
-CREATE TABLE token_table (id serial PRIMARY KEY, comment varchar(80), token varchar(80));
-CREATE TABLE riddle_table (id serial PRIMARY KEY, text varchar(800) );
-CREATE TABLE rhyme_table (id serial PRIMARY KEY, text varchar(80) );
+-- -----------------------------------| [B][B][B][B][B] BASE ENTITY FIELDS [B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B]-------|
+CREATE TABLE token_table              (id serial PRIMARY KEY, dele INT UNSIGNED NOT NULL, mutate_id INT UNSIGNED NOT NULL, save_counter INT UNSIGNED NOT NULL, comment varchar(80), token_hash varchar(80));
+CREATE TABLE riddle_table             (id serial PRIMARY KEY, text varchar(800) );
+CREATE TABLE rhyme_table              (id serial PRIMARY KEY, text varchar(80) );
 CREATE TABLE riddle_rhyme_truth_table (riddle_id INT UNSIGNED NOT NULL, rhyme_id INT UNSIGNED NOT NULL);
 CREATE TABLE riddle_rhyme_wrong_table (riddle_id INT UNSIGNED NOT NULL, rhyme_id  INT UNSIGNED NOT NULL);
-CREATE TABLE admin_table (id serial PRIMARY KEY, user_name varchar(80), pass_hash varchar (80) );
-CREATE TABLE session_table(id serial PRIMARY KEY, token_id INT UNSIGNED NOT NULL, opened_on INT UNSIGNED NOT NULL, duration INT UNSIGNED NOT NULL, is_active BOOLEAN NOT NULL, comment varchar(80) );
-CREATE TABLE owner_table(token_id INT UNSIGNED NOT NULL, ninja_id INT UNSIGNED NOT NULL, admin_id INT UNSIGNED NOT NULL, comment varchar(80));
+CREATE TABLE admin_table              (id serial PRIMARY KEY, user_name varchar(80), pass_hash varchar (80) );
+CREATE TABLE session_table            (id serial PRIMARY KEY, token_id INT UNSIGNED NOT NULL, opened_on INT UNSIGNED NOT NULL, duration INT UNSIGNED NOT NULL, is_active BOOLEAN NOT NULL, comment varchar(80) );
+CREATE TABLE owner_table              (token_id INT UNSIGNED NOT NULL, ninja_id INT UNSIGNED NOT NULL, admin_id INT UNSIGNED NOT NULL, comment varchar(80));
 
 
 

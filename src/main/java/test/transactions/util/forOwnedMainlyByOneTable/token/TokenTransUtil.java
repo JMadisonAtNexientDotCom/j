@@ -162,6 +162,9 @@ public class TokenTransUtil {
         tt.setToken( tokenCode );
         tt.setComment("last touched by makeNextToken()");
         
+        //DESIGN NOTE: Isnt this where object should be added to
+        //             list of entitys to save after exiting transaction?
+        
         //return the populated token:
         return tt;   
     }//FUNC::END
@@ -224,7 +227,7 @@ public class TokenTransUtil {
         
         //Transaction Logic:
         Criteria criteria = session.createCriteria(TokenTable.class);
-        criteria.add(Restrictions.eq(TokenTable.TOKEN_COLUMN, tv));
+        criteria.add(Restrictions.eq(TokenTable.TOKEN_HASH_COLUMN, tv));
         TokenTable theToken = (TokenTable) criteria.uniqueResult();
 
         //Create output:
