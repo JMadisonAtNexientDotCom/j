@@ -182,7 +182,7 @@ public class OwnerTokenTransUtil {
             return false;
         }else{
             TokenTable tt = (TokenTable)bec.entity;
-            String token_hash = tt.getTokenHash();
+            String token_hash = tt.getToken_hash();
             return doesTokenHashHaveOwner( token_hash );
         }//BLOCK::END
        

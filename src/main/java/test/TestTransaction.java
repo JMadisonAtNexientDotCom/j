@@ -19,7 +19,7 @@ public class TestTransaction {
         
         //Transaction Logic:
         TokenTable ent = new TokenTable();
-        ent.setTokenHash(DebugConsts.HARD_CODED_TOKEN);
+        ent.setToken_hash(DebugConsts.HARD_CODED_TOKEN);
         ent.setComment("!!The message. TEN!!");
         TransUtil.markEntityForSaveOnExit(ent);
         

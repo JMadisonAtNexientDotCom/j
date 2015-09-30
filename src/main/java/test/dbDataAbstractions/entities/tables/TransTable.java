@@ -13,11 +13,31 @@ import test.dbDataAbstractions.entities.bases.BaseEntity;
  */
 public class TransTable extends BaseEntity{
     
-    
+    /**-------------------------------------------------------------------------
+     *  ID telling us what [conversation/session] this transaction was part of.
+     *  The word "session" not to be confused with a session in the session
+     *  table. This is why I state, "Conversation". A conversation being
+     *  all of the transactions done by a single [thread/connection].
+     *  NOT counting transactions occuring from thread pooling
+     *  (re-using the connection as if it were a new connection)
+     ------------------------------------------------------------------------**/
     private long convo_id;
+    
+    /** The name of the table involved in the transaction that has just been
+     *  saved to the database. **/
     private String table_name;
+    
+    /** Keeps track of the exact order of our transactions. Called
+     *  "mutate_id" rather than "transaction_id" because it is only counting
+     *  transactions that [EDIT/CHANGE/ALTER] information in the database. **/
     private long mutate_id;
+    
+    /** The record_id from the table of table_name that is represented
+     *  by this transaction log we are making. **/
     private long record_id;
+    
+    /** A copy of the the original comment column from the
+     *  record of record_id in the table of table_name **/
     private String record_comment;
     
     
