@@ -87,7 +87,7 @@ public class SessionTransUtil {
         theToken = AdminTokenTransUtil.linkAdminToNewToken(theAdmin);
         
         //Return the string representing admin's token:
-        op.value = theToken.getToken(); //Return the token HASH value.
+        op.value = theToken.getTokenHash(); //Return the token HASH value.
         op.isError = false;
         op.comment = "success in getActiveTokenForAdmin";
         return op;

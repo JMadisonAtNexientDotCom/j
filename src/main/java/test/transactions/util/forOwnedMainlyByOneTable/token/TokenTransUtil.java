@@ -39,7 +39,7 @@ public class TokenTransUtil {
         
         //TRANSACTION LOGIC:
         TokenTable tt = new TokenTable();
-        tt.setToken(DebugConsts.HARD_CODED_TOKEN);
+        tt.setTokenHash(DebugConsts.HARD_CODED_TOKEN);
         tt.setComment("from doTestTransaction()");
         
         
@@ -159,7 +159,7 @@ public class TokenTransUtil {
         //Logic Body:
         TokenTable tt = new TokenTable();
         String tokenCode = encryptIndex( getMaxTokenIndex() + 1 );
-        tt.setToken( tokenCode );
+        tt.setTokenHash( tokenCode );
         tt.setComment("last touched by makeNextToken()");
         
         //DESIGN NOTE: Isnt this where object should be added to
