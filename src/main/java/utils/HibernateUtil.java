@@ -55,6 +55,16 @@ public class HibernateUtil {
      *  same time. **/
     private static int _setup_times = 0;
     
+    /** See if wrapper fixes concurrency issue. **/
+    synchronized private static boolean getAlreadyEnteredByThread(){
+        return _setup_has_already_been_entered_by_a_thread;
+    }
+    
+    /** See if wrapper fixes concurrency issue. **/
+    synchronized private static void setAlreadyEnteredByThread(boolean val){
+        _setup_has_already_been_entered_by_a_thread = val;
+    }
+    
     /**-------------------------------------------------------------------------
      * Why synchronized? By JMadison:
      * -------------------------------------------------------------------------
@@ -121,11 +131,15 @@ public class HibernateUtil {
     synchronized protected static void setUp() {
 	   // A SessionFactory is set up once for an application!
         
+        //BUG BUG FIX: Put the value into a getter/setter so it can be
+        //             synchronized? Maybe this will fix error?
         //BUG FIX:
         //Previously this method was NOT synchronized but getSessionFactory
         //WAS synchronized. This caused import.sql to be fired multiple times.
-        if(_setup_has_already_been_entered_by_a_thread){return;}
-        _setup_has_already_been_entered_by_a_thread = true;
+        //if(_setup_has_already_been_entered_by_a_thread){return;}
+        //_setup_has_already_been_entered_by_a_thread = true;
+        if(getAlreadyEnteredByThread()){ return;}
+        setAlreadyEnteredByThread(true);
         
         _setup_times++;
         if(_setup_times > 1){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
