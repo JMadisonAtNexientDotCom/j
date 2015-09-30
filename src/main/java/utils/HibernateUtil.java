@@ -49,6 +49,12 @@ public class HibernateUtil {
      *  That, and marking the methods in here as SYNCHRONIZED. **/
     private static boolean _setup_has_already_been_entered_by_a_thread = false;
     
+    /** Counter to see how many times body of setup method is accessed.
+     *  If more than 1, we throw an error, because it leads to hard to find
+     *  problems when import.sql executes more than once. Especially at the
+     *  same time. **/
+    private static int _setup_times = 0;
+    
     /**-------------------------------------------------------------------------
      * Why synchronized? By JMadison:
      * -------------------------------------------------------------------------
@@ -101,7 +107,7 @@ public class HibernateUtil {
         return _sessionFactory;
     }//FUNC::END
 
-    public static void shutdown() {
+    synchronized public static void shutdown() {
         // Close caches and connection pools
         getSessionFactory().close();
     }//FUNC::END
@@ -120,6 +126,20 @@ public class HibernateUtil {
         //WAS synchronized. This caused import.sql to be fired multiple times.
         if(_setup_has_already_been_entered_by_a_thread){return;}
         _setup_has_already_been_entered_by_a_thread = true;
+        
+        _setup_times++;
+        if(_setup_times > 1){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            String msg = "";
+            msg += "[When setup runs multiple times,]";
+            msg += "[import.sql fires multiple times.]";
+            msg += "[We cannot allow this, it creates hard to find errors]";
+            msg += "[imagine import.sql running TWICE at the same time.]";
+            msg += "[THREAD #1: CREATE TABLE NINJA]";
+            msg += "[THREAD #2: DROP TABLE IF EXISTS NINJA]";
+            msg += "[THREAD #1: INSERT INTO NINJA]";
+            msg += "[Then you get a crash because table doesn't exist]";
+            doError(msg);
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //Configuring using a FILE REFERENCE looks like a good idea to me.
         //Will probably allow me to know if the reference is bad.
