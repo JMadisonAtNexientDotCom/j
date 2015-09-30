@@ -293,6 +293,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         log.setComment("log"); //<<We don't use the inherited comment here.
         log.setForeign_record_comment(bent.getComment());
         
+        ses.save(bent); //<--hack. Save it to get access to id field. Maybe?
         log.setForeign_record_id(bent.getId());
         //log.setForeign_record_id(5);
         
