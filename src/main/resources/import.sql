@@ -45,7 +45,7 @@ DROP TABLE IF EXISTS riddle_rhyme_truth_table;
 DROP TABLE IF EXISTS riddle_rhyme_wrong_table;
 DROP TABLE IF EXISTS session_table;
 DROP TABLE IF EXISTS owner_table; -- JOINS: { token_table(id), ninja_table(id), admin_table(id) }
-DROP TABLE IF EXISTS trans_table; -- helps us debug concurrency by seeing linear transactions.
+--DROP TABLE IF EXISTS trans_table; -- helps us debug concurrency by seeing linear transactions.
 
 
 -- Max length == 800, as in: 10 lines max when each line is 80 chars. --
