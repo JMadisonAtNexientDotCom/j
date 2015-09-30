@@ -51,6 +51,14 @@ public class TokenTable extends BaseEntity{
    //@Id //<--TEMP ID till we fix bugs.
    @Column(name=TOKEN_HASH_COLUMN)
     private String token_hash;
+
+    public String getToken_hash() {
+        return token_hash;
+    }
+
+    public void setToken_hash(String token_hash) {
+        this.token_hash = token_hash;
+    }
     
     //NOW IN BASE ENTITY.
     /** A comment attached to this token entry in the token table            ***
@@ -65,8 +73,10 @@ public class TokenTable extends BaseEntity{
     //public Long getId(){ return id;}
     //public void setId(Long id){ this.id = id;}
     
-    public String getTokenHash(){ return token_hash;}
-    public void setTokenHash(String value){ this.token_hash = value;}
+    //NOTE: Actual name of getter+setter affects how the object is serialized!
+    //public String getTokenHash(){ return token_hash;}
+    //public void setTokenHash(String value){ this.token_hash = value;}
+    
     
     //public String getComment(){ return comment;}
     //public void setComment(String comment){ this.comment = comment;}

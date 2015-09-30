@@ -120,6 +120,10 @@ public class JSONUtil {
             //I just caught.
             String msg = "";
             msg += "[Yeah, we are not really catching this exception.]";
+            msg += "[FROM EXPERIENCE: Why you may have gotten this error:]";
+            msg += "[If your getters+setters do NOT follow the correct naming]";
+            msg += "[convention, you might get errors here.]";
+            msg += "[use camelCase getters and setters.]";
             if(null == obj){ msg+= "[input object was null!]";}
             if(null != obj){ msg+= "[obj==[" + obj.toString() + "]]";}
             doError(msg);
