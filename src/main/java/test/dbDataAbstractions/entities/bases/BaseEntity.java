@@ -77,7 +77,8 @@ public class BaseEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name=VarNameReg.ID) // unique = true, nullable = false)
-    @Access(AccessType.PROPERTY)
+    //@Access(AccessType.PROPERTY)
+    @Access(AccessType.FIELD)
     private long id;
     public long getId(){ return this.id;}
     
