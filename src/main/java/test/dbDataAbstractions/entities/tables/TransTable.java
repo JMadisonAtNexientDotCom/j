@@ -1,5 +1,6 @@
 package test.dbDataAbstractions.entities.tables;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import test.config.constants.identifiers.TableNameReg;
@@ -49,15 +50,18 @@ public class TransTable extends BaseEntity{
      *  NOT counting transactions occuring from thread pooling
      *  (re-using the connection as if it were a new connection)
      ------------------------------------------------------------------------**/
+    @Column(name=CONVO_OPEN_ID_COLUMN)
     private long convo_open_id;
     
     /**
      * Like convo_open_id, but this value is retrieved and set
      * when the conversation comes to a close. **/
+    @Column(name=CONVO_CLOSE_ID_COLUMN)
     private long convo_close_id;
     
     /** The name of the table involved in the transaction that has just been
      *  saved to the database. **/
+    @Column(name=FOREIGN_TABLE_NAME_COLUMN)
     private String foreign_table_name;
     
     /** 
@@ -71,14 +75,17 @@ public class TransTable extends BaseEntity{
      *  Keeps track of the exact order of our transactions. Called
      *  "mutate_id" rather than "transaction_id" because it is only counting
      *  transactions that [EDIT/CHANGE/ALTER] information in the database. **/
+    @Column(name=LOG_ID_COLUMN)
     private long log_id;
     
     /** The record_id from the table of table_name that is represented
      *  by this transaction log we are making. **/
+    @Column(name=FOREIGN_RECORD_ID_COLUMN)
     private long foreign_record_id;
     
     /** A copy of the the original comment column from the
      *  record of record_id in the table of table_name **/
+    @Column(name=FOREIGN_RECORD_COMMENT_COLUMN)
     private String foreign_record_comment;
     
     //Generated getters+setters:
