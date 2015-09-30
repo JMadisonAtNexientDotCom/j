@@ -278,6 +278,13 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         }//NEXT I (entity)
     }//FUNC::END
     
+    /**
+     * Creates a "log" within a special table called the trans_table.
+     * We do this so that when we run into inevitable concurrency bugs,
+     * we will have some way to dissect the problem.
+     * @param bent :The base entity we want to log.
+     * @param ses  :The session associated with this conversation.
+     */
     private void createTransTableLogForEntityWeAreSaving
                                                  (BaseEntity bent, Session ses){
         //Create a log of this in our transaction table:
@@ -292,9 +299,13 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         log.setConvo_close_id(_convo_close_id);
         log.setForeign_record_comment(bent.getComment());
         
+        //SAVE HACK WORKS: Will have to keep this in mind while working on
+        //the rest of this code. Hopefully this is only a problem with
+        //auto-generated ID columns. For joining tables, we are going to
+        //have to either impliment this hack... Or use proper hibernate
+        //@JoinColumn annotations.
         ses.save(bent); //<--hack. Save it to get access to id field. Maybe?
         log.setForeign_record_id(bent.getId());
-        //log.setForeign_record_id(5);
         
         log.setForeign_table_name(bent.getClass().getSimpleName() );
         ses.save( log );
