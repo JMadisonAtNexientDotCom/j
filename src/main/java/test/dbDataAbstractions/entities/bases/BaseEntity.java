@@ -74,7 +74,7 @@ public class BaseEntity implements Serializable{
     //Deciding on some required fields for entities:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name=VarNameReg.ID, unique = true, nullable = false)
+    @Column(name=VarNameReg.ID) // unique = true, nullable = false)
     private long id;
     public long getId(){ return this.id;}
     
@@ -93,15 +93,17 @@ public class BaseEntity implements Serializable{
      *  ignored. Objects marked as "dele" should not be taken into consideration
      *  when validating the integrity of a database.
      */
-    @Column(name=VarNameReg.DELE, nullable = true)
-    private Long dele;
-    public boolean getIsMarkedForDeletion(){
-        return (dele > 0);
-    }//FUNC::END
-    public void markForDeletion(){
-        if(this.dele < 0){ doError("value should never be negative");}
-        this.dele++;
-    }//FUNC::END
+    @Column(name=VarNameReg.DELE) //, nullable = true)
+    private boolean dele;
+
+    public boolean isDele() {
+        return dele;
+    }
+
+    public void setDele(boolean dele) {
+        this.dele = dele;
+    }
+    
     
     /** A comment column where you can put a comment to help with debug.
      *  REQUIRED for base entity. But not required to use it. 
@@ -122,11 +124,18 @@ public class BaseEntity implements Serializable{
      **/
     @Column(name=VarNameReg.MUTATE_ID)
     private long mutate_id;
+
+    public long getMutate_id() {
+        return mutate_id;
+    }
+
+    public void setMutate_id(long mutate_id) {
+        this.mutate_id = mutate_id;
+    }
     
-    public void setMutateId(long inMutateId){
-        this.mutate_id = inMutateId;
-    }//FUNC::END
-    public long getMutateId(){ return this.mutate_id; }
+    
+    
+    
     
     /** For debugging. See how many times a record has been saved.
      *  For the design I am going for, this should always be ONE.
@@ -139,16 +148,16 @@ public class BaseEntity implements Serializable{
      **/
     @Column(name=VarNameReg.SAVE_COUNTER)
     private long save_counter;
-    
-    /** Increment the save counter, and return the value. **/
-    public long incrimentSaveCounter(){
-        save_counter++;
+
+    public long getSave_counter() {
         return save_counter;
-    }//FUNC::END
+    }
+
+    public void setSave_counter(long save_counter) {
+        this.save_counter = save_counter;
+    }
     
-    public long getSaveCounter(){
-        return this.save_counter;
-    }//FUNC::END
+    
 
     /**-------------------------------------------------------------------------
      * Used to let UI people know if the response sent back is an 
