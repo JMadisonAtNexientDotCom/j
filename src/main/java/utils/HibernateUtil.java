@@ -38,12 +38,16 @@ public class HibernateUtil {
     
     //declare all static variables BEFORE the static initializer.
     //will this help?
-    private static Boolean _debug_hasSetupBeenCalled = false;
+    private static boolean _debug_hasSetupBeenCalled = false;
    // private static Boolean _debug_hasStaticInitBeenCalled = false;
     private static String _debug_class_state_msg = "No msg set.";
     private static String _debug_log = "debug_log:";
     private static SessionFactory _sessionFactory    = null;
-    private static Boolean        _hasSessionFactory = false;
+    private static boolean        _hasSessionFactory = false;
+    
+    /** Used to fix bug of import.sql firing multiple times in a row.
+     *  That, and marking the methods in here as SYNCHRONIZED. **/
+    private static boolean _setup_has_already_been_entered_by_a_thread = false;
     
     /**-------------------------------------------------------------------------
      * Why synchronized? By JMadison:
@@ -108,8 +112,14 @@ public class HibernateUtil {
     //Example 4. Obtaining the org.hibernate.SessionFactory
     //JMadison note: IF session factory is set up once for an application...
     //Why is this example method non-static??? I am going to change that.
-    protected static void setUp() {
-	// A SessionFactory is set up once for an application!
+    synchronized protected static void setUp() {
+	   // A SessionFactory is set up once for an application!
+        
+        //BUG FIX:
+        //Previously this method was NOT synchronized but getSessionFactory
+        //WAS synchronized. This caused import.sql to be fired multiple times.
+        if(_setup_has_already_been_entered_by_a_thread){return;}
+        _setup_has_already_been_entered_by_a_thread = true;
         
         //Configuring using a FILE REFERENCE looks like a good idea to me.
         //Will probably allow me to know if the reference is bad.

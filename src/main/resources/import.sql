@@ -45,7 +45,7 @@ DROP TABLE IF EXISTS riddle_rhyme_truth_table;
 DROP TABLE IF EXISTS riddle_rhyme_wrong_table;
 DROP TABLE IF EXISTS session_table;
 DROP TABLE IF EXISTS owner_table; -- JOINS: { token_table(id), ninja_table(id), admin_table(id) }
--- DROP TABLE IF EXISTS trans_table; -- helps us debug concurrency by seeing linear transactions.
+DROP TABLE IF EXISTS trans_table; -- helps us debug concurrency by seeing linear transactions.
 
 
 -- Max length == 800, as in: 10 lines max when each line is 80 chars. --
@@ -64,6 +64,9 @@ CREATE TABLE trans_table(id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80
 
 -- bug fix: Tells me trans table does not exist... Is it my formatting?       --
 -- Or do I need to create at least one entry to force it into existance?      --
+-- ANSWER: It was a concurrency issue. After removing "DROP TABLE IF EXISTS"  --
+-- I no longer get error that "trans_table" does not exist.                   --
+-- THIS MEANS IMPORT.SQL is firing multiple times and interweaving.           --
 
 -- Make an entry into the admin_table                                         --
 -- ALL USER NAMES SHOULD BE STORED AS LOWERCASE BECAUSE WE WANT USER NAMES    --
