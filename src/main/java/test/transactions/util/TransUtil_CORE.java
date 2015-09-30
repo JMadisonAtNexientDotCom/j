@@ -290,7 +290,6 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
                                   //offset between the two values.
         log.setConvo_open_id (_convo_open_id);
         log.setConvo_close_id(_convo_close_id);
-        log.setComment("log"); //<<We don't use the inherited comment here.
         log.setForeign_record_comment(bent.getComment());
         
         ses.save(bent); //<--hack. Save it to get access to id field. Maybe?
