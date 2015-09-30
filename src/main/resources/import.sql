@@ -37,19 +37,21 @@ SET @last_rhyme_id = 0;
 --               NO         |      NO         | Answer is FALSE. (implied)
 --               NO         |      YES        | Answer is TRUE.  EXPLICIT
 DROP TABLE IF EXISTS token_table;
+DROP TABLE IF EXISTS admin_table;
+DROP TABLE IF EXISTS ninja_table
 DROP TABLE IF EXISTS riddle_table;
 DROP TABLE IF EXISTS rhyme_table;
 DROP TABLE IF EXISTS riddle_rhyme_truth_table;
 DROP TABLE IF EXISTS riddle_rhyme_wrong_table;
-DROP TABLE IF EXISTS admin_table;
 DROP TABLE IF EXISTS session_table;
 DROP TABLE IF EXISTS owner_table; -- JOINS: { token_table(id), ninja_table(id), admin_table(id) }
+DROP TABLE IF EXISTS trans_table; -- helps us debug concurrency by seeing linear transactions.
 
 
 -- Max length == 800, as in: 10 lines max when each line is 80 chars. --
 -- Max length == 80 (one line) for our answers (rhymes).              --
 -- -----------------------------------| [B][B][B][B][B] BASE ENTITY FIELDS [B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B]-------|
-CREATE TABLE token_table              (id serial PRIMARY KEY, dele INT UNSIGNED NOT NULL, mutate_id INT UNSIGNED NOT NULL, save_counter INT UNSIGNED NOT NULL, comment varchar(80), token_hash varchar(80));
+CREATE TABLE token_table              (id serial PRIMARY KEY, token_hash varchar(80));
 CREATE TABLE riddle_table             (id serial PRIMARY KEY, text varchar(800) );
 CREATE TABLE rhyme_table              (id serial PRIMARY KEY, text varchar(80) );
 CREATE TABLE riddle_rhyme_truth_table (riddle_id INT UNSIGNED NOT NULL, rhyme_id INT UNSIGNED NOT NULL);

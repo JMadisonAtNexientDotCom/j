@@ -27,10 +27,18 @@ public class TransTable extends BaseEntity{
      *  saved to the database. **/
     private String table_name;
     
-    /** Keeps track of the exact order of our transactions. Called
+    /** 
+     *  NEW NOTES: 2014.09.30:
+     *  Calling "log_id" because we want a unique ID put into the log every
+     *  time an entry is made. Ideally should be identically to our primary
+     *  id key. But could be offset if we boot up the app without dropping
+     *  all of the tables.
+     * 
+     *  OLD NOTES: (Pre 2015.09.30)
+     *  Keeps track of the exact order of our transactions. Called
      *  "mutate_id" rather than "transaction_id" because it is only counting
      *  transactions that [EDIT/CHANGE/ALTER] information in the database. **/
-    private long mutate_id;
+    private long log_id;
     
     /** The record_id from the table of table_name that is represented
      *  by this transaction log we are making. **/
@@ -40,6 +48,10 @@ public class TransTable extends BaseEntity{
      *  record of record_id in the table of table_name **/
     private String record_comment;
     
+    //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
+    
+    
+    //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
     
     
 }//CLASS::END

@@ -238,14 +238,14 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         {
             bent = arr.get(i);
             mutate_id = SynchronizedMutationCounter.getNextMutateID();
-            bent.setMutate_id(mutate_id);
+            bent.setGlobal_save_id(mutate_id);
             
             //incriment save counter:
-            new_save_counter_value = bent.getSave_counter() + 1;
-            bent.setSave_counter(new_save_counter_value);
+            new_save_counter_value = bent.getRecord_local_save_count() + 1;
+            bent.setRecord_local_save_count(new_save_counter_value);
             
             //debug:
-            if(bent.getSave_counter() > 1){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            if(bent.getRecord_local_save_count() > 1){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
                 doError("We shouldn't be saving an entity more than once");
             }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             

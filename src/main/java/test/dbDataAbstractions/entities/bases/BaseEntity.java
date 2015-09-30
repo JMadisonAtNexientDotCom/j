@@ -116,21 +116,27 @@ public class BaseEntity implements Serializable{
     }//FUNC::END
     public String getComment(){ return this.comment;}
     
-    /** A global and unique transaction id that is unique across all tables.
+    /** 
+     *  COMMENT: 2015.09.30_0326PM
+     *  It think "GLOBAL_SAVE_ID" is better than mutate id...
+     *  It is more descriptive of situation.
+     * 
+     *  OLD COMMENT: PRE: 2015.09.30:
+     *  A global and unique transaction id that is unique across all tables.
      *  This transaction ID is updated whenever a new record is made, or a
      *  record is overwritten/updated. The trans_id does NOT change from
      *  simply viewing the record. 
      *
      **/
-    @Column(name=VarNameReg.MUTATE_ID)
-    private long mutate_id;
-
-    public long getMutate_id() {
-        return mutate_id;
+    @Column(name=VarNameReg.GLOBAL_SAVE_ID)
+    private long global_save_id;
+    
+    public long getGlobal_save_id() {
+        return global_save_id;
     }
 
-    public void setMutate_id(long mutate_id) {
-        this.mutate_id = mutate_id;
+    public void setGlobal_save_id(long save_id) {
+        this.global_save_id = save_id;
     }
     
     
@@ -146,15 +152,15 @@ public class BaseEntity implements Serializable{
      *  sql database tables and see if anything is amiss. 
      *
      **/
-    @Column(name=VarNameReg.SAVE_COUNTER)
-    private long save_counter;
+    @Column(name=VarNameReg.RECORD_LOCAL_SAVE_COUNT)
+    private long record_local_save_count;
 
-    public long getSave_counter() {
-        return save_counter;
+    public long getRecord_local_save_count() {
+        return record_local_save_count;
     }
 
-    public void setSave_counter(long save_counter) {
-        this.save_counter = save_counter;
+    public void setRecord_local_save_count(long save_count) {
+        this.record_local_save_count = save_count;
     }
     
     

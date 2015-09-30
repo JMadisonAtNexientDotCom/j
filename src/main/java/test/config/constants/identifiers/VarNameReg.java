@@ -54,13 +54,13 @@ public class VarNameReg {
      *  the order in which the record was created or edited. Using this so when
      *  I run into concurrency issues I can have some insight into what is
      *  going wrong. **/
-    public static final String MUTATE_ID     = "mutate_id";
+    public static final String GLOBAL_SAVE_ID     = "global_save_id";
     
     /** When a record is first made, the SAVE_COUNTER == 1.
      *  When a record is edited and re-saved
      *  (Which should be NEVER according to my current design)
      *  The number is incremented. **/
-    public static final String SAVE_COUNTER = "save_counter";
+    public static final String RECORD_LOCAL_SAVE_COUNT = "record_local_save_count";
     
     
     //Names used as table columns or parameters:
