@@ -69,7 +69,10 @@ import test.config.constants.identifiers.VarNameReg;
 public class BaseEntity extends KernelEntity{
     
    
-    /** DELE != DELETE. DELE == To mark something for deletion.
+    /** 
+     *
+     * 
+     *  DELE != DELETE. DELE == To mark something for deletion.
      *  I was thinking about the word "kill" but "dele" is more descriptive
      *  and more proper grammar for what I intend to communicate.
      * 
@@ -77,14 +80,14 @@ public class BaseEntity extends KernelEntity{
      *  ignored. Objects marked as "dele" should not be taken into consideration
      *  when validating the integrity of a database.
      */
-    @Column(name=VarNameReg.DELE, nullable = false) //allowed to be null?
-    private long dele;
-
-    public long getDele() {
+    @Column(name=VarNameReg.DELE) // nullable = false) //allowed to be null?
+    private Long dele; //<--Wrapper type is Long (CAPITAL L) to allow hibernate
+                          //to put null values into it without crashing.
+    public Long getDele() {
         return dele;
     }
 
-    public void setDele(long dele) {
+    public void setDele(Long dele) {
         this.dele = dele;
     }
     
