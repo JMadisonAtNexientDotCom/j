@@ -166,6 +166,11 @@ public class TokenTransUtil {
         //             list of entitys to save after exiting transaction?
         
         //return the populated token:
+        
+        //HACK: Force eager fetch by saving:
+        Session ses = TransUtil.getActiveTransactionSession();
+        ses.save(tt);
+        
         return tt;   
     }//FUNC::END
     
