@@ -29,8 +29,8 @@
            
           </div>
             <p></p>
-            <button data-ng-click="ninjaLogin();">Ninja Login Page</button>
-            <button data-ng-click="adminLogin();">Admin Login Page</button>
+            <button data-ng-click="ninjaLogin();" style="width:100%;">Ninja Login Page</button>
+            <button data-ng-click="adminLogin();" style="width:100%;">Admin Login Page</button>
             
         </div>
       </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->

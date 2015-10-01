@@ -29,7 +29,7 @@
           <p></p>
           <p> {{msg_for_user}} </p>
           <input type="text" data-ng-model="token_input" style="width:100%;"><br>
-          <button data-ng-click="submitToken();">SUBMIT</button>
+          <button data-ng-click="submitToken();" style="width:100%;">SUBMIT</button>
           
           <!-- quick test to make sure we have relative .css URL correct. -->
           <spinner name="html5spinner">  

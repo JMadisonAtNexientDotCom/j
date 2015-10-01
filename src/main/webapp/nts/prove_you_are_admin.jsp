@@ -30,7 +30,7 @@
           <p> {{msg_for_user}} </p>
           <input type="text" data-ng-model="user_name" style="width:100%;"><br>
           <input type="text" data-ng-model="pass_word" style="width:100%;"><br>
-          <button data-ng-click="submit_my_creds();">SUBMIT</button>
+          <button data-ng-click="submit_my_creds();" style="width:100%;">SUBMIT</button>
           
           <!-- quick test to make sure we have relative .css URL correct. -->
           <spinner name="html5spinner">  
