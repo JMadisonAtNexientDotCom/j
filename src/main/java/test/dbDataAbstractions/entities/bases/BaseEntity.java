@@ -143,12 +143,21 @@ public class BaseEntity extends KernelEntity{
     private Long record_local_save_count;
 
     public long getRecord_local_save_count() {
+        
+        //BUG_FIX:
+        //Consider null to be zero. When creating
+        //new entities, internally the value will
+        //be null.
+        if(null == record_local_save_count){
+            return (new Long(0)).longValue();
+        }//000000000000000000000000000000000
+        
         return record_local_save_count.longValue();
-    }
+    }//SETTER::END
 
     public void setRecord_local_save_count(long save_count) {
         this.record_local_save_count = new Long(save_count);
-    }
+    }//SETTER::END
     
     
 
