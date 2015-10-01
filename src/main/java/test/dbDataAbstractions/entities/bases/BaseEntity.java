@@ -83,12 +83,12 @@ public class BaseEntity extends KernelEntity{
     @Column(name=VarNameReg.DELE) // nullable = false) //allowed to be null?
     private Long dele; //<--Wrapper type is Long (CAPITAL L) to allow hibernate
                           //to put null values into it without crashing.
-    public Long getDele() {
-        return dele;
+    public long getDele() {
+        return dele.longValue();
     }
 
-    public void setDele(Long dele) {
-        this.dele = dele;
+    public void setDele(long idele) {
+        this.dele = new Long(idele);
     }
     
     
@@ -140,14 +140,14 @@ public class BaseEntity extends KernelEntity{
      *
      **/
     @Column(name=VarNameReg.RECORD_LOCAL_SAVE_COUNT)
-    private long record_local_save_count;
+    private Long record_local_save_count;
 
     public long getRecord_local_save_count() {
-        return record_local_save_count;
+        return record_local_save_count.longValue();
     }
 
     public void setRecord_local_save_count(long save_count) {
-        this.record_local_save_count = save_count;
+        this.record_local_save_count = new Long(save_count);
     }
     
     
