@@ -125,18 +125,20 @@ public class EntityTableNameDebugUtil {
     private static String expandCamelCaseToUnderScoreSlug(String className){
         String slug = "";
         char cur;
+        char prv = 0; //previous cur. Inited to zero to make compiler happy.
         String str;
         String chunk;
         int len = className.length();
         for(int i = 0; i < len; i++){
             cur = className.charAt(i);
             if(i!=0){
-                chunk = maybeExpandChar(cur);
+                chunk = maybeExpandChar(cur, prv);
             }else{
                 str = Character.toString(cur);
                 chunk = str.toLowerCase();
             }
             
+            prv = cur;
             slug += chunk;
             
         }//NEXT i
@@ -152,7 +154,38 @@ public class EntityTableNameDebugUtil {
      *          If chr=="A", returns "_a"
      *          If chr=="a", returns "a"
      */
-    private static String maybeExpandChar(char chr){
+    private static String maybeExpandChar(char chr, char prv){
+        
+        String result;
+        if( Character.isAlphabetic(chr) ){
+            result = maybeExpandChar_alphabetic(chr);
+        }else{
+            result = maybeExpandChar_numeric(chr,prv);
+        }
+        return result;
+        
+        
+    }//FUNC::END
+    
+    /** For handling camel case that includes numbers. If the previous
+     *  character was a letter, then we consider it as a divider.
+     * @param num :numeric character we are looking at.
+     *             HACK: Might be a special character. But not going to
+     *                   support anything that is not alpha-numeric.
+     * @param prv :Previous character. A letter or number.
+     * @return :Returns original character, or expansion.
+     */
+    private static String maybeExpandChar_numeric(char chr, char prv){
+        
+        String op = Character.toString(chr).toLowerCase();
+        if( Character.isAlphabetic(prv)){ //previous character alphabetic?
+            op = "_" + op;
+        }//EXPAND with underscore?
+        
+        return op;
+    }//FUNC::END
+    
+    private static String maybeExpandChar_alphabetic(char chr){
         String str = Character.toString(chr);
         String upp = str.toUpperCase();
         boolean isUpperCase = (str.equals(upp));
