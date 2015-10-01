@@ -33,8 +33,11 @@ public class OwnerTable extends BaseEntity{
     /** Column name stored as string constant for easy refactoring. **/
     public static final String COMMENT_COLUMN    = VarNameReg.COMMENT;
     
+    //BUG_FIX: Annotation already exists in base class...Wait... No...
+    //Then again... maybe @Id should be removed? Maybe... You don't know
+    //how to use foriegn keys??
     /** Primary foreign key **/
-    @Id
+    ///@Id <---Remove this until you know how to properly do foriegn keys.
     @Column(name=TOKEN_ID_COLUMN)
     private long token_id;
     
