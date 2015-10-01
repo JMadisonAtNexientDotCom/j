@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import test.MyError;
+import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.TransTable;
@@ -484,9 +485,9 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         //SOURCE:
         // http://stackoverflow.com/questions/3743677/
         //                          get-max-value-record-from-table-in-hibernate
-        Criteria cri = ses.createCriteria( tableClass );
-        cri = cri.setProjection(Projections.max( keyName ));
-        Long boxedOutput = (Long)cri.uniqueResult();
+        Criteria cri = ses.createCriteria( tableClass ); //<--DO NOT GLOBALLY
+        cri = cri.setProjection(Projections.max( keyName ));//FILTER THIS 
+        Long boxedOutput = (Long)cri.uniqueResult();        //CRITERIA.
         long unboxedOutput = (long)boxedOutput;
         
         return unboxedOutput;
@@ -506,8 +507,8 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         
         //SOURCE: How do we count rows in hibernate?
         //http://stackoverflow.com/questions/1372317/
-        Criteria cri = ses.createCriteria( tableClass );
-        cri = cri.setProjection(Projections.rowCount());
+        Criteria cri = ses.createCriteria( tableClass ); //<--DO NOT GLOBALLY
+        cri = cri.setProjection(Projections.rowCount());    //FILTER THIS.
         Long boxedOutput = (Long)cri.uniqueResult();
         long unboxedOutput = (long)boxedOutput;
         
@@ -541,8 +542,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
             //give us the record indexed at randIndex:
             //http://www.shredzone.de/cilla/page/53/
             //                   how-to-fetch-a-random-entry-with-hibernate.html
-            Session ses = getActiveTransactionSession();
-            Criteria cri = ses.createCriteria( tableClass );
+            Criteria cri = makeGloballyFilteredCriteria(tableClass);
             cri.setFirstResult(randIndex);
             cri.setMaxResults(1);
             BaseEntity theBase = (BaseEntity)cri.uniqueResult();
@@ -570,8 +570,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         throwErrorIfClassIsNotBaseEntity(tableClass);
           
         //Logic:
-        Session ses = getActiveTransactionSession();
-        Criteria cri = ses.createCriteria(tableClass);
+        Criteria cri = makeGloballyFilteredCriteria(tableClass);
         cri.add(Restrictions.eq(columnName, columnValue));
         BaseEntity bent = (BaseEntity)cri.uniqueResult();
         BaseEntityContainer op;
@@ -594,8 +593,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         throwErrorIfClassIsNotBaseEntity(tableClass);
           
         //Core Logic:
-        Session ses = getActiveTransactionSession();
-        Criteria cri = ses.createCriteria(tableClass);
+        Criteria cri = makeGloballyFilteredCriteria(tableClass);
         cri.add(Restrictions.eq(columnName, columnValue));
         
         //Our output var:
@@ -634,8 +632,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         throwErrorIfClassIsNotBaseEntity(tableClass);
         
         //Core Logic:
-        Session ses = getActiveTransactionSession();
-        Criteria cri = ses.createCriteria(tableClass);
+        Criteria cri = makeGloballyFilteredCriteria(tableClass);
         cri.add(Restrictions.eq(columnName, columnValue));
         
         //Our output var:
@@ -672,6 +669,34 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
     private void throwErrorIfClassIsNotBaseEntity(Class tableClass){
         
         TransValidateUtil.assertIsEntityClass(tableClass);
+    }//FUNC::END
+    
+    /** Makes criteria that is pre-populated with app-global configuration.
+     *  Original usage: Made so that "dele" columns set to TRUE will be
+     *  ignored.
+     * @return :A criteria object made from the active transaction session.
+     */
+    private Criteria makeGloballyFilteredCriteria(Class tableClass){
+        
+        //Error check:
+        insideTransactionCheck();
+        
+        //Error check:
+        throwErrorIfClassIsNotBaseEntity(tableClass);
+        
+        //Create criteria with some basic settings we want applied to all
+        //criteria on this:
+        Session ses = getActiveTransactionSession();
+        Criteria cri = ses.createCriteria(tableClass);
+        
+        //Only ignore if DELE column is specifically marked to true.
+        //If null or false, we assume NOT marked for deletion.
+        //We want to pretend objects marked for deletion do not exist.
+        cri.add(Restrictions.ne(VarNameReg.DELE, true));
+        
+        //return the criteria:
+        return cri;
+        
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
