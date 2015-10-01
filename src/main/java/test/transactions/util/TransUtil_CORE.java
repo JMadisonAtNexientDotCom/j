@@ -570,8 +570,9 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
     public BaseEntityContainer getEntityFromTableUsingLong
                         (Class tableClass, String columnName, long columnValue){
      
-        //Error check:
-        throwErrorIfClassIsNotBaseEntity(tableClass);
+        //Error checking:
+        this.basicErrorChecks_and_lazyFetchErrorCheck_for_LONG
+                                                      (tableClass, columnValue);
           
         //Logic:
         Criteria cri = makeGloballyFilteredCriteria(tableClass);
