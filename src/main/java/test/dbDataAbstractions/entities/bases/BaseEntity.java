@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 import test.MyError;
+import test.config.constants.EntityErrorCodes;
 import test.config.constants.identifiers.VarNameReg;
 
 /**
@@ -179,6 +180,16 @@ public class BaseEntity extends KernelEntity{
     }//FUNC::END
     public boolean getIsError(){
         return isError;
+    }//FUNC::END
+    
+    //Added so that it matches our TypeWithComment base class.
+    @Transient
+    private String errorCode = EntityErrorCodes.NONE_SET;
+    public void setErrorCode(String errCode){
+        errorCode = errCode;
+    }//FUNC::END
+    public String getErrorCode(){
+        return errorCode;
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
