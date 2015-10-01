@@ -22,6 +22,7 @@ import test.dbDataAbstractions.entities.tables.TestTable01;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.dbDataAbstractions.entities.tables.TransTable;
 import test.debug.debugUtils.entity.EntityColumnDebugUtil;
+import test.debug.debugUtils.entity.EntityTableNameDebugUtil;
 
 /**-----------------------------------------------------------------------------
  * JMADISON NOTE: When I first deploy the app, and make multiple API calls
@@ -223,6 +224,7 @@ public class HibernateUtil {
         
         //Use debug utility to make sure everything is setup correctly:
         EntityColumnDebugUtil.doIntegrityCheck();
+        EntityTableNameDebugUtil.doIntegrityCheck();
     }//FUNC::END
     
     /** This function replaces the entity mappings that were in-----------------
@@ -264,6 +266,7 @@ public class HibernateUtil {
                               (MetadataSources mds, Class annotatedEntityClass){
         mds.addAnnotatedClass(annotatedEntityClass);
         EntityColumnDebugUtil.addAnnotatedEntityClass(annotatedEntityClass);
+        EntityTableNameDebugUtil.addAnnotatedEntityClass(annotatedEntityClass);
     }//FUNC::END
     
     /** Checks to make sure the _has variable matches the reference var. **/
