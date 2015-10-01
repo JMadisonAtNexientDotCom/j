@@ -772,9 +772,13 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
      * @param bel :List of base entities to mark for deletion.
      */
     private void markEntitiesForDeletionAndSave(List<BaseEntity> bel){
+        
+        Long theLong;
+        long ONE = 1;
         Session s = getActiveTransactionSession();
         for(BaseEntity b : bel){
-            b.setDele(1); //<--long used as boolean.
+            theLong = new Long(ONE); //<--NECESSARY BOXING. Don't listen to IDE.
+            b.setDele( theLong ); //<--long used as boolean.
             s.save(b); //<-- so app knows about change.
         }//NEXT ENTITY
     }//FUNC::END
