@@ -11,6 +11,8 @@ import test.config.constants.identifiers.utils.StringConstantFinderUtil;
  */
 public class TableNameReg {
     
+    public static final String RIDDLE_RHYME_TRUTH_TABLE = "riddle_rhyme_truth_table";
+    public static final String RIDDLE_RHYME_WRONG_TABLE = "riddle_rhyme_wrong_table";
     public static final String TRANS_TABLE   = "trans_table";
     public static final String RHYME_TABLE   = "rhyme_table";
     public static final String RIDDLE_TABLE  = "riddle_table";

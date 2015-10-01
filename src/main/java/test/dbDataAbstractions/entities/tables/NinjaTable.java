@@ -2,9 +2,6 @@ package test.dbDataAbstractions.entities.tables;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
@@ -55,7 +52,7 @@ public class NinjaTable extends BaseEntity {
   //If you do HTTP request to set a phone number that is too long.
   //The response will turn into a 404. Made long instead of int for this reason.
   @Column(name=PHONE_COLUMN)
-  private long phone;
+  private Long phone;
   
   @Column(name=EMAIL_COLUMN)
   private String email;
@@ -78,8 +75,13 @@ public class NinjaTable extends BaseEntity {
   public String getName(){ return name;}
   public void setName(String name){ this.name = name;}
   
-  public long getPhone(){ return phone;}
-  public void setPhone(long phone){ this.phone = phone;}
+  public long getPhone()
+  { 
+      return this.unBoxLong(phone);
+  }
+  public void setPhone(long phone){ 
+      this.phone = new Long(phone);
+  }
   
   public String getEmail(){ return email;}
   public void setEmail(String email){ this.email = email;}

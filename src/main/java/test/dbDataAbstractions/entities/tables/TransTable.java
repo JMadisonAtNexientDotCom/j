@@ -52,13 +52,13 @@ public class TransTable extends KernelEntity{
      *  (re-using the connection as if it were a new connection)
      ------------------------------------------------------------------------**/
     @Column(name=CONVO_OPEN_ID_COLUMN)
-    private long convo_open_id;
+    private Long convo_open_id;
     
     /**
      * Like convo_open_id, but this value is retrieved and set
      * when the conversation comes to a close. **/
     @Column(name=CONVO_CLOSE_ID_COLUMN)
-    private long convo_close_id;
+    private Long convo_close_id;
     
     /** The name of the table involved in the transaction that has just been
      *  saved to the database. **/
@@ -77,12 +77,12 @@ public class TransTable extends KernelEntity{
      *  "mutate_id" rather than "transaction_id" because it is only counting
      *  transactions that [EDIT/CHANGE/ALTER] information in the database. **/
     @Column(name=LOG_ID_COLUMN)
-    private long log_id;
+    private Long log_id;
     
     /** The record_id from the table of table_name that is represented
      *  by this transaction log we are making. **/
     @Column(name=FOREIGN_RECORD_ID_COLUMN)
-    private long foreign_record_id;
+    private Long foreign_record_id;
     
     /** A copy of the the original comment column from the
      *  record of record_id in the table of table_name **/
@@ -93,19 +93,19 @@ public class TransTable extends KernelEntity{
     //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
 
     public long getConvo_open_id() {
-        return convo_open_id;
+        return this.unBoxLong(convo_open_id);
     }
 
     public void setConvo_open_id(long convo_open_id) {
-        this.convo_open_id = convo_open_id;
+        this.convo_open_id = new Long(convo_open_id);
     }
 
     public long getConvo_close_id() {
-        return convo_close_id;
+        return this.unBoxLong(convo_close_id);
     }
 
     public void setConvo_close_id(long convo_close_id) {
-        this.convo_close_id = convo_close_id;
+        this.convo_close_id = new Long(convo_close_id);
     }
    
 
@@ -118,19 +118,19 @@ public class TransTable extends KernelEntity{
     }
 
     public long getLog_id() {
-        return log_id;
+        return this.unBoxLong(log_id);
     }
 
     public void setLog_id(long log_id) {
-        this.log_id = log_id;
+        this.log_id = new Long(log_id);
     }
 
     public long getForeign_record_id() {
-        return foreign_record_id;
+        return this.unBoxLong(foreign_record_id);
     }
 
     public void setForeign_record_id(long record_id) {
-        this.foreign_record_id = record_id;
+        this.foreign_record_id = new Long(record_id);
     }
 
     public String getForeign_record_comment() {

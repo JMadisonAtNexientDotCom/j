@@ -3,7 +3,6 @@ package test.dbDataAbstractions.entities.tables;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
@@ -71,16 +70,16 @@ public class SessionTable extends BaseEntity {
      * writing SQL statements for me.
      ------------------------------------------------------------------------**/
     @Column(name=TOKEN_ID_COLUMN)
-    private long token_id;
+    private Long token_id;
     
     @Column(name=OPENED_ON_COLUMN)
-    private long opened_on;
+    private Long opened_on;
     
     @Column(name=DURATION_COLUMN)
-    private long duration;
+    private Long duration;
     
     @Column(name=IS_ACTIVE_COLUMN)
-    private boolean is_active;
+    private Boolean is_active;
     
     //DELE, part of base entity now.
     //@Column(name=COMMENT_COLUMN)
@@ -99,35 +98,35 @@ public class SessionTable extends BaseEntity {
     //xx }//FUNC::END
 
     public long getToken_id() {
-        return token_id;
+        return this.unBoxLong(token_id);
     }//FUNC::END
 
     public void setToken_id(long token_id) {
-        this.token_id = token_id;
+        this.token_id = new Long(token_id);
     }//FUNC::END
 
     public long getOpened_on() {
-        return opened_on;
+        return this.unBoxLong(opened_on);
     }//FUNC::END
 
     public void setOpened_on(long opened_on) {
-        this.opened_on = opened_on;
+        this.opened_on = new Long(opened_on);
     }//FUNC::END
 
     public long getDuration() {
-        return duration;
+        return this.unBoxLong(duration);
     }//FUNC::END
 
     public void setDuration(long duration) {
-        this.duration = duration;
+        this.duration = new Long(duration);
     }//FUNC::END
 
     public boolean getIs_active() {
-        return is_active;
+        return this.unBoxBool(is_active);
     }//FUNC::END
 
     public void setIs_active(boolean is_active) {
-        this.is_active = is_active;
+        this.is_active = new Boolean(is_active);
     }//FUNC::END
 
     //Delete: Part of base entity now.

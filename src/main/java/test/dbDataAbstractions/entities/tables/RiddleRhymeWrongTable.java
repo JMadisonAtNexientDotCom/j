@@ -3,6 +3,7 @@ package test.dbDataAbstractions.entities.tables;
 import test.dbDataAbstractions.entities.bases.RiddleRhymeJoinTableBaseEntity;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import test.config.constants.identifiers.TableNameReg;
 
 /**
  * Entity for our table that explicity marks 
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 public class RiddleRhymeWrongTable extends RiddleRhymeJoinTableBaseEntity{
     
     /** Name of table this entity refers to, for easy refactoring. **/
-    public static final String TABLE_NAME       = "riddle_rhyme_wrong_table";
+    public static final String TABLE_NAME = TableNameReg.RIDDLE_RHYME_WRONG_TABLE;
     
     /** Column name stored as string constant for easy refactoring. 
         COMPILER WARNING: 

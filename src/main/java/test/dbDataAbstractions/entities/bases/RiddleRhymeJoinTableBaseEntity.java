@@ -7,6 +7,7 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import test.config.constants.identifiers.VarNameReg;
 import static test.dbDataAbstractions.entities.tables.NinjaTable.ID_COLUMN;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.dbDataAbstractions.entities.tables.RhymeTable;
@@ -53,34 +54,34 @@ public class RiddleRhymeJoinTableBaseEntity extends BaseEntity implements Serial
     //http://stackoverflow.com/questions/15426736/how-can-i-create-a-foreign-key-constraint-using-hibernate-annotations
     
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String RIDDLE_ID_COLUMN = "riddle_id";
+    public static final String RIDDLE_ID_COLUMN = VarNameReg.RIDDLE_ID;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String RHYME_ID_COLUMN  = "rhyme_id";
+    public static final String RHYME_ID_COLUMN  = VarNameReg.RHYME_ID;
     
     @Id //COMPOSITE KEY. ID#1
     @Column(name=RIDDLE_ID_COLUMN)
-    private long riddle_id;
+    private Long riddle_id;
     
     @Id //COMPOSITE KEY. ID#2
     @Column(name=RHYME_ID_COLUMN)
-    private long rhyme_id;
+    private Long rhyme_id;
 
     //Boilerplate getters and setters:
     //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
     public long getRiddleId() {
-        return riddle_id;
+        return this.unBoxLong(riddle_id);
     }
 
     public void setRiddleId(long riddleId) {
-        this.riddle_id = riddleId;
+        this.riddle_id = new Long(riddleId);
     }
 
     public long getRhymeId() {
-        return rhyme_id;
+        return this.unBoxLong(rhyme_id);
     }
 
     public void setRhymeId(long rhymeId) {
-        this.rhyme_id = rhymeId;
+        this.rhyme_id = new Long(rhymeId);
     }
     //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
     

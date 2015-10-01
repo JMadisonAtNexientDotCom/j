@@ -2,7 +2,6 @@ package test.dbDataAbstractions.entities.tables;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
@@ -39,20 +38,20 @@ public class OwnerTable extends BaseEntity{
     /** Primary foreign key **/
     ///@Id <---Remove this until you know how to properly do foriegn keys.
     @Column(name=TOKEN_ID_COLUMN)
-    private long token_id;
+    private Long token_id;
     
     /** token can either be associated with
      *  ninja_id or admin_id, the other column
      *  should be negative 1 for invalid ID **/
     @Column(name=NINJA_ID_COLUMN)
-    private long ninja_id;
+    private Long ninja_id;
     
     
     /** token can either be associated with
      *  ninja_id or admin_id, the other column
      *  should be negative 1 for invalid ID **/
     @Column(name=ADMIN_ID_COLUMN)
-    private long admin_id;
+    private Long admin_id;
     
     //DELE, now in base entity.
     //@Column(name=COMMENT_COLUMN)
@@ -61,27 +60,27 @@ public class OwnerTable extends BaseEntity{
     //Auto-Generated getters + setters:
     //GSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGSGS
     public long getToken_id() {
-        return token_id;
+        return this.unBoxLong(token_id);
     }
 
     public void setToken_id(long token_id) {
-        this.token_id = token_id;
+        this.token_id = new Long(token_id);
     }
 
     public long getNinja_id() {
-        return ninja_id;
+        return this.unBoxLong(ninja_id);
     }
 
     public void setNinja_id(long ninja_id) {
-        this.ninja_id = ninja_id;
+        this.ninja_id = new Long(ninja_id);
     }
 
     public long getAdmin_id() {
-        return admin_id;
+        return this.unBoxLong(admin_id);
     }
 
     public void setAdmin_id(long admin_id) {
-        this.admin_id = admin_id;
+        this.admin_id = new Long(admin_id);
     }
     
     //DELE, now in base entity.

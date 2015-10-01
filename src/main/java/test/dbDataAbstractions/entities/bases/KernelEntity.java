@@ -52,6 +52,20 @@ public class KernelEntity implements Serializable{
         return help_iam_in_a_box.longValue();
     }//FUNC::END
     
+    /**
+     * UnBox a boolean. So hibernate doesn't crash on you!
+     * @param bool_in_a_box :The boolean in a box.
+     * @return :The boolean taken out of the Boolean.
+     */
+    protected boolean unBoxBool(Boolean bool_in_a_box){
+        if(null == bool_in_a_box){
+            return false; //null is FALSE!
+        }//000000000000000000000000000000000
+        
+        //If not null, unbox as usual:
+        return bool_in_a_box.booleanValue();
+    }//FUNC::END
+    
      //Deciding on some required fields for entities:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
