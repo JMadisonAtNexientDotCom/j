@@ -77,7 +77,7 @@ public class BaseEntity extends KernelEntity{
      *  ignored. Objects marked as "dele" should not be taken into consideration
      *  when validating the integrity of a database.
      */
-    @Column(name=VarNameReg.DELE) //, nullable = true)
+    @Column(name=VarNameReg.DELE, nullable = true) //allowed to be null?
     private long dele;
 
     public long getDele() {
