@@ -34,7 +34,7 @@ public class AdminTokenTransUtil {
         TransUtil.insideTransactionCheck();
         
         long admin_id = theAdmin.getId();
-        BadValueChecker.checkLong(admin_id);
+        BadValueChecker.checkLong(admin_id,"[heyThere]");
         
         //Mark entries in the admin table for deletion. Records marked for
         //deletion cannot be used. We can later delete them during a cleanup
@@ -49,7 +49,7 @@ public class AdminTokenTransUtil {
         //way for hackers to hijack sessions.
         TokenTable tt = TokenTransUtil.makeNextToken();
         long token_id = tt.getId();
-        BadValueChecker.checkLong(token_id);
+        BadValueChecker.checkLong(token_id, "ILikePie");
             
         //Use token_id + admin_id to make entry into owner table:
         OwnerTable own;
@@ -62,7 +62,7 @@ public class AdminTokenTransUtil {
         
         //return the token table object, because that is what gives the
         //admin access to admin tools:
-        BadValueChecker.checkString(tt.getToken_hash());
+        BadValueChecker.checkString(tt.getToken_hash(), "CakeIsAlsoGood");
         return tt;
       
     }//FUNC::END
