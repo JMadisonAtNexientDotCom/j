@@ -4,6 +4,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import test.MyError;
+import test.config.debug.DebugConfig;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.AdminTable;
 import test.transactions.util.TransUtil;
@@ -96,6 +97,17 @@ public class AdminTransUtil {
         String lower_name = userName;
         Criteria c = ses.createCriteria(AdminTable.class);
         c.add(Restrictions.eq(AdminTable.USER_NAME_COLUMN, lower_name));
+        
+        //TODO: Admin table currently is being queried an "DELE" columns
+        //      are not being taken into consideration. Fix this.
+        
+        //Do error check for null result.
+        if(DebugConfig.isDebugBuild){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            if(null == c.uniqueResult()){
+                doError("[c.uniqueResult==NULL!]");
+            }//error?
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
         AdminTable theAdmin = (AdminTable) c.uniqueResult();
         
         // Decide what results to send back:
