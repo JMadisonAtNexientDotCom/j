@@ -132,9 +132,8 @@ public class SessionTransUtil {
         st.setOpened_on( System.currentTimeMillis() );
         st.setToken_id(token_id);
         
-        //no need to return anything, we log what needs to be saved
-        //with the transaction utility.
-        TransUtil.markEntityForSaveOnExit(st);
+        //makeNextSession() already marked the object for save!
+        //x//TransUtil.markEntityForSaveOnExit(st); <--DO NOT DO.
         
     }//FUNC::END
     
