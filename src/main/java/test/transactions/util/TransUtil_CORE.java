@@ -2,7 +2,6 @@ package test.transactions.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
