@@ -694,10 +694,11 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         Session ses = getActiveTransactionSession();
         Criteria cri = ses.createCriteria(tableClass);
         
+        //BUGFIX: java.lang.Boolean cannot be cast to java.lang.Long
         //Only ignore if DELE column is specifically marked to true.
         //If null or false, we assume NOT marked for deletion.
         //We want to pretend objects marked for deletion do not exist.
-        cri.add(Restrictions.ne(VarNameReg.DELE, true));
+        cri.add(Restrictions.ne(VarNameReg.DELE, TRUE_VALUE));
         
         //return the criteria:
         return cri;
