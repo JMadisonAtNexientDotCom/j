@@ -65,7 +65,11 @@ public class EntityTableNameDebugUtil {
     private static void checkThatClassNameConformsToTableName
                                                           (Class entity_class){
         boolean derived_from_kernel;
-        derived_from_kernel = entity_class.isAssignableFrom(KernelEntity.class);
+        
+        //I ALWAYS GET THIS BACKWARDS!
+        //derived_from_kernel = entity_class.isAssignableFrom(KernelEntity.class);
+        derived_from_kernel = KernelEntity.class.isAssignableFrom(entity_class);
+        
         if(false == derived_from_kernel){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             logBadTypeError(entity_class);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
