@@ -80,7 +80,7 @@ public class BaseEntity extends KernelEntity{
     @Column(name=VarNameReg.DELE) //, nullable = true)
     private boolean dele;
 
-    public boolean isDele() {
+    public boolean getDele() {
         return dele;
     }
 
