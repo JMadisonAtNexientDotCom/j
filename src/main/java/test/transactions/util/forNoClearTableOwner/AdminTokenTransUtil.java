@@ -4,6 +4,7 @@ import test.MyError;
 import test.dbDataAbstractions.entities.tables.AdminTable;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
+import test.debug.debugUtils.primitiveTypes.BadValueChecker;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.owner.OwnerTransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.session.SessionTransUtil;
@@ -28,55 +29,42 @@ public class AdminTokenTransUtil {
      ------------------------------------------------------------------------**/
     public static TokenTable linkAdminToNewToken(AdminTable theAdmin){
         
-        /*
+        
         //ErrorCheck:
         TransUtil.insideTransactionCheck();
         
         long admin_id = theAdmin.getId();
+        BadValueChecker.checkLong(admin_id);
         
         //Mark entries in the admin table for deletion. Records marked for
         //deletion cannot be used. We can later delete them during a cleanup
         //proceedure on the database. Decided overwriting or deleting while
         //having a conversation/transaction will just make things harder to
         //debug.
-        OwnerTable own;
-        OwnerTransUtil.deleRecords_Admin(admin_id);
-                                                                     
-        if(null == own){doError("[Own should never be null here. 3242523]");}
+        TransUtil.deleINTEGER
+                       (OwnerTable.class, OwnerTable.ADMIN_ID_COLUMN, admin_id);
         
-        //REGARDLESS of if we overwrite or not, we want a new token.
         //Get a brand new token:
         //We do NOT want to re-use tokens because that could lead to an easy
         //way for hackers to hijack sessions.
         TokenTable tt = TokenTransUtil.makeNextToken();
         long token_id = tt.getId();
-        
-        //Overwrite? Or make new entry?
-        if(is_overwriting){//ooooooooooooooooooooooooooooooooooooooooooooooooooo
-            SessionTransUtil.isTokenInSessionTable(token_id);
-        }else{//----------------------------------------------------------------
-            OwnerTransUtil.makeEntryUsing_admin(token_id, admin_id);
+        BadValueChecker.checkLong(token_id);
             
-            //Now that admin OWNS this token, we want the token in the session table
-            //so that the token can be used to login.
-            SessionTransUtil.makeSessionUsingToken(token_id);
-        }//nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+        //Use token_id + admin_id to make entry into owner table:
+        OwnerTable own;
+        own = OwnerTransUtil.makeEntryUsing_admin(token_id, admin_id);
+        if(null == own){doError("[Own should never be null here. 3242523]");}
         
-        
-        
-        //Put that token into the owner table:
-        
-        long admin_id = theAdmin.getId();
-        
-        
-        
+        //Now that admin OWNS this token, we want the token in the session table
+        //so that the token can be used to login.
+        SessionTransUtil.makeSessionUsingToken(token_id);
         
         //return the token table object, because that is what gives the
         //admin access to admin tools:
+        BadValueChecker.checkString(tt.getToken_hash());
         return tt;
-        */
-        if(1==1){doError("TODO: Finish this");}
-        return null;
+      
     }//FUNC::END
     
     /* dont think this is needed.

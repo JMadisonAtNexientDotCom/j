@@ -3,6 +3,7 @@ package test.transactions.util.forOwnedMainlyByOneTable.session;
 
 import primitives.StringWithComment;
 import test.MyError;
+import test.config.constants.EntityErrorCodes;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.AdminTable;
 import test.dbDataAbstractions.entities.tables.SessionTable;
@@ -71,6 +72,7 @@ public class SessionTransUtil {
             op.comment = "getActiveTokenForAdmin::false==bec.exists";
             op.isError = true;
             op.value   = "error: userName not found in admin_table";
+            op.errorCode = EntityErrorCodes.ADMIN_404;
             return op;
         }///////////////////////
 
@@ -90,6 +92,12 @@ public class SessionTransUtil {
         op.value = theToken.getToken_hash(); //Return the token HASH value.
         op.isError = false;
         op.comment = "success in getActiveTokenForAdmin";
+        
+        //Guard against lazy fetching:
+        if(null == op.value || op.value.equals("")){ //EEEEEEEEEEEEEEEEEEEEEEEEE
+            doError("[token hash lazy fetch problem most likely]");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
         return op;
         
     }//FUNC::END

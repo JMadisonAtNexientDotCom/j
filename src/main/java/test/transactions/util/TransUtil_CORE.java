@@ -2,13 +2,16 @@ package test.transactions.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import test.MyError;
+import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
+import test.config.debug.DebugConfig;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.TransTable;
@@ -697,6 +700,152 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         //return the criteria:
         return cri;
         
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+     * Marks STRING/VARCHAR records as DELE (marked for deletion)
+     * @param table    :Table to match.
+     * @param colName  :Column to match.
+     * @param colValue :Value of column to match.
+     ------------------------------------------------------------------------**/
+    public void deleVARCHAR(Class table, String colName, String colValue){
+        //Error checks:
+        basicErrorChecks_and_lazyFetchErrorCheck_for_STRING(table, colValue);
+        
+        //get the entities fitting criteria:
+        boolean MARKED = false; //dont get entities already marked for deletion.
+        List<BaseEntity> bel = getEntities_dele(table,colName,colValue,MARKED);
+        
+        //mark the entities for deletion and SAVE:
+        markEntitiesForDeletionAndSave(bel);
+                          
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+     * Marks LONG/INTEGER records as DELE (marked for deletion)
+     * @param table    :Table to match.
+     * @param colName  :Column to match.
+     * @param colValue :Value of column to match.
+     ------------------------------------------------------------------------**/
+    public void deleINTEGER(Class table, String colName, long colValue){
+        //Error checks:
+        basicErrorChecks_and_lazyFetchErrorCheck_for_LONG(table, colValue);
+        
+        //get the entities fitting criteria:
+        boolean MARKED = false; //dont get entities already marked for deletion.
+        List<BaseEntity> bel = getEntities_dele(table,colName,colValue,MARKED);
+        
+        //mark the entities for deletion and SAVE:
+        markEntitiesForDeletionAndSave(bel);
+                          
+    }//FUNC::END
+    
+    /** 
+     * Shared code for dele functions. KEEP PRIVATE!
+     * NO ERROR CHECKING CODE BECAUSE SHARED INTERNAL CODE.
+     * @param table    :Table class we are looking at.
+     * @param colName  :Column name we are looking at.
+     * @param colValue :The column values we want.
+     * @param includeEntitiesAlreadyMarkedForDeletion :(self descriptive)
+     */
+    private List<BaseEntity> getEntities_dele(Class table, String colName, 
+               Object colValue,boolean includeEntitiesAlreadyMarkedForDeletion){
+        
+        Session ses = getActiveTransactionSession();
+        Criteria cri = ses.createCriteria(table);
+        cri.add(Restrictions.eq(colName, colValue));
+        
+        //We might want to ignore columns already marked for
+        //deletion if we are just gathering entities so we
+        //can mark them as deleted.
+        if(false == includeEntitiesAlreadyMarkedForDeletion){
+            cri.add(Restrictions.ne(VarNameReg.DELE, true));
+        }///////////////////////////////////////////////////
+        
+        List<BaseEntity> bel = cri.list();
+        return bel;
+    }//FUNC::END
+    
+    /**
+     * Goes through list and sets "dele" values to TRUE.
+     * Then does a session.save() on the entity to make sure the
+     * change is reflected.
+     * @param bel :List of base entities to mark for deletion.
+     */
+    private void markEntitiesForDeletionAndSave(List<BaseEntity> bel){
+        Session s = getActiveTransactionSession();
+        for(BaseEntity b : bel){
+            b.setDele(true);
+            s.save(b); //<-- so app knows about change.
+        }//NEXT ENTITY
+    }//FUNC::END
+             
+    /**-------------------------------------------------------------------------
+     * Do basic boilerplate error checks AND make sure the string is not
+     * empty. As this is an indicator of a problem due to lazy fetching.
+     * @param tableClass: Class that should extend BaseEntity
+     * @param columnValueAsString :The string to check.
+     ------------------------------------------------------------------------**/
+    public void basicErrorChecks_and_lazyFetchErrorCheck_for_STRING
+                                 (Class tableClass, String columnValueAsString){
+        basicErrorChecks(tableClass);
+        
+        //Debug accidential transposition of strings: //TTTTTTTTTTTTTTTTTTTTTTTT
+        if(  DebugConfig.isDebugBuild && //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+             DebugConfig.ifDebugBuild_useStrictDebugCodeThatCanBreakProduction){
+            throwErrorIfValueIsTableOrVarName(columnValueAsString);
+        }//TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+        
+        //Is string non-null and non-empty?
+        if(null == columnValueAsString){
+            doError("[Null string indicative of lazy fetch error]");
+        }else
+        if(columnValueAsString.equals("")){
+            doError("[Empty string indicative of lazy fetch error]");
+        }//BLOCK::END
+         
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+     * Do basic boilerplate error checks AND make sure the NUMBER/LONG is not
+     * ZERO. As this is an indicator of a problem due to lazy fetching.
+     * @param tableClass: Class that should extend BaseEntity
+     * @param columnValueAsLong :The long value to check.
+     ------------------------------------------------------------------------**/
+    private void basicErrorChecks_and_lazyFetchErrorCheck_for_LONG
+                                     (Class tableClass, long columnValueAsLong){
+        basicErrorChecks(tableClass);
+        
+        //Is string non-null and non-empty?
+        if(0 == columnValueAsLong){
+            doError("[ZERO long indicative of lazy fetch error]");
+            //If you need zero... re-think your design to NOT need it.
+            //Because finding errors due to lazyfetching is going to be
+            //very important for productivity.
+        }//check long ^
+    }//FUNC::END
+                                     
+    private void basicErrorChecks(Class tableClass){
+        //Are we inside a transaction?
+        insideTransactionCheck();
+        
+        //Is tableClass a valid entity?
+        throwErrorIfClassIsNotBaseEntity(tableClass);
+    }//FUNC::END
+           
+    /**
+     * Throws error if value is a table or variable name.
+     * Should only be used in debug mode. Since a user could enter
+     * their first name as "session_table" and crash the program.
+     * @param value :The value to check.
+     */
+    private static void throwErrorIfValueIsTableOrVarName(String value){
+        if(VarNameReg.contains(value)){
+            doError("[TransUtil: Possible transposition error. VarNameReg]");
+        }else
+        if(TableNameReg.contains(value)){
+            doError("[TransUtil: Possible transposition error. TableNameReg]");
+        }//BLOCK::END
     }//FUNC::END
     
     /**-------------------------------------------------------------------------

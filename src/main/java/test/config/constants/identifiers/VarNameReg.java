@@ -1,6 +1,11 @@
 package test.config.constants.identifiers;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import test.MyError;
+import test.config.constants.identifiers.utils.StringConstantFinderUtil;
 import utils.generalDebugUtils.ConstNameRegDebugUtil;
 
 
@@ -125,6 +130,20 @@ public class VarNameReg {
     
     //For HTTP POST:
     public static final String JSON_OBJ          = "json_obj";
+    
+   
+    
+    /**
+     * ORIGINAL USEAGE: Checking for string transposition errors where
+     * column or parameter name has been swapped with it's string value.
+     * 
+     * @param value :The const value we are checking for.
+     * @return :returns true if the constant exists.
+     */
+    public static boolean contains(String value){
+        return StringConstantFinderUtil.contains(VarNameReg.class, value);
+    }//FUNC::END
+    
     
     /*
     xx Replaces all variable names with error message to help bring attention

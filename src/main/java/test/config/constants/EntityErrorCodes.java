@@ -15,6 +15,9 @@ public class EntityErrorCodes {
      *  error with this this code. **/
     public static final String ACCESS_DENIED = "access_denied";
     
+    /** Admin by that user name does not exist. **/
+    public static final String ADMIN_404 = "admin_404";
+    
     /** Error produced by the application. Not working as expected. **/
     public static final String FATAL_APP_BUG = "fatal_app_bug";
     

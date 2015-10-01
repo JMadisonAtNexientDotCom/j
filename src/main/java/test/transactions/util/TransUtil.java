@@ -176,5 +176,15 @@ public class TransUtil {
         return i().getEntityFromTableUsingUniqueString
                       (      tableClass,        columnName,      columnValue);                   
     }//WRAPPER::END    
+                      
+    public static void deleVARCHAR
+                      (Class tableClass, String columnName, String columnValue){
+       i().deleVARCHAR(      tableClass,        columnName,        columnValue);
+    }//WRAPPER::END
+                      
+    public static void deleINTEGER
+                      (Class tableClass, String columnName, long columnValue){
+       i().deleINTEGER(      tableClass,        columnName,      columnValue);
+    }//WRAPPER::END
                         
 }//END::CLASS
