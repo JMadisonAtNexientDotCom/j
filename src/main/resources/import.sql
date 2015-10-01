@@ -60,7 +60,10 @@ CREATE TABLE riddle_rhyme_wrong_table (id serial PRIMARY KEY, dele BOOLEAN, comm
 CREATE TABLE admin_table              (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, user_name varchar(80), pass_hash varchar (80) );
 CREATE TABLE session_table            (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, token_id INT UNSIGNED NOT NULL, opened_on INT UNSIGNED NOT NULL, duration INT UNSIGNED NOT NULL, is_active BOOLEAN NOT NULL);
 CREATE TABLE owner_table              (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, token_id INT UNSIGNED NOT NULL, ninja_id INT UNSIGNED NOT NULL, admin_id INT UNSIGNED NOT NULL);
-CREATE TABLE trans_table              (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, convo_open_id INT UNSIGNED, convo_close_id INT UNSIGNED, log_id INT UNSIGNED, foreign_table_name varchar(80), foreign_record_id INT UNSIGNED(80), foreign_record_comment varchar(80) );
+
+-- trans_table is a KERNEL entity, not a base entity. So it lacks some of the --
+-- fields that are included on all of the others.  -----------------------------
+CREATE TABLE trans_table              (id serial PRIMARY KEY, dele BOOLEAN, convo_open_id INT UNSIGNED, convo_close_id INT UNSIGNED, log_id INT UNSIGNED, foreign_table_name varchar(80), foreign_record_id INT UNSIGNED(80), foreign_record_comment varchar(80) );
 
 -- bug fix: Tells me trans table does not exist... Is it my formatting?       --
 -- Or do I need to create at least one entry to force it into existance?      --
