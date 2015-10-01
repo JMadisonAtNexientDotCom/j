@@ -58,7 +58,7 @@ CREATE TABLE rhyme_table              (id serial PRIMARY KEY, dele INT UNSIGNED,
 CREATE TABLE riddle_rhyme_truth_table (id serial PRIMARY KEY, dele INT UNSIGNED, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, riddle_id INT UNSIGNED NOT NULL, rhyme_id INT UNSIGNED NOT NULL);
 CREATE TABLE riddle_rhyme_wrong_table (id serial PRIMARY KEY, dele INT UNSIGNED, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, riddle_id INT UNSIGNED NOT NULL, rhyme_id  INT UNSIGNED NOT NULL);
 CREATE TABLE admin_table              (id serial PRIMARY KEY, dele INT UNSIGNED, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, user_name varchar(80), pass_hash varchar (80) );
-CREATE TABLE session_table            (id serial PRIMARY KEY, dele INT UNSIGNED, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, token_id INT UNSIGNED NOT NULL, opened_on INT UNSIGNED NOT NULL, duration INT UNSIGNED NOT NULL, is_active BOOLEAN NOT NULL);
+CREATE TABLE session_table            (id serial PRIMARY KEY, dele INT UNSIGNED, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, token_id INT UNSIGNED NOT NULL, opened_on BIGINT UNSIGNED NOT NULL, duration INT UNSIGNED NOT NULL, is_active BOOLEAN NOT NULL);
 CREATE TABLE owner_table              (id serial PRIMARY KEY, dele INT UNSIGNED, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, token_id INT UNSIGNED NOT NULL, ninja_id INT UNSIGNED NOT NULL, admin_id INT UNSIGNED NOT NULL);
 
 -- trans_table is a KERNEL entity, not a base entity. So it lacks some of the --
