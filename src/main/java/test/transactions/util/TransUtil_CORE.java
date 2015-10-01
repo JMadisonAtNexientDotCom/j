@@ -28,7 +28,7 @@ import utils.HibernateUtil;
 public class TransUtil_CORE extends ThreadLocalUtilityBase {
      
     /** Used to search for values set to true. **/
-    private long TRUE_VALUE = 1;
+    private Long TRUE_VALUE = new Long(1);
     
     /** Variable that helps for catching errors. Only used when
      *  isSingleThreaded == true, because this debugging logic may
