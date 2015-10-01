@@ -4,6 +4,7 @@ package test.dbDataAbstractions.entities.tables;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import test.MyError;
 import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
@@ -110,6 +111,13 @@ public class SessionTable extends BaseEntity {
     }//FUNC::END
 
     public void setOpened_on(long opened_on) {
+        
+        //Eventually should just make a boxUpLong function that
+        //does checks for negative.
+        if(opened_on < 0){
+            doError("[Trying to set opened_on to negative value!]");
+        }///////
+        
         this.opened_on = new Long(opened_on);
     }//FUNC::END
 
@@ -127,6 +135,18 @@ public class SessionTable extends BaseEntity {
 
     public void setIs_active(boolean is_active) {
         this.is_active = new Boolean(is_active);
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = SessionTable.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
     }//FUNC::END
 
     //Delete: Part of base entity now.

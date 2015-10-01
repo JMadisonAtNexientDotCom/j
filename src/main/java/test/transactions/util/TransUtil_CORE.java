@@ -300,6 +300,9 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
                                   //unless in production and server was
                                   //stopped and started. Then will see an
                                   //offset between the two values.
+        if(_convo_open_id <= 0){doError("[_convo_open_id should be > 0]");}
+        if(_convo_close_id <=0){doError("[_convo_close_id should be >0]");}
+        
         log.setConvo_open_id (_convo_open_id);
         log.setConvo_close_id(_convo_close_id);
         log.setForeign_record_comment(bent.getComment());
