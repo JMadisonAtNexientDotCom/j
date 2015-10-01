@@ -46,6 +46,14 @@ public class EntityColumnDebugUtil {
     /** Helps give us a more informative debug message. **/
     private static Class _currentClassBeingExamined;
     
+    //DESIGN NOTE: 2015.10.01_0649PM:
+    //List<ErrorEntry> was actually TOO MUCH STRUCTURE.
+    //Just make a big string that logs all the problems as you go.
+    //And one boolean to mark if there are problems.
+    
+    private static String _log = "";
+    private static boolean _hasErrors = false;
+    
     /** Rather than crash on first error found, scan everything and collect-----
      *  all errors. That way we don't have to:
      *  1. re-deploy the server...
@@ -172,6 +180,10 @@ public class EntityColumnDebugUtil {
             Column col = (Column)ann;
             String columnName = col.name();
             String fieldName  = curField.getName();
+            
+            //do error check to make sure @Column values are REFERENCE types.
+            checkFieldType(curField);
+            
             if(notEQ(fieldName,columnName)){
                 //throwColumnNamingError(fieldName,columnName);
                 addError(_currentClassBeingExamined, fieldName, columnName);
@@ -207,6 +219,31 @@ public class EntityColumnDebugUtil {
             }//ERROR#1: field name does not match @column name.
         }//instance of?
        
+    }//FUNC::END
+        
+    /**
+     * Make sure the field annotated with @Column is a REFERENCE
+     * type and not a value type. Hibernate runs into problems
+     * when it tries to assign NULL to a value type or tries to
+     * de-reference a value type.
+     * @param f :The field we want to check the type of.
+     */
+    private static void checkFieldType(Field f){
+        Class type = f.getType();
+        
+        //We only want to support REFERENCE types.
+        //But going to be EXPLICIT with which ones we allow.
+        //Add to this list if you get a false-positive error from this check.
+        if(type == Long.class ){ return; }
+        if(type == Boolean.class){return;}
+        if(type == String.class) {return;}
+        
+        _hasErrors = true;
+        String cName = _currentClassBeingExamined.getCanonicalName();
+        _log += "[BAD FIELD TYPE ERROR: START]";
+        _log += "Field Name:[" + f.getName() + "]";
+        _log += "From Class:[" + cName + "]";
+        _log += "[BAD FIELD TYPE ERROR: END]";
     }//FUNC::END
                             
     /** ------------------------------------------------------------------------
@@ -415,6 +452,10 @@ public class EntityColumnDebugUtil {
         //Our initial blank message:
         String msg = "";
         
+        msg += _log; //append the log to the list of errors first.
+                     //this log should replace the horrible mess you have
+                     //below.
+        
         if(_errorList.size() > 0){
             msg += ErrorEntry.add(msg, _errorList);
         }//APPEND MSG
@@ -524,7 +565,10 @@ public class EntityColumnDebugUtil {
      * @return :Total number of errors.
      ------------------------------------------------------------------------**/
     private static int getSumOfAllErrorsFromLists(){
+        
+        //TODO: Remove this function and replace with your log.
         int sum = 0;
+        if(_hasErrors){ sum++;} //<--HACK for now until this function replaced.
         sum += _errorList.size();
         sum += _errorList_STATIC_COLUMN.size();
         sum += _errorList_CONSTVAL_CASE.size();
