@@ -126,7 +126,7 @@ public class AdminTransUtil {
         
         //HACK:
         //Force an EAGER fetch by saving the entity we just got:
-        ses.save(bec);
+        ses.save(theAdmin);
         
         //Return the container that
         //may or may not contain the entity.
