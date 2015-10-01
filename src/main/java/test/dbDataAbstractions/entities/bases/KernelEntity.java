@@ -56,8 +56,8 @@ public class KernelEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name=VarNameReg.ID) // unique = true, nullable = false)
-    //@Access(AccessType.PROPERTY)
-    @Access(AccessType.FIELD)
+    //@Access(AccessType.PROPERTY) <--Don't use this either.
+    //@Access(AccessType.FIELD) <---take this off. You don't know what you are doing.
     private Long id; //<--hibernate wants REF-TYPES.
     public long getId()
     { 
