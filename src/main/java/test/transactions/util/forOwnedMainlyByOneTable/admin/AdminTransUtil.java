@@ -124,6 +124,10 @@ public class AdminTransUtil {
             doError("this line should never execute.");
         }//RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
         
+        //HACK:
+        //Force an EAGER fetch by saving the entity we just got:
+        ses.save(bec);
+        
         //Return the container that
         //may or may not contain the entity.
         return bec;
