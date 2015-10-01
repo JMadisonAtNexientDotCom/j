@@ -84,7 +84,7 @@ public class BaseEntity extends KernelEntity{
     private Long dele; //<--Wrapper type is Long (CAPITAL L) to allow hibernate
                           //to put null values into it without crashing.
     public long getDele() {
-        return dele.longValue();
+        return unBoxLong(dele);
     }
 
     public void setDele(long idele) {
@@ -119,7 +119,7 @@ public class BaseEntity extends KernelEntity{
     private Long global_save_id; //<--boxed [L]ong type with
                                  // unboxed [l]ong type setters? Can we do this?
     public long getGlobal_save_id() {
-        return global_save_id.longValue();
+        return unBoxLong( global_save_id );
     }
 
     public void setGlobal_save_id(long save_id) {
@@ -143,23 +143,30 @@ public class BaseEntity extends KernelEntity{
     private Long record_local_save_count;
 
     public long getRecord_local_save_count() {
-        
-        //BUG_FIX:
-        //Consider null to be zero. When creating
-        //new entities, internally the value will
-        //be null.
-        if(null == record_local_save_count){
-            return (new Long(0)).longValue();
-        }//000000000000000000000000000000000
-        
-        return record_local_save_count.longValue();
+        return unBoxLong(record_local_save_count);
     }//SETTER::END
 
     public void setRecord_local_save_count(long save_count) {
         this.record_local_save_count = new Long(save_count);
     }//SETTER::END
     
-    
+    /** Unboxes a long. Null input is considered ZERO.
+     *  Using this because hibernate will init some new
+     *  columns as NULL and then when you try to incriment
+     *  them, all hell breaks looks with the dreaded
+     *  null pointer exception.
+     * @return :The inputted REF-TYPE:Long (or null) 
+     *          converted to VALUE-TYPE:long.
+     */
+    private long unBoxLong(Long help_iam_in_a_box){
+        
+        if(null == help_iam_in_a_box){
+            return (new Long(0)).longValue();
+        }//000000000000000000000000000000000
+        
+        //If not null, unbox as usual:
+        return help_iam_in_a_box.longValue();
+    }//FUNC::END
 
     /**-------------------------------------------------------------------------
      * Used to let UI people know if the response sent back is an 
