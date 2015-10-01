@@ -27,6 +27,8 @@ import utils.HibernateUtil;
  * @author jmadison :2015.09.16_0557PM --------------------------------------**/
 public class TransUtil_CORE extends ThreadLocalUtilityBase {
      
+    /** Used to search for values set to true. **/
+    private long TRUE_VALUE = 1;
     
     /** Variable that helps for catching errors. Only used when
      *  isSingleThreaded == true, because this debugging logic may
@@ -758,7 +760,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         //deletion if we are just gathering entities so we
         //can mark them as deleted.
         if(false == includeEntitiesAlreadyMarkedForDeletion){
-            cri.add(Restrictions.ne(VarNameReg.DELE, true));
+            cri.add(Restrictions.ne(VarNameReg.DELE, TRUE_VALUE));
         }///////////////////////////////////////////////////
         
         List<BaseEntity> bel = cri.list();
@@ -773,12 +775,10 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
      */
     private void markEntitiesForDeletionAndSave(List<BaseEntity> bel){
         
-        Long theLong;
-        long ONE = 1;
+        long TRUE_INPUT = 1;
         Session s = getActiveTransactionSession();
         for(BaseEntity b : bel){
-            theLong = new Long(ONE); //<--NECESSARY BOXING. Don't listen to IDE.
-            b.setDele( theLong ); //<--long used as boolean.
+            b.setDele( TRUE_INPUT );
             s.save(b); //<-- so app knows about change.
         }//NEXT ENTITY
     }//FUNC::END
