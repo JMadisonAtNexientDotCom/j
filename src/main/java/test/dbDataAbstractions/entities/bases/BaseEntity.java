@@ -78,13 +78,13 @@ public class BaseEntity extends KernelEntity{
      *  when validating the integrity of a database.
      */
     @Column(name=VarNameReg.DELE) //, nullable = true)
-    private boolean dele;
+    private long dele;
 
-    public boolean getDele() {
+    public long getDele() {
         return dele;
     }
 
-    public void setDele(boolean dele) {
+    public void setDele(long dele) {
         this.dele = dele;
     }
     
