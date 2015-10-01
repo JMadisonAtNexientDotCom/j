@@ -29,14 +29,40 @@ import test.config.constants.identifiers.VarNameReg;
 @MappedSuperclass
 public class KernelEntity implements Serializable{
     
+    
+    
+    /**-------------------------------------------------------------------------
+     *  Unboxes a long. Null input is considered ZERO.
+     *  Using this because hibernate will init some new
+     *  columns as NULL and then when you try to incriment
+     *  them, all hell breaks looks with the dreaded
+     *  null pointer exception.
+     * 
+     * @param help_iam_in_a_box :long value to save from box.
+     * @return :The inputted REF-TYPE:Long (or null) 
+     *          converted to VALUE-TYPE:long.
+     ------------------------------------------------------------------------**/
+    protected long unBoxLong(Long help_iam_in_a_box){
+        
+        if(null == help_iam_in_a_box){
+            return (new Long(0)).longValue();
+        }//000000000000000000000000000000000
+        
+        //If not null, unbox as usual:
+        return help_iam_in_a_box.longValue();
+    }//FUNC::END
+    
      //Deciding on some required fields for entities:
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name=VarNameReg.ID) // unique = true, nullable = false)
     //@Access(AccessType.PROPERTY)
     @Access(AccessType.FIELD)
-    private long id;
-    public long getId(){ return this.id;}
+    private Long id; //<--hibernate wants REF-TYPES.
+    public long getId()
+    { 
+        return unBoxLong( this.id);
+    }
     
     /** We use setId when configuring entities as error responses.
      *  Other than that, setId should not be used. As it is auto generated

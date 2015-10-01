@@ -150,23 +150,7 @@ public class BaseEntity extends KernelEntity{
         this.record_local_save_count = new Long(save_count);
     }//SETTER::END
     
-    /** Unboxes a long. Null input is considered ZERO.
-     *  Using this because hibernate will init some new
-     *  columns as NULL and then when you try to incriment
-     *  them, all hell breaks looks with the dreaded
-     *  null pointer exception.
-     * @return :The inputted REF-TYPE:Long (or null) 
-     *          converted to VALUE-TYPE:long.
-     */
-    private long unBoxLong(Long help_iam_in_a_box){
-        
-        if(null == help_iam_in_a_box){
-            return (new Long(0)).longValue();
-        }//000000000000000000000000000000000
-        
-        //If not null, unbox as usual:
-        return help_iam_in_a_box.longValue();
-    }//FUNC::END
+    
 
     /**-------------------------------------------------------------------------
      * Used to let UI people know if the response sent back is an 
