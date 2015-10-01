@@ -116,14 +116,14 @@ public class BaseEntity extends KernelEntity{
      *
      **/
     @Column(name=VarNameReg.GLOBAL_SAVE_ID)
-    private long global_save_id;
-    
+    private Long global_save_id; //<--boxed [L]ong type with
+                                 // unboxed [l]ong type setters? Can we do this?
     public long getGlobal_save_id() {
-        return global_save_id;
+        return global_save_id.longValue();
     }
 
     public void setGlobal_save_id(long save_id) {
-        this.global_save_id = save_id;
+        this.global_save_id = new Long(save_id);
     }
     
     
