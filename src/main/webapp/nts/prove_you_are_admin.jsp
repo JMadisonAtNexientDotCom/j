@@ -58,7 +58,7 @@
   //http://stackoverflow.com/questions/22892246/
   //                        how-do-i-access-the-locationprovider-to-configure-it
     $locationProvider.html5Mode(true);
-    $locationProvider.hashPrefix('!');
+    //$locationProvider.hashPrefix('!');
   });//CONFIG::END
   
   app.controller('myCtrl', function($scope, $http, $location, spinnerService) {
