@@ -1,5 +1,6 @@
 package test.transactions.util.forOwnedMainlyByOneTable.owner;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -7,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import test.MyError;
 import test.config.constants.DatabaseConsts;
 import test.config.debug.DebugConfig;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.AdminTable;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
@@ -83,6 +85,44 @@ public class OwnerTransUtil {
      * (AKA: Recruiter or other nexient employee with admin account)
      ------------------------------------------------------------------------**/
     private static long UNUSED_ID = DatabaseConsts.UNUSED_ID;
+    
+    /**
+     * 
+     * @param ownerRecords :list of owner records to extract tokenIDs from.
+     *                      Will be casted from BaseEntity to OwnerTable inside.
+     * @param deleOwnerRecords :If true, mark entities used in extraction for
+     *                          deletion.
+     * @return Returns a collection of only tokenIDS.
+     */
+    public static List<Long> extractTokenIDSFromOwnerTableEntities
+                      (List<BaseEntity> ownerRecords, boolean deleOwnerRecords){
+                              
+        //Make sure you are in a transaction state.
+        //Then get transaction session:
+        TransUtil.insideTransactionCheck();
+        Session ses = TransUtil.getActiveTransactionSession();
+                              
+        //Core extraction logic:
+        Long curTokenID;
+        OwnerTable curOwnerRecord;
+        List<Long> hordeOfTokenIDS = new ArrayList<Long>();
+        for(BaseEntity bEnt : ownerRecords){
+            curOwnerRecord = (OwnerTable)bEnt;
+            curTokenID = curOwnerRecord.getToken_id();
+            if(curTokenID<=0){doError("[lazy init error. Token Id???]");}
+            
+            //add the token to collection to return:
+            hordeOfTokenIDS.add(curTokenID);
+            
+            if(deleOwnerRecords){//[DELE][DELE][DELE][DELE][DELE][DELE][DELE]]
+                curOwnerRecord.setDele(true);
+                ses.save( curOwnerRecord );
+            }//[DELE][DELE][DELE][DELE][DELE][DELE][DELE][DELE][DELE][DELE]]]]]]
+        }//Next entry.
+        
+        //A list with length of zero is acceptable here.
+        return hordeOfTokenIDS;
+    }//FUNC::END
     
     /**-------------------------------------------------------------------------
      * Make an entry into join table represented by this class.

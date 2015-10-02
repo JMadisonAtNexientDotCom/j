@@ -186,5 +186,22 @@ public class TransUtil {
                       (Class tableClass, String columnName, long columnValue){
        i().deleINTEGER(      tableClass,        columnName,      columnValue);
     }//WRAPPER::END
-                        
+                      
+    public static List<BaseEntity> getEntitiesUsingString
+                      (Class tableClass, String columnName, String columnValue){
+        return i().getEntitiesUsingString
+                      (      tableClass,        columnName,        columnValue);                   
+    }//WRAPPER::END
+                      
+    public static List<BaseEntity> getEntitiesUsingLong
+                      (Class tableClass, String columnName, Long columnValue){
+        return i().getEntitiesUsingLong
+                      (      tableClass,        columnName,      columnValue);                   
+    }//WRAPPER::END
+                      
+    public static List<BaseEntity> getEntitiesUsingListOfLong
+                   (Class tableClass, String columnName, List<Long> colValList){
+        return i().getEntitiesUsingListOfLong
+                   (      tableClass,        columnName,            colValList);
+    }//WRAPPER::END
 }//END::CLASS

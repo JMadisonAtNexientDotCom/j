@@ -1,9 +1,12 @@
 package test.transactions.util.forOwnedMainlyByOneTable.session;
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 
+import java.util.List;
+import org.hibernate.Session;
 import primitives.StringWithComment;
 import test.MyError;
 import test.config.constants.EntityErrorCodes;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.AdminTable;
 import test.dbDataAbstractions.entities.tables.SessionTable;
@@ -11,6 +14,7 @@ import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.admin.AdminTransUtil;
 import test.transactions.util.forNoClearTableOwner.AdminTokenTransUtil;
+import test.transactions.util.forNoClearTableOwner.OwnerTokenTransUtil;
 
 /**##########################CLASS HEADER FILE##################################
 //WHAT THIS CLASS DOES:
@@ -36,6 +40,139 @@ import test.transactions.util.forNoClearTableOwner.AdminTokenTransUtil;
 ########10########20########30########40########50########60########70########*/
 //-------0---------0---------0---------0---------0---------0---------0---------0
 public class SessionTransUtil {
+    
+    /**
+     * Wrapper for killSessionsOfAdmin,
+     * Assumes: Sessions MIGHT exists.
+     * Assumes: Admin user name supplied is valid.
+     * @param adminsUserName  :NOT CASE SENSITIVE.
+     * @return :The number of sessions that were killed.
+     */
+    public static int killPossiblyExistingSessionsOfExistingAdmin
+                                                        (String adminsUserName){
+        int kills;
+        boolean ERROR_IF_ADMIN_DOES_NOT_EXIST = true;
+        boolean ERROR_IF_NO_SESSIONS_FOUND    = false;
+        kills = killSessionsOfAdmin(adminsUserName,
+                                                  ERROR_IF_ADMIN_DOES_NOT_EXIST,
+                                                  ERROR_IF_NO_SESSIONS_FOUND);
+        return kills;
+    }//FUNC::END
+
+    /**
+     * Kills all sessions of admin by removing them from the session table.
+     * @param userName :The username. NOT case sensitive.
+     * @param errorIfAdminNotFoundInAdminTable :Should we error if the username
+     *                                          does NOT exist?
+     * @param errorIfNoActiveSessionsFound :Should we error if no sessions were
+     *                                      found for a user of that username?
+     * @return :The number of sessions that were killed.
+     */
+    public static int killSessionsOfAdmin
+                  (String userName, boolean errorIfAdminNotFoundInAdminTable, 
+                                    boolean errorIfNoActiveSessionsFound){
+        TransUtil.insideTransactionCheck();
+        
+        String lowerUser = userName.toLowerCase();
+        BaseEntityContainer bec;
+        bec = TransUtil.getEntityFromTableUsingUniqueString
+                     (AdminTable.class, AdminTable.USER_NAME_COLUMN, lowerUser);
+        
+        if(false == bec.exists)
+        {
+            if(errorIfAdminNotFoundInAdminTable){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                String msg = "";
+                msg += "[Admin did not exist in admin table, and therefor]";
+                msg += "[We cannot remove ANONYMOUS from the session table.]";
+                doError(msg);
+            }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            return 0;
+        } //user did not exist. Nothing to remove.
+        
+        //If here, we found a container representing the admin.
+        AdminTable theAdmin = (AdminTable)bec.entity;
+        long admin_id = theAdmin.getId();
+        if(admin_id <= 0){ doError("[admin_id lazy fetch error likely.]"); }
+        
+        boolean MARK_FOR_DELETION = true;
+        List<Long> thisAdminsTokens = OwnerTokenTransUtil.
+                         getAllTokensOwnedBy_ADMIN(admin_id, MARK_FOR_DELETION);
+        
+        //List<BaseEntity> adminOccurancesWithinSessionTable = TransUtil.
+        //               getEntitiesUsingString
+        //               (SessionTable.class, SessionTable., userName);
+        
+        int len = thisAdminsTokens.size();
+        if(0 == len){
+            if(errorIfNoActiveSessionsFound){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                String msg = "[No active sessions found for admin.]";
+                msg       += "[Reason: Admin does not own any tokens.]";
+                doError(msg);
+            }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            return 0;
+        }//NO ADMIN TOKENS FOUND? (0==len)
+        
+        //if admin owns some tokens, go through all of the token id's
+        //and remove them from the session table:
+        int killCount;
+        boolean ERROR_IF_TOKEN_ID_NOT_FOUND = true;
+        killCount = SessionTransUtil.killSessionsByTokenID
+                                (thisAdminsTokens, ERROR_IF_TOKEN_ID_NOT_FOUND);
+        
+        if(ERROR_IF_TOKEN_ID_NOT_FOUND){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            if(killCount != len){
+                doError("[number of killed does not match number of tokens]");
+            }
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        //Return the number of sessions that  have been killed.
+        return killCount;
+        
+    }//FUNC::END
+           
+    /**Closes sessions and marks them for deletion. Finds sessions to
+     * close in the session table based on the token_id associated with
+     * the session entry.
+     * @param tokenIDS :List of token id's that will match any session to close.
+     * @param errorIfNoSessionsFound: If true, will throw error if no sessions
+     *                                were found in session table using the list
+     *                                of token id(s) supplied.
+     * @return :Return the number of killed/closed sessions.
+     */
+    public static int killSessionsByTokenID
+                           (List<Long>tokenIDS, boolean errorIfNoSessionsFound){
+        TransUtil.insideTransactionCheck(); //<--as before advice would be nice.
+        Session ses = TransUtil.getActiveTransactionSession();
+        
+        int numberOfTokenIDS = tokenIDS.size();
+        if(numberOfTokenIDS <= 0){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            doError("[Do not supply this function an empty list!]");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        //Total number of records killed:
+        int killCount = 0;
+        
+        List<BaseEntity> sesRecords = TransUtil.getEntitiesUsingListOfLong
+                   (SessionTable.class, SessionTable.TOKEN_ID_COLUMN, tokenIDS);
+        
+        if(errorIfNoSessionsFound){
+            if(sesRecords.size() <= 0){
+                throw new Error("No sessions found for token id's supplied.");
+            }//IF::END
+        }//IF::END
+        
+        //go through them all, close them, dele them, and save them:
+        SessionTable sesEntry;
+        for(BaseEntity b : sesRecords){
+            sesEntry = (SessionTable)b;
+            sesEntry.setIs_active(false); //<--De-activate session.
+            sesEntry.setDele(true);       //<--Dele record.
+            killCount++;
+        }//next record
+        
+        return killCount;
+       
+    }//FUNC::END
     
     /**-------------------------------------------------------------------------
      * Makes sure there is a token in the session table owned by the

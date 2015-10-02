@@ -85,6 +85,8 @@ public class AdminRestService extends BaseRestService{
         StringWithComment adminToken;
         boolean isValidLogin = AdminTransUtil.loginValidate(userName, passWord);
         if(isValidLogin){
+            SessionTransUtil.
+                          killPossiblyExistingSessionsOfExistingAdmin(userName);
             adminToken = SessionTransUtil.getActiveTokenForAdmin(userName);
         }else{
             adminToken = new StringWithComment();

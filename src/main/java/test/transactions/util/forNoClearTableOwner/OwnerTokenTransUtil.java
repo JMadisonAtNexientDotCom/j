@@ -1,9 +1,13 @@
 package test.transactions.util.forNoClearTableOwner;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Session;
 import primitives.BooleanWithComment;
 import primitives.StringWithComment;
 import test.MyError;
 import test.config.constants.DatabaseConsts;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.entityHelpers.WhoOwnsToken;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
@@ -55,6 +59,36 @@ import test.transactions.util.forOwnedMainlyByOneTable.token.TokenTransUtil;
 public class OwnerTokenTransUtil {
     
     private static long UNUSED_ID = DatabaseConsts.UNUSED_ID;
+    
+    /**
+     * 
+     * @param admin_id           : The admin_id we want to find owned tokens for.
+     * @param deleAllFoundRecords : If true, will dele all tokens associated with
+     *                             this admin_id within the owner table.
+     *                             ONLY DOES THIS TO ENTRIES IN OWNER TABLE!
+     * @return :Return the token_id's that were found within the owner table.
+     */
+    public static List<Long> getAllTokensOwnedBy_ADMIN
+                                   (long admin_id, boolean deleAllFoundRecords){
+                                        
+        //Error check and get session:                           
+        TransUtil.insideTransactionCheck();
+        Session ses = TransUtil.getActiveTransactionSession();
+                                        
+        if(0==admin_id){doError("[lazy init admin_id error probably]");}
+        List<BaseEntity> adminOwnerRecords = TransUtil.getEntitiesUsingLong
+                       (OwnerTable.class, OwnerTable.ADMIN_ID_COLUMN, admin_id);
+        
+        //Extract all of the token id's from the owner-table entities
+        List<Long> tokenIDS;
+        tokenIDS = OwnerTransUtil.extractTokenIDSFromOwnerTableEntities
+                                       (adminOwnerRecords, deleAllFoundRecords);
+        
+        //The result may be an empty list. That is okay.
+        return tokenIDS;
+        
+    }//FUNC::END
+    
     
     /**
      * Use the token hash to see who owns that token. Returns an enum

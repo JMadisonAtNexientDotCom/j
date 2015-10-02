@@ -634,6 +634,83 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         return op;         
     }//FUNC::END
                         
+    /**
+     * Meant for retrieving ONE OR MORE entities.
+     * Is allowed to return an empty list.
+     * @param tableClass :The class to query.
+     * @param columnName :Column name to query.
+     * @param columnValue:Column value that should exist. 
+       @return: A list of length 0 or more. **/
+    public List<BaseEntity> getEntitiesUsingString
+                      (Class tableClass, String columnName, String columnValue){
+        basicErrorChecks_and_lazyFetchErrorCheck_for_STRING
+                                                      (tableClass, columnValue);
+        //Core Logic:
+        Criteria cri = makeGloballyFilteredCriteria(tableClass);
+        cri.add(Restrictions.eq(columnName, columnValue) );
+        List<BaseEntity> queryResultList = cri.list();
+        return queryResultList;
+        
+    }//FUNC::END
+                      
+    /**
+     * Meant for retrieving ONE OR MORE entities.
+     * Is allowed to return an empty list.
+     * @param tableClass :The class to query.
+     * @param columnName :Column name to query.
+     * @param columnValue:Column value that should exist. 
+       @return: A list of length 0 or more. **/
+    public List<BaseEntity> getEntitiesUsingLong
+                      (Class tableClass, String columnName, Long columnValue){
+        basicErrorChecks_and_lazyFetchErrorCheck_for_LONG
+                                                      (tableClass, columnValue);
+        //Core Logic:
+        Criteria cri = makeGloballyFilteredCriteria(tableClass);
+        cri.add(Restrictions.eq(columnName, columnValue) );
+        List<BaseEntity> queryResultList = cri.list();
+        return queryResultList;
+        
+    }//FUNC::END
+                      
+    /**
+     * Retrieves a list of entities using a LIST of values.
+     * Think of it as a SELECT from table WHERE column == columnName
+     *                  and values == [AN ARRAY]
+     * @param tableClass :The table to query.
+     * @param columnName :The column name to query.
+     * @param colValList :The list of column values.
+     * @return 
+     */                 
+    public List<BaseEntity> getEntitiesUsingListOfLong
+                   (Class tableClass, String columnName, List<Long> colValList){
+        List<BaseEntity> op = new ArrayList<BaseEntity>();
+        long columnValue;
+        BaseEntityContainer con;
+        for(Long v : colValList){
+            columnValue = v.longValue();
+            if(0==columnValue){ //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                doError("[Column value of zero, possible lazy fetch error]");
+            }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            
+            //get current container from query table with current column value:
+            con = getEntityFromTableUsingLong
+                                        ( tableClass, columnName, columnValue );
+            
+            //If enity exists, add to collection... IF it is a unique instance!
+            if(con.exists){
+                if(op.indexOf(con.entity) < 0 ){
+                    op.add(con.entity);
+                }//UNIQUE ADD
+            }//BLOCK::END
+        }//NEXT column value.
+        
+        //return the collection of entities you have gathered:
+        return op;
+        
+    }//FUNC::END
+                      
+                      
+                        
     public BaseEntityContainer getEntityFromTableUsingUniqueString
                       (Class tableClass, String columnName, String columnValue){
          //Error check:
