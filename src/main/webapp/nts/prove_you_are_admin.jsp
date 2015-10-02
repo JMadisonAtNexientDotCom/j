@@ -51,7 +51,13 @@
   
   <script>
   var app = angular.module('myApp', ['angularSpinners']);
-  app.controller('myCtrl', function($scope, $http, $location, spinnerService) {
+  app.controller('myCtrl', function($scope, $http, $location, $locationProvider, 
+                                                               spinnerService) {
+  
+    //might need to put this into a config function at... end of controller?
+    //look up angularJS controller configuration.
+    $locationProvider.html5Mode(true);
+    $locationProvider.hashPrefix('!');
   
     //variable initialization:
     $scope.VI = function(){
