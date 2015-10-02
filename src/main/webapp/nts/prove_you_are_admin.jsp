@@ -51,7 +51,7 @@
   
   <script>
   var app = angular.module('myApp', ['angularSpinners']);
-  app.controller('myCtrl', function($scope, $http, spinnerService) {
+  app.controller('myCtrl', function($scope, $http, $location, spinnerService) {
   
     //variable initialization:
     $scope.VI = function(){
@@ -91,6 +91,7 @@
             $scope.msg_for_user = response.errorCode;
         }else{
             $scope.msg_for_user = response.value;
+            $location.path("http://www.google.com/");
         }//BLOCK::END
             
         
