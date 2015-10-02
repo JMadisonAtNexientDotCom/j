@@ -91,6 +91,9 @@ public class AdminRestService extends BaseRestService{
             adminToken = SessionTransUtil.getActiveTokenForAdmin(userName);
         }else{
             adminToken = new StringWithComment();
+            adminToken.comment = "";
+            adminToken.comment += "userName:[" + userName + "]";
+            adminToken.comment += "passWord:[" + passWord + "]";
             adminToken.value = "ERROR:ACCESS_DENIED";
             adminToken.isError = true;
             adminToken.errorCode = EntityErrorCodes.ACCESS_DENIED;
