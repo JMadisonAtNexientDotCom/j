@@ -13,39 +13,68 @@
 
 <div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="apiCallUsed='ONE';" >
  
-    
-<!-- quick test to make sure we have relative .css URL correct. -->
-<spinner name="html5spinner">  
-    <div class="overlay"></div>
-    <div class="spinner">
-            <div class="double-bounce1"></div>
-            <div class="double-bounce2"></div>
+  
+  <!-- Vertically + horizontally centered dialog -->
+  <div class="horcen_parent" > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+  <div class="horcen_child"  > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+  <div class="vertcen_parent"> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+  <div class="vertcen_child" > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+    <div id="roundeddivs_wireframe" style="width:200px;">
+
+      <!-- The table with title at head of container. -->
+      <div id="roundeddivs_headertab" align="center">
+        <h2 style="color:#fff">Register a new Ninja:</h2>
+      </div>
+        
+      <!-- F is for FORM FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
+      <!-- FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
+      <form name="myForm">
+      <p>New Ninja Registration:</p>
+      <p>Name : <input type="text" name="iName"  ng-model="nName" placeholder="Enter name here"></p>
+
+      <!-- using number type is not what I want for phone numbers. It gives me a spinner! -->
+      <p>Phone: <input type="text" name="iPhone" ng-model="nPhone"    
+                       ng-required="number"
+                       ng-minlength="3"
+                       ng-maxlength="13"
+                       placeholder="##########">
+          <span class="error" ng-show="myForm.iPhone.$error.minlength">Too short!</span>
+          <span class="error" ng-show="myForm.iPhone.$error.maxlength">Too long!</span>
+      </p>
+      <p>Email: <input type="text" name="iEmail" ng-model="nEmail"    placeholder="Required@Email.com"></p>
+      <p>Website / Portfolio / Resume URL: </p>
+      <p><input type="text" name="iPortfolio" ng-model="nPortfolio"placeholder="www.Zombo.com"></p>
+      <button data-ng-click="onButtonClicked()">REGISTER NINJA</button>
+
+      <textarea readonly>{{apiCallUsed}}</textarea>
+      </form>
+      <!-- FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
+      
+
+      <!-- quick test to make sure we have relative .css URL correct. -->
+      <spinner name="html5spinner">  
+        <div class="overlay"></div>
+        <div class="spinner">
+              <div class="double-bounce1"></div>
+              <div class="double-bounce2"></div>
+        </div>
+        <div class="please-wait">Test of loading spinner...</div>
+      </spinner> 
+
     </div>
-    <div class="please-wait">...WAIT!...</div>
-</spinner>  
+  </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+  </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+  </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+  </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+  
+  
+  
 
-<form name="myForm">
-<p>New Ninja Registration:</p>
-<p>Name : <input type="text" name="iName"  ng-model="nName" placeholder="Enter name here"></p>
 
-<!-- using number type is not what I want for phone numbers. It gives me a spinner! -->
-<p>Phone: <input type="text" name="iPhone" ng-model="nPhone"    
-                 ng-required="number"
-                 ng-minlength="3"
-                 ng-maxlength="13"
-                 placeholder="##########">
-    <span class="error" ng-show="myForm.iPhone.$error.minlength">Too short!</span>
-    <span class="error" ng-show="myForm.iPhone.$error.maxlength">Too long!</span>
-</p>
-<p>Email: <input type="text" name="iEmail" ng-model="nEmail"    placeholder="Required@Email.com"></p>
-<p>Website / Portfolio / Resume URL: </p>
-<p><input type="text" name="iPortfolio" ng-model="nPortfolio"placeholder="www.Zombo.com"></p>
-<button data-ng-click="onButtonClicked()">REGISTER NINJA</button>
 
-<textarea readonly>{{apiCallUsed}}</textarea>
-</form>
 
-</div>
+
+</div> <!-- APP::END -->
 
 <script>
 //sample app declaration: 
