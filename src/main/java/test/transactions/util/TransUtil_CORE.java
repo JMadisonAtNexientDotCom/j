@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import test.MyError;
@@ -778,7 +779,14 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         //Only ignore if DELE column is specifically marked to true.
         //If null or false, we assume NOT marked for deletion.
         //We want to pretend objects marked for deletion do not exist.
-        cri.add(Restrictions.ne(VarNameReg.DELE, TRUE_VALUE));
+        //cri.add(Restrictions.ne(VarNameReg.DELE, TRUE_VALUE));
+        
+        //This version should count NULL as == FALSE. Not sure. Just trying.
+        //TRUE == 1, FALSE == 0, NULL == undefined. Hence the problem.
+        Criterion not_true = Restrictions.ne(VarNameReg.DELE, TRUE_VALUE);
+        Criterion is_null  = Restrictions.eqOrIsNull(VarNameReg.DELE, null);
+        Criterion false_or_null = Restrictions.or(not_true, is_null);
+        cri.add(false_or_null);
         
         //return the criteria:
         return cri;
