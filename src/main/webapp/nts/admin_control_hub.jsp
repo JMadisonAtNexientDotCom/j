@@ -74,17 +74,17 @@
 
     $scope.make_user = function(){
         msg_for_user = "Redirecting...";
-        $window.location = "put_ninja_in_system.jsp"; //try this.
+        $window.location = "add_new_ninja.jsp"; //try this.
     };//FUNC::END
     
     $scope.find_user = function(){
         msg_for_user = "Redirecting...";
-        $window.location = "put_ninja_in_system.jsp"; //try this.
+        $window.location = "add_new_ninja.jsp"; //try this.
     };//FUNC::END
     
     $scope.merge_user = function(){
         msg_for_user = "Redirecting...";
-        $window.location = "put_ninja_in_system.jsp"; //try this.
+        $window.location = "add_new_ninja.jsp"; //try this.
     };//FUNC::END
 
     

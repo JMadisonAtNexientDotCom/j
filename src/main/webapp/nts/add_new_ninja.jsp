@@ -23,17 +23,17 @@
 
       <!-- The table with title at head of container. -->
       <div id="roundeddivs_headertab" align="center">
-        <h2 style="color:#fff">Register a new Ninja:</h2>
+        <h2 style="color:#fff">Add Ninja:</h2>
       </div>
         
       <!-- F is for FORM FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
       <!-- FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
       <form name="myForm">
       <p>New Ninja Registration:</p>
-      <p>Name : <input type="text" name="iName"  ng-model="nName" placeholder="Enter name here"></p>
+      <p>Name : <input type="text" name="iName"  ng-model="nName" placeholder="Enter name here" style="width:100%;" ></p>
 
       <!-- using number type is not what I want for phone numbers. It gives me a spinner! -->
-      <p>Phone: <input type="text" name="iPhone" ng-model="nPhone"    
+      <p>Phone: <input type="text" name="iPhone" ng-model="nPhone" style="width:100%;"    
                        ng-required="number"
                        ng-minlength="3"
                        ng-maxlength="13"
@@ -41,12 +41,13 @@
           <span class="error" ng-show="myForm.iPhone.$error.minlength">Too short!</span>
           <span class="error" ng-show="myForm.iPhone.$error.maxlength">Too long!</span>
       </p>
-      <p>Email: <input type="text" name="iEmail" ng-model="nEmail"    placeholder="Required@Email.com"></p>
+      <p>Email: <input type="text" name="iEmail" ng-model="nEmail" placeholder="Required@Email.com" style="width:100%;" ></p>
+      
       <p>Website / Portfolio / Resume URL: </p>
-      <p><input type="text" name="iPortfolio" ng-model="nPortfolio"placeholder="www.Zombo.com"></p>
-      <button data-ng-click="onButtonClicked()">REGISTER NINJA</button>
+      <p><input type="text" name="iPortfolio" ng-model="nPortfolio" placeholder="www.Zombo.com" style="width:100%;" ></p>
+      <button data-ng-click="onButtonClicked()" style="width:100%;" >REGISTER NINJA</button>
 
-      <textarea readonly>{{apiCallUsed}}</textarea>
+      <!--  <textarea readonly>{{apiCallUsed}}</textarea> -->
       </form>
       <!-- FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
       
