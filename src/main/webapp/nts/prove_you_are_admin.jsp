@@ -105,7 +105,7 @@
         }else{
             $scope.msg_for_user = response.value;
             $location.path("admin_control_hub.jsp");
-            $window.location.path("admin_control_hub.jsp");//Force refresh.
+            $window.location.reload();//Force refresh.
         }//BLOCK::END
             
         
