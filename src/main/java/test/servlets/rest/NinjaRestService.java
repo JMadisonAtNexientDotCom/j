@@ -25,12 +25,14 @@ import java.util.logging.Logger;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import test.MyError;
+import test.config.constants.EntityErrorCodes;
 import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
 import utils.JSONUtil;
+import utils.StringUtil;
 
 ////////////////////////////////////////////////////////////////////////////////
 @Path(ServletClassNames.NinjaRestService_MAPPING) //<--If this @Path path matches the path of 
@@ -42,16 +44,35 @@ public class NinjaRestService extends BaseRestService {
     @Path(FuncNameReg.MAKE_NINJA_RECORD)
     public Response make_ninja_record(
             @QueryParam(VarNameReg.NAME)         String name ,
-            @QueryParam(VarNameReg.PHONE)        long   phone,
+            @QueryParam(VarNameReg.PHONE)        String phone,
             @QueryParam(VarNameReg.EMAIL)        String email,
             @QueryParam(VarNameReg.PORTFOLIO_URL)String portfolio_url){
         
         //ENTER transaction:
         Session ses = TransUtil.enterTransaction();
         
+        boolean allDigits = StringUtil.canBeParsedAsWholeNumber(phone);
+        if(false == allDigits){//#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#
+            NinjaTable errorNinja = new NinjaTable();
+            errorNinja.setComment("error in make ninja record.");
+            errorNinja.setIsError(true);
+            errorNinja.setErrorCode(EntityErrorCodes.GARBAGE_IN_GARBAGE_OUT);
+            errorNinja.setEmail("error@error.com");
+            errorNinja.setPhone(-888);
+            errorNinja.setName("Dr.Error");
+            errorNinja.setPortfolioURL("www.ERROR.com");
+            
+            //EXIT TRANSACTION, and return error response:
+            TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+            return JSONUtil.entityToJSONResponse(errorNinja);
+        }//#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#
+        
         //Transaction logic:
+        //DESIGN NOTE: using phone as STRING input so that API endpoint
+        //             resolves properly with bad data.
+        long phoneAsLong = Long.parseLong(phone);
         NinjaTable nt = NinjaTransUtil.
-                                makeNinjaRecord(name,phone,email,portfolio_url);
+                          makeNinjaRecord(name,phoneAsLong,email,portfolio_url);
         
         //Mark entity for save:
         TransUtil.markEntityForSaveOnExit(nt);

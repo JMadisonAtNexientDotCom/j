@@ -25,4 +25,7 @@ public class EntityErrorCodes {
      *  no one has bothered to specify the details of the error. **/
     public static final String NONE_SET      = "none_set";
     
+    /** Means UI gave the REST API bad data. **/
+    public static final String GARBAGE_IN_GARBAGE_OUT = "garbage_in_garbage_out";
+    
 }//CLASS::END
