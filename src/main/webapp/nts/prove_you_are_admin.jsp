@@ -103,7 +103,7 @@
             $scope.msg_for_user = response.errorCode;
         }else{
             $scope.msg_for_user = response.value;
-            $location.path("http://www.google.com/");
+            $location.path("admin_control_hub.jsp");
         }//BLOCK::END
             
         
