@@ -84,6 +84,8 @@ public class SessionTransUtil {
                 String msg = "";
                 msg += "[Admin did not exist in admin table, and therefor]";
                 msg += "[We cannot remove ANONYMOUS from the session table.]";
+                msg += "[LowerCased admin user name used in query]:";
+                msg += "[" + lowerUser + "]";
                 doError(msg);
             }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             return 0;
