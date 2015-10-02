@@ -56,10 +56,10 @@
   //You must do it with app.config:
   //http://stackoverflow.com/questions/22892246/
   //                        how-do-i-access-the-locationprovider-to-configure-it
-  app.config(function($locationProvider) {
-    $locationProvider.html5Mode(true);
-    $locationProvider.hashPrefix('!');
-  });//CONFIG::END
+  //app.config(function($locationProvider) {
+  //  $locationProvider.html5Mode(true);
+  //  $locationProvider.hashPrefix('!');
+  //});//CONFIG::END
   
   app.controller('myCtrl', function($scope, $http, $location, spinnerService) {
   
