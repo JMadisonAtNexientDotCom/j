@@ -63,7 +63,8 @@
     $locationProvider.hashPrefix('!');
   });//CONFIG::END
   
-  app.controller('myCtrl', function($scope, $http, $location, spinnerService) {
+  app.controller('myCtrl', function($scope, $http, $window, $location, 
+                                                               spinnerService) {
   
     //variable initialization:
     $scope.VI = function(){
@@ -104,6 +105,7 @@
         }else{
             $scope.msg_for_user = response.value;
             $location.path("admin_control_hub.jsp");
+            $window.location.path("admin_control_hub.jsp");//Force refresh.
         }//BLOCK::END
             
         
