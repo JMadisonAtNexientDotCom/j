@@ -74,7 +74,7 @@ CREATE TABLE trans_table              (id serial PRIMARY KEY, convo_open_id INT 
 -- Make an entry into the admin_table                                         --
 -- ALL USER NAMES SHOULD BE STORED AS LOWERCASE BECAUSE WE WANT USER NAMES    --
 -- TO BE CASE-INSENSITIVE!!!                                                  --
-INSERT INTO admin_table (user_name, pass_hash,dele) VALUES ('sensei', 'password_hashed', false);
+INSERT INTO admin_table (user_name, pass_hash) VALUES ('sensei', 'password_hashed');
 
 -- BUG: It seems that using FOREIGN KEY in import.sql FAILS... As much as I want to make
 -- A "proper" create-table file. I cannot.
