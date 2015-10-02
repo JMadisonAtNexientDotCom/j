@@ -131,12 +131,14 @@ public class AdminTransUtil {
         
         //HACK:
         //Force an EAGER fetch by saving the entity we just got:
-        ses.save(theAdmin);
-        if( DebugConfig.isDebugBuild ){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            if(theAdmin.getId() <= 0){
-                doError("[Force eager fetch hack failed for theAdmin]");
-            }//error?
-        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        if(bec.exists){
+            ses.save(theAdmin);
+            if( DebugConfig.isDebugBuild ){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                if(theAdmin.getId() <= 0){
+                    doError("[Force eager fetch hack failed for theAdmin]");
+                }//error?
+            }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        }//IF EXISTS!
         
         //Return the container that
         //may or may not contain the entity.
