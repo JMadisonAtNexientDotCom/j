@@ -50,7 +50,9 @@ public class AdminTransUtil {
         TransUtil.insideTransactionCheck();
 
         //Core logic:
-        BaseEntityContainer bec = getAdminEntity(lowerCaseUserName);
+        boolean USER_ALLOWED_TO_NOT_EXIST = true; //allow it.
+        BaseEntityContainer bec = getAdminEntity
+                                 (lowerCaseUserName, USER_ALLOWED_TO_NOT_EXIST);
         return bec.exists;
         
     }//FUNC::END
@@ -74,10 +76,13 @@ public class AdminTransUtil {
     /**-------------------------------------------------------------------------
      * Use user-name to find admin entity in the admin_table.
      * @param userName : the all lower-case user name of this admin.
+     * @param userAllowedToNotExit : If TRUE and user is not found, the function
+     *                               will NOT throw an error.
      * @return :A container that will contain the entity if the entity
      *          exists in the table.
      ------------------------------------------------------------------------**/
-    public static BaseEntityContainer getAdminEntity(String userName){
+    public static BaseEntityContainer getAdminEntity
+                               (String userName, boolean userAllowedToNotExist){
         
          //ErrorCheck: Make sure userName exists in the token table.
         if(false == isAllLowercase(userName)){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
@@ -102,7 +107,7 @@ public class AdminTransUtil {
         //      are not being taken into consideration. Fix this.
         
         //Do error check for null result.
-        if(DebugConfig.isDebugBuild){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        if(false == userAllowedToNotExist){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             if(null == c.uniqueResult()){
                 doError("[c.uniqueResult==NULL!]");
             }//error?
@@ -159,7 +164,9 @@ public class AdminTransUtil {
         //Find the user in the table:
         AdminTable theAdmin=null;
         String lower_cased_user = userName.toLowerCase();
-        BaseEntityContainer bec = getAdminEntity(lower_cased_user);
+        boolean BOGUS_USER_ALLOWED = true;
+        BaseEntityContainer bec = getAdminEntity
+                                         (lower_cased_user, BOGUS_USER_ALLOWED);
         if(false == bec.exists){////////////////////////////////////////////////
             return false; //<--unable to validate. User does not exist.
         }else

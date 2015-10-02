@@ -1,5 +1,6 @@
 package test.servlets.rest;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
@@ -76,8 +77,8 @@ public class AdminRestService extends BaseRestService{
     @GET
     @Path(FuncNameReg.LOGIN_AND_GET_TOKEN_FOR_SELF)
     public Response login_and_get_token_for_self(
-                       @QueryParam(VarNameReg.USER_NAME) String userName, 
-                       @QueryParam(VarNameReg.PASS_WORD) String passWord){
+          @QueryParam(VarNameReg.USER_NAME)@DefaultValue("") String userName, 
+          @QueryParam(VarNameReg.PASS_WORD)@DefaultValue("") String passWord){
         
         //Enter transaction:
         Session ses = TransUtil.enterTransaction();

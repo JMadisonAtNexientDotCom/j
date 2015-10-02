@@ -205,7 +205,9 @@ public class SessionTransUtil {
         op.comment = "initialized by getActiveTokenForAdmin";
         
         //Check to see if userName exists in admin table:
-        BaseEntityContainer bec = AdminTransUtil.getAdminEntity(userName);
+        boolean BOGUS_USER_ALLOWED = true;
+        BaseEntityContainer bec = AdminTransUtil.
+                                    getAdminEntity(userName,BOGUS_USER_ALLOWED);
         BaseEntityContainer.validate(bec); //<<--error check flags.
         if(false == bec.exists){
             op.comment = "getActiveTokenForAdmin::false==bec.exists";
