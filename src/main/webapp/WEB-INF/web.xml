@@ -48,8 +48,8 @@
         <servlet>
 		<servlet-name>jersey-serlvet</servlet-name>
 		<servlet-class>
-                     <!-- com.sun.jersey.spi.container.servlet.ServletContainer -->
-                     test.servlets.jerseyServletContainer.ServletContainerWithDebug
+                     com.sun.jersey.spi.container.servlet.ServletContainer
+                     <!-- test.servlets.jerseyServletContainer.ServletContainerWithDebug -->
                 </servlet-class>
 		<init-param>
 		     <param-name>com.sun.jersey.config.property.packages</param-name>
