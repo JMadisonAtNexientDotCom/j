@@ -104,8 +104,13 @@
             $scope.msg_for_user = response.errorCode;
         }else{
             $scope.msg_for_user = response.value;
-            $location.path("admin_control_hub.jsp");
-            $window.location.reload();//Force refresh.
+            
+            //In order for this to work, you have to submit TWICE!
+            //$location.path("admin_control_hub.jsp");
+            //$window.location.reload();//Force refresh.
+            
+            $window.location = "admin_control_hub.jsp"; //try this.
+            
         }//BLOCK::END
             
         
