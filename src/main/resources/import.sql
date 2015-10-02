@@ -51,15 +51,15 @@ DROP TABLE IF EXISTS owner_table; -- JOINS: { token_table(id), ninja_table(id), 
 -- Max length == 800, as in: 10 lines max when each line is 80 chars. --
 -- Max length == 80 (one line) for our answers (rhymes).              --
 -- -----------------------------------| [B][B][B][B][B] BASE ENTITY FIELDS [B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B]-------|
-CREATE TABLE token_table              (id serial PRIMARY KEY, dele BOOLEAN NOT NULL, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, token_hash varchar(80));
-CREATE TABLE ninja_table              (id serial PRIMARY KEY, dele BOOLEAN NOT NULL, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, name varchar(80), phone INT UNSIGNED, email varchar(80), portfolio_url varchar(80) );
-CREATE TABLE riddle_table             (id serial PRIMARY KEY, dele BOOLEAN NOT NULL, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, id serial PRIMARY KEY, text varchar(800) );
-CREATE TABLE rhyme_table              (id serial PRIMARY KEY, dele BOOLEAN NOT NULL, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, id serial PRIMARY KEY, text varchar(80) );
-CREATE TABLE riddle_rhyme_truth_table (id serial PRIMARY KEY, dele BOOLEAN NOT NULL, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, riddle_id INT UNSIGNED NOT NULL, rhyme_id INT UNSIGNED NOT NULL);
-CREATE TABLE riddle_rhyme_wrong_table (id serial PRIMARY KEY, dele BOOLEAN NOT NULL, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, riddle_id INT UNSIGNED NOT NULL, rhyme_id  INT UNSIGNED NOT NULL);
-CREATE TABLE admin_table              (id serial PRIMARY KEY, dele BOOLEAN NOT NULL, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, user_name varchar(80), pass_hash varchar (80) );
-CREATE TABLE session_table            (id serial PRIMARY KEY, dele BOOLEAN NOT NULL, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, token_id INT UNSIGNED NOT NULL, opened_on BIGINT UNSIGNED NOT NULL, duration INT UNSIGNED NOT NULL, is_active BOOLEAN NOT NULL);
-CREATE TABLE owner_table              (id serial PRIMARY KEY, dele BOOLEAN NOT NULL, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, token_id INT UNSIGNED NOT NULL, ninja_id INT UNSIGNED NOT NULL, admin_id INT UNSIGNED NOT NULL);
+CREATE TABLE token_table              (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, token_hash varchar(80));
+CREATE TABLE ninja_table              (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, name varchar(80), phone INT UNSIGNED, email varchar(80), portfolio_url varchar(80) );
+CREATE TABLE riddle_table             (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, id serial PRIMARY KEY, text varchar(800) );
+CREATE TABLE rhyme_table              (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, id serial PRIMARY KEY, text varchar(80) );
+CREATE TABLE riddle_rhyme_truth_table (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, riddle_id INT UNSIGNED NOT NULL, rhyme_id INT UNSIGNED NOT NULL);
+CREATE TABLE riddle_rhyme_wrong_table (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, riddle_id INT UNSIGNED NOT NULL, rhyme_id  INT UNSIGNED NOT NULL);
+CREATE TABLE admin_table              (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, user_name varchar(80), pass_hash varchar (80) );
+CREATE TABLE session_table            (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, token_id INT UNSIGNED NOT NULL, opened_on BIGINT UNSIGNED NOT NULL, duration INT UNSIGNED NOT NULL, is_active BOOLEAN NOT NULL);
+CREATE TABLE owner_table              (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, token_id INT UNSIGNED NOT NULL, ninja_id INT UNSIGNED NOT NULL, admin_id INT UNSIGNED NOT NULL);
 
 -- trans_table is a KERNEL entity, not a base entity. So it lacks some of the --
 -- fields that are included on all of the others.  -----------------------------
