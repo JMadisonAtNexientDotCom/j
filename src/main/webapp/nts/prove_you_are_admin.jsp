@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- BASE: https://docs.angularjs.org/error/$location/nobase -->
+    <base href="/nts/"> 
     <meta charset="utf-8">
     <title>Admin Login</title>
     <%= I.INCLUDE_JS() %>
@@ -58,7 +60,7 @@
   //http://stackoverflow.com/questions/22892246/
   //                        how-do-i-access-the-locationprovider-to-configure-it
     $locationProvider.html5Mode(true);
-    //$locationProvider.hashPrefix('!');
+    $locationProvider.hashPrefix('!');
   });//CONFIG::END
   
   app.controller('myCtrl', function($scope, $http, $location, spinnerService) {
