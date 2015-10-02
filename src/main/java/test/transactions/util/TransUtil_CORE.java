@@ -28,7 +28,7 @@ import utils.HibernateUtil;
 public class TransUtil_CORE extends ThreadLocalUtilityBase {
      
     /** Used to search for values set to true. **/
-    private Long TRUE_VALUE = new Long(1);
+    private Boolean TRUE_VALUE = true;
     
     /** Variable that helps for catching errors. Only used when
      *  isSingleThreaded == true, because this debugging logic may
@@ -780,10 +780,10 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
      */
     private void markEntitiesForDeletionAndSave(List<BaseEntity> bel){
         
-        long TRUE_INPUT = 1;
+        //long TRUE_INPUT = 1;
         Session s = getActiveTransactionSession();
         for(BaseEntity b : bel){
-            b.setDele( TRUE_INPUT );
+            b.setDele( true );
             s.save(b); //<-- so app knows about change.
         }//NEXT ENTITY
     }//FUNC::END

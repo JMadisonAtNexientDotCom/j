@@ -81,14 +81,14 @@ public class BaseEntity extends KernelEntity{
      *  when validating the integrity of a database.
      */
     @Column(name=VarNameReg.DELE) // nullable = false) //allowed to be null?
-    private Long dele; //<--Wrapper type is Long (CAPITAL L) to allow hibernate
+    private Boolean dele; //<--Wrapper type is Long (CAPITAL L) to allow hibernate
                           //to put null values into it without crashing.
-    public long getDele() {
-        return unBoxLong(dele);
+    public boolean getDele() {
+        return this.unBoxBool(dele);
     }
 
-    public void setDele(long idele) {
-        this.dele = new Long(idele);
+    public void setDele(boolean idele) {
+        this.dele = new Boolean(idele);
     }
     
     
