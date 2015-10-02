@@ -75,8 +75,10 @@
         <%=I.API().LOGIN_AND_GET_TOKEN_FOR_SELF.ARG.PASS_WORD %>:$scope.pass_word
         });//QUERYSTRING::END
         
+        apiCallURL = serviceURL + "?" + qs;
+        
         spinnerService.show('html5spinner'); //<--where is ref to spinnerService?
-        $http.get(serviceURL).success( onResponded );
+        $http.get(apiCallURL).success( onResponded );
     };//FUNC::END
     
     function onResponded(response){
