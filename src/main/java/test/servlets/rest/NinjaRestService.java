@@ -95,7 +95,7 @@ public class NinjaRestService extends BaseRestService {
             return JSONUtil.compositeEntityToJSONResponse(clanOfErrors);
             
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-       
+        
         //If no input errors, lets enter a transaction and return valid data:
         //ENTER TRANSACTION:
         Session ses = TransUtil.enterTransaction();
@@ -103,6 +103,22 @@ public class NinjaRestService extends BaseRestService {
         //CORE LOGIC: //CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
         int pageIndex         = Integer.parseInt(pageIndex_AsString);
         int numResultsPerPage = Integer.parseInt(numResultsPerPage_AsString);
+        
+        //Inputs may be valid numbers. But perhaps one of those numbers is
+        //negative? Or asking for ZERO results per page?
+        boolean badIn = false; //do we have bad inputs from API user?
+        String bim = ""; //bad input error message.
+        if(pageIndex < 0){ badIn=true; bim+="[negativePageIndex]";}
+        if(numResultsPerPage <= 0){badIn=true; bim+="[numResultsPerPage<=0]";}
+        if(badIn){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            Clan badInputErrorPageResults = Clan.makeErrorClan(bim);
+            badInputErrorPageResults.setErrorCode
+                                      (EntityErrorCodes.GARBAGE_IN_GARBAGE_OUT);
+            //Exit transaction state before returning the error:
+            TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+            return JSONUtil.compositeEntityToJSONResponse
+                                                     (badInputErrorPageResults);
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //BUGFIX:YOU NEED THE STARTING NINJA INDEX!!!
         int startIndex = pageIndex * numResultsPerPage;
