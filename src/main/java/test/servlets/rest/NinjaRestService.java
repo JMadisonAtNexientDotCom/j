@@ -112,6 +112,9 @@ public class NinjaRestService extends BaseRestService {
         //EXIT TRANSACTION:
         TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
         
+        //TEMPORARY DEBUG HACK:
+        //if(pageOfNinjas.)
+        
         //RETURN DATA:
         return JSONUtil.compositeEntityToJSONResponse(pageOfNinjas);
         

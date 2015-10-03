@@ -18,10 +18,10 @@ public class Clan extends CompositeEntityBase {
     /** Depending on what this list of ninjas represents, we may want to
      *  give it a different display name. For example, if it is a results list
      *  of "page 1 of 4" we might want it's display name to be "page 1 of 4" **/
-    String displayName = "NOT_SET";
+    public String displayName = "NOT_SET";
     
     /** Members of the clan. **/
-    List<NinjaTable> members;
+    public List<NinjaTable> members;
     
     /**
      * A maker function with basic error checking.
