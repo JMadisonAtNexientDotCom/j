@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
+import test.config.constants.EntityErrorCodes;
 import test.config.constants.identifiers.VarNameReg;
 
 /**
@@ -109,6 +111,51 @@ public class KernelEntity implements Serializable{
         return super.hashCode(); 
     }
     ////////////////////////////////////////////////////////////////////////////
+    
+    
+    /**-------------------------------------------------------------------------
+     * Used to let UI people know if the response sent back is an 
+     * error-response. Rather than change the STRUCTURE of information
+     * sent back, we simple edit these flags.
+     * 
+     * NOTE ON COMPILER WARNING:
+     * WARNING: http://forums.netbeans.org/topic53754.html
+     * 
+     * //http://forums.netbeans.org/topic53754.html
+     * Okay, it seems while Hibernate allows it, JPA explicitly forbids this:
+     * JPA 2.0 "2.2 Persistent Fields and Properties" (PDF p22): 
+     * 
+     * JMadison Note:
+     * My understanding: You want to access entity properties via
+     * getters and setters in case object gets wrapped into a proxy.
+     * 
+     * DESIGN PROBLEM:
+     * I want this to be serialized. But NOT show up in SQL table.
+     * NICE! It works this way. Meaning when UI people pull down the JSON
+     * they will have the .isError property, but when data is packed into
+     * database table, that .isError will be ignored.
+     * 
+     * 
+     ------------------------------------------------------------------------**/
+    @Transient
+    private boolean isError      = false;
+    public void setIsError(boolean tf){
+        isError = tf;
+    }//FUNC::END
+    public boolean getIsError(){
+        return isError;
+    }//FUNC::END
+    
+    //Added so that it matches our TypeWithComment base class.
+    @Transient
+    private String errorCode = EntityErrorCodes.NONE_SET;
+    public void setErrorCode(String errCode){
+        errorCode = errCode;
+    }//FUNC::END
+    public String getErrorCode(){
+        return errorCode;
+    }//FUNC::END
+    
     
     
 }//CLASS::END
