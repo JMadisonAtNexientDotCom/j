@@ -1,3 +1,12 @@
+
+REFACTOR NOTE / TODO:
+//RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+Composite would be better named "COLLECTION TYPE ENTITIES" or something.
+Because they are uniform.
+
+Then our bundleTypes... Might want a better name too....
+//RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+
 Composites are entities that are made by compositing other entities
 together. An example is a riddle on a riddle-exam.
 

@@ -28,6 +28,7 @@ public class FuncNameReg {
     public static final String GET_NINJA_BY_ID   = "get_ninja_by_id";
     public static final String GET_NEXT_NINJA    = "get_next_ninja";
     public static final String MAKE_NINJA_RECORD = "make_ninja_record";
+    public static final String GET_PAGE_OF_NINJAS= "get_page_of_ninjas";
     
     //OWNER SERVICE:
     public static final String MAKE_ENTRY_USING_NINJA       = "make_entry_using_ninja";

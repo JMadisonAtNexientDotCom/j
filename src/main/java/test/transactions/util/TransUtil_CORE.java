@@ -709,13 +709,39 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         return op;
         
     }//FUNC::END
-                      
-                      
+                     
+    /**
+     * Used for pagination of results:
+     * @param tableClass: Table to query in database.
+     * @param inclusiveIndexStart: Index of first result.
+     *                             DOES NOT INCLUDE DELED entries.
+     * @param inclusiveIndexEnd  : Index of last result.
+     *                             DOES NOT INCLUDE DELED entries.
+     * @return : A list of entries. May return an empty list.
+     *           Returning NULL is considered a fatal error.
+     */
+    public List<BaseEntity> getEntitiesUsingRange(Class tableClass, 
+                                int inclusiveIndexStart, int inclusiveIndexEnd){
+        //Error Checks:
+        throwErrorIfClassIsNotBaseEntity(tableClass);
+        insideTransactionCheck();
+        
+        //Get basic criteria. Then add pagination to it!
+        Criteria cri = makeGloballyFilteredCriteria(tableClass);
+        cri.setFirstResult(inclusiveIndexEnd);
+        //plus1 because index 1-to-1 is ONE result, not zero results.
+        int deltaRange = inclusiveIndexEnd - inclusiveIndexStart + 1;
+        cri.setMaxResults(deltaRange);
+        List<BaseEntity> queryResultList = cri.list();
+        return queryResultList;
+        
+    }//FUNC::END                  
                         
     public BaseEntityContainer getEntityFromTableUsingUniqueString
                       (Class tableClass, String columnName, String columnValue){
          //Error check:
         throwErrorIfClassIsNotBaseEntity(tableClass);
+        insideTransactionCheck();
         
         //Core Logic:
         Criteria cri = makeGloballyFilteredCriteria(tableClass);

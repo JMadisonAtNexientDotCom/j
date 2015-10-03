@@ -10,6 +10,8 @@ import test.config.constants.signatures.sig.CardCount_NumQuips_TruMin_TruMax_End
 import test.config.constants.signatures.sig.HttpPost_EndPoint;
 import test.config.constants.signatures.sig.Id_EndPoint;
 import test.config.constants.signatures.sig.Name_Phone_Email_PortfolioUrl_EndPoint;
+import test.config.constants.signatures.sig.PageIndex_NumResultsPerPage;
+import test.config.constants.signatures.sig.PageIndex_NumResultsPerPage_EndPoint;
 import test.config.constants.signatures.sig.RiddleId_EndPoint;
 import test.config.constants.signatures.sig.RiddleId_NumberOfChoices_NumberOfTruths_EndPoint;
 import test.config.constants.signatures.sig.RiddleId_RhymeId_EndPoint;
@@ -73,6 +75,7 @@ public class MasterApiDoc {
     public Name_Phone_Email_PortfolioUrl_EndPoint MAKE_NINJA_RECORD = new Name_Phone_Email_PortfolioUrl_EndPoint();
     public Id_EndPoint   GET_NINJA_BY_ID  = new Id_EndPoint();
     public Void_EndPoint GET_NEXT_NINJA = new Void_EndPoint();
+    public PageIndex_NumResultsPerPage_EndPoint GET_PAGE_OF_NINJAS = new PageIndex_NumResultsPerPage_EndPoint();
     
     //OWNER SERVICE:
     public TokenId_NinjaId_EndPoint MAKE_ENTRY_USING_NINJA = new TokenId_NinjaId_EndPoint();
@@ -142,6 +145,7 @@ public class MasterApiDoc {
         add(MAKE_NINJA_RECORD, FuncNameReg.MAKE_NINJA_RECORD);
         add(GET_NINJA_BY_ID,   FuncNameReg.GET_NINJA_BY_ID);
         add(GET_NEXT_NINJA,    FuncNameReg.GET_NEXT_NINJA);
+        add(GET_PAGE_OF_NINJAS,FuncNameReg.GET_PAGE_OF_NINJAS);
         exit_CFG();
         
         //OWNER REST SERVICE CONFIG:

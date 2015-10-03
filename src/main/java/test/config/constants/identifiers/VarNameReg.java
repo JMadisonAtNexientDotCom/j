@@ -123,23 +123,25 @@ public class VarNameReg {
     //RRRRRRR--------------START----------------------------RRRRRRRRRRRRRRRRRRRR
     //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
     /** Username admin uses to login. **/
-    public static final String USER_NAME         = "user_name";
+    public static final String USER_NAME            = "user_name";
     /** Password that admin enters to login. **/
-    public static final String PASS_WORD         = "pass_word";
+    public static final String PASS_WORD            = "pass_word";
     /** A hash of PASS_WORD that is stored in database. **/
-    public static final String PASS_HASH         = "pass_hash";
-    public static final String NUMBER_OF_CHOICES = "number_of_choices";
-    public static final String NUMBER_OF_TRUTHS  = "number_of_truths";
-    public static final String CARD_COUNT        = "card_count";
-    public static final String NUM_QUIPS         = "num_quips";
-    public static final String TRU_MIN           = "tru_min";
-    public static final String TRU_MAX           = "tru_max";
+    public static final String PASS_HASH            = "pass_hash";
+    public static final String NUMBER_OF_CHOICES    = "number_of_choices";
+    public static final String NUMBER_OF_TRUTHS     = "number_of_truths";
+    public static final String CARD_COUNT           = "card_count";
+    public static final String NUM_QUIPS            = "num_quips";
+    public static final String TRU_MIN              = "tru_min";
+    public static final String TRU_MAX              = "tru_max";
+    public static final String NUM_RESULTS_PER_PAGE = "num_results_per_page";
+    public static final String PAGE_INDEX           = "page_index";
     //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
     //RRRRRRR--------------END------------------------------RRRRRRRRRRRRRRRRRRRR
     //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
     
     //For HTTP POST:
-    public static final String JSON_OBJ          = "json_obj";
+    public static final String JSON_OBJ             = "json_obj";
     
    
     

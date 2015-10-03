@@ -1,9 +1,11 @@
 package test.transactions.util.forOwnedMainlyByOneTable.ninja;
 
+import java.util.List;
 import org.hibernate.Session;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
 import test.transactions.util.TransUtil;
 import test.MyError;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 /**
  * Handles [transactions/operations] involving the ninja table.
@@ -29,6 +31,46 @@ public class NinjaTransUtil {
         //return the newly constructed ninja:
         return nt;   
            
+    }//FUNC::END
+    
+    /** Get a page of ninjas so that our ADMIN can select ninja from list
+     *  and assign a test to them. 
+     * @param pageIndex :The page number we want to return. Starts at...
+     *                    ZERO.
+     * @param numberOfResultsPerPage :How many results should be on each page?
+     * @return :Return a list of NinjaTable objects.
+     */
+    public static List<NinjaTable> getPageOfNinjas
+                                (int pageIndex, int numberOfResultsPerPage){
+                                    
+        //Make sure we are in a transaction state:
+        TransUtil.insideTransactionCheck();
+        
+        //Indicies have +1 because we are assuming the first ninja in the
+        //table has an ID of ONE (not zero).
+        int inclusiveStartingIndex = 1 + (pageIndex * numberOfResultsPerPage); 
+        //minus one because if we return only ONE result, the beginning and end
+        //inclusive indicies will be IDENTICAL numbers.
+        int inclusiveEndingIndex = 
+                            inclusiveStartingIndex + numberOfResultsPerPage - 1;
+        
+        //Get the generic results:
+        List<BaseEntity> genericList;
+        genericList = TransUtil.getEntitiesUsingRange(NinjaTable.class, 
+                                 inclusiveStartingIndex, inclusiveEndingIndex );
+        
+        //Cast those results to Ninja Type:
+        //Probably a better way to do this.
+        //http://stackoverflow.com/questions/
+        //     933447/how-do-you-cast-a-list-of-supertypes-to-a-list-of-subtypes
+        List<NinjaTable> pageOfNinjas = (List<NinjaTable>)(List<?>)genericList;
+        
+        //Returning an empty list is acceptable. Returning NULL is not.
+        if(null == pageOfNinjas){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            doError("[pageOfNinjas can have len==0, but never null]");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        return pageOfNinjas;
+        
     }//FUNC::END
     
     /**

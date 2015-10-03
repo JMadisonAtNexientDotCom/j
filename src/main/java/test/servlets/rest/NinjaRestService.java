@@ -20,6 +20,8 @@ import java.io.IOException;
 //import com.fasterXML
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.QueryParam;
@@ -29,6 +31,8 @@ import test.config.constants.EntityErrorCodes;
 import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.identifiers.VarNameReg;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
+import test.dbDataAbstractions.entities.composites.Clan;
 import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
 import utils.JSONUtil;
@@ -39,6 +43,79 @@ import utils.StringUtil;
            //   ANY OTHER JERSEY SERVLET your servlets will all fail. 
            //   Even if the full path to this servlet is unique. ARGH!!!!
 public class NinjaRestService extends BaseRestService {
+    
+    /**
+     * Gets a page of ninja entities.
+     * ORIGNAL USAGE: A list of ninjas that could be selected in a UI
+     * where you select a ninja from list and assign it a [trial/test]+token.
+     * @param pageIndex_AsString :AS STRING so that invalid inputs will not
+     *                            crash the application. Allows me to send back
+     *                            a friendlier JSON error response that will
+     *                            make the problem easier to find.
+     * @param numResultsPerPage_AsString :AS STRING so invalid inputs will not
+     *                                    crash the application. Allows me to 
+     *                                    send back a friendlier JSON error 
+     *                                    response that will make the problem 
+     *                                    easier to find.
+     * @return 
+     */
+    @GET
+    @Path(FuncNameReg.GET_PAGE_OF_NINJAS)
+    public Response getPageOfNinjas(
+                    @QueryParam(VarNameReg.PAGE_INDEX)String pageIndex_AsString, 
+                    @QueryParam(VarNameReg.NUM_RESULTS_PER_PAGE)
+                                             String numResultsPerPage_AsString){
+        
+        //Error check inputs:
+        boolean i0 = StringUtil.canBeParsedAsWholeNumber(pageIndex_AsString);
+        boolean i1 = StringUtil.canBeParsedAsWholeNumber
+                                                   (numResultsPerPage_AsString);
+        boolean allInputsValid = (i0 && i1);
+        if(false == allInputsValid){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            
+            //Create our error object:
+            NinjaTable errorNinja = new NinjaTable();
+            String com = "";
+            com += "PageIndex==[" + pageIndex_AsString + "]";
+            com += "NumResultsPerPage==[" + numResultsPerPage_AsString + "]";
+            errorNinja.setComment(com);
+            errorNinja.setErrorCode(EntityErrorCodes.GARBAGE_IN_GARBAGE_OUT);
+            errorNinja.setIsError(true);
+            
+            //Put this entity into EVERY SLOT of a list of the expected length:
+            //Oh wait... we can't. That length might be BAD DATA... Just return
+            //ONE.. Because we know they wanted at least one.
+            List<NinjaTable> errorList = new ArrayList<NinjaTable>();
+            errorList.add(errorNinja);
+            
+            //Pack this list into a CLAN object. (clan == group of ninjas)
+            Clan clanOfErrors = Clan.makeClan(errorList, "[CLAN OF ERRORS]");
+            
+            //RETURN ERROR RESPONSE:
+            return JSONUtil.compositeEntityToJSONResponse(clanOfErrors);
+            
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+       
+        //If no input errors, lets enter a transaction and return valid data:
+        //ENTER TRANSACTION:
+        Session ses = TransUtil.enterTransaction();
+        
+        //CORE LOGIC:
+        int pageIndex         = Integer.parseInt(pageIndex_AsString);
+        int numResultsPerPage = Integer.parseInt(numResultsPerPage_AsString);
+        int endIndex = pageIndex + numResultsPerPage - 1; //inclusive range.
+        List<BaseEntity> ninjas = TransUtil.getEntitiesUsingRange
+                                        (NinjaTable.class, pageIndex, endIndex);
+        Clan pageOfNinjas = Clan.makeClanUsingBaseEntities
+                                                       (ninjas, "PAGE RESULTS");
+       
+        //EXIT TRANSACTION:
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+        
+        //RETURN DATA:
+        return JSONUtil.compositeEntityToJSONResponse(pageOfNinjas);
+        
+    }//FUNC::END
  
     @GET
     @Path(FuncNameReg.MAKE_NINJA_RECORD)

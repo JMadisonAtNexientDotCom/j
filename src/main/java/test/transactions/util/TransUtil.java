@@ -204,4 +204,10 @@ public class TransUtil {
         return i().getEntitiesUsingListOfLong
                    (      tableClass,        columnName,            colValList);
     }//WRAPPER::END
+                   
+    public static List<BaseEntity> getEntitiesUsingRange(Class tableClass, 
+                                int inclusiveIndexStart, int inclusiveIndexEnd){
+            return i().getEntitiesUsingRange(tableClass,
+                                         inclusiveIndexStart,inclusiveIndexEnd);
+    }//WRAPPER::END
 }//END::CLASS
