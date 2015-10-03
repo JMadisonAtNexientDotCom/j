@@ -66,6 +66,16 @@ CREATE TABLE owner_table              (id serial PRIMARY KEY, dele BOOLEAN, comm
 -- fields that are included on all of the others.  -----------------------------
 CREATE TABLE trans_table              (id serial PRIMARY KEY, convo_open_id INT UNSIGNED, convo_close_id INT UNSIGNED, log_id INT UNSIGNED, foreign_table_name varchar(80), foreign_record_id INT UNSIGNED(80), foreign_record_comment varchar(80) );
 
+-- Make some default ninjas so we don't have to waste time creating them      --
+-- We are at that phase now.                                                  --
+INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('ANN THE NINJA',1,'ANN_001@Email.com','ANN.com');
+INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('BOB THE NINJA',2,'BOB_002@Email.com','BOB.com');
+INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('CAT THE NINJA',3,'CAT_003@Email.com','CAT.com');
+INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('DAN THE NINJA',4,'DAN_004@Email.com','DAN.com');
+INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('EDD THE NINJA',5,'EDD_005@Email.com','EDD.com');
+INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('FIN THE NINJA',6,'FIN_006@Email.com','FIN.com');
+
+
 -- bug fix: Tells me trans table does not exist... Is it my formatting?       --
 -- Or do I need to create at least one entry to force it into existance?      --
 -- ANSWER: It was a concurrency issue. After removing "DROP TABLE IF EXISTS"  --
