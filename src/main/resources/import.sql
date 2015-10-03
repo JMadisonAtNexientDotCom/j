@@ -73,7 +73,7 @@ INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('BOB THE NINJA'
 INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('CAT THE NINJA',3,'CAT_003@Email.com','CAT.com');
 INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('DAN THE NINJA',4,'DAN_004@Email.com','DAN.com');
 INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('EDD THE NINJA',5,'EDD_005@Email.com','EDD.com');
-INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('FIN THE NINJA',6,'FIN_006@Email.com','FIN.com');
+INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('FIN THE BOY',  6,'FIN_BOY@Email.com','FIN.com');
 
 
 -- bug fix: Tells me trans table does not exist... Is it my formatting?       --

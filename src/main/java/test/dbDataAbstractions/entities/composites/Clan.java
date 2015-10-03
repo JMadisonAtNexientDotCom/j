@@ -92,11 +92,11 @@ public class Clan extends CompositeEntityBase {
         //Put this entity into EVERY SLOT of a list of the expected length:
         //Oh wait... we can't. That length might be BAD DATA... Just return
         //ONE.. Because we know they wanted at least one.
-        List<NinjaTable> errorList = new ArrayList<NinjaTable>();
-        errorList.add(errorNinja);
+        List<NinjaTable> errorNinjas = new ArrayList<NinjaTable>();
+        errorNinjas.add(errorNinja);
 
         //Pack this list into a CLAN object. (clan == group of ninjas)
-        Clan clanOfErrors = Clan.makeClan(errorList,"[CLAN OF GENERIC ERRORS]");
+        Clan clanOfErrors = Clan.makeClan(errorNinjas,errorMSG);
         clanOfErrors.setIsError(true);
         clanOfErrors.setErrorCode(EntityErrorCodes.GENERIC_ERROR);
         
