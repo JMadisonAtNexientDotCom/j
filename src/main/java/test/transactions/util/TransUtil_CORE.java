@@ -726,13 +726,22 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         throwErrorIfClassIsNotBaseEntity(tableClass);
         insideTransactionCheck();
         
+        //Make sure none of the inputs are negative:
+        if(inclusiveIndexStart < 0){doError("[provided negative index fsfsf]");}
+        if(inclusiveIndexEnd   < 0){doError("[provided negative index yytrr]");}
+        //plus1 because index 1-to-1 is ONE result, not zero results.
+        int deltaRange = inclusiveIndexEnd - inclusiveIndexStart + 1;
+        if(deltaRange <= 0){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            doError("[Asking for ZERO or NEGATIVE results is fatal error]");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+         
         //Get basic criteria. Then add pagination to it!
         Criteria cri = makeGloballyFilteredCriteria(tableClass);
         cri.setFirstResult(inclusiveIndexEnd);
-        //plus1 because index 1-to-1 is ONE result, not zero results.
-        int deltaRange = inclusiveIndexEnd - inclusiveIndexStart + 1;
         cri.setMaxResults(deltaRange);
         List<BaseEntity> queryResultList = cri.list();
+     
+        //Return results:
         return queryResultList;
         
     }//FUNC::END                  

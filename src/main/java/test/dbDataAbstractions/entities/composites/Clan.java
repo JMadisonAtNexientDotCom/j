@@ -63,10 +63,19 @@ public class Clan extends CompositeEntityBase {
         if(null==genericMembers){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             doError("[Attempt to cast null list of generic members]");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-              
+        
         //Cast generic input into it's true type:
         List<NinjaTable> membersAsNinjas = 
                                       (List<NinjaTable>)(List<?>)genericMembers;
+        
+        //Error check:  Make sure casting works as expected:
+        if(null==genericMembers ){doError("[NullNotExpected 424234234]");}//EEEE
+        if(null==membersAsNinjas){doError("[NullNotExpected 998787345]");}//EEEE
+        int lenBefore = genericMembers.size();
+        int lenAfter  = membersAsNinjas.size();
+        if(lenBefore != lenAfter){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            doError("[List cast did not work as expected]");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //Call the function we are wrapping and return results:
         return makeClan(membersAsNinjas, inDisplayName);
