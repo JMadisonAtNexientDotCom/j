@@ -737,7 +737,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
          
         //Get basic criteria. Then add pagination to it!
         Criteria cri = makeGloballyFilteredCriteria(tableClass);
-        cri.setFirstResult(inclusiveIndexEnd);
+        cri.setFirstResult(inclusiveIndexStart); //<--INCLUSIVE FIRST INDEX.
         cri.setMaxResults(deltaRange);
         List<BaseEntity> queryResultList = cri.list();
      
