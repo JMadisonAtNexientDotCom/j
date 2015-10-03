@@ -97,6 +97,8 @@ public class Clan extends CompositeEntityBase {
 
         //Pack this list into a CLAN object. (clan == group of ninjas)
         Clan clanOfErrors = Clan.makeClan(errorList,"[CLAN OF GENERIC ERRORS]");
+        clanOfErrors.setIsError(true);
+        clanOfErrors.setErrorCode(EntityErrorCodes.GENERIC_ERROR);
         
         //return the error object:
         return clanOfErrors;
