@@ -103,6 +103,9 @@ public class NinjaRestService extends BaseRestService {
         //CORE LOGIC: //CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
         int pageIndex         = Integer.parseInt(pageIndex_AsString);
         int numResultsPerPage = Integer.parseInt(numResultsPerPage_AsString);
+        
+        //BUGFIX:YOU NEED THE STARTING NINJA INDEX!!!
+        int startIndex = pageIndex * numResultsPerPage;
         //inclusive range.
         int endIndex = ((pageIndex + 1) * numResultsPerPage) - 1; 
         //|---0---||---1---||---2---| <--Page index value.
@@ -111,15 +114,22 @@ public class NinjaRestService extends BaseRestService {
         //Last result on last page:  ((2+1)*2)-1 == 5
         
         //Debug: Make sure we do not have invalid delta:
-        int delta = endIndex - pageIndex;
-        if(delta < 0){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            Clan errorClan = Clan.makeErrorClan("[BACK_END_ERROR:bad delta!]"); 
+        int delta = endIndex - startIndex + 1;
+        if(delta <= 0){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            //Clan errorClan = Clan.makeErrorClan("[BACK_END_ERROR:bad delta!]"); 
             TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
-            return JSONUtil.compositeEntityToJSONResponse(errorClan);
+            doError("[BACK_END_ERROR:bad delta!]");
+            //return JSONUtil.compositeEntityToJSONResponse(errorClan);
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        //Check math: Does delta get number of results you are expecting:
+        if(delta != numResultsPerPage){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+            doError("[delta does not line up with results requested]");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         List<BaseEntity> ninjas = TransUtil.getEntitiesUsingRange
-                                        (NinjaTable.class, pageIndex, endIndex);
+                                        (NinjaTable.class, startIndex, endIndex);
         Clan pageOfNinjas = Clan.makeClanUsingBaseEntities
                                                        (ninjas, "PAGE RESULTS");
         
@@ -221,4 +231,18 @@ public class NinjaRestService extends BaseRestService {
         return JSONUtil.entityToJSONResponse(nt);
 
     }//FUNC::END
+    
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = NinjaRestService.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
+    }//FUNC::END
+    
 }//CLASS::END
