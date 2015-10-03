@@ -21,7 +21,7 @@ package test.dbDataAbstractions.entities.bases;
  * 
  * @author jmadison
  ----------------------------------------------------------------------------**/
-public class CompositeEntityBase extends BaseEntity{
+public class CompositeEntityBase extends KernelEntity{
     
     //NOTHING IN HERE. FOR NOW.
     

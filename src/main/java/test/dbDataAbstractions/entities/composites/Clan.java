@@ -1,7 +1,9 @@
 package test.dbDataAbstractions.entities.composites;
 
+import java.util.ArrayList;
 import java.util.List;
 import test.MyError;
+import test.config.constants.EntityErrorCodes;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.bases.CompositeEntityBase;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
@@ -68,6 +70,28 @@ public class Clan extends CompositeEntityBase {
         
         //Call the function we are wrapping and return results:
         return makeClan(membersAsNinjas, inDisplayName);
+    }//FUNC::END
+                        
+    public static Clan makeErrorClan(String errorMSG){
+        //Create our error object:
+        NinjaTable errorNinja = new NinjaTable();
+        String com = "[Touched by Clan.makeErrorClan]";
+        errorNinja.setComment(com);
+        errorNinja.setErrorCode(EntityErrorCodes.GENERIC_ERROR);
+        errorNinja.setIsError(true);
+
+        //Put this entity into EVERY SLOT of a list of the expected length:
+        //Oh wait... we can't. That length might be BAD DATA... Just return
+        //ONE.. Because we know they wanted at least one.
+        List<NinjaTable> errorList = new ArrayList<NinjaTable>();
+        errorList.add(errorNinja);
+
+        //Pack this list into a CLAN object. (clan == group of ninjas)
+        Clan clanOfErrors = Clan.makeClan(errorList,"[CLAN OF GENERIC ERRORS]");
+        
+        //return the error object:
+        return clanOfErrors;
+        
     }//FUNC::END
                              
     /**-------------------------------------------------------------------------

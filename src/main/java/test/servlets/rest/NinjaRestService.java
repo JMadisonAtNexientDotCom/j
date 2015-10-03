@@ -100,14 +100,25 @@ public class NinjaRestService extends BaseRestService {
         //ENTER TRANSACTION:
         Session ses = TransUtil.enterTransaction();
         
-        //CORE LOGIC:
+        //CORE LOGIC: //CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
         int pageIndex         = Integer.parseInt(pageIndex_AsString);
         int numResultsPerPage = Integer.parseInt(numResultsPerPage_AsString);
         int endIndex = pageIndex + numResultsPerPage - 1; //inclusive range.
+        
+        //Debug: Make sure we do not have invalid delta:
+        int delta = endIndex - pageIndex;
+        if(delta < 0){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            Clan errorClan = Clan.makeErrorClan("[BACK_END_ERROR:bad delta!]"); 
+            TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+            return JSONUtil.compositeEntityToJSONResponse(errorClan);
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
         List<BaseEntity> ninjas = TransUtil.getEntitiesUsingRange
                                         (NinjaTable.class, pageIndex, endIndex);
         Clan pageOfNinjas = Clan.makeClanUsingBaseEntities
                                                        (ninjas, "PAGE RESULTS");
+        
+        //CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
        
         //EXIT TRANSACTION:
         TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);

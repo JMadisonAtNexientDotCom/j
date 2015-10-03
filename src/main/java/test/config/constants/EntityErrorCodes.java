@@ -15,6 +15,11 @@ public class EntityErrorCodes {
      *  error with this this code. **/
     public static final String ACCESS_DENIED = "access_denied";
     
+    /**
+     * Means we are certain this is an error. But we have not specified
+     * a specific scenario about the error. **/
+    public static final String GENERIC_ERROR = "generic_error";
+    
     /** Admin by that user name does not exist. **/
     public static final String ADMIN_404 = "admin_404";
     
