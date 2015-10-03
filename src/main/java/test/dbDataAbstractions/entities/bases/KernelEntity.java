@@ -52,6 +52,14 @@ public class KernelEntity implements Serializable{
         return help_iam_in_a_box.longValue();
     }//FUNC::END
     
+    /** though this is a one line function. Best to use it in case we want
+     *  to add error checking logic or something later. 
+     * @param where_is_my_box: value to be boxed up.
+     * @return : long value-type --> Long ref-type. **/
+    protected long boxUpLong(long where_is_my_box){
+        return new Long(where_is_my_box);
+    }//rawer.
+    
     /**
      * UnBox a boolean. So hibernate doesn't crash on you!
      * @param bool_in_a_box :The boolean in a box.

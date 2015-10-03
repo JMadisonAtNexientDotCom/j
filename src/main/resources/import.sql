@@ -51,6 +51,7 @@ DROP TABLE IF EXISTS owner_table; -- JOINS: { token_table(id), ninja_table(id), 
 -- Max length == 800, as in: 10 lines max when each line is 80 chars. --
 -- Max length == 80 (one line) for our answers (rhymes).              --
 -- -----------------------------------| [B][B][B][B][B] BASE ENTITY FIELDS [B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B]-------|
+CREATE TABLE trial_table              (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_coutn INT UNSIGNED, token_id INT UNSIGNED, kind INT UNSIGNED, status INT UNSIGNED, began_on BIGINT UNSIGNED NOT NULL, ended_on BIGINT UNSIGNED NOT NULL, allotted INT UNSIGNED NOT NULL);
 CREATE TABLE token_table              (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, token_hash varchar(80));
 CREATE TABLE ninja_table              (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, name varchar(80), phone INT UNSIGNED, email varchar(80), portfolio_url varchar(80) );
 CREATE TABLE riddle_table             (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, id serial PRIMARY KEY, text varchar(800) );

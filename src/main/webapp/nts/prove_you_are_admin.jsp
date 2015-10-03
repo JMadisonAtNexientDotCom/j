@@ -106,10 +106,10 @@
             $scope.msg_for_user = response.value;
             
             //In order for this to work, you have to submit TWICE!
-            //$location.path("admin_control_hub.jsp");
+            //$location.path("admin_home.jsp");
             //$window.location.reload();//Force refresh.
             
-            $window.location = "admin_control_hub.jsp"; //try this.
+            $window.location = "admin_home.jsp"; //try this.
             
         }//BLOCK::END
             

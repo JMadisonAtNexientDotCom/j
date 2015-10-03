@@ -33,7 +33,7 @@ public class VarNameReg {
    //     validate();
    // }////////////////
     
-    //Names used as: TableColumns + Parameters + Required of Base Entities:
+    //PRIORITY#1: Names used for BASE ENTITIE'S COLUMNS. ///////////////////////
     //BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
     //BBBBBBBBBBBBBB------------START------------------BBBBBBBBBBBBBBBBBBBBBBBBB
     //BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
@@ -73,7 +73,9 @@ public class VarNameReg {
     //BBBBBBBBBBBBBB------------END--------------------BBBBBBBBBBBBBBBBBBBBBBBBB
     //BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
     
-    //Names used as table columns or parameters:
+    //PRIORITY #2: Names used as column names. /////////////////////////////////
+    //             Names can be used in lower categories as well. But we put
+    //             names into highest priority category we can.
     //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
     //TTTTTTTTTTTTTTT----------START------------------------TTTTTTTTTTTTTTTTTTTT
     //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
@@ -96,19 +98,27 @@ public class VarNameReg {
     /** Is the session active/valid? (NOT expired) **/
     public static final String IS_ACTIVE = "is_active";
     
+    //Columns originally made for the trans_table (transaction logging table)
     public static final String CONVO_OPEN_ID         = "convo_open_id";
     public static final String CONVO_CLOSE_ID        = "convo_close_id";
     public static final String LOG_ID                = "log_id";
     public static final String FOREIGN_TABLE_NAME    = "foreign_table_name";
     public static final String FOREIGN_RECORD_ID     = "foreign_record_id";
     public static final String FOREIGN_RECORD_COMMENT= "foreign_record_comment";
+   
+    //Columns originally made for the trial_table: (table of tests)
+    public static final String KIND     = "kind";
+    public static final String STATUS   = "status";
+    public static final String BEGAN_ON = "began_on";
+    public static final String ENDED_ON = "ended_on";
+    public static final String ALLOTTED = "allotted";
     
     
     //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
     //TTTTTTTTTTTTTTT----------END--------------------------TTTTTTTTTTTTTTTTTTTT
     //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
     
-    //Names only used as params to rest services:
+    //PRIORITY #3: Names only used as params to rest services:
     //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
     //RRRRRRR--------------START----------------------------RRRRRRRRRRRRRRRRRRRR
     //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR

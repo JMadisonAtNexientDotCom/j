@@ -4,7 +4,7 @@
     <!-- BASE: https://docs.angularjs.org/error/$location/nobase -->
     <base href="/nts/"> 
     <meta charset="utf-8">
-    <title>Admin Login</title>
+    <title>Admin Home -NTS</title>
     <%= I.INCLUDE_JS() %>
     <%= I.INCLUDE_CSS()%>
   </head>
@@ -25,7 +25,7 @@
 
         <div id="roundeddivs_headertab" align="center">
 
-          <h2 style="color:#fff">Admin Control Hub:</h2>
+          <h2 style="color:#fff">Admin Home:</h2>
 
         </div>
           <p></p>

@@ -21,6 +21,7 @@ public class TableNameReg {
     public static final String TOKEN_TABLE   = "token_table";
     public static final String SESSION_TABLE = "session_table";
     public static final String OWNER_TABLE   = "owner_table";
+    public static final String TRIAL_TABLE   = "trial_table";
     
     /**
      * ORIGINAL USEAGE: Checking for string transposition errors where
