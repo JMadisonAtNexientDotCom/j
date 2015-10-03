@@ -103,7 +103,12 @@ public class NinjaRestService extends BaseRestService {
         //CORE LOGIC: //CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
         int pageIndex         = Integer.parseInt(pageIndex_AsString);
         int numResultsPerPage = Integer.parseInt(numResultsPerPage_AsString);
-        int endIndex = pageIndex + numResultsPerPage - 1; //inclusive range.
+        //inclusive range.
+        int endIndex = ((pageIndex + 1) * numResultsPerPage) - 1; 
+        //|---0---||---1---||---2---| <--Page index value.
+        //[ 0 , 1 ][ 2 , 3 ][ 4 , 5 ] <--result indicies. (results per page==2)
+        //Last result on first page: ((0+1)*2)-1 == 1
+        //Last result on last page:  ((2+1)*2)-1 == 5
         
         //Debug: Make sure we do not have invalid delta:
         int delta = endIndex - pageIndex;
