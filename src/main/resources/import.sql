@@ -71,9 +71,18 @@ CREATE TABLE trans_table              (id serial PRIMARY KEY, convo_open_id INT 
 INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('ANN THE NINJA',1,'ANN_001@Email.com','ANN.com');
 INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('BOB THE NINJA',2,'BOB_002@Email.com','BOB.com');
 INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('CAT THE NINJA',3,'CAT_003@Email.com','CAT.com');
+
 INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('DAN THE NINJA',4,'DAN_004@Email.com','DAN.com');
 INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('EDD THE NINJA',5,'EDD_005@Email.com','EDD.com');
 INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('FIN THE BOY',  6,'FIN_BOY@Email.com','FIN.com');
+
+INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('GIL THE NINJA',7,'GIL_004@Email.com','GIL.com');
+INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('HAN THE NINJA',8,'HAN_005@Email.com','HAN.com');
+INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('IAN THE NINJA',9,'IAN_BOY@Email.com','IAN.com');
+                                                                                                        
+INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('JAN THE NINJA',10,'JAN_004@Email.com','JAN.com');
+INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('KAY THE NINJA',11,'KAY_005@Email.com','KAY.com');
+INSERT INTO ninja_table (name,phone,email,portfolio_url) VALUES ('LAY THE NINJA',12,'LAY_BOY@Email.com','LAY.com');
 
 
 -- bug fix: Tells me trans table does not exist... Is it my formatting?       --
