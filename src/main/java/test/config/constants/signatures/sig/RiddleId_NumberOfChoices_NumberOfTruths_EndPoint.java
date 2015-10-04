@@ -9,4 +9,4 @@ import primitives.EndPoint;
 public class RiddleId_NumberOfChoices_NumberOfTruths_EndPoint extends EndPoint{
     public final RiddleId_NumberOfChoices_NumberOfTruths ARG = 
              new RiddleId_NumberOfChoices_NumberOfTruths();
-}
+}//CLASS::END

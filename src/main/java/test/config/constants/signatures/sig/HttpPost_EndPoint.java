@@ -7,5 +7,6 @@ import primitives.EndPoint;
  * @author jmadison
  */
 public class HttpPost_EndPoint extends EndPoint{
-    public final HttpPost ARG = new HttpPost();
-}
+    public final HttpPost ARG = 
+             new HttpPost();
+}//CLASS::END

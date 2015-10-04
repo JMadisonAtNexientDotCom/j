@@ -7,6 +7,8 @@ import primitives.EndPoint;
  * @author jmadison
  */
 public class PageIndex_NumResultsPerPage_EndPoint extends EndPoint {
-    public final PageIndex_NumResultsPerPage_EndPoint ARG =
-             new PageIndex_NumResultsPerPage_EndPoint();
+    
+    //NOTE: SIGNATURE, not endpoint here:
+    public final PageIndex_NumResultsPerPage ARG =
+             new PageIndex_NumResultsPerPage();
 }//CLASS::END

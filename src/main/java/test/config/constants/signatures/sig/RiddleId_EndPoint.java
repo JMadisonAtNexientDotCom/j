@@ -7,5 +7,6 @@ import primitives.EndPoint;
  * @author jmadison
  */
 public class RiddleId_EndPoint extends EndPoint{
-    public final RiddleId ARG = new RiddleId();
-}
+    public final RiddleId ARG = 
+             new RiddleId();
+}//CLASS::END

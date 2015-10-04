@@ -7,5 +7,6 @@ import primitives.EndPoint;
  * @author jmadison
  */
 public class Id_EndPoint extends EndPoint {
-    public final Id ARG = new Id();
-}
+    public final Id ARG = 
+             new Id();
+}//CLASS::END
