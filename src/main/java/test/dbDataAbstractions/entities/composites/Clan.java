@@ -86,6 +86,10 @@ public class Clan extends CompositeEntityBase {
         NinjaTable errorNinja = new NinjaTable();
         String com = "[Touched by Clan.makeErrorClan]";
         errorNinja.setComment(com);
+        errorNinja.setName(errorMSG);
+        errorNinja.setEmail(errorMSG);
+        errorNinja.setPortfolioURL(errorMSG);
+        errorNinja.setPhone(-999);
         errorNinja.setErrorCode(EntityErrorCodes.GENERIC_ERROR);
         errorNinja.setIsError(true);
 
