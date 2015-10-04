@@ -55,11 +55,11 @@
 
                <nav class="navbar navbar-default">
                 <ul class="pager">
-                 <li class="previous" id="myButton"><a href=""><span aria-hidden="true">&larr;</span> Older</a></li>
+                 <li class="previous" id="ninja_list_prv"><a href=""><span aria-hidden="true">&larr;</span> PREV</a></li>
                  
-                  <button type="button" class="btn btn-primary">01</button>
+                  <li type="button" style="padding:0px;" class="btn btn-primary">{{ninja_page_title}}</li>
                  
-                 <li class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+                 <li class="next" id="ninja_list_nxt"><a href="#">NEXT <span aria-hidden="true">&rarr;</span></a></li>
                 </ul>
                </nav>
 
@@ -149,11 +149,11 @@
     //UNFORTUNATELY, DOES NOT OFFER AN ALTERNATIVE!!!
 
 
-    $(".previous").click(function() {
+    $("#ninja_list_prv").click(function() {
     angular.element(document.getElementById('PIKA')).scope().goBAK();
     });
 
-    $(".next").click(function() {
+    $("#ninja_list_nxt").click(function() {
     angular.element(document.getElementById('PIKA')).scope().goFWD();
     });
 
@@ -189,6 +189,7 @@
         $scope.isInitialized = true;
        	$scope.pageIndexWanted   = 0;
         $scope.numResultsPerPage = 8;
+        $scope.ninja_page_title = "READY";
         
       };//FUNC::END
       
@@ -218,6 +219,7 @@
       $scope.callService = function()
       {
         $scope.subpanel_phase = $scope.PLEASE_WAIT_LOADING_NINJA_LIST;
+        $scope.ninja_page_title = "LOADING";
         
         //serviceURL = "https://j1clone01-madnamespace.rhcloud.com/api/NinjaRestService/get_page_of_ninjas?page_index=0&num_results_per_page=10";
         serviceURL = "https://j1clone01-madnamespace.rhcloud.com/api/NinjaRestService/get_page_of_ninjas";
@@ -238,6 +240,7 @@
 
       function onResponded(response){
         $scope.instancedJSON_01 = response;
+        $scope.ninja_page_title = response.displayName;
         $scope.subpanel_phase = $scope.SELECT_A_NINJA_PROMPT;
       };//FUNC::END
 						

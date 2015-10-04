@@ -166,7 +166,11 @@ public class NinjaRestService extends BaseRestService {
             oobNinja.setPortfolioURL("[END OF LIST]");
             oobNinja.setIsError(true);
             pageOfNinjas.members.add(oobNinja);
-        }//OUT OF BOUNDS POSITIVE:
+        }else{ //OUT OF BOUNDS POSITIVE ^^^
+            //If all is well, lets give the clan display name something that
+            //is informative. How about the current page number?
+            pageOfNinjas.displayName = "PG#" + pageIndex_AsString;
+        }//BLOCK::END
         
         //RETURN DATA:
         return JSONUtil.compositeEntityToJSONResponse(pageOfNinjas);
