@@ -7,6 +7,7 @@ import test.config.constants.identifiers.VarNameReg;
 import frontEndBackEndIntegration.childComponents.ServiceURLRegistry;
 import frontEndBackEndIntegration.childComponents.TextFileCacheRegistry;
 import test.MyError;
+import test.config.alias.DispAlias;
 import test.config.constants.ServiceUrlsInitializer;
 import test.debug.GlobalErrorState;
 
@@ -29,7 +30,29 @@ import test.debug.GlobalErrorState;
  */
 public class I {
     
+    //DISPLAY NAMES OF THINGS:
+    public static DispAlias DN(){
+        return getDisplayNameAliasContainer();
+    }//FUNC::END
     
+    public static DispAlias GET_DISPLAY_NAMES(){
+        return getDisplayNameAliasContainer();
+    }//FUNC::END
+    
+    private static DispAlias getDisplayNameAliasContainer(){
+        if(null == _dispNames){doError("[Attempt to return null aliases]");}
+        return _dispNames;
+    }//FUNC::END
+    
+    /**
+     * An object storing a list of display names to use in the project.
+     * Display names have 2 versions.
+     * 1: Fanciful words that will help with memorizing and internalizing
+     *    how the project works. (Via elaborative encoding techniques)
+     * 2: Dry but professional words, which will need to be used in the final
+     *    product.
+     */
+    private static final DispAlias _dispNames = new DispAlias();
     
     //Rest Service URLS:
     //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR     
@@ -89,8 +112,8 @@ public class I {
      *  Noticing some errors in the web app that I introduced are not
      *  showing up. Even though I threw exceptions in the app.
      *  Silent failure is not acceptable. Also, Try-Catch is stupid. **/
-    public static boolean 
-            API_WAS_SET_TO_NULL_TO_BRING_ATTENTION_TO_ERRORS = false;
+    //public static boolean 
+          //  API_WAS_SET_TO_NULL_TO_BRING_ATTENTION_TO_ERRORS = false;
     
    
     /**-------------------------------------------------------------------------

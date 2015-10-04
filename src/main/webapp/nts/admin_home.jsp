@@ -31,7 +31,7 @@
           <p></p>
           <p> {{msg_for_user}} </p>
           <button data-ng-click="make_user();"   style="width:100%;">Make User</button>
-          <button data-ng-click="find_user();"   style="width:100%;">TODO:Find User</button>
+          <button data-ng-click="give_test();"   style="width:100%;">Give Test</button>
           <button data-ng-click="merge_user();" style="width:100%;">TODO:Merge User</button>
           
           <!-- quick test to make sure we have relative .css URL correct. -->
@@ -77,9 +77,9 @@
         $window.location = "add_new_ninja.jsp"; //try this.
     };//FUNC::END
     
-    $scope.find_user = function(){
+    $scope.give_test = function(){
         msg_for_user = "Redirecting...";
-        $window.location = "add_new_ninja.jsp"; //try this.
+        $window.location = "trial_assigner.jsp"; //try this.
     };//FUNC::END
     
     $scope.merge_user = function(){
