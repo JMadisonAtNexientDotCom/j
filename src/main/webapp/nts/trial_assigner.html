@@ -79,7 +79,8 @@
 
               <div      id="subpanel_phase___SELECT_A_NINJA_PROMPT"
               data-ng-show="subpanel_phase===SELECT_A_NINJA_PROMPT;"
-              style="z-index:1;background:#FF0000;position:absolute;float:none;
+              style="z-index:1;background:#4488FF;position:absolute;float:none;
+              color:#FFFFFF;
               width:100%; height:100%;"> <!--11111111111111111111111111111111-->
                 
                 WELCOME! To begin, select a ninja from the list to the right.
@@ -87,7 +88,7 @@
               </div><!--11111111111111111111111111111111111111111111111111111-->
               <div      id="subpanel_phase___PLEASE_WAIT_LOADING_NINJA_LIST"
               data-ng-show="subpanel_phase===PLEASE_WAIT_LOADING_NINJA_LIST;"
-              style="z-index:2;background:#00FF00;position:absolute;float:none;
+              style="z-index:2;background:#FF8800;position:absolute;float:none;
               width:100%; height:100%;"><!--222222222222222222222222222222222-->
                 
                 WAIT! We are loading the list of ninjas for you.
@@ -95,16 +96,16 @@
               </div> <!--2222222222222222222222222222222222222222222222222222-->
               <div      id="subpanel_phase___ASSIGN_TRIAL_TOKEN_TO_NINJA"
               data-ng-show="subpanel_phase===ASSIGN_TRIAL_TOKEN_TO_NINJA;"
-              style="z-index:3;background:#AA0000;position:absolute;float:none;
+              style="z-index:3;background:#AAAAAA;position:absolute;float:none;
               width:100%; height:100%;"><!--333333333333333333333333333333333-->
                 
                 Give: {{data.multipleSelect}} a trial!
-                <button class="btn">Middle</button>
+                <button class="btn" id="token_giver_button">DISPATCH TOKENS</button>
                 
               </div> <!--3333333333333333333333333333333333333333333333333333-->
               <div      id="subpanel_phase___PLEASE_WAIT_CREATING_TRIAL"
               data-ng-show="subpanel_phase===PLEASE_WAIT_CREATING_TRIAL;"
-              style="z-index:4;background:#00AA00;position:absolute;float:none;
+              style="z-index:4;background:#FF8800;position:absolute;float:none;
               width:100%; height:100%;"><!--444444444444444444444444444444444-->
                 
                 WAIT! We are creating a trial for this ninja. A token
@@ -113,11 +114,13 @@
               </div> <!--4444444444444444444444444444444444444444444444444444-->
               <div      id="subpanel_phase___GIVE_NINJA_BOB_THIS_TOKEN"
               data-ng-show="subpanel_phase===GIVE_NINJA_BOB_THIS_TOKEN;"
-              style="z-index:5;background:#0000AA;position:absolute;float:none;
+              style="z-index:5;background:#22FFAA;position:absolute;float:none;
+              color:#000000;
               width:100%; height:100%;"><!--555555555555555555555555555555555-->
                 
-                DONE! Please give Ninja bob this token so that they may
-                access their trial.
+                <h2>DONE!</h2>
+                    <p>Please give Ninja bob this token so that they may
+                      access their trial:</p>
                 
               </div> <!--5555555555555555555555555555555555555555555555555555-->
             </div> <!--panel::THE RIGHT SIDE. END -->
@@ -148,6 +151,9 @@
     //                           top-18-most-common-angularjs-developer-mistakes
     //UNFORTUNATELY, DOES NOT OFFER AN ALTERNATIVE!!!
 
+    $("#token_giver_button").click(function(){
+    angular.element(document.getElementById('PIKA')).scope().dispatchTokens();
+    });
 
     $("#ninja_list_prv").click(function() {
     angular.element(document.getElementById('PIKA')).scope().goBAK();
@@ -155,10 +161,6 @@
 
     $("#ninja_list_nxt").click(function() {
     angular.element(document.getElementById('PIKA')).scope().goFWD();
-    });
-
-    $(".btn").click(function() {
-    angular.element(document.getElementById('PIKA')).scope().goTOG();
     });
 			
 		});
@@ -196,25 +198,32 @@
       //Function execute when item is click on
       //from the multi-select ninja-selector.
       $scope.onListChange = function(){
-        //console.log("CLICKED!");
+        console.log("onListChange() called!");
         $scope.subpanel_phase = $scope.ASSIGN_TRIAL_TOKEN_TO_NINJA;
+      };//FUNC::END
+      
+      $scope.dispatchTokens = function(){
+        $scope.subpanel_phase = $scope.GIVE_NINJA_BOB_THIS_TOKEN;
+        //$scope.subpanel_phase = $scope.SELECT_A_NINJA_PROMPT; //debug.
+        console.log("dispatchTokens() was entered!");
+        $scope.$apply(); //http://stackoverflow.com/questions/22389949/div-with-ng-show-not-updating-after-ajax-call Maybe?
       };//FUNC::END
 			
       $scope.goBAK = function(){
         $scope.pageIndexWanted--;
         $scope.callService();
-      };
+      };//FUNC::END
 
       $scope.goFWD = function(){
         $scope.pageIndexWanted++;
         $scope.callService();
-      };
+      };//FUNC::END
 
       //TODO: Some more comprehensive logic.
       $scope.goTOG = function(){
         $scope.pageIndexWanted = 2;
         $scope.callService();
-      };
+      };//FUNC::END
 
       $scope.callService = function()
       {
