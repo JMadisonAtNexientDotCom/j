@@ -1,6 +1,6 @@
 package test.servlets.rest;
 
-public class OwnerTokenRestService {
+public class OwnerTokenCTRL {
     
     //DON'T USE THIS CLASS!
     //Yes, code just to make a note of something to avoid.

@@ -5,7 +5,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import test.config.constants.ServletClassNames;
-import test.servlets.rest.BaseRestService;
+import test.servlets.rest.BaseCTRL;
 import test.transactions.util.TransUtil;
 import test.transactions.util.debugUtils.TransUtil_Debugger;
 import utils.JSONUtil;
@@ -19,8 +19,8 @@ import utils.JSONUtil;
  * back to zero with each new request.
  * 
  * @author jmadison ----------------------------------------------------------*/
-@Path(ServletClassNames.TransDebugRestService_MAPPING)
-public class TransDebugRestService extends BaseRestService{
+@Path(ServletClassNames.TransDebugCTRL_MAPPING)
+public class TransDebugCTRL extends BaseCTRL{
     
     @GET
     @Path("incrementSharedCounter")

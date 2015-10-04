@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import test.MyError;
 import test.debug.GlobalErrorState;
-import test.servlets.rest.AdminRestService;
-import test.servlets.rest.NinjaRestService;
-import test.servlets.rest.OwnerRestService;
-import test.servlets.rest.TokenRestService;
-import test.servlets.rest.debug.TransDebugRestService;
-import test.servlets.rest.riddleRhyme.RiddleRhymeRestService;
+import test.servlets.rest.AdminCTRL;
+import test.servlets.rest.NinjaCTRL;
+import test.servlets.rest.OwnerCTRL;
+import test.servlets.rest.TokenCTRL;
+import test.servlets.rest.debug.TransDebugCTRL;
+import test.servlets.rest.riddleRhyme.RiddleRhymeCTRL;
 import test.servlets.rest.utilityServlets.FileContentFetcher;
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 /**##########################CLASS HEADER FILE##################################
@@ -46,32 +46,32 @@ public class ServletClassNames {
     
     //There must be a better way!
     //TOKEN SERVICE:
-    public static final String TokenRestService_CLASSNAME = "TokenRestService";
-    public static final String TokenRestService_MAPPING   = "TokenRestService/";
+    public static final String TokenCTRL_CLASSNAME = "TokenCTRL";
+    public static final String TokenCTRL_MAPPING   = "TokenCTRL/";
     
     //NINJA SERVICE:
-    public static final String NinjaRestService_CLASSNAME = "NinjaRestService";
-    public static final String NinjaRestService_MAPPING   = "NinjaRestService/";
+    public static final String NinjaCTRL_CLASSNAME = "NinjaCTRL";
+    public static final String NinjaCTRL_MAPPING   = "NinjaCTRL/";
     
     //RIDDLERHYME SERVICE:
-    public static final String RiddleRhymeRestService_CLASSNAME = 
-                                                      "RiddleRhymeRestService";
-    public static final String RiddleRhymeRestService_MAPPING   = 
-                                                      "RiddleRhymeRestService/";
+    public static final String RiddleRhymeCTRL_CLASSNAME = 
+                                                      "RiddleRhymeCTRL";
+    public static final String RiddleRhymeCTRL_MAPPING   = 
+                                                      "RiddleRhymeCTRL/";
     
     //TRANSACTION DEBUGGER SERVICE:
-    public static final String TransDebugRestService_CLASSNAME = 
-                                                       "TransDebugRestService";
-    public static final String TransDebugRestService_MAPPING = 
-                                                       "TransDebugRestService/";
+    public static final String TransDebugCTRL_CLASSNAME = 
+                                                       "TransDebugCTRL";
+    public static final String TransDebugCTRL_MAPPING = 
+                                                       "TransDebugCTRL/";
     
     //ADMIN SERVICE:
-    public static final String AdminRestService_CLASSNAME = "AdminRestService";
-    public static final String AdminRestService_MAPPING   = "AdminRestService/";
+    public static final String AdminCTRL_CLASSNAME = "AdminCTRL";
+    public static final String AdminCTRL_MAPPING   = "AdminCTRL/";
     
     //OWNER SERVICE: (for the token ownership table known as "owner_table" )
-    public static final String OwnerRestService_CLASSNAME = "OwnerRestService";
-    public static final String OwnerRestService_MAPPING   = "OwnerRestService/"; 
+    public static final String OwnerCTRL_CLASSNAME = "OwnerCTRL";
+    public static final String OwnerCTRL_MAPPING   = "OwnerCTRL/"; 
     
     //Originally made so that .JSP files can inject .HTML and .CSS files
     //on the server into themselves. Originally so we could use JSP
@@ -199,29 +199,29 @@ public class ServletClassNames {
          *  to make sure they match! ----------------------------------------**/
         String clazName;
         
-        clazName =         TokenRestService.class.getSimpleName();
-        if(         vcm_cn(TokenRestService_CLASSNAME, clazName))
-        {   doMappingError(TokenRestService_CLASSNAME); }
+        clazName =         TokenCTRL.class.getSimpleName();
+        if(         vcm_cn(TokenCTRL_CLASSNAME, clazName))
+        {   doMappingError(TokenCTRL_CLASSNAME); }
         
-        clazName =         NinjaRestService.class.getSimpleName();
-        if(         vcm_cn(NinjaRestService_CLASSNAME, clazName))
-        {   doMappingError(NinjaRestService_CLASSNAME); }
+        clazName =         NinjaCTRL.class.getSimpleName();
+        if(         vcm_cn(NinjaCTRL_CLASSNAME, clazName))
+        {   doMappingError(NinjaCTRL_CLASSNAME); }
         
-        clazName =         RiddleRhymeRestService.class.getSimpleName();
-        if(         vcm_cn(RiddleRhymeRestService_CLASSNAME, clazName))
-        {   doMappingError(RiddleRhymeRestService_CLASSNAME); }
+        clazName =         RiddleRhymeCTRL.class.getSimpleName();
+        if(         vcm_cn(RiddleRhymeCTRL_CLASSNAME, clazName))
+        {   doMappingError(RiddleRhymeCTRL_CLASSNAME); }
         
-        clazName =         TransDebugRestService.class.getSimpleName();
-        if(         vcm_cn(TransDebugRestService_CLASSNAME, clazName))
-        {   doMappingError(TransDebugRestService_CLASSNAME); }
+        clazName =         TransDebugCTRL.class.getSimpleName();
+        if(         vcm_cn(TransDebugCTRL_CLASSNAME, clazName))
+        {   doMappingError(TransDebugCTRL_CLASSNAME); }
         
-        clazName =         AdminRestService.class.getSimpleName();
-        if(         vcm_cn(AdminRestService_CLASSNAME, clazName))
-        {   doMappingError(AdminRestService_CLASSNAME); }
+        clazName =         AdminCTRL.class.getSimpleName();
+        if(         vcm_cn(AdminCTRL_CLASSNAME, clazName))
+        {   doMappingError(AdminCTRL_CLASSNAME); }
         
-        clazName =         OwnerRestService.class.getSimpleName();
-        if(         vcm_cn(OwnerRestService_CLASSNAME, clazName))
-        {   doMappingError(OwnerRestService_CLASSNAME); }
+        clazName =         OwnerCTRL.class.getSimpleName();
+        if(         vcm_cn(OwnerCTRL_CLASSNAME, clazName))
+        {   doMappingError(OwnerCTRL_CLASSNAME); }
         
         clazName =         FileContentFetcher.class.getSimpleName();
         if(         vcm_cn(FileContentFetcher_CLASSNAME, clazName))
@@ -230,23 +230,23 @@ public class ServletClassNames {
     }//FUNC::END
     
     private static void verifyCorrectMapping_MAPPING(){
-        checkMapping(TokenRestService_CLASSNAME,
-                     TokenRestService_MAPPING);
+        checkMapping(TokenCTRL_CLASSNAME,
+                     TokenCTRL_MAPPING);
         
-        checkMapping(NinjaRestService_CLASSNAME,
-                     NinjaRestService_MAPPING);
+        checkMapping(NinjaCTRL_CLASSNAME,
+                     NinjaCTRL_MAPPING);
         
-        checkMapping(RiddleRhymeRestService_CLASSNAME,
-                     RiddleRhymeRestService_MAPPING);
+        checkMapping(RiddleRhymeCTRL_CLASSNAME,
+                     RiddleRhymeCTRL_MAPPING);
         
-        checkMapping(TransDebugRestService_CLASSNAME,
-                     TransDebugRestService_MAPPING);
+        checkMapping(TransDebugCTRL_CLASSNAME,
+                     TransDebugCTRL_MAPPING);
         
-        checkMapping(AdminRestService_CLASSNAME,
-                     AdminRestService_MAPPING);
+        checkMapping(AdminCTRL_CLASSNAME,
+                     AdminCTRL_MAPPING);
         
-        checkMapping(OwnerRestService_CLASSNAME,
-                     OwnerRestService_MAPPING);
+        checkMapping(OwnerCTRL_CLASSNAME,
+                     OwnerCTRL_MAPPING);
         
         checkMapping(FileContentFetcher_CLASSNAME,
                      FileContentFetcher_MAPPING);

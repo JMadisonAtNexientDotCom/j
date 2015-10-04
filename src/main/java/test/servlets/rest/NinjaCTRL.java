@@ -39,10 +39,10 @@ import utils.JSONUtil;
 import utils.StringUtil;
 
 ////////////////////////////////////////////////////////////////////////////////
-@Path(ServletClassNames.NinjaRestService_MAPPING) //<--If this @Path path matches the path of 
+@Path(ServletClassNames.NinjaCTRL_MAPPING) //<--If this @Path path matches the path of 
            //   ANY OTHER JERSEY SERVLET your servlets will all fail. 
            //   Even if the full path to this servlet is unique. ARGH!!!!
-public class NinjaRestService extends BaseRestService {
+public class NinjaCTRL extends BaseCTRL {
     
     /**
      * Gets a page of ninja entities.
@@ -270,7 +270,7 @@ public class NinjaRestService extends BaseRestService {
     -------------------------------------------------------------------------**/
     private static void doError(String msg){
         String err = "ERROR INSIDE:";
-        Class clazz = NinjaRestService.class;
+        Class clazz = NinjaCTRL.class;
         err += clazz.getSimpleName();
         err += msg;
         throw new MyError(clazz, err);

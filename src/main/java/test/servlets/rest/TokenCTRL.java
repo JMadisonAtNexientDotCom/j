@@ -34,12 +34,12 @@ import utils.JSONUtil;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-@Path( ServletClassNames.TokenRestService_MAPPING )
+@Path( ServletClassNames.TokenCTRL_MAPPING )
  //@Path(TokenRestService.class.getSimpleName() + "/")
 //@Path("TokenRestService/") //<--By matching class name, we assure not servlet mapping collision.
-public class TokenRestService extends BaseRestService {
+public class TokenCTRL extends BaseCTRL {
  
-    public static final String CLASS_MAPPING = TokenRestService.class.getSimpleName() + "/";
+    public static final String CLASS_MAPPING = TokenCTRL.class.getSimpleName() + "/";
    
           @GET
           @Path(FuncNameReg.GET_NEXT_TOKEN) //removed slash at end. Lets try again.

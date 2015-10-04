@@ -20,11 +20,11 @@ import test.config.constants.signatures.sig.TokenId_EndPoint;
 import test.config.constants.signatures.sig.TokenId_NinjaId_EndPoint;
 import test.config.constants.signatures.sig.UserName_PassWord_EndPoint;
 import test.config.constants.signatures.sig.Void_EndPoint;
-import test.servlets.rest.AdminRestService;
-import test.servlets.rest.NinjaRestService;
-import test.servlets.rest.OwnerRestService;
-import test.servlets.rest.TokenRestService;
-import test.servlets.rest.riddleRhyme.RiddleRhymeRestService;
+import test.servlets.rest.AdminCTRL;
+import test.servlets.rest.NinjaCTRL;
+import test.servlets.rest.OwnerCTRL;
+import test.servlets.rest.TokenCTRL;
+import test.servlets.rest.riddleRhyme.RiddleRhymeCTRL;
 
 /**
  * 
@@ -130,8 +130,8 @@ public class MasterApiDoc {
         
         //ADMIN REST SERVICE CONFIG:
         endPT = R.ADMIN;
-        cName = ServletClassNames.AdminRestService_CLASSNAME;
-        clazz = AdminRestService.class;
+        cName = ServletClassNames.AdminCTRL_CLASSNAME;
+        clazz = AdminCTRL.class;
         enter_CFG(endPT, cName, clazz);
         add(LOGIN_VALIDATE, FuncNameReg.LOGIN_VALIDATE);
         add(LOGIN_AND_GET_TOKEN_FOR_SELF, FuncNameReg.LOGIN_AND_GET_TOKEN_FOR_SELF);
@@ -139,8 +139,8 @@ public class MasterApiDoc {
         
         //NINJA REST SERVICE CONFIG:
         endPT = R.NINJA;
-        cName = ServletClassNames.NinjaRestService_CLASSNAME;
-        clazz = NinjaRestService.class;
+        cName = ServletClassNames.NinjaCTRL_CLASSNAME;
+        clazz = NinjaCTRL.class;
         enter_CFG(endPT, cName, clazz);
         add(MAKE_NINJA_RECORD, FuncNameReg.MAKE_NINJA_RECORD);
         add(GET_NINJA_BY_ID,   FuncNameReg.GET_NINJA_BY_ID);
@@ -150,8 +150,8 @@ public class MasterApiDoc {
         
         //OWNER REST SERVICE CONFIG:
         endPT = R.OWNER;
-        cName = ServletClassNames.OwnerRestService_CLASSNAME;
-        clazz = OwnerRestService.class;
+        cName = ServletClassNames.OwnerCTRL_CLASSNAME;
+        clazz = OwnerCTRL.class;
         enter_CFG(endPT, cName, clazz);
         add(MAKE_ENTRY_USING_NINJA ,FuncNameReg.MAKE_ENTRY_USING_NINJA);
         add(MAKE_ENTRY_USING_ADMIN ,FuncNameReg.MAKE_ENTRY_USING_ADMIN);
@@ -162,16 +162,16 @@ public class MasterApiDoc {
         
         //TOKEN REST SERVICE CONFIG:
         endPT = R.TOKEN;
-        cName = ServletClassNames.TokenRestService_CLASSNAME;
-        clazz = TokenRestService.class;
+        cName = ServletClassNames.TokenCTRL_CLASSNAME;
+        clazz = TokenCTRL.class;
         enter_CFG(endPT, cName, clazz);
         add(GET_NEXT_TOKEN, FuncNameReg.GET_NEXT_TOKEN);
         exit_CFG();
         
         //RIDDLERHYME SERVICE:
         endPT = R.RIDDLERHYME;
-        cName = ServletClassNames.RiddleRhymeRestService_CLASSNAME;
-        clazz = RiddleRhymeRestService.class;
+        cName = ServletClassNames.RiddleRhymeCTRL_CLASSNAME;
+        clazz = RiddleRhymeCTRL.class;
         enter_CFG(endPT, cName, clazz);
         add(GET_IS_CORRECT                 , FuncNameReg.GET_IS_CORRECT                 );
         add(GRADE_ONE_BLANK_SLATE          , FuncNameReg.GRADE_ONE_BLANK_SLATE          );

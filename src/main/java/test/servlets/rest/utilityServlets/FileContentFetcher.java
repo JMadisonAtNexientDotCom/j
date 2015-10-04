@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 import test.MyError;
 import test.config.constants.ResourceRelativeFolderPaths;
 import test.config.constants.ServletClassNames;
-import test.servlets.rest.BaseRestService;
+import test.servlets.rest.BaseCTRL;
 import utils.JSONUtil;
 //import ntsResponseMachine.MyError;
 //import ntsResponseMachine.configClasses.ResourceRelativeFolderPaths;
@@ -33,7 +33,7 @@ import utils.JSONUtil;
  * 
  * @author jmadison ---------------------------------------------------------**/
 @Path(ServletClassNames.FileContentFetcher_MAPPING)
-public class FileContentFetcher extends BaseRestService {  
+public class FileContentFetcher extends BaseCTRL {  
 //Jersey servlet does NOT extend HttpServlet
     
      

@@ -146,14 +146,14 @@ public class ServiceUrlsInitializer {
         //
         
         //Create fully-qualified api endpoints: //UUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
-        U.ADMIN  = mkURL(ServletClassNames.AdminRestService_MAPPING);
-        U.OWNER  = mkURL(ServletClassNames.OwnerRestService_MAPPING);
-        U.TOKEN  = mkURL(ServletClassNames.TokenRestService_MAPPING);
+        U.ADMIN  = mkURL(ServletClassNames.AdminCTRL_MAPPING);
+        U.OWNER  = mkURL(ServletClassNames.OwnerCTRL_MAPPING);
+        U.TOKEN  = mkURL(ServletClassNames.TokenCTRL_MAPPING);
         U.FILE   = mkURL(ServletClassNames.FileContentFetcher_MAPPING);
-        U.NINJA  = mkURL(ServletClassNames.NinjaRestService_MAPPING);
+        U.NINJA  = mkURL(ServletClassNames.NinjaCTRL_MAPPING);
         
-        String RIDDLERHYME_MAP = ServletClassNames.RiddleRhymeRestService_MAPPING;
-        String TRANSDEBUG_MAP = ServletClassNames.TransDebugRestService_MAPPING;
+        String RIDDLERHYME_MAP = ServletClassNames.RiddleRhymeCTRL_MAPPING;
+        String TRANSDEBUG_MAP = ServletClassNames.TransDebugCTRL_MAPPING;
         
         U.RIDDLERHYME = mkURL(RIDDLERHYME_MAP);
         U.TRANSDEBUG  = mkURL(TRANSDEBUG_MAP);

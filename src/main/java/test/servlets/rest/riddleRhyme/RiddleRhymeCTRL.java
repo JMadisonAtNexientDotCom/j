@@ -21,7 +21,7 @@ import test.dbDataAbstractions.entities.composites.Quar;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
 import test.debug.debugUtils.tempDataStore.TempServiceDataUtil;
-import test.servlets.rest.BaseRestService;
+import test.servlets.rest.BaseCTRL;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forBundleEntities.TriviaBundleTransUtil;
 import test.transactions.util.forCompositeEntities.SlateTransUtil;
@@ -34,8 +34,8 @@ import utils.MapperUtil;
  *  1: riddle table (questions)
  *  2: rhyme  table (answers)
  * @author jmadison ---------------------------------------------------------**/
-@Path(ServletClassNames.RiddleRhymeRestService_MAPPING)
-public class RiddleRhymeRestService extends BaseRestService {
+@Path(ServletClassNames.RiddleRhymeCTRL_MAPPING)
+public class RiddleRhymeCTRL extends BaseCTRL {
     
     /** Returns an integer code telling you if the answer is correct or not.----
      * @param riddle_id :The ID# of riddle (question) being asked.
@@ -340,7 +340,7 @@ public class RiddleRhymeRestService extends BaseRestService {
     -------------------------------------------------------------------------**/
     private static void doError(String msg){
         String err = "ERROR INSIDE:";
-        Class clazz = RiddleRhymeRestService.class;
+        Class clazz = RiddleRhymeCTRL.class;
         err += clazz.getSimpleName();
         err += msg;
         throw new MyError(clazz, err);

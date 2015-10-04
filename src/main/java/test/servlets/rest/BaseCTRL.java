@@ -38,7 +38,7 @@ import javax.ws.rs.core.Response;
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * 
  * @author jmadison ---------------------------------------------------------**/
-public class BaseRestService {
+public class BaseCTRL {
     
     /**
      * Ping the service using this url formulation:

@@ -11,7 +11,7 @@ import test.config.constants.EntityErrorCodes;
 import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.identifiers.VarNameReg;
-import test.servlets.rest.BaseRestService;
+import test.servlets.rest.BaseCTRL;
 
 
 import test.transactions.util.TransUtil;
@@ -25,8 +25,8 @@ import utils.JSONUtil;
  * Could think of this servlet as a wrapper for AdminTransUtil.java.
  * @author jmadison :2015.09.20_0625PM
  ----------------------------------------------------------------------------**/
-@Path(ServletClassNames.AdminRestService_MAPPING)
-public class AdminRestService extends BaseRestService{
+@Path(ServletClassNames.AdminCTRL_MAPPING)
+public class AdminCTRL extends BaseCTRL{
     
     /**-------------------------------------------------------------------------
      * Used to test login credentials. 

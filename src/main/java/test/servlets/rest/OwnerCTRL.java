@@ -48,8 +48,8 @@ import utils.JSONUtil;
 ########10########20########30########40########50########60########70########*/
 //-------0---------0---------0---------0---------0---------0---------0---------0
 
-@Path(ServletClassNames.OwnerRestService_MAPPING)
-public class OwnerRestService extends BaseRestService{
+@Path(ServletClassNames.OwnerCTRL_MAPPING)
+public class OwnerCTRL extends BaseCTRL{
     
     @GET
     @Path(FuncNameReg.IS_TOKEN_HASH_OWNED_BY_NINJA)
