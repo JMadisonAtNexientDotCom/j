@@ -154,8 +154,19 @@ public class NinjaRestService extends BaseRestService {
         //EXIT TRANSACTION:
         TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
         
-        //TEMPORARY DEBUG HACK:
-        //if(pageOfNinjas.)
+        //If pageOfNinjas is NOT an error, but there are no members,
+        //put an "out of bounds" ninja into the list to let user of API
+        //know you have gotten to the end.
+        if(false  == pageOfNinjas.getIsError() 
+                                            && 0 ==pageOfNinjas.members.size()){
+            NinjaTable oobNinja = new NinjaTable();
+            oobNinja.setName("[END OF LIST]");
+            oobNinja.setEmail("[END OF LIST]");
+            oobNinja.setPhone(-989898);
+            oobNinja.setPortfolioURL("[END OF LIST]");
+            oobNinja.setIsError(true);
+            pageOfNinjas.members.add(oobNinja);
+        }//OUT OF BOUNDS POSITIVE:
         
         //RETURN DATA:
         return JSONUtil.compositeEntityToJSONResponse(pageOfNinjas);
