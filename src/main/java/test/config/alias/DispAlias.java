@@ -20,13 +20,13 @@ import test.config.debug.DebugConfig;
  */
 public class DispAlias {
     
-    private static final String[] DOJO_ALIAS    = {"Dojo"  , "Nexient"};
-    private static final String[] NINJA_ALIAS   = {"Ninja" , "Candidate"};
-    private static final String[] SHOW_ALIAS    = {"Show"  , "Service"};
-    private static final String[] ADMIN_ALIAS   = {"Admin" , "Admin"};
-    private static final String[] TRIAL_ALIAS   = {"Trial" , "Test"};
-    private static final String[] RIDDLE_ALIAS  = {"Riddle", "Question"};
-    private static final String[] RHYME_ALIAS   = {"Rhyme" , "Answer"};
+    private static final String[] DOJO_ALIAS    = new String[]{"Dojo"  , "Nexient"};
+    private static final String[] NINJA_ALIAS   = new String[]{"Ninja" , "Candidate"};
+    private static final String[] SHOW_ALIAS    = new String[]{"Show"  , "Service"};
+    private static final String[] ADMIN_ALIAS   = new String[]{"Admin" , "Admin"};
+    private static final String[] TRIAL_ALIAS   = new String[]{"Trial" , "Test"};
+    private static final String[] RIDDLE_ALIAS  = new String[]{"Riddle", "Question"};
+    private static final String[] RHYME_ALIAS   = new String[]{"Rhyme" , "Answer"};
     
     public String DOJO   = "NOT_SET";
     public String NINJA  = "NOT_SET";
@@ -45,8 +45,8 @@ public class DispAlias {
             loaderIndex = 1;
         }//BLOCK::END
         
-        //debug the debug:
-        if(loaderIndex == 1){ doError("Ithoughtwewereindebugmode!!");}
+        //debug the non-debug:
+        //if(loaderIndex == 1){ doError("Ithoughtwewereindebugmode!!");}
         
         //Load alias values based on config state:
         DOJO   = DOJO_ALIAS  [loaderIndex];
