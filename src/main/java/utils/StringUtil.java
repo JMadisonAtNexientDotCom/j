@@ -39,15 +39,23 @@ public class StringUtil {
      
         int maxValidIndex = text.length() - 1; //max valid index of text.
         int lastIndexOfNewLine;
+        char curChar;
         for(int i = 0; i <= maxValidIndex; i++){
             lastIndexOfNewLine = isStartOfNewLineHere(text,i);
             if(lastIndexOfNewLine >= 0){
+                outText += "XXXX"; //DEBUG TEST.
                 outText += System.lineSeparator();
                 outText += ind; //add indentation after the end of line.
                 i = lastIndexOfNewLine; //skip any of the characters of
                                         //the newline sequence.
             }else{
-                outText += String.valueOf( text.charAt(i) );
+                curChar = text.charAt(i);
+                if(isNewLineChar(curChar)){
+                    outText += "[BUG! Should have been caught!!]";
+                }else{
+                    outText += String.valueOf( text.charAt(i) );  
+                }//end
+                
             }//END
         }//NEXT i
         
@@ -122,6 +130,8 @@ public class StringUtil {
     public static boolean isNewLineChar(char c){
         final char nl = "\n".charAt(0); //new line char.
         final char cr = "\r".charAt(0); //carriage return char.
+        if(nl != 10){ doError("[nl not the ascii you thought.]");}
+        if(cr != 13){ doError("[cr not the ascii you thought.]");}
         return(c == nl || c == cr);
     }//FUNC::END
     
