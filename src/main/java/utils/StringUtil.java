@@ -90,7 +90,7 @@ public class StringUtil {
         if(index > mi){doError("[index supplied >(GT) max valid index]");}
         
         boolean hasFoundNewLine = false;
-        int dexOfLastNewLineCharFound = (-1);
+        int dexOfLastNewLineCharFound = (-888);
         int prvDex;
         int curDex = index-1; //minus one for easy loop entry.
         char curChar;
