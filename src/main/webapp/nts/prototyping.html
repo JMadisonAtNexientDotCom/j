@@ -2,59 +2,52 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>AHK SHORTCUT:?REFA</title>
-    
-		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-		<!-- BEFORE BOOTSTRAP INCLUDE: Bootstrap requiers JQuery Library.        -->
-		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-		<!-- Bootstrap: .js and .css respectively.                               -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script>
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-		
-		
+    <title>AHK SHORTCUT:?scroll</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Scroll Bars libs -->
+    <script src="../jsLib/git_repo_3rd_party/ng_scrollable/ng-scrollable.min.js"></script>
+    <link href="../jsLib/git_repo_3rd_party/ng_scrollable/ng-scrollable.min.css" rel="stylesheet">
   </head>
-<!-- AUTHOR: JMadison.  ON:2015.09.18_0223AMPM                               -->
-<!-- TABSIZE: 2 Spaces.                                                      -->
-<!-- This header belongs BELOW the <head></head> declaration.                -->
-<!--   10|       20|       30|       40|       50|       60|       70|       -->
 <!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
   <body>
     <div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="VI();">
       <button data-ng-click="onClick();">Click Me!</button>
-      <form name="userForm" style="width: 25%;" novalidate>
-			
-			  <div id="scrollArea">
-				  <div id="scrollContent">
-				
-								<div class="form-group" data-ng-repeat="user in instancedJSON_01.users"
-										 data-ng-class="{ 'has-error' : userFieldForm.email.$invalid }" >
-									<!-- This chunk repeats for each item in users collection          -->
-									<!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
-									<data-ng-form name='userFieldForm'>
-										<label>{{ user.name }}'s Email </label>
-										<span data-ng-show='userFieldForm.email.$invalid' 
-																																style="color:#AA0000;" >
-										IS INVALID!
-										</span>
-										<input class='form-control' name='email' ng-model='user.email' 
-																															 required='' type='email'>
-										</input>
-									</data-ng-form>
-									<!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
-								</div> <!-- form-group -->
-								
-					</div>
-				</div> <!-- End scroll area of all the awesome. -->
-				
-      </form>  <!-- userForm   -->
+      
+        <div id="my_scroll_bar" ng-scrollable="{scrollX:'none',scrollY:'right'}" 
+        style="width: 25%; height: 100px;background:#AA0000;">
+            <form name="userForm" style="width: 95%; height:100%;" novalidate>
+              <div class="form-group" 
+              data-ng-repeat="user in instancedJSON_01.users"
+              data-ng-class="{ 'has-error' : userFieldForm.email.$invalid }" >
+                <!-- This chunk repeats for each item in users collection          -->
+                <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
+                <data-ng-form name='userFieldForm'>
+                  <label>{{ user.name }}'s Email </label>
+                  <span data-ng-show='userFieldForm.email.$invalid' 
+                                                              style="color:#AA0000;" >
+                  IS INVALID!
+                  </span>
+                  <input class='form-control' name='email' ng-model='user.email' 
+                  required='' type='email'>
+                  </input>
+                </data-ng-form>
+                <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
+              </div> <!-- form-group -->
+            </form>  <!-- userForm   -->
+        </div> <!-- my_scroll_bar -->
     </div>
     <script>
-    var app = angular.module('myApp', []);
+    var app = angular.module('myApp', ['ngScrollable']);
     app.controller('myCtrl', function($scope) {
       //function to execute on click
       $scope.onClick = function(){
         var obj = JSON.parse(document.getElementById('embeddedJSON_01').innerHTML);
         $scope.instancedJSON_01=obj;
+        //if size of content changes, call $scope.$emit:
+        $scope.$emit('content.changed');//https://github.com/echa/ng-scrollable
       }//FUNC::END
       //Variable initialization:
       $scope.VI = function(){
@@ -64,16 +57,10 @@
     });//APP::END
     </script>
     <script type="application/json" id="embeddedJSON_01">
-      {
-      "users":[ { "name":"bob", "email":"bob@bob.com"},
-                   { "name":"sam", "email":"sam@sam.com"},
-                   { "name":"jay", "email":"jay@jay.com"}],
-
-      "unicorns": "awesome",
-      "abc": [1, 2, 3]
-      }
+      { "users":[ { "name":"bob", "email":"bob@bob.com"},
+                  { "name":"sam", "email":"sam@sam.com"},
+                  { "name":"jay", "email":"jay@jay.com"}]  }
     </script>
   </body>
 </html>
-<!--   10|       20|       30|       40|       50|       60|       70|       -->
 <!--5678901234567890123456789012345678901234567890123456789012345678901234567-->

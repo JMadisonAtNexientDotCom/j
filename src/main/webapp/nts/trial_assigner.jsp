@@ -109,8 +109,34 @@
               width:100%; height:100%;"><!--555555555555555555555555555555555-->
                 
                 <h2>DONE!</h2>
-                    <p>Please give <%=I.DN().NINJA%> bob this token so 
-                      that they may access their <%=I.DN().TRIAL%>:</p>
+                
+                <!-- SCROLLING CONTENT! -->
+                <!-- SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS[SCROLL::START]SSSS -->
+                <div id="my_scroll_bar" 
+                ng-scrollable="{scrollX:'none',scrollY:'right'}" 
+                style="width: 25%; height: 100px;background:#AA0000;">
+                    <form name="userForm" novalidate
+                    style="width: 95%; height:100%;" >
+                      <div class="form-group" 
+                      data-ng-repeat="user in instancedJSON_01.users"
+                      data-ng-class="{ 'has-error' : userFieldForm.email.$invalid }" >
+                        <!-- Repeats for each item in users collection       -->
+                        <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
+                        <data-ng-form name='userFieldForm'>
+                          <label>{{ user.name }}'s Email </label>
+                          <span data-ng-show='userFieldForm.email.$invalid' 
+                          style="color:#AA0000;" >
+                          IS INVALID!
+                          </span>
+                          <input class='form-control' name='email' ng-model='user.email' 
+                          required='' type='email'>
+                          </input>
+                        </data-ng-form>
+                        <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
+                      </div> <!-- form-group -->
+                    </form>  <!-- userForm   -->
+                </div> <!-- my_scroll_bar -->
+                <!-- SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS[SCROLL::END]SSSS -->
                 
               </div> <!--5555555555555555555555555555555555555555555555555555-->
             </div> <!--panel::THE RIGHT SIDE. END -->
@@ -159,7 +185,7 @@
 		
 		
     <script>
-    var app = angular.module('myApp', []);
+    var app = angular.module('myApp', ['ngScrollable']);
     app.controller('myCtrl', function($scope, $http) {
       //function to execute on click
       $scope.onClick = function(){
