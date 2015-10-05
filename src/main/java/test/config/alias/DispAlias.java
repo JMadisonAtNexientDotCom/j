@@ -1,5 +1,6 @@
 package test.config.alias;
 
+import test.MyError;
 import test.config.debug.DebugConfig;
 
 /**
@@ -19,7 +20,7 @@ import test.config.debug.DebugConfig;
  */
 public class DispAlias {
     
-    private static final String[] DOJO_ALIAS    = {"Dojo"  , "Trial"};
+    private static final String[] DOJO_ALIAS    = {"Dojo"  , "Nexient"};
     private static final String[] NINJA_ALIAS   = {"Ninja" , "Candidate"};
     private static final String[] SHOW_ALIAS    = {"Show"  , "Service"};
     private static final String[] ADMIN_ALIAS   = {"Admin" , "Admin"};
@@ -44,6 +45,9 @@ public class DispAlias {
             loaderIndex = 1;
         }//BLOCK::END
         
+        //debug the debug:
+        if(loaderIndex == 1){ doError("Ithoughtwewereindebugmode!!");}
+        
         //Load alias values based on config state:
         DOJO   = DOJO_ALIAS  [loaderIndex];
         NINJA  = NINJA_ALIAS [loaderIndex];
@@ -53,6 +57,18 @@ public class DispAlias {
         RIDDLE = RIDDLE_ALIAS[loaderIndex];
         RHYME  = RHYME_ALIAS [loaderIndex];
         
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = DispAlias.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
     }//FUNC::END
     
 }//CLASS::END
