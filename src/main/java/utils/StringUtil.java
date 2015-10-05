@@ -172,7 +172,7 @@ public class StringUtil {
     
     public static String getIndents(int indentationLevel){
         //String tab = "\t";
-        String tab = numberOfTabsToSpaces(javascript_tabs_per_indent);
+        String tab = numberOfTabsToSpaces(javascript_numspaces_per_tab);
         String op = "";
        
         //Assemble string of tabs:
