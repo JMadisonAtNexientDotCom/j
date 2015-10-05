@@ -231,14 +231,16 @@
         $http.post(postURL,$scope.arg_obj).onSuccess(onPostResponse);
       };//FUNC::END
       
-      $scope.onPostResponse = function(){
+      //Response to $scope.postRequest. No $scope on this because we do not
+      //want it to be exposed outside of the controller.
+      function onPostResponse(response){
         
         //When response is given back, we can give the tokens!
         console.log("onPostResponse() was entered!");
         $scope.subpanel_phase = $scope.GIVE_NINJA_BOB_THIS_TOKEN;
         $scope.$apply();
         
-      };//FUNC::END
+      }//FUNC::END
 
       $scope.callService = function()
       {
