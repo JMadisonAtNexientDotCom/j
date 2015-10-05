@@ -228,7 +228,7 @@
         $scope.arg_obj.<%= I.API().DISPATCH_TOKENS.POSTARG.DURATION_IN_MINUTES%> = 30;
         $scope.arg_obj.<%= I.API().DISPATCH_TOKENS.POSTARG.TRIAL_KIND %> = <%= I.PV().TRIAL_KIND.RIDDLE_TRIAL %>
         postURL = "<%= I.API().DISPATCH_TOKENS.URL %>";
-        $http.post(postURL,$scope.arg_obj).onSuccess(onPostResponse);
+        $http.post(postURL,$scope.arg_obj).success(onPostResponse);
       };//FUNC::END
       
       //Response to $scope.postRequest. No $scope on this because we do not
