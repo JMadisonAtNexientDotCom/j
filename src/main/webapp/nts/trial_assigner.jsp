@@ -23,7 +23,7 @@
         <div id="roundeddivs_wireframe" style="width:100%; height:100%;">
 
           <div id="roundeddivs_headertab" align="center" style="margin-bottom:25px;">
-            <h2 style="color:#fff">Trial Assigner</h2>
+            <h2 style="color:#fff"><%=I.DN().TRIAL%> Assigner</h2>
           </div>
           
           <div style="width:600px; height:400px;"> <!-- split container::START -->
@@ -72,7 +72,7 @@
               color:#FFFFFF;
               width:100%; height:100%;"> <!--11111111111111111111111111111111-->
                 
-                WELCOME! To begin, select a ninja from the list to the right.
+                WELCOME! To begin, select a <%=I.DN().NINJA%> from the list to the right.
 
               </div><!--11111111111111111111111111111111111111111111111111111-->
               <div      id="subpanel_phase___PLEASE_WAIT_LOADING_NINJA_LIST"
@@ -80,7 +80,7 @@
               style="z-index:2;background:#FF8800;position:absolute;float:none;
               width:100%; height:100%;"><!--222222222222222222222222222222222-->
                 
-                WAIT! We are loading the list of ninjas for you.
+                WAIT! We are loading the list of <%=I.DN().NINJA%>'s for you.
                 
               </div> <!--2222222222222222222222222222222222222222222222222222-->
               <div      id="subpanel_phase___ASSIGN_TRIAL_TOKEN_TO_NINJA"
@@ -108,7 +108,7 @@
               width:100%; height:100%;"><!--555555555555555555555555555555555-->
                 
                 <h2>DONE!</h2>
-                    <p>Please give Ninja bob this token so that they may
+                    <p>Please give <%=I.DN().NINJA%> bob this token so that they may
                       access their trial:</p>
                 
               </div> <!--5555555555555555555555555555555555555555555555555555-->
