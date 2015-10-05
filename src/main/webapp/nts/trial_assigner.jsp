@@ -198,10 +198,12 @@
       };//FUNC::END
       
       $scope.dispatchTokens = function(){
-        $scope.subpanel_phase = $scope.GIVE_NINJA_BOB_THIS_TOKEN;
-        //$scope.subpanel_phase = $scope.SELECT_A_NINJA_PROMPT; //debug.
+        
+        $scope.subpanel_phase = $scope.PLEASE_WAIT_CREATING_TRIAL;
         console.log("dispatchTokens() was entered!");
         $scope.$apply(); //http://stackoverflow.com/questions/22389949/div-with-ng-show-not-updating-after-ajax-call Maybe?
+        $scope.postRequest();
+        
       };//FUNC::END
 			
       $scope.goBAK = function(){
@@ -230,7 +232,12 @@
       };//FUNC::END
       
       $scope.onPostResponse = function(){
-      
+        
+        //When response is given back, we can give the tokens!
+        console.log("onPostResponse() was entered!");
+        $scope.subpanel_phase = $scope.GIVE_NINJA_BOB_THIS_TOKEN;
+        $scope.$apply();
+        
       };//FUNC::END
 
       $scope.callService = function()
