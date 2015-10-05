@@ -223,7 +223,7 @@
         
         //serviceURL = "https://j1clone01-madnamespace.rhcloud.com/api/NinjaRestService/get_page_of_ninjas?page_index=0&num_results_per_page=10";
         //serviceURL = "https://j1clone01-madnamespace.rhcloud.com/api/NinjaCTRL/get_page_of_ninjas";
-        serviceURL = "<% I.API().GET_PAGE_OF_NINJAS.URL %>"
+        serviceURL = "<%= I.API().GET_PAGE_OF_NINJAS.URL %>"
 
         //Build query string using J-QUERY:
         //SOURCE: http://stackoverflow.com/questions/316781/
