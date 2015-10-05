@@ -61,6 +61,7 @@ public class ServiceURLRegistry {
     
     //----SERVICE VARIABLE----------|--Path inited to "NOT_INITIALIZED" to ----|
     //----For HTTP REST CALLS-------|--Help hunt down mapping errors       ----|
+    public String TRIAL       = "TRIAL:ServiceUrl_NOT_INITIALIZED";
     public String OWNER       = "OWNER:ServiceUrl_NOT_INITIALIZED";
     public String ADMIN       = "ADMIN:ServiceUrl_NOT_INITIALIZED"; 
     public String TOKEN       = "TOKEN:ServiceUrl_NOT_INITIALIZED"; 
