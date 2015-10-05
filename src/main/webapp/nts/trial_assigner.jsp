@@ -28,7 +28,7 @@
           
           <div style="width:600px; height:400px;"> <!-- split container::START -->
             <div class="panel panel-default" style="width:300px; height:100%; float:left">
-            <div class="panel-heading">Who below will be taking this trial?</div>
+            <div class="panel-heading">Who below will be taking this <%=I.DN().TRIAL%>?</div>
 
 
               <form name="userForm" style="width:100%;" novalidate>
@@ -88,7 +88,7 @@
               style="z-index:3;background:#AAAAAA;position:absolute;float:none;
               width:100%; height:100%;"><!--333333333333333333333333333333333-->
                 
-                Give: {{data.multipleSelect}} a trial!
+                Give: {{data.multipleSelect}} a <%=I.DN().TRIAL%>!
                 <button class="btn" id="token_giver_button">DISPATCH TOKENS</button>
                 
               </div> <!--3333333333333333333333333333333333333333333333333333-->
@@ -97,8 +97,9 @@
               style="z-index:4;background:#FF8800;position:absolute;float:none;
               width:100%; height:100%;"><!--444444444444444444444444444444444-->
                 
-                WAIT! We are creating a trial for this ninja. A token
-                you can give to this Ninja will be available shortly.
+                WAIT! We are creating a <%=I.DN().TRIAL%> for this ninja. 
+                A token you can give to this <%=I.DN().NINJA%> will be 
+                available shortly.
                 
               </div> <!--4444444444444444444444444444444444444444444444444444-->
               <div      id="subpanel_phase___GIVE_NINJA_BOB_THIS_TOKEN"
@@ -108,8 +109,8 @@
               width:100%; height:100%;"><!--555555555555555555555555555555555-->
                 
                 <h2>DONE!</h2>
-                    <p>Please give <%=I.DN().NINJA%> bob this token so that they may
-                      access their trial:</p>
+                    <p>Please give <%=I.DN().NINJA%> bob this token so 
+                      that they may access their <%=I.DN().TRIAL%>:</p>
                 
               </div> <!--5555555555555555555555555555555555555555555555555555-->
             </div> <!--panel::THE RIGHT SIDE. END -->
