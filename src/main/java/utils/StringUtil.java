@@ -89,12 +89,17 @@ public class StringUtil {
         int mi = text.length() - 1; //max index. (Last valid index of string)
         if(index > mi){doError("[index supplied >(GT) max valid index]");}
         
+        boolean shouldHaveBrokenOut = false; //for debug.
         boolean hasFoundNewLine = false;
         int dexOfLastNewLineCharFound = (-888);
         int prvDex;
         int curDex = index-1; //minus one for easy loop entry.
         char curChar;
         while(true){
+            if(true==shouldHaveBrokenOut){
+                doError("[Break did not work as expected.]");
+            }//Should have broken out?
+            
             curDex++; //first used value should == index parameter. //
             
             //BAIL-OUT CHECK:
@@ -117,12 +122,15 @@ public class StringUtil {
                            //sequence. We will NOT insert indentation between
                            //this. Return false because we are NOT at the start
                            //of a newline sequence.
+                           shouldHaveBrokenOut = true;
+                           dexOfLastNewLineCharFound = (-777); //found behind.
                            break; //exit loop.
                        }//IF::END
                    }//IF::END
                    hasFoundNewLine = true;
                 }//FIRST FOUND
             }else{
+                shouldHaveBrokenOut = true;
                 break; //if not on a newline character. EXIT LOOP.
             }//BLOCK::END
         }//INF LOOP
@@ -130,8 +138,9 @@ public class StringUtil {
         //hasFoundNewLine will be flagged to FALSE if found in middle
         //of a string of newlines. Hence why must have hasFoundNewLine==true
         //to return found index.
-        int op = (true==hasFoundNewLine ? dexOfLastNewLineCharFound : (-1) );
-        return op;
+        //int op = (true==hasFoundNewLine ? dexOfLastNewLineCharFound : (-1) );
+        
+        return dexOfLastNewLineCharFound;
         
     }//FUNC::END
     
