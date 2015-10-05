@@ -8,6 +8,8 @@ import test.MyError;
  */
 public class StringUtil {
     
+    public static int javascript_numspaces_per_tab = 2;
+    public static int javascript_tabs_per_indent   = 1;
     
     static{////////////////
         doStaticInit();
@@ -157,8 +159,20 @@ public class StringUtil {
         return(c == nl || c == cr);
     }//FUNC::END
     
+    public static String numberOfTabsToSpaces(int numTabs){
+        //Assemble string of SPACES:
+        String spc = " ";
+        String op = "";
+        int len = numTabs;
+        for(int i = 0; i < len; i++){
+            op += spc;
+        }//NEXT i
+        return op;
+    }//FUNC::END
+    
     public static String getIndents(int indentationLevel){
-        String tab = "\t";
+        //String tab = "\t";
+        String tab = numberOfTabsToSpaces(javascript_tabs_per_indent);
         String op = "";
        
         //Assemble string of tabs:
