@@ -7,6 +7,19 @@ import test.MyError;
  * @author jmadison
  */
 public class StringUtil {
+    
+    
+    static{////////////////
+        doStaticInit();
+    }/////////////////////
+    
+    private static void doStaticInit(){
+        
+        //Can you force a unit test on first use of utility?
+        unitTest();
+    }//FUNC::END
+    
+    
     public static boolean canBeParsedAsWholeNumber(String str){
         int len = str.length();
         if(len <= 0){return false;}
@@ -42,8 +55,8 @@ public class StringUtil {
         char curChar;
         for(int i = 0; i <= maxValidIndex; i++){
             lastIndexOfNewLine = isStartOfNewLineHere(text,i);
-            if(lastIndexOfNewLine >= 0){
-                outText += "XXXX"; //DEBUG TEST.
+            if(lastIndexOfNewLine >= 0){ //<--never executing!!!!
+                //outText += "XXXX"; //DEBUG TEST.
                 outText += System.lineSeparator();
                 outText += ind; //add indentation after the end of line.
                 i = lastIndexOfNewLine; //skip any of the characters of
@@ -117,7 +130,7 @@ public class StringUtil {
         //hasFoundNewLine will be flagged to FALSE if found in middle
         //of a string of newlines. Hence why must have hasFoundNewLine==true
         //to return found index.
-        int op = (hasFoundNewLine ? dexOfLastNewLineCharFound : (-1) );
+        int op = (true==hasFoundNewLine ? dexOfLastNewLineCharFound : (-1) );
         return op;
         
     }//FUNC::END
@@ -159,6 +172,18 @@ public class StringUtil {
         err += clazz.getSimpleName();
         err += msg;
         throw new MyError(clazz, err);
+    }//FUNC::END
+    
+    public static boolean unitTest(){
+        //test isStartOfNewLineHere
+        String sysNL = System.lineSeparator();
+        String s01 = "ABC" + sysNL + "123";
+        if( isStartOfNewLineHere(s01, 3) < 3){
+           doError("UNIT TEST FAIL!");
+        }//END
+        
+        return true;
+        
     }//FUNC::END
     
 }//CLASS::END
