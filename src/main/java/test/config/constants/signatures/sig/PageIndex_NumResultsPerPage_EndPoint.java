@@ -1,6 +1,6 @@
 package test.config.constants.signatures.sig;
 
-import primitives.EndPoint;
+import primitives.endPoints.EndPoint;
 
 /**
  * Enables auto-complete for UI people when trying to reference service.

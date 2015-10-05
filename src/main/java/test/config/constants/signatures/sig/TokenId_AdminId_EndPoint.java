@@ -1,6 +1,6 @@
 package test.config.constants.signatures.sig;
 
-import primitives.EndPoint;
+import primitives.endPoints.EndPoint;
 
 /**
  * CAN WE AUTO-GENERATE THESE CLASSES SOMEHOW???

@@ -117,6 +117,41 @@ public class JSONUtil {
      * @param obj :The object you want to convert to JSON response.
      * @return    :A JSON response. **/
     private static Response genericObjectToJSONResponse(Object obj){
+        String jsonText;
+        jsonText = serializeObj_NullOKAY(obj);
+        return Response.ok(jsonText, MediaType.APPLICATION_JSON).build();
+    }//FUNC::END
+    
+    /** Wrapper for core serialization code that will throw error
+     *  if you give it a null object. If you are NOT expecting null,
+     *  you should be using the NoNULL version that will check for mistakes.
+     * @param obj :The object to serialize.
+     * @return :A serialized JSON object.
+     */
+    public static String serializeObj_NoNULL(Object obj){
+        if(null == obj){doError("[Null supplied to serializeObj_NoNULL]");}
+        return serializeObject_PRIVATE(obj);
+    }//FUNC::END
+    
+    /**
+     * This object is allowed to take null for an input.
+     * @param obj :The object to serialize. IS OKAY if the object is null.
+     * @return    :Json text representing that object.
+     */
+    public static String serializeObj_NullOKAY(Object obj){
+        return serializeObject_PRIVATE(obj);
+    }//FUNC::END
+    
+    /**
+     * INTERNAL/PRIVATE core code for serializeObject. Should not be
+     * publicly exposed. Hence why _PRIVATE added. Yes, I have a private
+     * modifier. But I want to make the point that this is private. There
+     * are two perfectly valid publicly exposed wrappers that can be used.
+     * Please don't publicly expose this and wreck my pattern.
+     * @param obj:The object to serialize.
+     * @return :A Json object representing the object inputted.
+     */
+    private static String serializeObject_PRIVATE(Object obj){
         //This huge chunk of code could go in a JSON utility
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter prettyPrinter = mapper.writerWithDefaultPrettyPrinter();
@@ -143,7 +178,7 @@ public class JSONUtil {
             doError("jsonText should not be null if input was not.");
         }////////////////////////////////////////////////////////////
         
-        return Response.ok(jsonText, MediaType.APPLICATION_JSON).build();
+        return jsonText;
     }//FUNC::END
     
     /**-------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-package primitives;
+package primitives.endPoints;
 
 /**
  * Represents an API endpoint. Used so the UI people have access to

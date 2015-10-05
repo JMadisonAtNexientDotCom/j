@@ -1,7 +1,8 @@
 package test.config.constants.apiDocs;
 
+import annotations.Verbatim;
 import frontEndBackEndIntegration.childComponents.ServiceURLRegistry;
-import primitives.EndPoint;
+import primitives.endPoints.EndPoint;
 import test.MyError;
 import test.config.constants.ServiceUrlsInitializer;
 import test.config.constants.ServletClassNames;
@@ -10,6 +11,7 @@ import test.config.constants.signatures.sig.CardCount_NumQuips_TruMin_TruMax_End
 import test.config.constants.signatures.sig.HttpPost_EndPoint;
 import test.config.constants.signatures.sig.Id_EndPoint;
 import test.config.constants.signatures.sig.Name_Phone_Email_PortfolioUrl_EndPoint;
+import test.config.constants.signatures.sig.NinjaIdList_TrialKind_DurationInMinutes_EndPoint;
 import test.config.constants.signatures.sig.PageIndex_NumResultsPerPage;
 import test.config.constants.signatures.sig.PageIndex_NumResultsPerPage_EndPoint;
 import test.config.constants.signatures.sig.RiddleId_EndPoint;
@@ -24,6 +26,7 @@ import test.servlets.rest.AdminCTRL;
 import test.servlets.rest.NinjaCTRL;
 import test.servlets.rest.OwnerCTRL;
 import test.servlets.rest.TokenCTRL;
+import test.servlets.rest.TrialCTRL;
 import test.servlets.rest.riddleRhyme.RiddleRhymeCTRL;
 
 /**
@@ -66,37 +69,85 @@ public class MasterApiDoc {
     private static ServiceURLRegistry R = ServiceUrlsInitializer.
                                                         getServiceURLRegistry();
     
+    //TRIAL SERVICE:
+    @Verbatim(name=FuncNameReg.DISPATCH_TOKENS)
+    public NinjaIdList_TrialKind_DurationInMinutes_EndPoint DISPATCH_TOKENS = new NinjaIdList_TrialKind_DurationInMinutes_EndPoint();
     
     //ADMIN SERVICE:
+    @Verbatim(name=FuncNameReg.LOGIN_VALIDATE)
     public UserName_PassWord_EndPoint LOGIN_VALIDATE = new UserName_PassWord_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.LOGIN_AND_GET_TOKEN_FOR_SELF)
     public UserName_PassWord_EndPoint LOGIN_AND_GET_TOKEN_FOR_SELF = new UserName_PassWord_EndPoint();
     
     //NINJA SERVICE
+    @Verbatim(name=FuncNameReg.MAKE_NINJA_RECORD)
     public Name_Phone_Email_PortfolioUrl_EndPoint MAKE_NINJA_RECORD = new Name_Phone_Email_PortfolioUrl_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.GET_NINJA_BY_ID)
     public Id_EndPoint   GET_NINJA_BY_ID  = new Id_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.GET_NEXT_NINJA)
     public Void_EndPoint GET_NEXT_NINJA = new Void_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.GET_PAGE_OF_NINJAS)
     public PageIndex_NumResultsPerPage_EndPoint GET_PAGE_OF_NINJAS = new PageIndex_NumResultsPerPage_EndPoint();
     
     //OWNER SERVICE:
+    @Verbatim(name=FuncNameReg.MAKE_ENTRY_USING_NINJA)
     public TokenId_NinjaId_EndPoint MAKE_ENTRY_USING_NINJA = new TokenId_NinjaId_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.MAKE_ENTRY_USING_ADMIN)
     public TokenId_AdminId_EndPoint MAKE_ENTRY_USING_ADMIN = new TokenId_AdminId_EndPoint();
-    public TokenId_EndPoint         MAKE_ENTRY_USING_RANDOM= new TokenId_EndPoint();
-    public TokenId_EndPoint         DOES_TOKEN_HAVE_OWNER  = new TokenId_EndPoint();
-    public TokenId_EndPoint         GET_TOKEN_OWNER        = new TokenId_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.MAKE_ENTRY_USING_RANDOM)
+    public TokenId_EndPoint    MAKE_ENTRY_USING_RANDOM= new TokenId_EndPoint();
+   
+    @Verbatim(name=FuncNameReg.IS_TOKEN_ID_OWNED)
+    public TokenId_EndPoint    IS_TOKEN_ID_OWNED  = new TokenId_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.IS_TOKEN_HASH_OWNED_BY_ADMIN)
+    public TokenId_EndPoint    IS_TOKEN_HASH_OWNED_BY_ADMIN  = new TokenId_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.IS_TOKEN_HASH_OWNED_BY_NINJA)
+    public TokenId_EndPoint    IS_TOKEN_HASH_OWNED_BY_NINJA  = new TokenId_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.GET_TOKEN_OWNER)
+    public TokenId_EndPoint    GET_TOKEN_OWNER        = new TokenId_EndPoint();
 
     //TOKEN SERVICE:
-    public Void_EndPoint GET_NEXT_TOKEN = new Void_EndPoint();
+    @Verbatim(name=FuncNameReg.GET_NEXT_TOKEN)
+    public Void_EndPoint       GET_NEXT_TOKEN = new Void_EndPoint();
     
     //RIDDLE-RHYME SERVICE:
+    @Verbatim(name=FuncNameReg.GET_IS_CORRECT)
     public RiddleId_RhymeId_EndPoint GET_IS_CORRECT          = new RiddleId_RhymeId_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.GRADE_ONE_BLANK_SLATE)
     public HttpPost_EndPoint GRADE_ONE_BLANK_SLATE           = new HttpPost_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.GET_FILLED_OUT_TEST_SLATE_TRUTH)
     public RiddleId_EndPoint GET_FILLED_OUT_TEST_SLATE_TRUTH = new RiddleId_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.GET_FILLED_OUT_TEST_SLATE_WRONG)
     public RiddleId_EndPoint GET_FILLED_OUT_TEST_SLATE_WRONG = new RiddleId_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.GET_ONE_BLANK_SLATE)
     public RiddleId_EndPoint GET_ONE_BLANK_SLATE             = new RiddleId_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.GET_ONE_RANDOM_RIDDLE)
     public Void_EndPoint     GET_ONE_RANDOM_RIDDLE           = new Void_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.MAKE_FILLED_OUT_CUE_CARD)
     public RiddleId_NumberOfChoices_NumberOfTruths_EndPoint MAKE_FILLED_OUT_CUE_CARD = new RiddleId_NumberOfChoices_NumberOfTruths_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.GET_RANDOM_TRIVIA_BUNDLE)
     public CardCount_NumQuips_TruMin_TruMax_EndPoint GET_RANDOM_TRIVIA_BUNDLE = new CardCount_NumQuips_TruMin_TruMax_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.POST_QUAR_FOR_GRADING)
     public HttpPost_EndPoint POST_QUAR_FOR_GRADING           = new HttpPost_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.GET_LAST_POSTED_QUAR)
     public Void_EndPoint     GET_LAST_POSTED_QUAR            = new Void_EndPoint();
     
     /** current servlet name being used in the 
@@ -128,6 +179,14 @@ public class MasterApiDoc {
         String cName;
         Class  clazz;
         
+        //TRIAL REST SERVICE CONFIG:
+        endPT = R.TRIAL;
+        cName = ServletClassNames.TrialCTRL_CLASSNAME;
+        clazz = TrialCTRL.class;
+        enter_CFG(endPT, cName, clazz);
+        add(DISPATCH_TOKENS, FuncNameReg.DISPATCH_TOKENS);
+        exit_CFG();
+        
         //ADMIN REST SERVICE CONFIG:
         endPT = R.ADMIN;
         cName = ServletClassNames.AdminCTRL_CLASSNAME;
@@ -153,11 +212,13 @@ public class MasterApiDoc {
         cName = ServletClassNames.OwnerCTRL_CLASSNAME;
         clazz = OwnerCTRL.class;
         enter_CFG(endPT, cName, clazz);
-        add(MAKE_ENTRY_USING_NINJA ,FuncNameReg.MAKE_ENTRY_USING_NINJA);
-        add(MAKE_ENTRY_USING_ADMIN ,FuncNameReg.MAKE_ENTRY_USING_ADMIN);
-        add(MAKE_ENTRY_USING_RANDOM,FuncNameReg.MAKE_ENTRY_USING_RANDOM);
-        add(DOES_TOKEN_HAVE_OWNER  ,FuncNameReg.IS_TOKEN_ID_OWNED);
-        add(GET_TOKEN_OWNER        ,FuncNameReg.GET_TOKEN_OWNER);
+        add(MAKE_ENTRY_USING_NINJA          ,FuncNameReg.MAKE_ENTRY_USING_NINJA);
+        add(MAKE_ENTRY_USING_ADMIN          ,FuncNameReg.MAKE_ENTRY_USING_ADMIN);
+        add(MAKE_ENTRY_USING_RANDOM         ,FuncNameReg.MAKE_ENTRY_USING_RANDOM);
+        add(IS_TOKEN_ID_OWNED               ,FuncNameReg.IS_TOKEN_ID_OWNED);
+        add(IS_TOKEN_HASH_OWNED_BY_ADMIN    ,FuncNameReg.IS_TOKEN_HASH_OWNED_BY_ADMIN);
+        add(IS_TOKEN_HASH_OWNED_BY_NINJA    ,FuncNameReg.IS_TOKEN_HASH_OWNED_BY_NINJA);
+        add(GET_TOKEN_OWNER                 ,FuncNameReg.GET_TOKEN_OWNER);
         exit_CFG();
         
         //TOKEN REST SERVICE CONFIG:

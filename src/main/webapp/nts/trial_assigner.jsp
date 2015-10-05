@@ -183,6 +183,9 @@
         $scope.numResultsPerPage = 8;
         $scope.ninja_page_title = "READY";
         
+        <%-- Embed the request schema for DISPATCH_TOKENS POST call. --%>
+        <%= I.API().DISPATCH_TOKENS.EMBED_REQUEST_SCHEMA("arg_obj"); %>
+        
         $scope.callService();
         
       };//FUNC::END
