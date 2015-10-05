@@ -79,7 +79,9 @@ public abstract class PostEndPoint extends EndPoint{
         String ind = getIndents(indentationLevel);
         String nl = System.lineSeparator();
         String javascript = "";
-        javascript += ind + "///// EMBEDDED REQUEST SCHEMA :: START /////" + nl;
+        //NOTE: First indent skipped because the <%= JSP EXPRESSION %>
+        //      occurs at the correctly indented location.
+        javascript += ""  + "///// EMBEDDED REQUEST SCHEMA :: START /////" + nl;
         javascript += ind + embedIdentifierToUse + " = " + nl;
         javascript += indented_instance + ";" + nl;
         javascript += ind + "///// EMBEDDED REQUEST SCHEMA :: END   /////"; 
