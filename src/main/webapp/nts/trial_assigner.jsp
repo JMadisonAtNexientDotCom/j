@@ -219,6 +219,19 @@
         $scope.pageIndexWanted = 2;
         $scope.callService();
       };//FUNC::END
+      
+      //HTTP POST REQUEST FOR DIPATCHING TOKENS:
+      $scope.postRequest = function(){
+        $scope.arg_obj.<%= I.API().DISPATCH_TOKENS.POSTARG.NINJA_ID_LIST %> = [];
+        $scope.arg_obj.<%= I.API().DISPATCH_TOKENS.POSTARG.DURATION_IN_MINUTES%> = 30;
+        $scope.arg_obj.<%= I.API().DISPATCH_TOKENS.POSTARG.TRIAL_KIND %> = <%= I.PV().TRIAL_KIND.RIDDLE_TRIAL %>
+        postURL = "<%= I.API().DISPATCH_TOKENS.URL %>";
+        $http.post(postURL,$scope.arg_obj).onSuccess(onPostResponse);
+      };//FUNC::END
+      
+      $scope.onPostResponse = function(){
+      
+      };//FUNC::END
 
       $scope.callService = function()
       {

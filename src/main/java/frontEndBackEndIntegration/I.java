@@ -2,6 +2,7 @@ package frontEndBackEndIntegration;
 
 //No package. At root to make less hazardous for refactoring.
 //Since it will be put into .JSP files.
+import frontEndBackEndIntegration.childComponents.ApiParamValuesRegistry;
 import test.config.constants.apiDocs.MasterApiDoc;
 import test.config.constants.identifiers.VarNameReg;
 import frontEndBackEndIntegration.childComponents.ServiceURLRegistry;
@@ -30,6 +31,33 @@ import test.debug.GlobalErrorState;
  */
 public class I {
     
+    public static final ApiParamValuesRegistry _paramValsContainer =
+                                                   new ApiParamValuesRegistry();
+    
+    /**
+     * Long-Handed version of object that gets parameter values.
+     * @return :Container that gives us access to controller parameter values
+     *          that can be used for calls.
+     */
+    public static ApiParamValuesRegistry GET_PARAM_VALUES(){
+        return getParamValuesContainer();
+    }//FUNC::END
+    
+    /**
+     * SHORT-Handed version of object that gets parameter values.
+     * @return :Container that gives us access to controller parameter values
+     *          that can be used for calls.
+     */
+    public static ApiParamValuesRegistry PV(){
+        return getParamValuesContainer();
+    }//FUNC::END
+    
+    /** Gets container that helps UI people input valid parameter values. **/
+    private static ApiParamValuesRegistry getParamValuesContainer(){
+        if(null == _paramValsContainer){doError("[paramValContainerIsNull!!]");}
+        return _paramValsContainer;
+    }//FUNC::END
+
     //DISPLAY NAMES OF THINGS:
     public static DispAlias DN(){
         return getDisplayNameAliasContainer();

@@ -65,11 +65,11 @@
 
     function callService()
     {
-        serviceURL ="<%= I.API().DOES_TOKEN_HAVE_OWNER.URL %>";
+        serviceURL ="<%= I.API().IS_TOKEN_ID_OWNED.URL %>";
         
         qs = ""; //query string.
         qs = $.param({ 
-        <%=I.API().DOES_TOKEN_HAVE_OWNER.ARG.TOKEN_ID %>:$scope.token_input
+        <%=I.API().IS_TOKEN_ID_OWNED.ARG.TOKEN_ID %>:$scope.token_input
         });//QUERYSTRING::END
         
         apiCallURL = serviceURL + "?" + qs;
