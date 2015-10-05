@@ -8,6 +8,7 @@ import test.servlets.rest.AdminCTRL;
 import test.servlets.rest.NinjaCTRL;
 import test.servlets.rest.OwnerCTRL;
 import test.servlets.rest.TokenCTRL;
+import test.servlets.rest.TrialCTRL;
 import test.servlets.rest.debug.TransDebugCTRL;
 import test.servlets.rest.riddleRhyme.RiddleRhymeCTRL;
 import test.servlets.rest.utilityServlets.FileContentFetcher;
@@ -48,6 +49,10 @@ public class ServletClassNames {
     //TOKEN SERVICE:
     public static final String TokenCTRL_CLASSNAME = "TokenCTRL";
     public static final String TokenCTRL_MAPPING   = "TokenCTRL/";
+    
+    //TRIAL SERVICE:
+    public static final String TrialCTRL_CLASSNAME = "TrialCTRL";
+    public static final String TrialCTRL_MAPPING   = "TrialCTRL/";
     
     //NINJA SERVICE:
     public static final String NinjaCTRL_CLASSNAME = "NinjaCTRL";
@@ -203,6 +208,10 @@ public class ServletClassNames {
         if(         vcm_cn(TokenCTRL_CLASSNAME, clazName))
         {   doMappingError(TokenCTRL_CLASSNAME); }
         
+        clazName =         TrialCTRL.class.getSimpleName();
+        if(         vcm_cn(TrialCTRL_CLASSNAME, clazName))
+        {   doMappingError(TrialCTRL_CLASSNAME); }
+        
         clazName =         NinjaCTRL.class.getSimpleName();
         if(         vcm_cn(NinjaCTRL_CLASSNAME, clazName))
         {   doMappingError(NinjaCTRL_CLASSNAME); }
@@ -232,6 +241,9 @@ public class ServletClassNames {
     private static void verifyCorrectMapping_MAPPING(){
         checkMapping(TokenCTRL_CLASSNAME,
                      TokenCTRL_MAPPING);
+        
+        checkMapping(TrialCTRL_CLASSNAME,
+                     TrialCTRL_MAPPING);
         
         checkMapping(NinjaCTRL_CLASSNAME,
                      NinjaCTRL_MAPPING);

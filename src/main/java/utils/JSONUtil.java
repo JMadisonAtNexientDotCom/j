@@ -16,6 +16,7 @@ import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.bases.BundleEntityBase;
 import test.dbDataAbstractions.entities.bases.CompositeEntityBase;
 import test.dbDataAbstractions.fracturedTypes.FracturedTypeBase;
+import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.PostResponseType;
 
 /**
  * Original use: Refactoring duplicate code that existed in both
@@ -60,6 +61,15 @@ public class JSONUtil {
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         return genericObjectToJSONResponse(ent);
+    }//FUNC::END
+    
+    public static Response postResponseToJSONResponse(PostResponseType prt){
+        if(null==prt){
+            doError("[Null arg given to postResponseToJSONResponse]");
+        }/////////////
+        
+        return genericObjectToJSONResponse(prt);
+        
     }//FUNC::END
     
     public static Response fracturedTypeToJSONResponse(FracturedTypeBase frac){

@@ -136,6 +136,10 @@ public class VarNameReg {
     public static final String TRU_MAX              = "tru_max";
     public static final String NUM_RESULTS_PER_PAGE = "num_results_per_page";
     public static final String PAGE_INDEX           = "page_index";
+    public static final String NINJA_NAME           = "ninja_name";
+    public static final String NINJA_ID_LIST        = "ninja_id_list";
+    public static final String TRIAL_KIND           = "trial_kind";
+    public static final String DURATION_IN_MINUTES  = "duration_in_minutes";
     //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
     //RRRRRRR--------------END------------------------------RRRRRRRRRRRRRRRRRRRR
     //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR

@@ -1,0 +1,2 @@
+Request types are for HTTP POST calls... Maybe should go somewhere else then?
+Maybe should be called "Post types"?

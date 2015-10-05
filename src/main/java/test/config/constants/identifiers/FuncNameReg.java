@@ -20,6 +20,9 @@ public class FuncNameReg {
     //    validate();
    // }////////////////
     
+    //TRIAL SERVICE:
+    public static final String DISPATCH_TOKENS="dispatch_tokens";
+    
     //ADMIN SERVICE:
     public static final String LOGIN_VALIDATE = "login_validate";
     public static final String LOGIN_AND_GET_TOKEN_FOR_SELF = "login_and_get_token_for_self";
