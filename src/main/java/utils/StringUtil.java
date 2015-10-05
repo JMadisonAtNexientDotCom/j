@@ -111,7 +111,7 @@ public class StringUtil {
                 //If this is the first newLine found, we want to
                 //check to make sure no newline is BEHIND US.
                 if(false == hasFoundNewLine){
-                   prvDex = curDex--;
+                   prvDex = curDex - 1; //BUG-FIX: make prv without change cur.
                    if(prvDex >= 0){
                        char characterBehindCurrent;
                        characterBehindCurrent = text.charAt(prvDex);
