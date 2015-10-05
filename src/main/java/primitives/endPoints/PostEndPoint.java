@@ -2,6 +2,7 @@ package primitives.endPoints;
 
 import test.MyError;
 import utils.JSONUtil;
+import utils.StringUtil;
 
 /**
  * An endpoint for HTTP_POST. Has information in it that will make it
@@ -22,6 +23,18 @@ public abstract class PostEndPoint extends EndPoint{
     abstract public String EMBED_REQUEST_SCHEMA(String embedIdentifierToUse);
     
     /**
+     * OVERLOADED METHOD: Allows you to specify the indentation level of the
+     * block of embedded code.
+     * @param embedIdentifierToUse :Identifier name used for javaSCRIPT
+     *                              variable name.
+     * @param indentationLevel     :How many tabs should be applied to properly
+     *                              indent this block?
+     * @return :Embedded schema instance with nice indentation.
+     */
+    abstract public String EMBED_REQUEST_SCHEMA
+                            (String embedIdentifierToUse, int indentationLevel);
+    
+    /**
      * Helper function that EMBED_REQUEST_SCHEMA will use.
      * @param clazz :Reference to class that takes ZERO PARAMETERS for
      *               constructor. Will make a new instance of object using this.
@@ -30,11 +43,13 @@ public abstract class PostEndPoint extends EndPoint{
      *                              the javascript file. Probably will want
      *                              this value to be something like:
      *                              "$scope.someVarName"
+     * @param indentationLevel: How many tabs should the embedded block
+     *                          of code be embedded?
      * @return :Serialized instance that can be directly embedded into
      *          javascript.
      */
     public static String embedEmptyClassInstanceInJavaScript
-                                     (Class clazz, String embedIdentifierToUse){
+               (Class clazz, String embedIdentifierToUse, int indentationLevel){
         Object inst = null;
         try{
            inst = clazz.newInstance(); 
@@ -50,21 +65,49 @@ public abstract class PostEndPoint extends EndPoint{
         if(null == inst){doError("[How did instance get null??]");}
         String serializedINST = JSONUtil.serializeObj_NoNULL(inst);
         
+        String indented_instance = "";
+        if(indentationLevel > 0){
+            indented_instance = indentBeginningOfLines
+                                             (serializedINST, indentationLevel);
+        }else{
+            indented_instance = serializedINST;
+        }//BLOCK::END
+        
         //Pack the serialized JSON instance into valid javascript,
         //With some helpful comments so we can identify it in the .JSP
         //page source: /////////////////////////////////////////////////////////
+        String ind = getIndents(indentationLevel);
         String nl = System.lineSeparator();
         String javascript = "";
-        javascript += "///// EMBEDDED REQUEST SCHEMA :: START /////" + nl;
-        javascript += embedIdentifierToUse + " = " + nl;
-        javascript += serializedINST + ";" + nl;
-        javascript += "///// EMBEDDED REQUEST SCHEMA :: END   /////"; //END
+        javascript += ind + "///// EMBEDDED REQUEST SCHEMA :: START /////" + nl;
+        javascript += ind + embedIdentifierToUse + " = " + nl;
+        javascript += indented_instance + ";" + nl;
+        javascript += ind + "///// EMBEDDED REQUEST SCHEMA :: END   /////"; 
         ////////////////////////////////////////////////////////////////////////
         
         //return the javascript with embedded schema:
         return javascript;
         
-    }//CLASS::END
+    }//FUNC::END
+           
+    /** Gets indents to be used in indenting a line of code. **/
+    public static String getIndents(int indentationLevel){
+        return StringUtil.getIndents(indentationLevel);
+    }//FUNC::END
+    
+    /**
+     * Used to indent a block of serialized text.
+     * Makes embedding a bit less ugly.
+     * @param text :The serialized text to indent.
+     * @param indentationLevel :The indentation level. (Number of tabs)
+     * @return :Text block but indented.
+     */
+    public static String indentBeginningOfLines
+                                            (String text, int indentationLevel){
+        return StringUtil.indentBeginningOfLines(text, indentationLevel);
+    }//FUNC::END
+    
+    
                                      
                                      
     /**-------------------------------------------------------------------------

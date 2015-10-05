@@ -49,7 +49,14 @@ public class NinjaIdList_TrialKind_DurationInMinutes_EndPoint extends PostEndPoi
     @Override
     public String EMBED_REQUEST_SCHEMA(String schemaVarName){
         String jText = PostEndPoint.embedEmptyClassInstanceInJavaScript
-                                                   (Edict.class, schemaVarName);
+                                                (Edict.class, schemaVarName, 0);
+        return jText;
+    }//FUNC::END
+    
+    @Override
+    public String EMBED_REQUEST_SCHEMA(String schemaVarName, int indentationLevel){
+        String jText = PostEndPoint.embedEmptyClassInstanceInJavaScript
+                                 (Edict.class, schemaVarName, indentationLevel);
         return jText;
     }//FUNC::END
     
