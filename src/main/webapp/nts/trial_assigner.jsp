@@ -118,18 +118,13 @@
                     <form name="userForm" novalidate
                     style="width: 95%; height:100%;" >
                       <div class="form-group" 
-                      data-ng-repeat="user in instancedJSON_01.users"
-                      data-ng-class="{ 'has-error' : userFieldForm.email.$invalid }" >
+                      data-ng-repeat="ticket in coffer.tickets" >
                         <!-- Repeats for each item in users collection       -->
                         <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
                         <data-ng-form name='userFieldForm'>
-                          <label>{{ user.name }}'s Email </label>
-                          <span data-ng-show='userFieldForm.email.$invalid' 
-                          style="color:#AA0000;" >
-                          IS INVALID!
-                          </span>
-                          <input class='form-control' name='email' ng-model='user.email' 
-                          required='' type='email'>
+                          <label>Ninja {{ ticket.ninja_name }}'s TOKEN: </label>
+                          <input class='form-control' name='token_entry' 
+                          ng-model='ticket.token_hash' required='' type='text'>
                           </input>
                         </data-ng-form>
                         <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
@@ -264,6 +259,9 @@
         //When response is given back, we can give the tokens!
         console.log("onPostResponse() was entered!");
         $scope.subpanel_phase = $scope.GIVE_NINJA_BOB_THIS_TOKEN;
+        $scope.coffer = response; //the ticket coffer given by server.
+        console.log("fist token in ticket coffer:" + $scope.coffer.tickets[0].token_hash);
+        $scope.$emit('content.changed'); //<-- to register scroll bar change.
         $scope.$apply();
         
       }//FUNC::END
