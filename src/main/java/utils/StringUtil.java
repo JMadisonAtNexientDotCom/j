@@ -178,8 +178,14 @@ public class StringUtil {
         //test isStartOfNewLineHere
         String sysNL = System.lineSeparator();
         String s01 = "ABC" + sysNL + "123";
-        if( isStartOfNewLineHere(s01, 3) < 3){
-           doError("UNIT TEST FAIL!");
+        int result;
+        result = isStartOfNewLineHere(s01,3);
+        if( result < 3){
+           String msg = "";
+           msg +="[UNIT TEST FAIL!]";
+           msg +="TEST STRING==[" + s01 + "]";
+           msg +="RESULT==[" + result + "]";
+           doError(msg);
         }//END
         
         return true;
