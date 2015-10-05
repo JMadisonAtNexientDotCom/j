@@ -38,11 +38,17 @@ public class StringUtil {
         
      
         int maxValidIndex = text.length() - 1; //max valid index of text.
-        boolean doIndent;
+        int lastIndexOfNewLine;
         for(int i = 0; i <= maxValidIndex; i++){
-            doIndent = (isStartOfNewLineHere(text, i) >= 0);
-            outText += (doIndent ? ind : "");
-            outText += String.valueOf( text.charAt(i) );
+            lastIndexOfNewLine = isStartOfNewLineHere(text,i);
+            if(lastIndexOfNewLine >= 0){
+                outText += System.lineSeparator();
+                outText += ind; //add indentation after the end of line.
+                i = lastIndexOfNewLine; //skip any of the characters of
+                                        //the newline sequence.
+            }else{
+                outText += String.valueOf( text.charAt(i) );
+            }//END
         }//NEXT i
         
         return outText;
