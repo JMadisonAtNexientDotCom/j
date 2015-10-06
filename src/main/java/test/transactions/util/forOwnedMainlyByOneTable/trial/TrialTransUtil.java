@@ -2,6 +2,7 @@ package test.transactions.util.forOwnedMainlyByOneTable.trial;
 
 import java.util.List;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.Coffer;
+import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.Ticket;
 
 /**
  * A utility concerned primarily with transactions involving the trial table.
@@ -32,6 +33,15 @@ public class TrialTransUtil {
         //STUB FOR NOW SO THAT WE CAN GO HOME AND LEAVE CODE BASE IN TACT:
         String msg ="[DispatchTokens is meerly a stub method for now]";
         Coffer op = Coffer.makeErrorCoffer(msg);
+        
+        //fill with more test data:
+        Ticket curTicket;
+        int len = 10;
+        for(int i = 0; i < len; i++){
+            curTicket = Ticket.makeErrorTicket("test #" + Integer.toString(i));
+            op.tickets.add( curTicket);
+        }//NEXT i
+        
         return op;
         
     }//FUNC::END
