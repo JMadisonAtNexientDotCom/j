@@ -20,7 +20,7 @@ package test.config.debug;
 public class DebugConfig {
     
     /** Have we built in debug mode? **/
-    public static final boolean isDebugBuild = false;
+    public static final boolean isDebugBuild = true;
     
     /**-------------------------------------------------------------------------
      *  Allows debug code to run that WILL break production.
