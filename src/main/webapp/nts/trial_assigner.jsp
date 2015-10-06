@@ -114,7 +114,7 @@
                 <!-- SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS[SCROLL::START]SSSS -->
                 <div id="my_scroll_bar" 
                 ng-scrollable="{scrollX:'none',scrollY:'right'}" 
-                style="width: 25%; height: 100px;background:#AA0000;">
+                style="width: 100%; height: 100%;background:#AA0000;">
                     <form name="userForm" novalidate
                     style="width: 95%; height:100%;" >
                       <div class="form-group" 
