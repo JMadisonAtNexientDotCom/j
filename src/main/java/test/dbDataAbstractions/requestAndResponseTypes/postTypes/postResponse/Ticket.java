@@ -2,6 +2,7 @@ package test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse;
 
 import test.config.constants.identifiers.VarNameReg;
 import annotations.Verbatim;
+import annotations.VerbatimValidatorUtil;
 import primitives.Flaggable;
 import primitives.TypeWithCommentBase;
 import test.config.constants.EntityErrorCodes;
@@ -20,6 +21,14 @@ import test.config.constants.EntityErrorCodes;
  * @author jmadison
  */
 public class Ticket extends TypeWithCommentBase{
+    
+    static{////////
+        doStaticInit();
+    }//////////////
+    
+    private static void doStaticInit(){
+        VerbatimValidatorUtil.validateAnnotatedFields(Ticket.class);
+    }//FUNC::END
     
     /** The HASH of the token that now belongs to the ninja.
      *  NOT THE ID!!!! The id's are for internal/back-end database use only. **/

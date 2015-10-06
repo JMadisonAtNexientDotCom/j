@@ -2,6 +2,7 @@
 package test.dbDataAbstractions.requestAndResponseTypes.postTypes.postRequest;
 
 import annotations.Verbatim;
+import annotations.VerbatimValidatorUtil;
 import java.util.ArrayList;
 import java.util.List;
 import test.config.constants.identifiers.VarNameReg;
@@ -19,6 +20,15 @@ import test.config.constants.identifiers.VarNameReg;
  * @author jmadison :2015.10.04
  */
 public class Edict extends PostRequestType {
+    
+    static{////////
+        doStaticInit();
+    }//////////////
+    
+    private static void doStaticInit(){
+        VerbatimValidatorUtil.validateAnnotatedFields(Edict.class);
+    }//FUNC::END
+    
     
     /** The id's of the ninjas we would like to create [trial/tests]
      *  for and dispatch tokens for. Tokens being used to access the

@@ -14,7 +14,26 @@ import java.lang.annotation.RetentionPolicy;
  * this "VarIdentifier" constraint applied to them so that we can assure
  * consistency amongst the variables used by the front end and back end.
  * 
- * @author jmadison
+ * How @Verbatim works: Short summary:
+ * /////////////////////////////////////////////////////////////////////////////
+ * //This will NOT crash:
+ * @Verbatim(name="norton")
+ * public long norton = 5242342;
+ * 
+ * //This WILL crash because of bad validation:
+ * @Verbatim(name="norton")
+ * public long willywonka = 5242342;
+ * 
+ * Why are we doing something like this?
+ * So that we can highly couple API calls in a way that allows
+ * us to give .JSP files "autocomplete" access to controller methods.
+ * In order to do things like this, we have to verify functions and variables
+ * are using the names we think they are. Else the auto-complete could
+ * lie to us.
+ * /////////////////////////////////////////////////////////////////////////////
+ * 
+ * @author jmadison :2015.??.??_????AMPM
+ * @author jmadison :2015.10.06_0321PM: --added more documentation.
  */
 
 @Documented //so that java doc is included.

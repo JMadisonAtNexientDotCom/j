@@ -2,6 +2,7 @@ package primitives.endPoints;
 
 import test.MyError;
 import utils.JSONUtil;
+import utils.ReflectionHelperUtil;
 import utils.StringUtil;
 
 /**
@@ -52,16 +53,8 @@ public abstract class PostEndPoint extends EndPoint{
      */
     public static String embedEmptyClassInstanceInJavaScript
                (Class clazz, String embedIdentifierToUse, int indentationLevel){
-        Object inst = null;
-        try{
-           inst = clazz.newInstance(); 
-        }catch(Exception exep){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            String msg = "";
-            msg += "[Unable to embed instance.]";
-            msg += "[Possibly this instance does not have...]";
-            msg += "[...a zero parameter constructor?]";
-            doError(msg);
-        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        Object inst;
+        inst = ReflectionHelperUtil.makeInstanceUsingClass(clazz);
         
         //Serialize the class instance:
         if(null == inst){doError("[How did instance get null??]");}

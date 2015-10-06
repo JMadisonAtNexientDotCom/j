@@ -13,6 +13,7 @@ import test.debug.debugUtils.entity.helpers.ErrorEntry;
 import test.debug.debugUtils.entity.helpers.ErrorEntry_CONSTVAL_CASE;
 import test.debug.debugUtils.entity.helpers.ErrorEntry_CONSTVAL_CHARS;
 import test.debug.debugUtils.entity.helpers.ErrorEntry_STATIC_COLUMN;
+import utils.ReflectionHelperUtil;
 
 /**-----------------------------------------------------------------------------
  * This is a utility used to enforce a convention of mine.
@@ -163,9 +164,7 @@ public class EntityColumnDebugUtil {
      *          That way you can access private fields.
      ------------------------------------------------------------------------**/
     private static List<Field> getFieldsOnClass(Class curClass){
-        Field[] fArr = curClass.getDeclaredFields();
-        List<Field> op = arrayToList_Field(fArr);
-        return op;
+        return ReflectionHelperUtil.getFieldsOnClass(curClass);
     }//FUNC::END
     
     /** Checks Field for @Column annotations. If exists. Makes sure ------------
@@ -409,17 +408,7 @@ public class EntityColumnDebugUtil {
      * Helper Function:Converts an array of fields into a LIST of fields. 
      * @param fArr :The array of Field(s) you want to convert to List. **/
     private static List<Field> arrayToList_Field(Field[] fArr){
-        
-        Field current_field;
-        ArrayList<Field> myList = new ArrayList<Field>();
-        
-        int len = fArr.length;
-        for(int i = 0; i < len; i++){
-            current_field = fArr[i];
-            myList.add(current_field);
-        }//NEXT i
-        
-        return myList;
+        return ReflectionHelperUtil.arrayToList_Field(fArr);
     }//FUNC::END
     
     /** If any errors were collected in our column naming conventions,----------
@@ -505,14 +494,7 @@ public class EntityColumnDebugUtil {
       
                                                            
     private static boolean getIsFieldStatic(Field f){
-       boolean result = false;     
-       //http://stackoverflow.com/questions/3422390/
-       //                     retrieve-only-static-fields-declared-in-java-class
-       if (java.lang.reflect.Modifier.isStatic(f.getModifiers())) {
-           result = true;
-       }//Modifier Logic.
-       
-       return result;
+       return ReflectionHelperUtil.getIsFieldStatic(f);
     }//FUNC::END
      
     /** Parse the name of the field and look for "_COLUMN" at the END

@@ -1,12 +1,15 @@
 package test.transactions.util.forOwnedMainlyByOneTable.ninja;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
+import primitives.RealAndFakeIDs;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
 import test.transactions.util.TransUtil;
 import test.MyError;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
+import utils.ListUtil;
 /**
  * Handles [transactions/operations] involving the ninja table.
  * AKA: Our table full of identification info for every ninja that
@@ -14,6 +17,35 @@ import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
  * @author jmadison
  */
 public class NinjaTransUtil {
+    
+    /**
+     * Sort unsanitized list with possible duplicate entries into two
+     * unique lists. One with VALID ids existing in the database. The other
+     * with INVALID ids that do not exist in the database.
+     * @inputIDs: Id's that may or may not exist within the ninja table.
+     * @return :Return what we just said!
+     */
+    public static RealAndFakeIDs sortNinjaIDS_IntoRealAndFake
+                                                     (List<Long> inputIDs){
+        List<Long> uniqueIDs = ListUtil.makeUnique(inputIDs);
+        
+        List<Long> fake = new ArrayList<Long>();
+        List<Long> real = TransUtil.returnExistingPrimaryKeys
+                            (NinjaTable.class, NinjaTable.ID_COLUMN, uniqueIDs);
+        Long curUnique;
+        int len = uniqueIDs.size();
+        for(int i = 0; i < len; i++){
+            curUnique = uniqueIDs.get(i);
+            if(real.indexOf(curUnique) <= (-1)){
+                fake.add(curUnique); //unique, but FAKE id.
+            }//unique add.
+        }//NEXT i
+        
+        //Pack our real IDs and fake IDs into output array:
+        RealAndFakeIDs op = RealAndFakeIDs.make(real,fake);
+        return op;
+        
+    }//FUNC::END
     
     /** Makes a new ninja [record/entry] in the ninja table.
      *  But it is up to other logic to populate the record

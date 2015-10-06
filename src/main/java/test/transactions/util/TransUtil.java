@@ -210,4 +210,10 @@ public class TransUtil {
             return i().getEntitiesUsingRange(tableClass,
                                          inclusiveIndexStart,inclusiveIndexEnd);
     }//WRAPPER::END
+    
+    public static List<Long> returnExistingPrimaryKeys
+             (Class tableClass, String columnName, List<Long> possiblyValidIDs){
+        return i().returnExistingPrimaryKeys
+             (      tableClass,        columnName,            possiblyValidIDs);
+    }//WRAPPER::END
 }//END::CLASS

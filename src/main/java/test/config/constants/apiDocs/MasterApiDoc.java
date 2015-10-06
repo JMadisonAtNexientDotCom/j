@@ -1,6 +1,7 @@
 package test.config.constants.apiDocs;
 
 import annotations.Verbatim;
+import annotations.VerbatimValidatorUtil;
 import frontEndBackEndIntegration.childComponents.ServiceURLRegistry;
 import primitives.endPoints.EndPoint;
 import test.MyError;
@@ -65,6 +66,14 @@ import test.servlets.rest.riddleRhyme.RiddleRhymeCTRL;
  * @author jmadison
  */
 public class MasterApiDoc {
+    
+    static{////////
+        doStaticInit();
+    }//////////////
+    
+    private static void doStaticInit(){
+        VerbatimValidatorUtil.validateAnnotatedFields(MasterApiDoc.class);
+    }//FUNC::END
     
     private static ServiceURLRegistry R = ServiceUrlsInitializer.
                                                         getServiceURLRegistry();

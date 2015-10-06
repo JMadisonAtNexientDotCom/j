@@ -5,12 +5,14 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.hibernate.Session;
 import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
 import test.dbDataAbstractions.entities.composites.Quar;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postRequest.Edict;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.Coffer;
 import test.debug.debugUtils.tempDataStore.TempServiceDataUtil;
+import test.transactions.util.TransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.trial.TrialTransUtil;
 import utils.JSONUtil;
 import utils.MapperUtil;
@@ -29,6 +31,9 @@ public class TrialCTRL extends BaseCTRL {
     @Path(FuncNameReg.DISPATCH_TOKENS)
     public Response dispatch_tokens(String jsonRequest){
         
+        //Enter transaction state:
+        Session ses = TransUtil.enterTransaction();
+        
         //Convert the request to JSON:
         Edict trialTokenDispatchEdict = 
                             MapperUtil.readAsObjectOf(Edict.class, jsonRequest);
@@ -38,6 +43,9 @@ public class TrialCTRL extends BaseCTRL {
                                    trialTokenDispatchEdict.ninja_id_list,
                                    trialTokenDispatchEdict.trial_kind,
                                    trialTokenDispatchEdict.duration_in_minutes);
+        
+        //Exit transaction state before returning data:
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_WITH_SAVE);
         
         //Send back a 200OK response with the data!
         return JSONUtil.postResponseToJSONResponse(tickets);

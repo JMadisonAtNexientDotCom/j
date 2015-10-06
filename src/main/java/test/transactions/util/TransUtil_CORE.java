@@ -709,6 +709,38 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         return op;
         
     }//FUNC::END
+          
+    /**
+     * Filters a list of inputted id's by which ones are VALID/EXIST.
+     * IDs that do not exist. (Or are marked as DELE==TRUE) Will NOT
+     * be filtered out of the results list. If all IDs do exist in database,
+     * the list returned will be IDENTICAL to the list inputted.
+     * DOES NOT CHECK FOR DUPLICATE ENTRIES!
+     * @param tableClass      :Table in database to check. 
+     *                         Represented by entity.
+     * @param columnName      :Name of column to read ID value from.
+     * @param possiblyValidIDs:A list of IDs. Whether they are real or fake.
+     *                         (valid or invalid) is unknown.
+     * @return :A list where all IDs exist present exist in the column 
+     *          specified.
+     */
+    public static List<Long> returnExistingPrimaryKeys
+             (Class tableClass, String columnName, List<Long> possiblyValidIDs){
+        
+        //Error check and create criteria object:
+        Session ses = TransUtil.getActiveTransactionSession();
+        Criteria cri = ses.createCriteria(tableClass);
+        
+        //Only select id's from column that are in inputted list:
+        cri.add( Restrictions.in(columnName, possiblyValidIDs));
+        
+        //Return only the IDS, not the entire entity:
+        cri.setProjection(Projections.property(columnName));
+        
+        //Do query and return results:
+        List<Long> op = cri.list();
+        return op;
+    }//WRAPPER::END
                      
     /**
      * Used for pagination of results:
