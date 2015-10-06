@@ -108,8 +108,14 @@
               color:#000000;
               width:100%; height:100%;"><!--555555555555555555555555555555555-->
                 
-                <h2>DONE!</h2>
+                <!-- [20][20][20][20][20][20][20][20][20][20][20][20][20][20]-->
+                <div style="width:100%; height:20%;">
+                  <h2>DONE!</h2>
+                </div>
+                <!-- [20][20][20][20][20][20][20][20][20][20][20][20][20][20]-->
                 
+                <!-- [80][80][80][80][80][80][80][80][80][80][80][80][80][80]-->
+                <div style="width:100%; height:80%;">
                 <!-- SCROLLING CONTENT! -->
                 <!-- SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS[SCROLL::START]SSSS -->
                 <div id="my_scroll_bar" 
@@ -132,6 +138,9 @@
                     </form>  <!-- userForm   -->
                 </div> <!-- my_scroll_bar -->
                 <!-- SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS[SCROLL::END]SSSS -->
+                </div>
+                <!-- [80][80][80][80][80][80][80][80][80][80][80][80][80][80]-->
+                
                 
               </div> <!--5555555555555555555555555555555555555555555555555555-->
             </div> <!--panel::THE RIGHT SIDE. END -->
