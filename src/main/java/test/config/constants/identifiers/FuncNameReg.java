@@ -22,6 +22,7 @@ public class FuncNameReg {
     
     //TRIAL SERVICE:
     public static final String DISPATCH_TOKENS="dispatch_tokens";
+    public static final String DISPATCH_TOKENS_DEBUG="dispatch_tokens_debug";
     
     //ADMIN SERVICE:
     public static final String LOGIN_VALIDATE = "login_validate";
