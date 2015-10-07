@@ -62,6 +62,8 @@ public class VerbatimValidatorUtil {
                 
                 if(verbatimName.equals(fieldName)){
                     String msg = "[@Verbatim failiure!]";
+                    msg += "verbatimName ==[" + verbatimName + "]";
+                    msg += "fieldName == [" + fieldName + "]";
                     msg += "[Field annotated with @Verbatim has failed]";
                     msg += "[To have an identifier value exactly equal to]";
                     msg += "[The @Verbatim(name='____') value.]";
