@@ -117,9 +117,9 @@ public class UniqueValueValidator {
                          (clazz, UniqueInstanceValue.class, GET_STATIC, IGNORE);
         
         //Ask for improperly configured fields:
-        //Asking for occurances of @UniqueInstanceValue on STATIC fields.
+        //Asking for occurances of @UniqueInstanceValue on INSTANCE fields.
         badInstanceFields = ReflectionHelperUtil.getFieldsWithAnnotation
-                       (clazz, UniqueInstanceValue.class, IGNORE, GET_INSTANCE);
+                       (clazz, UniqueStaticValue.class, IGNORE, GET_INSTANCE);
         
         int b0 = badStaticFields.size();
         int b1 = badInstanceFields.size();
