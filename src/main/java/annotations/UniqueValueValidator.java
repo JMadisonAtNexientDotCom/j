@@ -21,6 +21,12 @@ public class UniqueValueValidator {
     private static final boolean GET_INSTANCE = true;
     
     /**For readability **/
+    private static final boolean STATIC_TRUE = true;
+    
+    /**For readability **/
+    private static final boolean STATIC_FALSE = false;
+    
+    /**For readability **/
     private static final boolean IGNORE = false;
     
     /**
@@ -41,7 +47,7 @@ public class UniqueValueValidator {
         //Supply TRUE, because the fields are static:
         //Give null, because static fields do not require an instance
         //to fetch values from it.
-        validateLongs_InstanceAndStaticCommonCode(fields,false,null);
+        validateLongs_InstanceAndStaticCommonCode(fields,STATIC_TRUE,null);
         
     }//FUNC::END
     
@@ -62,7 +68,7 @@ public class UniqueValueValidator {
         Object inst = ReflectionHelperUtil.makeInstanceUsingClass(clazz);
         
         //Supply false, because the fields are NON-STATIC:
-        validateLongs_InstanceAndStaticCommonCode(fields,false,inst);
+        validateLongs_InstanceAndStaticCommonCode(fields,STATIC_FALSE,inst);
         
         
     }//FUNC::END
