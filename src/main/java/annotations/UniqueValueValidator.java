@@ -137,8 +137,8 @@ public class UniqueValueValidator {
             
             if(b1 > 0){
                 msg += "[INSTANCE FIELDS WITH ERRORS :: START]";
-                for(Field bs : badStaticFields){
-                    msg += "INSTANCE field:[" + bs.getName() + "]";
+                for(Field bi : badInstanceFields){
+                    msg += "INSTANCE field:[" + bi.getName() + "]";
                 }//next field.
                 msg += "[INSTANCE FIELDS WITH ERRORS :: END]";
             }//BAD INSTANCE END.
