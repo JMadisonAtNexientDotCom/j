@@ -40,5 +40,14 @@ import java.lang.annotation.RetentionPolicy;
 @Inherited //so that annotation is inherited if we extend class using it.
 @Retention(RetentionPolicy.RUNTIME) //So can be inspected using reflection.
 public @interface Verbatim {
+    
+    /** Name modifier that will convert constant to all upper cased letters **/
+    public static final String UPPER_CASE = "upper_case";
+    
+    /** Do not modify. Keep as is. **/
+    public static final String AS_IS      = "as_is";
+    
     public String   name();
+    public String   nameMod() default AS_IS; //<--Modifies the constant expression we
+                                    //   are matching against.
 }//ANNOTATION::END

@@ -60,7 +60,18 @@ public class VerbatimValidatorUtil {
                 String verbatimName = ver.name();
                 String fieldName    = f.getName();
                 
-                if(false == verbatimName.equals(fieldName)){
+                boolean isEquivalent = false;
+                if(ver.nameMod().equals(Verbatim.UPPER_CASE)){
+                    String verbatimNameAsUpperCase = verbatimName.toUpperCase();
+                    isEquivalent = verbatimNameAsUpperCase.equals(fieldName);
+                }else
+                if(ver.nameMod().equals(Verbatim.AS_IS)){
+                    isEquivalent = verbatimName.equals(fieldName);
+                }else{
+                    doError("annotation modifier not supported for verbatim");
+                }//BLOCK::END
+                
+                if(false == isEquivalent){
                     String cName = clazz.getCanonicalName();
                     String msg = "[@Verbatim failiure!]";
                     msg += "CLASS THAT FAILED:[" + cName +"]";

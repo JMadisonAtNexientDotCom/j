@@ -79,11 +79,11 @@ public class MasterApiDoc {
                                                         getServiceURLRegistry();
     
     //TRIAL SERVICE:
-    @Verbatim(name=FuncNameReg.DISPATCH_TOKENS)
+    @Verbatim(name=FuncNameReg.DISPATCH_TOKENS, nameMod=Verbatim.UPPER_CASE) 
     public NinjaIdList_TrialKind_DurationInMinutes_EndPoint DISPATCH_TOKENS = new NinjaIdList_TrialKind_DurationInMinutes_EndPoint();
     
     //ADMIN SERVICE:
-    @Verbatim(name=FuncNameReg.LOGIN_VALIDATE)
+    @Verbatim(name=FuncNameReg.LOGIN_VALIDATE, nameMod=Verbatim.UPPER_CASE)
     public UserName_PassWord_EndPoint LOGIN_VALIDATE = new UserName_PassWord_EndPoint();
     
     @Verbatim(name=FuncNameReg.LOGIN_AND_GET_TOKEN_FOR_SELF)
