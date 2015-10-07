@@ -86,77 +86,77 @@ public class MasterApiDoc {
     @Verbatim(name=FuncNameReg.LOGIN_VALIDATE, nameMod=Verbatim.UPPER_CASE)
     public UserName_PassWord_EndPoint LOGIN_VALIDATE = new UserName_PassWord_EndPoint();
     
-    @Verbatim(name=FuncNameReg.LOGIN_AND_GET_TOKEN_FOR_SELF)
+    @Verbatim(name=FuncNameReg.LOGIN_AND_GET_TOKEN_FOR_SELF, nameMod=Verbatim.UPPER_CASE)
     public UserName_PassWord_EndPoint LOGIN_AND_GET_TOKEN_FOR_SELF = new UserName_PassWord_EndPoint();
     
     //NINJA SERVICE
-    @Verbatim(name=FuncNameReg.MAKE_NINJA_RECORD)
+    @Verbatim(name=FuncNameReg.MAKE_NINJA_RECORD, nameMod=Verbatim.UPPER_CASE)
     public Name_Phone_Email_PortfolioUrl_EndPoint MAKE_NINJA_RECORD = new Name_Phone_Email_PortfolioUrl_EndPoint();
     
-    @Verbatim(name=FuncNameReg.GET_NINJA_BY_ID)
+    @Verbatim(name=FuncNameReg.GET_NINJA_BY_ID, nameMod=Verbatim.UPPER_CASE)
     public Id_EndPoint   GET_NINJA_BY_ID  = new Id_EndPoint();
     
-    @Verbatim(name=FuncNameReg.GET_NEXT_NINJA)
+    @Verbatim(name=FuncNameReg.GET_NEXT_NINJA, nameMod=Verbatim.UPPER_CASE)
     public Void_EndPoint GET_NEXT_NINJA = new Void_EndPoint();
     
-    @Verbatim(name=FuncNameReg.GET_PAGE_OF_NINJAS)
+    @Verbatim(name=FuncNameReg.GET_PAGE_OF_NINJAS, nameMod=Verbatim.UPPER_CASE)
     public PageIndex_NumResultsPerPage_EndPoint GET_PAGE_OF_NINJAS = new PageIndex_NumResultsPerPage_EndPoint();
     
     //OWNER SERVICE:
-    @Verbatim(name=FuncNameReg.MAKE_ENTRY_USING_NINJA)
+    @Verbatim(name=FuncNameReg.MAKE_ENTRY_USING_NINJA, nameMod=Verbatim.UPPER_CASE)
     public TokenId_NinjaId_EndPoint MAKE_ENTRY_USING_NINJA = new TokenId_NinjaId_EndPoint();
     
-    @Verbatim(name=FuncNameReg.MAKE_ENTRY_USING_ADMIN)
+    @Verbatim(name=FuncNameReg.MAKE_ENTRY_USING_ADMIN, nameMod=Verbatim.UPPER_CASE)
     public TokenId_AdminId_EndPoint MAKE_ENTRY_USING_ADMIN = new TokenId_AdminId_EndPoint();
     
-    @Verbatim(name=FuncNameReg.MAKE_ENTRY_USING_RANDOM)
+    @Verbatim(name=FuncNameReg.MAKE_ENTRY_USING_RANDOM, nameMod=Verbatim.UPPER_CASE)
     public TokenId_EndPoint    MAKE_ENTRY_USING_RANDOM= new TokenId_EndPoint();
    
-    @Verbatim(name=FuncNameReg.IS_TOKEN_ID_OWNED)
+    @Verbatim(name=FuncNameReg.IS_TOKEN_ID_OWNED, nameMod=Verbatim.UPPER_CASE)
     public TokenId_EndPoint    IS_TOKEN_ID_OWNED  = new TokenId_EndPoint();
     
     @Verbatim(name=FuncNameReg.IS_TOKEN_HASH_OWNED_BY_ADMIN)
     public TokenId_EndPoint    IS_TOKEN_HASH_OWNED_BY_ADMIN  = new TokenId_EndPoint();
     
-    @Verbatim(name=FuncNameReg.IS_TOKEN_HASH_OWNED_BY_NINJA)
+    @Verbatim(name=FuncNameReg.IS_TOKEN_HASH_OWNED_BY_NINJA, nameMod=Verbatim.UPPER_CASE)
     public TokenId_EndPoint    IS_TOKEN_HASH_OWNED_BY_NINJA  = new TokenId_EndPoint();
     
-    @Verbatim(name=FuncNameReg.GET_TOKEN_OWNER)
+    @Verbatim(name=FuncNameReg.GET_TOKEN_OWNER, nameMod=Verbatim.UPPER_CASE)
     public TokenId_EndPoint    GET_TOKEN_OWNER        = new TokenId_EndPoint();
 
     //TOKEN SERVICE:
-    @Verbatim(name=FuncNameReg.GET_NEXT_TOKEN)
+    @Verbatim(name=FuncNameReg.GET_NEXT_TOKEN, nameMod=Verbatim.UPPER_CASE)
     public Void_EndPoint       GET_NEXT_TOKEN = new Void_EndPoint();
     
     //RIDDLE-RHYME SERVICE:
-    @Verbatim(name=FuncNameReg.GET_IS_CORRECT)
+    @Verbatim(name=FuncNameReg.GET_IS_CORRECT, nameMod=Verbatim.UPPER_CASE)
     public RiddleId_RhymeId_EndPoint GET_IS_CORRECT          = new RiddleId_RhymeId_EndPoint();
     
-    @Verbatim(name=FuncNameReg.GRADE_ONE_BLANK_SLATE)
+    @Verbatim(name=FuncNameReg.GRADE_ONE_BLANK_SLATE, nameMod=Verbatim.UPPER_CASE)
     public HttpPost_EndPoint GRADE_ONE_BLANK_SLATE           = new HttpPost_EndPoint();
     
-    @Verbatim(name=FuncNameReg.GET_FILLED_OUT_TEST_SLATE_TRUTH)
+    @Verbatim(name=FuncNameReg.GET_FILLED_OUT_TEST_SLATE_TRUTH, nameMod=Verbatim.UPPER_CASE)
     public RiddleId_EndPoint GET_FILLED_OUT_TEST_SLATE_TRUTH = new RiddleId_EndPoint();
     
-    @Verbatim(name=FuncNameReg.GET_FILLED_OUT_TEST_SLATE_WRONG)
+    @Verbatim(name=FuncNameReg.GET_FILLED_OUT_TEST_SLATE_WRONG, nameMod=Verbatim.UPPER_CASE)
     public RiddleId_EndPoint GET_FILLED_OUT_TEST_SLATE_WRONG = new RiddleId_EndPoint();
     
-    @Verbatim(name=FuncNameReg.GET_ONE_BLANK_SLATE)
+    @Verbatim(name=FuncNameReg.GET_ONE_BLANK_SLATE, nameMod=Verbatim.UPPER_CASE)
     public RiddleId_EndPoint GET_ONE_BLANK_SLATE             = new RiddleId_EndPoint();
     
-    @Verbatim(name=FuncNameReg.GET_ONE_RANDOM_RIDDLE)
+    @Verbatim(name=FuncNameReg.GET_ONE_RANDOM_RIDDLE, nameMod=Verbatim.UPPER_CASE)
     public Void_EndPoint     GET_ONE_RANDOM_RIDDLE           = new Void_EndPoint();
     
-    @Verbatim(name=FuncNameReg.MAKE_FILLED_OUT_CUE_CARD)
+    @Verbatim(name=FuncNameReg.MAKE_FILLED_OUT_CUE_CARD, nameMod=Verbatim.UPPER_CASE)
     public RiddleId_NumberOfChoices_NumberOfTruths_EndPoint MAKE_FILLED_OUT_CUE_CARD = new RiddleId_NumberOfChoices_NumberOfTruths_EndPoint();
     
-    @Verbatim(name=FuncNameReg.GET_RANDOM_TRIVIA_BUNDLE)
+    @Verbatim(name=FuncNameReg.GET_RANDOM_TRIVIA_BUNDLE, nameMod=Verbatim.UPPER_CASE)
     public CardCount_NumQuips_TruMin_TruMax_EndPoint GET_RANDOM_TRIVIA_BUNDLE = new CardCount_NumQuips_TruMin_TruMax_EndPoint();
     
-    @Verbatim(name=FuncNameReg.POST_QUAR_FOR_GRADING)
+    @Verbatim(name=FuncNameReg.POST_QUAR_FOR_GRADING, nameMod=Verbatim.UPPER_CASE)
     public HttpPost_EndPoint POST_QUAR_FOR_GRADING           = new HttpPost_EndPoint();
     
-    @Verbatim(name=FuncNameReg.GET_LAST_POSTED_QUAR)
+    @Verbatim(name=FuncNameReg.GET_LAST_POSTED_QUAR, nameMod=Verbatim.UPPER_CASE)
     public Void_EndPoint     GET_LAST_POSTED_QUAR            = new Void_EndPoint();
     
     /** current servlet name being used in the 
