@@ -74,8 +74,9 @@ public class TrialCTRL extends BaseCTRL {
                                    trialTokenDispatchEdict.trial_kind,
                                    trialTokenDispatchEdict.duration_in_minutes);
         
+        //EXIT WITHOUT SAVE BECAUSE WE ARE STILL TESTING.
         //Exit transaction state before returning data:
-        TransUtil.exitTransaction(ses, TransUtil.EXIT_WITH_SAVE);
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
         
         //Send back a 200OK response with the data!
         return JSONUtil.postResponseToJSONResponse(tickets);
