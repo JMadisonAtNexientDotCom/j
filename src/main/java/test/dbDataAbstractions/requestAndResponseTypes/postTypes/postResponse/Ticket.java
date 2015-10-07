@@ -62,4 +62,17 @@ public class Ticket extends TypeWithCommentBase{
         return op;
     }//FUNC::END
     
+    /** An INVALID ticket that is NOT an error. Used as placeholder
+     *  while developing code so nothing is left broken.
+     * @param msg :Message to use to create stub.
+     * @return :A placeholder stub.
+     */
+    public static Ticket makeStubTicket(String msg){
+        Ticket op    = new Ticket();
+        op.comment   = "STUB/TEMP:[" + msg + "]";
+        op.isError   = false; //<-- not valid. But not an error.
+        op.errorCode = EntityErrorCodes.NONE_SET;
+        return op;
+    }//FUNC::END
+    
 }//CLASS::END
