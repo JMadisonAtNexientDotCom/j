@@ -60,7 +60,7 @@ public class VerbatimValidatorUtil {
                 String verbatimName = ver.name();
                 String fieldName    = f.getName();
                 
-                if(verbatimName.equals(fieldName)){
+                if(false == verbatimName.equals(fieldName)){
                     String msg = "[@Verbatim failiure!]";
                     msg += "verbatimName ==[" + verbatimName + "]";
                     msg += "fieldName == [" + fieldName + "]";
