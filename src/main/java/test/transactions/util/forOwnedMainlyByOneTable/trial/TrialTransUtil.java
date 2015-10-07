@@ -1,10 +1,15 @@
 package test.transactions.util.forOwnedMainlyByOneTable.trial;
 
 import java.util.List;
+import org.hibernate.Session;
 import primitives.RealAndFakeIDs;
+import test.config.constants.signatures.paramVals.TRIAL_STATUS_ENUMS;
+import test.dbDataAbstractions.entities.tables.TrialTable;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.Coffer;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.Ticket;
+import test.transactions.util.TransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
+import test.transactions.util.forOwnedMainlyByOneTable.session.SessionTransUtil;
 
 /**
  * A utility concerned primarily with transactions involving the trial table.
@@ -142,12 +147,82 @@ public class TrialTransUtil {
      * Regardless, will return amount of time remaining for
      * the test it is associated with.
      * WILL THROW ERROR IF TOKEN IS NOT ASSOCIATED WITH ANY TRIAL.
+     * WILL NOT-RE-ACTIVATE an EXPIRED token.
      * @return :Amount of time remaining in milliseconds for trial
      *          associated with inputted token_id.
      */
     public static long activateTrialTokenIfNot(long token_id){
         
-        int statusCode = getTrialTokenStatusCode
+        TrialTable tt = getTrialUsingTokenID(token_id);
+        long status = tt.getStatus();
+        
+        if(0 == status){
+            String msg = "[Error: ZERO IS BAD.]"
+            msg += "[Lazy fetch error or forgot to init as created]";
+            doError(msg);
+        }else
+        if(status < 0){
+            doError("[How did you get NEGATIVE status code??]");
+        }//BLOCK END.
+        
+        if(status == TRIAL_STATUS_ENUMS.CREATED_ ||
+           status == TRIAL_STATUS_ENUMS.KNOWNOF_  ){
+           activateTrialUsingEntity(tt);
+        }//CONFIRM THE TOKEN IF IN ONE OF THE STATES COVERED ABOVE ^^
+         
+    }//FUNC::END
+    
+    /**
+     * Puts token associated with Trial(test) record into the session table.
+     * And flags the Trial as in progress.
+     * Once this is done, the Ninja with the Trial Token will be able to
+     * gain access to the Trial area and begin the battle of wits.
+     * @param tt :The TrialTable instance.
+     * @param allowReActivation: If true, re-activation is NOT an error.
+     * @return :How much allotted time is remaining for this Trial.
+     */
+    public static long activateTrialUsingEntity
+                                     (TrialTable tt, boolean allowReActivation){
+        
+        TransUtil.insideTransactionCheck();
+        Session ses = TransUtil.getActiveTransactionSession();
+        long status;
+        
+        if(false == allowReActivation){
+            status = tt.getStatus();
+            if(TRIAL_STATUS_ENUMS.isPossibleToReActivateFromThisStatus(status)){
+                String msg = "[Attempt to re-activate token..]";
+                msg += "[Without use of allowReActivation flag.]";
+                doError(msg);
+            }//RE-ACTIVATION ERROR?
+        }//RE-ACTIVATION not allowed?
+                         
+        //Set status of test to inprogress.-------------------------------------
+        //Also set the time at which token was activated.-----------------------
+        //----------------------------------------------------------------------
+        //you need to get session object and SAVE in order to gaurantee---------
+        //that the information is persisted.------------------------------------
+        status = TRIAL_STATUS_ENUMS.PROGRESS_; //now in progress.
+        tt.setStatus(status);
+        long curTimeMs = System.currentTimeMillis();
+        tt.setBegan_on( curTimeMs );
+        tt.setEnded_on( curTimeMs ); //<--Better than zero.
+        long allotted = tt.getAllotted();
+        if(allotted <= 0){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            doError("[Allotted time should be positive milliseconds!]");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        ses.save(tt);
+        
+        //Now that Trial is activated, we need to put the token into the
+        //Session table. If trying to re-activate a session that is ACTIVELY
+        //Owned by ADMIN, we will have a fatal error.
+        long tokenID = tt.getToken_id();
+        if(tokenID <= 0){doError("[Possible lazy fetch error]");}
+        OwnerSessionTransUtil.makeOrReActivateSessionByTokenID_NINJA
+                                                             (tokenID,allotted);
+        
+        //Return the alloted time for the trial:
+        return allotted;
         
     }//FUNC::END
     

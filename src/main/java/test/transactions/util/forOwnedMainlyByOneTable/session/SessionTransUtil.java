@@ -2,6 +2,7 @@ package test.transactions.util.forOwnedMainlyByOneTable.session;
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import primitives.StringWithComment;
 import test.MyError;
@@ -9,12 +10,14 @@ import test.config.constants.EntityErrorCodes;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.AdminTable;
+import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.dbDataAbstractions.entities.tables.SessionTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.admin.AdminTransUtil;
 import test.transactions.util.forNoClearTableOwner.AdminTokenTransUtil;
 import test.transactions.util.forNoClearTableOwner.OwnerTokenTransUtil;
+import test.transactions.util.forOwnedMainlyByOneTable.owner.OwnerTransUtil;
 
 /**##########################CLASS HEADER FILE##################################
 //WHAT THIS CLASS DOES:
@@ -40,6 +43,85 @@ import test.transactions.util.forNoClearTableOwner.OwnerTokenTransUtil;
 ########10########20########30########40########50########60########70########*/
 //-------0---------0---------0---------0---------0---------0---------0---------0
 public class SessionTransUtil {
+    
+    //DESIGN NOTE: As convoluted as names like SessionOwnerUtil are...
+    //             I've decided it is better than making utility
+    //             functions within a SINGLE TABLE utility that operate
+    //             on TWO OR MORE tables. It just gets super confusing!!
+    
+    ///** for readability. **/
+    //private static boolean TRUE_MEANS_ADMIN  = true;
+    ///** for readability. **/
+    //private static boolean FALSE_MEANS_NINJA = false;
+    ///**
+    // * Activates or Re-Activates session for NINJA.
+    // * Will throw error if ADMIN holds ACTIVE session with tokenID.
+    // * @param tokenID :The tokenID to bind to session.
+    // * @param allotted:The allotted time in milliseconds that the session
+    // *                 will last.
+    // */
+    //public static void makeOrReActivateSessionByTokenID_NINJA
+    //                                              (long tokenID, long allotted){
+    //    //Do for NINJA:
+    //    makeOrReActivateSessionByTokenID_COMMON
+    //                                     (tokenID, allotted, FALSE_MEANS_NINJA);
+    //}//FUNC::END
+          
+    ///**
+    // * Activates or Re-Activates session for ADMIN.
+    // * Will throw error if NINJA holds ACTIVE session with tokenID.
+    // * @param tokenID :The tokenID to bind to session.
+    // * @param allotted:The allotted time in milliseconds that the session
+    // *                 will last.
+    // */
+    //public static void makeOrReActivateSessionByTokenID_ADMIN
+    //                                              (long tokenID, long allotted){
+    //    //Do for ADMIN:
+    //    makeOrReActivateSessionByTokenID_COMMON
+    //                                      (tokenID, allotted, TRUE_MEANS_ADMIN);
+    //}//FUNC::END
+      
+    /**
+     * @param tokenID :TokenID to bind to this session?
+     * @param allotted:How long should the session last in milliseconds?
+     */
+    public static void makeOrReActivateSessionByTokenID
+                                                 (long token_id, long allotted){
+                                                      
+        TransUtil.insideTransactionCheck();
+        Session ses = TransUtil.getActiveTransactionSession();
+        
+        //NOTE: I think the is_active column of session table was a MISTAKE.
+        //It just creates more work. Non-active sessions should not exist...
+        //I guess one de-activate session in the session table for a user...
+        //And no active sessions does NOT violate my ONE ENTRY policy for
+        //the session table. (A user cannot have multiple sessions in the table)
+        //Lets keep the is_active column. But enforce the rule of there can only
+        //be ONE session for a user. Active or inactive.
+        
+        BaseEntityContainer bec;
+        bec = TransUtil.getEntityFromTableUsingLong
+                   (SessionTable.class, SessionTable.TOKEN_ID_COLUMN, token_id);
+        
+        SessionTable st;
+        if(bec.exists){
+            st = (SessionTable)bec.entity;
+        }else{
+            st = new SessionTable();
+            ses.save(st); //<--force eager fetch.
+        }//
+        
+        reActivateSessionEntity(st, allotted);
+                      
+    }//FUNC::END
+                                                 
+    public static void reActivateSessionEntity(SessionTable st, long allotted){  
+        Session ses = TransUtil.getActiveTransactionSession();
+        st.setDuration(allotted);
+        st.setIs_active(true);
+        st.setOpened_on(System.currentTimeMillis());
+        ses.save(st); //persist change.
+    }//FUNC::END
     
     /**
      * Wrapper for killSessionsOfAdmin,
@@ -314,6 +396,124 @@ public class SessionTransUtil {
         
     }//FUNC::END
     
+    /**
+     * Returns TRUE if active session of token_id found in session table.
+     * @param token_id :The token_id to match for.
+     * @param searchForAdminSession :Match session for ADMIN.
+     * @param searchForNinjaSession :Match session for NINJA.
+     * @return :Returns TRUE if the type of user searched for has a session
+     *          registered with that token ID.
+     *          Will error if:
+     *          1. No user type specified.
+     *          2. Ninja & Admin found registered to same token!
+     */
+    public static boolean getIsSessionActiveByTokenID(long token_id, 
+                  boolean searchForAdminSession, boolean searchForNinjaSession){
+        
+        //Results of function.
+        //Was active session for user type we were searching for found?
+        boolean found = false;
+        
+        if(false==(searchForAdminSession || searchForNinjaSession)){
+            doError("[must search for at least one user type!]");
+        }//Error check.
+        
+        //BaseEntityContainer bec;
+        //xxx bec = TransUtil.getEntityFromTableUsingLong
+        //xxx           (SessionTable.class, SessionTable.TOKEN_ID_COLUMN, token_id);
+        BaseEntityContainer bec;
+        bec = returnSessionIfExistsAndIsActive(token_id);
+        
+        
+        if(false == bec.exists)
+        {   //Doesn't exist at all, so no user could possibly have it:
+            return false;
+        }else
+        if(true == bec.exists){ //<--Active session found.
+            SessionTable st = (SessionTable)bec.entity;
+            BaseEntityContainer ownerContainer;
+            ownerContainer = OwnerTransUtil.getTokenOwner(token_id);
+            
+            //This is problem. It means the token is in the session table,
+            //Yet it has no owner.
+            if(false == ownerContainer.exists){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                String msg = "[An owner-less session was found.]";
+                msg+="[Possible concurrency issue?]";
+                msg+="[OR!]";
+                msg+="[You could have failed to do proper clean up when]";
+                msg+="[You expired a session.]";
+                msg+="[You may have made the user forfiet ownership of the]";
+                msg+="[Session token without removing it from the table.]";
+                msg+="[AKA: You cleared entry from OWNER table.]";
+                msg+="[But forgot to remove from SESSION table.]";
+                doError(msg);
+            }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            
+            OwnerTable ot = (OwnerTable)ownerContainer.entity;
+            long admin_id = ot.getAdmin_id();
+            long ninja_id = ot.getNinja_id();
+            if(admin_id > 0 && ninja_id > 0){
+                String msg = "[Both admin and ninja cannot own]";
+                msg += "[same OwnerTable record. It would mean]";
+                msg += "[that they claim duel ownership of a token.]";
+                msg += "[which is NOT allowed.]";
+                doError(msg);
+            }else{
+                if(admin_id <= 0 && ninja_id <= 0){
+                    String msg = "[No one owns this token!]";
+                    msg += "[Ownerless tokens not allowed in owner table.]";
+                }else
+                if(admin_id > 0 && searchForAdminSession){
+                    found = true;
+                }else
+                if(ninja_id > 0 && searchForNinjaSession){
+                    found = true;
+                }//BLOCK::END
+            }//BLOCK::END
+        }else{
+            throw new Error("This should be a line of dead code.");
+        }/////
+        
+        return found;
+        
+    }//FUNC::END
+    
+    /** If the an ACTIVE session exists with the token_id specified,
+     *  will return a non-empty BaseEntityContainer with the SessionTable
+     *  entity instance inside of it.
+     * @param token_id :The token_id of the session we are looking for.
+     * @return :See above description.
+     */
+    private static BaseEntityContainer returnSessionIfExistsAndIsActive
+                                                                (long token_id){
+        TransUtil.insideTransactionCheck();
+        Session ses = TransUtil.getActiveTransactionSession();
+        
+        //output variable:
+        BaseEntityContainer op = null;
+        
+        List<BaseEntity> listOfOne;
+        listOfOne = TransUtil.getEntitiesUsingLong
+                   (SessionTable.class, SessionTable.TOKEN_ID_COLUMN, token_id);
+        
+        int len = listOfOne.size();
+        if(len >1){
+            String msg = "more than one session found with";
+            msg += "this token_id. If sessions are NOT active, you";
+            msg += "should mark them as DELE";
+            doError(msg);
+        }else
+        if(1==len){
+            op = BaseEntityContainer.make(listOfOne.get(0));
+        }else{
+            op = BaseEntityContainer.make_NullAllowed(null);
+        }//BLOCK::END
+        
+        if(null==op){doError("[container should never be null]");}
+        return op;
+        
+    }//FUNC::END
+                                                                
     /**-------------------------------------------------------------------------
     -*- Wrapper function to throw errors from this class.   --------------------
     -*- @param msg :Specific error message.                 --------------------

@@ -4,6 +4,7 @@ import annotations.UniqueInstanceValue;
 import annotations.UniqueStaticValue;
 import annotations.UniqueValueValidator;
 import annotations.VerbatimValidatorUtil;
+import test.MyError;
 
 /**
  * Design note: There are static and instance versions of these variables
@@ -110,5 +111,50 @@ public class TRIAL_STATUS_ENUMS {
     public final int EXPIRED_COMPROMISED = 
                                         TRIAL_STATUS_ENUMS.EXPIRED_COMPROMISED_;
     
+    /*--------------------------------------------------------------------------
+    ** Would activating a trial with this status count as RE-activating?
+    ** @param inStatus :One of the status enums.
+    ** @Returns: Returns TRUE if the act of ACTIVATING a trial
+    **           with this status code would be considered
+    **           RE-Activation.
+    -*-----------------------------------------------------------------------**/
+    public static boolean isPossibleToReActivateFromThisStatus(long inStatus){
+    
+        if(inStatus <= 0){ doError("[invalid enum state!!]");}
+        
+        //Trial has just been created.
+        if(CREATED_  == inStatus){ return false;}
+        
+        //Some Ninja out there knows of this trial token's existance.
+        if(KNOWNOF_  == inStatus){ return false;}
+        
+        //Identity confirmed, but test not started yet:
+        if(CONFIRMED_==inStatus) { return false;}
+        
+        ////////////////////////////////////////////////////////////////////////
+        //Counts as re-activation below:RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+        if(PROGRESS_           == inStatus){ return true;}
+        if(EXPIRED_TIME_OUT_   == inStatus){ return true;}
+        if(EXPIRED_COMPLETED_  == inStatus){ return true;}
+        if(EXPIRED_COMPROMISED_== inStatus){ return true;}
+        
+        //If we get to here, it means that we have an unaccounted for enum:
+        doError("[Unaccounted for Trial Status Enum!]");
+        return false;
+        
+    }//FUNC::END
+    
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = TRIAL_STATUS_ENUMS.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
+    }//FUNC::END
     
 }//CLASS::END

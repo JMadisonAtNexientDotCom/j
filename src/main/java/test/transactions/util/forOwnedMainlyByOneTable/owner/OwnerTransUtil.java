@@ -334,6 +334,8 @@ public class OwnerTransUtil {
      * @param token_id : id of token we want to find ownership of.
      * @return :Returns a container. If has owner, the container
      *          will contain the entity that owns this token.
+     * 
+     *          RETURNS OWNER table instance. NOT ninja or admin.
      */
     public static BaseEntityContainer getTokenOwner(long token_id){
         BaseEntityContainer bec;
