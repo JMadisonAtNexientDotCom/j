@@ -61,7 +61,9 @@ public class VerbatimValidatorUtil {
                 String fieldName    = f.getName();
                 
                 if(false == verbatimName.equals(fieldName)){
+                    String cName = clazz.getCanonicalName();
                     String msg = "[@Verbatim failiure!]";
+                    msg += "CLASS THAT FAILED:[" + cName +"]";
                     msg += "verbatimName ==[" + verbatimName + "]";
                     msg += "fieldName == [" + fieldName + "]";
                     msg += "[Field annotated with @Verbatim has failed]";
