@@ -115,7 +115,7 @@ public class NinjaCTRL extends BaseCTRL {
             badInputErrorPageResults.setErrorCode
                                       (EntityErrorCodes.GARBAGE_IN_GARBAGE_OUT);
             //Exit transaction state before returning the error:
-            TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+            doExit_getPageOfNinjas(ses, TransUtil.EXIT_NO_SAVING);
             return JSONUtil.compositeEntityToJSONResponse
                                                      (badInputErrorPageResults);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
@@ -133,15 +133,17 @@ public class NinjaCTRL extends BaseCTRL {
         int delta = endIndex - startIndex + 1;
         if(delta <= 0){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             //Clan errorClan = Clan.makeErrorClan("[BACK_END_ERROR:bad delta!]"); 
-            TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+            doExit_getPageOfNinjas(ses, TransUtil.EXIT_NO_SAVING);
             doError("[BACK_END_ERROR:bad delta!]");
+            return null;
             //return JSONUtil.compositeEntityToJSONResponse(errorClan);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         //Check math: Does delta get number of results you are expecting:
         if(delta != numResultsPerPage){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+            doExit_getPageOfNinjas(ses, TransUtil.EXIT_NO_SAVING);
             doError("[delta does not line up with results requested]");
+            return null;
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
         List<BaseEntity> ninjas = TransUtil.getEntitiesUsingRange
@@ -152,7 +154,7 @@ public class NinjaCTRL extends BaseCTRL {
         //CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
        
         //EXIT TRANSACTION:
-        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+        doExit_getPageOfNinjas(ses, TransUtil.EXIT_NO_SAVING);
         
         //If pageOfNinjas is NOT an error, but there are no members,
         //put an "out of bounds" ninja into the list to let user of API
@@ -175,6 +177,16 @@ public class NinjaCTRL extends BaseCTRL {
         //RETURN DATA:
         return JSONUtil.compositeEntityToJSONResponse(pageOfNinjas);
         
+    }//FUNC::END
+    
+    /** Wrapper for transaction exiting so that balancing is preserved
+     *  when searching for usages. Doing this as an attempt to make it easier
+     *  to debug the pairing of these commands.
+     * @param inShouldSave :Should save on exit?
+     */
+    private static void doExit_getPageOfNinjas
+                                            (Session ses, Boolean inShouldSave){
+        TransUtil.exitTransaction(ses, inShouldSave);
     }//FUNC::END
  
     @GET
@@ -200,7 +212,7 @@ public class NinjaCTRL extends BaseCTRL {
             errorNinja.setPortfolioURL("www.ERROR.com");
             
             //EXIT TRANSACTION, and return error response:
-            TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+            makeNinjaRecord_exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
             return JSONUtil.entityToJSONResponse(errorNinja);
         }//#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#
         
@@ -215,11 +227,21 @@ public class NinjaCTRL extends BaseCTRL {
         TransUtil.markEntityForSaveOnExit(nt);
        
         //EXIT transaction, true==we have entities to save.
-        TransUtil.exitTransaction(ses, TransUtil.EXIT_WITH_SAVE);
+        makeNinjaRecord_exitTransaction(ses, TransUtil.EXIT_WITH_SAVE);
         
         //Return entity as body of 200/ok response:
         return JSONUtil.entityToJSONResponse(nt);
        
+    }//FUNC::END
+    
+    /**
+     * Wrapper to maintain bracket balancing of enter/exit calls.
+     * @param ses   :Transaction session to exit.
+     * @param doSave:Do we have entities that need saving?
+     */
+    private static void makeNinjaRecord_exitTransaction
+                                                  (Session ses, boolean doSave){
+        TransUtil.exitTransaction(ses, doSave);
     }//FUNC::END
         
     @GET

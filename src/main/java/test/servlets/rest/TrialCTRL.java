@@ -36,6 +36,9 @@ public class TrialCTRL extends BaseCTRL {
     @Path(FuncNameReg.DISPATCH_TOKENS_DEBUG)
     public Response dispatch_tokens_debug(){
         
+        //Enter transaction state:
+        Session ses = TransUtil.enterTransaction();
+        
         Edict testEdict = new Edict();
         testEdict.comment = "touched by dispatch_tokens_debug";
         testEdict.duration_in_minutes = 30;
@@ -49,6 +52,10 @@ public class TrialCTRL extends BaseCTRL {
         //Convert testEdict into text:
         String jsonRequest;
         jsonRequest = JSONUtil.serializeObj_NoNULL(testEdict);
+        
+        //Exit transaction state:
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+        
         return dispatch_tokens_PRIVATE(jsonRequest);
     }//FUNC::END
     
