@@ -127,6 +127,7 @@ public class UniqueValueValidator {
         if(totalNumberOfBadFields > 0){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             
             String msg = "[Misuse of @Unique_____Value annotations:]";
+            msg += "CLASS WITH ERROR:[" + clazz.getCanonicalName() + "]";
             if(b0 > 0){
                 msg += "[STATIC FIELDS WITH ERRORS :: START]";
                 for(Field bs : badStaticFields){
