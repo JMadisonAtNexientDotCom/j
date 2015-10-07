@@ -115,7 +115,7 @@ public class MasterApiDoc {
     @Verbatim(name=FuncNameReg.IS_TOKEN_ID_OWNED, nameMod=Verbatim.UPPER_CASE)
     public TokenId_EndPoint    IS_TOKEN_ID_OWNED  = new TokenId_EndPoint();
     
-    @Verbatim(name=FuncNameReg.IS_TOKEN_HASH_OWNED_BY_ADMIN)
+    @Verbatim(name=FuncNameReg.IS_TOKEN_HASH_OWNED_BY_ADMIN, nameMod=Verbatim.UPPER_CASE)
     public TokenId_EndPoint    IS_TOKEN_HASH_OWNED_BY_ADMIN  = new TokenId_EndPoint();
     
     @Verbatim(name=FuncNameReg.IS_TOKEN_HASH_OWNED_BY_NINJA, nameMod=Verbatim.UPPER_CASE)
