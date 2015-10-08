@@ -107,11 +107,11 @@ public class TrialCTRL extends BaseCTRL {
                                   (trialTokenDispatchEdict.duration_in_minutes);
                 if(null == trialTokenDispatchEdict.ninja_id_list){
                     isNull = "TRUE";
-                    ninjaLen = trialTokenDispatchEdict.ninja_id_list.size();
-                    ninjaLenAsString = Integer.toString(ninjaLen);
+                    ninjaLenAsString = "N/A"; //<--cant get len from null ref.
                 }else{
                     isNull = "FALSE";
-                    ninjaLenAsString = "N/A";
+                    ninjaLen = trialTokenDispatchEdict.ninja_id_list.size();
+                    ninjaLenAsString = Integer.toString(ninjaLen);
                 }//
                 msg += "and I don't know how to fix it!]";
                 msg += "ninja_id_list null? : [" + isNull + "]";
