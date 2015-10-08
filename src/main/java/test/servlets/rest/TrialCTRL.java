@@ -8,6 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
+import primitives.BooleanWithComment;
 import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.signatures.paramVals.TRIAL_KIND_ENUMS;
@@ -71,6 +72,9 @@ public class TrialCTRL extends BaseCTRL {
         //Enter transaction state:
         Session ses = TransUtil.enterTransaction();
         
+        //variable declare:
+        Coffer tickets = null; //<--make compiler happy.
+        
         //Convert the request to JSON:
         boolean hasError = false;
         Edict trialTokenDispatchEdict;
@@ -82,7 +86,16 @@ public class TrialCTRL extends BaseCTRL {
             trialTokenDispatchEdict = null;
         }//END TRY.
         
-        Coffer tickets = null; //<--make compiler happy.
+       
+        
+        //If we get to here, error check the edict:
+        BooleanWithComment stat = Edict.validate(trialTokenDispatchEdict);
+        if(false == stat.value){
+            hasError = true;
+            tickets = Coffer.makeErrorCoffer(stat.comment);
+        }//Error of bad inputs!
+        
+        
         if(false == hasError){
             //Use the data to dispatch tokens:
             try{
