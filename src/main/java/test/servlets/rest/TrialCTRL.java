@@ -72,14 +72,52 @@ public class TrialCTRL extends BaseCTRL {
         Session ses = TransUtil.enterTransaction();
         
         //Convert the request to JSON:
-        Edict trialTokenDispatchEdict = 
-                            MapperUtil.readAsObjectOf(Edict.class, jsonRequest);
+        boolean hasError = false;
+        Edict trialTokenDispatchEdict;
+        try{
+            trialTokenDispatchEdict = MapperUtil.readAsObjectOf
+                                                     (Edict.class, jsonRequest);
+        }catch(Exception ex){
+            hasError = true;
+            trialTokenDispatchEdict = null;
+        }//END TRY.
         
-        //Use the data to dispatch tokens:
-        Coffer tickets = TrialTransUtil.dispatchTokens(
+        Coffer tickets;
+        if(false == hasError){
+            //Use the data to dispatch tokens:
+            tickets = TrialTransUtil.dispatchTokens(
                                    trialTokenDispatchEdict.ninja_id_list,
                                    trialTokenDispatchEdict.trial_kind,
                                    trialTokenDispatchEdict.duration_in_minutes);
+        }else{
+            String msg = "[SomeWeird Error happened.]";
+            if(null != trialTokenDispatchEdict){    
+                String isNull;
+                int    ninjaLen;
+                String ninjaLenAsString;
+                String tKind = Integer.toString
+                                           (trialTokenDispatchEdict.trial_kind);
+                String tDura = Integer.toString
+                                  (trialTokenDispatchEdict.duration_in_minutes);
+                if(null == trialTokenDispatchEdict.ninja_id_list){
+                    isNull = "TRUE";
+                    ninjaLen = trialTokenDispatchEdict.ninja_id_list.size();
+                    ninjaLenAsString = Integer.toString(ninjaLen);
+                }else{
+                    isNull = "FALSE";
+                    ninjaLenAsString = "N/A";
+                }//
+                msg += "and I don't know how to fix it!]";
+                msg += "ninja_id_list null? : [" + isNull + "]";
+                msg += "ninja_id_list length?:[" + ninjaLenAsString + "]";
+                msg += "trial_kind -->[" + tKind + "]";
+                msg += "duration_in_minutes:" + tDura + "]";
+            }else{
+                msg += "THE TICKET COFFER IS NULL!";
+            }//BLOCK::END
+            
+            tickets = Coffer.makeErrorCoffer(msg);
+        }//BLOCK::END
         
         //EXIT WITHOUT SAVE BECAUSE WE ARE STILL TESTING.
         //Exit transaction state before returning data:
