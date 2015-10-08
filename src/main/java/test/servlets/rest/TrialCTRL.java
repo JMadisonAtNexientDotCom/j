@@ -85,11 +85,17 @@ public class TrialCTRL extends BaseCTRL {
         Coffer tickets;
         if(false == hasError){
             //Use the data to dispatch tokens:
-            tickets = TrialTransUtil.dispatchTokens(
+            try{
+                tickets = TrialTransUtil.dispatchTokens(
                                    trialTokenDispatchEdict.ninja_id_list,
                                    trialTokenDispatchEdict.trial_kind,
                                    trialTokenDispatchEdict.duration_in_minutes);
-        }else{
+            }catch(Exception theProblem){
+                hasError = true;
+            }//TRY::END
+        }//Another opprotunity to error.
+        
+        if(true == hasError){
             String msg = "[SomeWeird Error happened.]";
             if(null != trialTokenDispatchEdict){    
                 String isNull;

@@ -37,6 +37,8 @@ public class TrialTransUtil {
     public static Coffer dispatchTokens(List<Long> ninja_id_list,int trial_kind,
                                                        int duration_in_minutes){
         
+        TransUtil.insideTransactionCheck();
+        
         //Step1: Make list into unique entries, then split list into TWO
         //       lists. A list of valid ninja_id (the ninja is in system)
         //       And list of invalid ninjas. (Ones not in the system.)
