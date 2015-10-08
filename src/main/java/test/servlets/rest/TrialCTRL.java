@@ -82,7 +82,7 @@ public class TrialCTRL extends BaseCTRL {
             trialTokenDispatchEdict = null;
         }//END TRY.
         
-        Coffer tickets;
+        Coffer tickets = null; //<--make compiler happy.
         if(false == hasError){
             //Use the data to dispatch tokens:
             try{
@@ -128,6 +128,11 @@ public class TrialCTRL extends BaseCTRL {
         //EXIT WITHOUT SAVE BECAUSE WE ARE STILL TESTING.
         //Exit transaction state before returning data:
         TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+        
+        //make absolutely sure tickets are not null:
+        if(null == tickets){
+            tickets = Coffer.makeErrorCoffer("[tickets were null!]");
+        }//Extra check to make compiler happy.
         
         //Send back a 200OK response with the data!
         return JSONUtil.postResponseToJSONResponse(tickets);
