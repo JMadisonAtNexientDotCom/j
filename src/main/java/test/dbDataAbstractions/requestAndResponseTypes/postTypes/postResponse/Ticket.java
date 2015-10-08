@@ -57,6 +57,8 @@ public class Ticket extends TypeWithCommentBase{
     public static Ticket makeErrorTicket(String msg){
         Ticket op    = new Ticket();
         op.comment   = msg;
+        op.ninja_name= msg; //<--so you can see error in UI.
+        op.token_hash= msg; //<--so you can see error in UI.
         op.isError   = true;
         op.errorCode = EntityErrorCodes.GENERIC_ERROR;
         return op;
