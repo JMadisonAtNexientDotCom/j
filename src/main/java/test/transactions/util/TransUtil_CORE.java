@@ -248,6 +248,20 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         
     }//END::FUNC
     
+    /** A version of exit transaction where you DON'T have to know if entities
+     *  needed saving or not. I wanted to enforce that for error checking, but
+     *  not all of the patterns I am using work well with that constraint.
+     * @param ses :The transaction session we are exiting.
+     */
+    public void exitTransaction(Session ses){
+        
+        //Circumvent the error check, 
+        //then call the main exitTransaction method:
+        boolean needSave = ( _saveTheseEntitiesOnExit.size() > 0);
+        exitTransaction(ses, needSave);
+        
+    }//FUNC::END
+    
     /** Saves entities associated with the transaction we are about to close.
      *  These entities needing saving are entities that have been operated on
      *  during the course of the transaction state.

@@ -133,6 +133,10 @@ public class TransUtil {
         i().exitTransaction(ses,weHaveEntitiesThatNeedSaving);
     }//WRAPPER::END
                             
+    public static void exitTransaction(Session ses){
+       i().exitTransaction(ses);
+    }//WRAPPER::END
+                            
     public static Session getActiveTransactionSession(){
         return i().getActiveTransactionSession();
     }//WRAPPER::END

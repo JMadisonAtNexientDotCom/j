@@ -1,7 +1,9 @@
 package test.transactions.cargoSystem.dataTypes;
 
 import java.util.ArrayList;
+import java.util.List;
 import test.MyError;
+import test.transactions.util.TransValidateUtil;
 
 /**
  * Main container that contains all of the EntityCages.
@@ -41,6 +43,79 @@ public class CargoHold {
         doError("[Cage was not found by using receipt]");
         return null;
         
+    }//FUNC::END
+    
+    /** Returns all of the entity cages that were supplied from
+     *  a given table in the database.
+     * 
+     *  EXPECTS 2 or more! PLURAL! Will throw error if not.
+     *  If you expected only ONE, then use getSupplierCage.
+     * 
+     * @param supplierTable :The class representing a single database table.
+     * @return :A list of cages that fit the criteria.
+     */
+    public List<EntityCage> allCagesBySupplier(Class supplierTable){
+        List<EntityCage> op = getAllCagesLinkedToSupplier(supplierTable);
+        if(op.size() < 2){
+            String msg ="";
+            msg += "[Command expected 2 or more results.]";
+            msg += "[If you were expecting 1, use getCageUsingSupplier.]";
+            msg += "[If you were expecting 0, DON'T CALL ANYTHING.]";
+            msg += "[If you don't know what to expect...]";
+            msg += "[...you are doing it wrong.]";
+            doError(msg);
+        }//ERROR!
+        
+        return op;
+    }//FUNC::END
+    
+    /** Expects there to be ONE entitycage registered to the supplier.
+     *  If more, we have error.
+     * @param supplierTable
+     * @return 
+     */
+    public EntityCage getCageUsingSupplier(Class supplierTable){
+        List<EntityCage> op = getAllCagesLinkedToSupplier(supplierTable);
+        if(op.size() != 1){
+            String msg ="";
+            msg += "[Command expected EXACTLY ONE(1) result.]";
+            msg += "[If you were expecting 2+, use allCagesBySupplier.]";
+            msg += "[If you were expecting 0, DON'T CALL ANYTHING.]";
+            msg += "[If you don't know what to expect...]";
+            msg += "[...you are doing it wrong.]";
+            doError(msg);
+        }//ERROR!
+        
+        //Take the one and only result and return it:
+        return op.get(0);
+        
+    }//FUNC::END
+    
+    /**
+     * Core function used by getSupplierCage and getCagesUsingSupplier
+     * @param supplierTable :The entity class representing a single table.
+     * @return :Returns a list with length 0 to whatever of cages that
+     *          are registered with that table.
+     */
+    private List<EntityCage> getAllCagesLinkedToSupplier(Class supplierTable){
+        
+        TransValidateUtil.assertIsEntityClass(supplierTable);
+        if(null == cages){doError("[Cages are null. Cannot iterate over.]");}
+        
+        List<EntityCage> op = new ArrayList<EntityCage>();
+        for(EntityCage ec : cages){
+            
+            if(null == ec.entityClass){
+                doError("[No entityClass was stored with this cage!]");
+            }//End Func.
+            
+            if(ec.entityClass == supplierTable){
+                op.add(ec);
+            }//Valid entry found!
+        }//Next cage.
+            
+        return op;
+ 
     }//FUNC::END
     
     /** make an empty cargo hold that is ready to be filled. **/

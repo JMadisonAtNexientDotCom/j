@@ -29,6 +29,9 @@ import test.MyError;
 import test.debug.DebugConsts;
 import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
+import test.transactions.cargoSystem.dataTypes.EntityCage;
+import test.transactions.cargoSystem.dataTypes.GalleonBarge;
+import test.transactions.cargoSystem.transactionBuilder.DryDock;
 import utils.JSONUtil;
 
 
@@ -41,9 +44,39 @@ public class TokenCTRL extends BaseCTRL {
  
     public static final String CLASS_MAPPING = TokenCTRL.class.getSimpleName() + "/";
    
-          @GET
-          @Path(FuncNameReg.GET_NEXT_TOKEN) //removed slash at end. Lets try again.
-          public Response get_next_token(){
+        //This version is GUTTED and replaced with some experimental
+        //code to do the same thing.
+        @GET
+        @Path(FuncNameReg.GET_NEXT_TOKEN) 
+        public Response get_next_token(){
+            
+            //ENTER transaction:
+            Session ses = TransUtil.enterTransaction();
+            
+            //Transaction logic:
+            TokenTable tt;
+            GalleonBarge barge;
+            EntityCage cage;
+            barge = DryDock.createNewToken();
+            cage = barge.hold.getCageUsingSupplier(TokenTable.class);
+            tt = (TokenTable)cage.merchandise.get(0);
+            
+            //Will have to exit transaction session without knowing
+            //if saving is needed:
+            
+            //EXIT transaction:
+            TransUtil.exitTransaction(ses);
+            
+            //Return entity as body of 200/ok response:
+            return JSONUtil.entityToJSONResponse(tt);
+            
+        }//FUNC::END
+    
+    
+        /**
+        @GET
+        @Path(FuncNameReg.GET_NEXT_TOKEN) //removed slash at end. Lets try again.
+        public Response get_next_token(){
             
             //ENTER transaction:
             Session ses = TransUtil.enterTransaction();
@@ -59,4 +92,7 @@ public class TokenCTRL extends BaseCTRL {
             return JSONUtil.entityToJSONResponse(tt);
             
         }//FUNC::END
+        **/
+          
+          
 }//CLASS::END
