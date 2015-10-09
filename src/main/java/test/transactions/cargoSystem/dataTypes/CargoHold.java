@@ -56,6 +56,9 @@ public class CargoHold {
      * @return :A list of cages that fit the criteria.
      */
     public List<EntityCage> allCagesBySupplier(Class supplierTable){
+        if(null == cages){doError("[Cages null. 667342234]");}
+        if(cages.size() <= 0){doError("[Cages empty.68734]");}
+        
         List<EntityCage> op = getAllCagesLinkedToSupplier(supplierTable);
         if(op.size() < 2){
             String msg ="";
@@ -76,6 +79,10 @@ public class CargoHold {
      * @return 
      */
     public EntityCage getCageUsingSupplier(Class supplierTable){
+        
+        if(null == cages){doError("[Cages null. 2242342]");}
+        if(cages.size() <= 0){doError("[Cages empty.2342]");}
+        
         List<EntityCage> op = getAllCagesLinkedToSupplier(supplierTable);
         if(op.size() != 1){
             String msg ="";
