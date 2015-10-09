@@ -6,6 +6,7 @@ import test.transactions.cargoSystem.dataTypes.AgendaClipBoard;
 import test.transactions.cargoSystem.dataTypes.CargoHold;
 import test.transactions.cargoSystem.dataTypes.GalleonBarge;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
+import test.transactions.util.TransUtil;
 
 /**
  * CAPTAIN is the object that guides the GalleonBarge (cargo ship)
@@ -69,8 +70,20 @@ public class MerchantCaptain {
         
     }//FUNC::END
     
+    /** Executes all of the orders in the correct order based on the
+     *  dependencies between the orders.
+     */
     private void executeAllOrdersOnTheAgenda(){
+        
+        //Make sure we are in a transaction state before executing.
+        //I am NOT going to have any checks for being inside a transaction
+        //State for any of the port functions. We are trying to go with
+        //a slightly different design pattern.
+        TransUtil.insideTransactionCheck();
+        
+        //Do all the transactions:
         executeOrMock_AllOrders(DO_IT_FOR_REAL);
+        
     }//FUNC::END
     
      /**
@@ -97,7 +110,7 @@ public class MerchantCaptain {
         //Figure out how many orders there are. We want
         //one reciept for each order. Once order list is
         //filled, we are done.
-        List<OrderSlip> orders = barge.agenda.orders;
+        List<OrderSlip> orders = barge.agenda.getOrdersRef();
         int numberOfOrders     = orders.size();
         int maxValidOrderIndex = numberOfOrders - 1;
         
@@ -260,11 +273,12 @@ public class MerchantCaptain {
             doError("[Agenda is null! No orders to carry out.]");
         }//Agenda NOT allowed to be null.
         
-        if(null == barge.agenda.orders){
+        List<OrderSlip> orders = barge.agenda.getOrdersRef();
+        if(null == orders){
             doError("[No orders. The orders object is null.]");
         }//NULL orders.
         
-        if(barge.agenda.orders.size() <= 0){
+        if(orders.size() <= 0){
             doError("[Need at least one order to justify sailing this ship]");
         }//Nothing to collect problem.
         
@@ -296,7 +310,7 @@ public class MerchantCaptain {
             doError("[We need an EMPTY cages array.]");
         }//No cages ref?
         
-        if(barge.hold.cages.size() != 0){
+        if(barge.hold.cages.isEmpty() != true){
             doError("[Should have zero cargo at beginning of trip.]");
         }//FUNC::END
         

@@ -2,6 +2,7 @@ package test.transactions.cargoSystem.dataTypes;
 
 import java.util.ArrayList;
 import java.util.List;
+import test.MyError;
 
 /**
  * An Agenda is a clipboard with a list of Order slips on it. The captain
@@ -68,11 +69,60 @@ public class AgendaClipBoard {
     public static int STATUS_ORDERS_COMPLETE       = 4;
     public static int STATUS_FAILURE               = 5;
     
-    /** All of the orders that are on the clipboard. **/
-    public List<OrderSlip> orders = new ArrayList<OrderSlip>();
+    /** All of the orders that are on the clipboard. 
+        Decided to make PRIVATE so that we can check for
+        error of adding same order twice. **/
+    private List<OrderSlip> _orders;
+    
+    /**
+     * Adds order to collection of order slips.
+     * Throws error if order is being added more than once.
+     * @param order :The order to add to collection.
+     */
+    public void addOrder(OrderSlip order){
+        if(_orders.indexOf(order) > 0 ){
+            String msg = "[Attempting to add duplicate order.]";
+            msg += "[AKA: Adding same order twice.]";
+            doError(msg);
+        }//ERROR?
+        
+        //If not duplicate, add to collection:
+        _orders.add(order);
+            
+    }//FUNC::END
+    
+    /** Get the entire object when it SHOULD exist. **/
+    public List<OrderSlip> getOrdersRef(){
+        
+        //It is okay if orders is empty, but not null.
+        if(null == _orders){
+            doError("[Tried to getOrdersRef, but it was null.]");
+        }//FUNC::END
+        
+        return _orders;
+    }//FUNC::END
     
     /** Default status is error to enforce being explicitly set by
      *  object that will be using this Agenda. **/
     public int status = STATUS_INIT_ERROR;
+    
+    public static AgendaClipBoard make(){
+        AgendaClipBoard op = new AgendaClipBoard();
+        op._orders = new ArrayList<OrderSlip>();
+        op.status = STATUS_INIT_ERROR; //<--don't set yet.
+        return op;
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = AgendaClipBoard.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
+    }//FUNC::END
     
 }//CLASS::END

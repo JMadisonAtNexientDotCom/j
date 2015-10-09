@@ -3,6 +3,7 @@ package test.transactions.cargoSystem.managerTypes;
 import annotations.IndexedFunctionTable;
 import java.lang.reflect.Method;
 import test.MyError;
+import test.transactions.cargoSystem.dataTypes.EntityCage;
 import test.transactions.cargoSystem.dataTypes.GalleonBarge;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
 import test.transactions.cargoSystem.ports.TokenPorts;
@@ -69,6 +70,12 @@ public class BeaconLightHouse {
         //Error check inputs:
         if(null == barge){doError("[input barge is null]");}
         if(null == order){doError("[input order is null]");}
+        if(null == barge.hold){doError("[cargo hold is null]");}
+        if(barge.hold.isFilled){
+            String msg = "[hold should not be filled if you are still]";
+            msg += "[on quest to fufil your agenda.]";
+            doError(msg);
+        }//ERROR?
         
         //Get the correct port from the OrderSlip,
         //This is basically, the destination where we will find what
@@ -86,6 +93,16 @@ public class BeaconLightHouse {
         }catch(Exception exep){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             doError("[Failed to invoke method!]");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        //Todo: Validate that for every deposited primary key, there is
+        //also the corresponding entity.
+        EntityCage cage = barge.hold.getCageUsingReceipt(order);
+        if(cage.merchandise.size() != order.primaryKey_ids.size()){
+            String msg = "";
+            msg+="[Keys did not evenly pair with actual entities.]";
+            msg+="[This is a requirement!]";
+           doError(msg);
+        }//Checksum error.
         
     }//FUNC::END
     

@@ -56,4 +56,31 @@ public class GalleonBarge {
     /** The status of the barge. **/
     public int status;
     
+    /**
+     * Creates a new partially configured order,
+     * adds it to the current orders, and then returns
+     * that order so you can further configure it.
+     * @param portID :The portID that will be used to supply what we want.
+     * @return       :The order, ready to be further configured.
+     */
+    public OrderSlip placeOrder(short portID){
+       OrderSlip order = OrderSlip.makeUsingPortID(portID);
+       //agenda.orders.add(order); //<--might want to use getter so we can prevent
+      // return order;                //adding the same order TWICE.
+       
+       agenda.addOrder(order);
+       return order;
+       
+    }//FUNC::END
+    
+    /** Make a GalleonBarge that does NOT have null references.
+     *  And is ready to be populated with data.
+     * @return : See above. **/
+    public static GalleonBarge make(){
+        GalleonBarge op = new GalleonBarge();
+        op.hold   = CargoHold.make();
+        op.agenda = AgendaClipBoard.make();
+        return op;
+    }//FUNC::END
+    
 }//CLASS::END

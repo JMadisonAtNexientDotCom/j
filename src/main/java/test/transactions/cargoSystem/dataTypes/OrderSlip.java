@@ -60,7 +60,11 @@ public class OrderSlip {
         return areKeysLoaded;
     }//FUNC::END
     
-    public boolean exists = false;
+    //uncessarry and will just needlessly complexify things.
+    //if order object is in agenda, we use it. End of story.
+    //no pretending it doesn't exist. We are not going to
+    //be recycling and pooling these objects at the moment.
+    //xx///public boolean exists = false;
     
     /**
      * References OTHER ORDERS that must be completed before
@@ -141,6 +145,23 @@ public class OrderSlip {
         
         //Item not found:
         return (-1);
+    }//FUNC::END
+    
+    /**
+     * Will get you started and reduce a bit of boilerplate code.
+     * But you'll still have to do more config to get the results you want.
+     * @param inPortID :Function handle for what you want to achieve.
+     * @return         :An order configured to use the portID specified
+     *                  to fufill the order.
+     */
+    public static OrderSlip makeUsingPortID(short inPortID){
+        OrderSlip op = new OrderSlip();
+        op.portID            = inPortID;
+        op.loadKeysUsingPort = true;
+        
+        //to get this to work, you may have to edit the lookup table.
+        //op.supplier          = resolvePortIDToSupplyingTableEntity(inPortID);
+        return op;
     }//FUNC::END
     
     /**-------------------------------------------------------------------------

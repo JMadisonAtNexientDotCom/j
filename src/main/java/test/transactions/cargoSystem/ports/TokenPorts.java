@@ -12,12 +12,15 @@ import test.transactions.cargoSystem.ports.config.MasterPortList;
  * 
  * @author jmadison
  */
+//@Supplier(clazz=TokenTable.clazz);
 public class TokenPorts {
     
-    public static final int CREATE_NEW_TOKEN = MasterPortList.CREATE_NEW_TOKEN;
+    public static final short CREATE_NEW_TOKEN = MasterPortList.CREATE_NEW_TOKEN;
     
     @IndexedFunction(key=CREATE_NEW_TOKEN) 
     public static void create_new_token(GalleonBarge barge, OrderSlip order){
+        
+        
         
     }//FUNC::END
     
