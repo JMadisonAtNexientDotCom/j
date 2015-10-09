@@ -282,6 +282,13 @@ public class MerchantCaptain {
             doError("[Need at least one order to justify sailing this ship]");
         }//Nothing to collect problem.
         
+        if(barge.status != GalleonBarge.STATUS_EMPTY_SHIP_READY){
+            String msg = "";
+            msg += "[As the captain of this ship, I refuse to embark]";
+            msg += "[Until everything has been confirmed to be in order.]";
+            doError(msg);
+        }//Ship not ready error.
+        
         if(barge.agenda.status != AgendaClipBoard.STATUS_CONFIGURING_COMPLETE){
             String msg ="";
             msg += "[Agenda is NOT flagged as ready]";
@@ -456,7 +463,7 @@ public class MerchantCaptain {
         Class clazz = MerchantCaptain.class;
         err += clazz.getSimpleName();
         err += msg;
-        throw new MyError(clazz, err);
+        throw MyError.make(clazz, err);
     }//FUNC::END
     
 }//CLASS::END

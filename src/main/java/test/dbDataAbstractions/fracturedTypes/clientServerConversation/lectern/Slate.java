@@ -144,7 +144,7 @@ public class Slate extends FracturedTypeBase{
         Class clazz = Slate.class;
         err += clazz.getSimpleName();
         err += msg;
-        throw new MyError(clazz, err);
+        throw MyError.make(clazz, err);
     }//FUNC::END
     
     public static void doError_badSlateIndex(){

@@ -177,7 +177,7 @@ public class ServletClassNames {
         if(v0 != v1){//////////////////////////////////////////////////////
             Class clazz = ServletClassNames.class;
             String eMsg = "[mapping checks were not evenly paired.]";
-            throw new MyError(clazz, eMsg);
+            throw MyError.make(clazz, eMsg);
         }//////////////////////////////////////////////////////////////////
     }//FUNC::END
     
@@ -329,7 +329,7 @@ public class ServletClassNames {
         String msg = "";
         msg += "Mapping is incorrect for className:[" + className + "]";
         //GlobalErrorState.addError(ServletClassNames.class, msg);
-        throw new MyError(ServletClassNames.class, msg);
+        throw MyError.make(ServletClassNames.class, msg);
     }//FUNC::END
     
     private static void doTooManyChecksError_CLASSNAME_fromVar
@@ -341,7 +341,7 @@ public class ServletClassNames {
         msg += "[within the FIRST ARGUMENT of our mapping checks.];";
         msg += "[this is indicative that there ]";
         msg += "[is a mapping mismatch in our setup.]";
-        throw new MyError(ServletClassNames.class, msg);
+        throw MyError.make(ServletClassNames.class, msg);
     }//FUNC::END
                                                              
     private static void doTooManyChecksError_CLASSNAME_fromReflect
@@ -353,7 +353,7 @@ public class ServletClassNames {
         msg += "[within the SECOND (2ND) ARGUMENT of our mapping checks.];";
         msg += "[this is indicative that there ]";
         msg += "[is a mapping mismatch in our setup.]";
-        throw new MyError(ServletClassNames.class,msg);
+        throw MyError.make(ServletClassNames.class,msg);
     }//FUNC::END
     
     /** Returns TRUE if the two strings compared are NOT equal. **/

@@ -257,7 +257,7 @@ public class IndexedFunctionTable {
         Class clazz = IndexedFunctionTable.class;
         err += clazz.getSimpleName();
         err += msg;
-        throw new MyError(clazz, err);
+        throw MyError.make(clazz, err);
     }//FUNC::END
     
 }//CLASS::END

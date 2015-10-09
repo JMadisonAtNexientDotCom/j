@@ -146,7 +146,7 @@ public class SessionTable extends BaseEntity {
         Class clazz = SessionTable.class;
         err += clazz.getSimpleName();
         err += msg;
-        throw new MyError(clazz, err);
+        throw MyError.make(clazz, err);
     }//FUNC::END
 
     //Delete: Part of base entity now.

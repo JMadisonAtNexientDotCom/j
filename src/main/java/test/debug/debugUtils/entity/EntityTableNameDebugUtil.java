@@ -58,7 +58,7 @@ public class EntityTableNameDebugUtil {
         }//NEXT i
         
         //THROW YOUR HANDS UP IN THE AIR LIKE YOU JUST DON'T CARE!
-        throw new MyError(EntityTableNameDebugUtil.class, errorLogDump);
+        throw MyError.make(EntityTableNameDebugUtil.class, errorLogDump);
         
     }//FUNC::END
     

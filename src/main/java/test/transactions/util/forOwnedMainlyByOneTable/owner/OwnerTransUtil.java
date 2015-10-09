@@ -517,7 +517,7 @@ public class OwnerTransUtil {
         Class clazz = OwnerTransUtil.class;
         err += clazz.getSimpleName();
         err += msg;
-        throw new MyError(clazz, err);
+        throw MyError.make(clazz, err);
     }//FUNC::END
     
     /** A XOR of id_00 and id_01, where ONE must have a

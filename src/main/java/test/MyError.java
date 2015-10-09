@@ -2,12 +2,43 @@ package test;
 
 //http://stackoverflow.com/questions/10574906/throwing-custom-exceptions-in-java
 
+import test.config.debug.DebugConfig;
+import test.config.debug.DebugConfigLogger;
 import test.debug.GlobalErrorState;
 
 //import java.lang.RuntimeException;
 
 public class MyError extends RuntimeException{
-    public MyError(Class clazz, String msg) {
+    
+    
+  
+    
+    /**
+     * Use this to make error so we can put stuff before the super()
+     * @param clazz :The class the error message originated from.
+     * @param msg   :The error message to show.
+     * @return      :A custom error object.
+     */
+    public static MyError make(Class clazz, String msg){
+        
+        //Append logs to end if in debug build:
+        if(DebugConfig.isDebugBuild){//LLLLLLLLL
+            msg += DebugConfigLogger.dumpLogs();
+        }//LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+        
+        MyError op = new MyError(clazz, msg);
+        return op;
+        
+    }//FUCN::END
+   
+    
+    /** Made constructor private so that we can optionally tack on
+     *  debug info to the end of the error message if debug build:
+     * @param clazz :The class the error message originated from.
+     * @param msg   :The error message to show.
+     */
+    private MyError(Class clazz, String msg) {
+        
         super(msg);
         
         //Creation of error will also add it to the global error state

@@ -152,7 +152,7 @@ public class I {
     String err = "ERROR INSIDE:";
     err += I.class.getSimpleName();
     err += msg;
-    throw new MyError(I.class, err);
+    throw MyError.make(I.class, err);
     }//FUNC::END
          
 }//CLASS::END
@@ -279,7 +279,7 @@ public class I {
     String err = "ERROR INSIDE:";
     err += I.class.getSimpleName();
     err += msg;
-    throw new MyError(err);
+    throw MyError.make(err);
     }//FUNC::END
 */
 ////////////////////////////////////////////////////////////////////////////////

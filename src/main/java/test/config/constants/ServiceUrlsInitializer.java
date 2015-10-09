@@ -259,7 +259,7 @@ public class ServiceUrlsInitializer {
        err += cName;
        err += msg;
        //GlobalErrorState.addError(clazz, err);
-       throw new MyError(ServiceUrlsInitializer.class, err);
+       throw MyError.make(ServiceUrlsInitializer.class, err);
    }//FUNC::END
    
     /**------------------------------------------------------------------------- 

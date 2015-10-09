@@ -523,7 +523,7 @@ public class SessionTransUtil {
         Class clazz = SessionTransUtil.class;
         err += clazz.getSimpleName();
         err += msg;
-        throw new MyError(clazz, err);
+        throw MyError.make(clazz, err);
     }//FUNC::END
     
     private static long hours_to_milliseconds(long hours){

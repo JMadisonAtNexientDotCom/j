@@ -191,7 +191,7 @@ public class RiddleTransUtil {
         Class clazz = RiddleTransUtil.class;
         err += clazz.getSimpleName();
         err += msg;
-        throw new MyError(clazz, err);
+        throw MyError.make(clazz, err);
     }//FUNC::END
     
     

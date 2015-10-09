@@ -67,7 +67,7 @@ public class ServletContainerWithDebug extends ServletContainer {
             //So error message is displayed??
             //String msg;
             //msg = GlobalErrorState.getLog();
-            //throw new MyError(msg);
+            //throw MyError.make(msg);
             
             //A hack to redirect if error happens:
             //http://stackoverflow.com/questions/11116687/
@@ -78,7 +78,7 @@ public class ServletContainerWithDebug extends ServletContainer {
             } catch (URISyntaxException e) {
                 String em = "Problem with global error state";
                 em += "e==" + e.toString();
-                throw new MyError(ServletContainerWithDebug.class, em);
+                throw MyError.make(ServletContainerWithDebug.class, em);
             }
 
             

@@ -254,7 +254,7 @@ public class NinjaTransUtil {
         Class clazz = NinjaTransUtil.class;
         err += clazz.getSimpleName();
         err += msg;
-        throw new MyError(clazz, err);
+        throw MyError.make(clazz, err);
     }//FUNC::END
     
 }//CLASS::END

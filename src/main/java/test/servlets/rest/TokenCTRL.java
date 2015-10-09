@@ -58,6 +58,9 @@ public class TokenCTRL extends BaseCTRL {
             GalleonBarge barge;
             EntityCage cage;
             barge = DryDock.createNewToken();
+            barge.embark();
+            
+            //Fetching info after barge has embarked:
             cage = barge.hold.getCageUsingSupplier(TokenTable.class);
             tt = (TokenTable)cage.merchandise.get(0);
             

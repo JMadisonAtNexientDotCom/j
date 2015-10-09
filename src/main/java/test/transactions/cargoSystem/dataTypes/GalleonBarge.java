@@ -1,5 +1,10 @@
 package test.transactions.cargoSystem.dataTypes;
 
+import test.MyError;
+import test.config.debug.DebugConfig;
+import test.config.debug.DebugConfigLogger;
+import test.transactions.cargoSystem.managerTypes.MerchantCaptain;
+
 /**
  * What is the GalleonBarge:
  * It is the ship that makes the trips to collect the data(entities)
@@ -66,6 +71,67 @@ public class GalleonBarge {
         //use the .make functions on the class instead.
     }//CONSTRUCTOR
     
+    /**-------------------------------------------------------------------------
+     * I was going to call it "setSail" but that is confusing with "get"
+     * and "set" methods. Embark is descriptive, boat related, and not a
+     * commonly used programming word. This is why I chose it.
+     * 
+     * Maybe what I am doing is not as silly as I think. After all, there
+     * is "garbage collection" and "kill"(delete) in programming.
+     * 
+     ------------------------------------------------------------------------**/
+    public void embark(){
+        
+        //Error check for states we KNOW are invalid.
+        //This is partial coverage because I am not sure if there should
+        //be one status that ship MUST be in in order to call embark.
+        if(STATUS_EXECUTING_AGENDA == status){
+            doError("Cannot embark. Already executing agenda.");
+        }else
+        if(STATUS_TRIP_COMPLETE_CARGO_READY == status){
+            doError("[Already made round-trip. Cannot embark/execute again.]");
+        }//
+        
+        //Set status to configuring complete, because the captain will
+        //refuse to embark until everything is in order.
+        this.status = STATUS_EMPTY_SHIP_READY;
+        //Also, make sure we have someon [sign off / approve] the agenda.
+        this.agenda.status = AgendaClipBoard.STATUS_CONFIGURING_COMPLETE;
+        
+        if(DebugConfig.isDebugBuild){
+            DebugConfigLogger.add(this,"[Captain is about to collect stuff.]");
+        }//LOGGING ONLY IN DEBUG CONFIG.
+        
+        //Get a captain to drive the ship and collect all of the
+        //needed goods. Then once the captain has performed services,
+        //mutiny on the captain. (kill the captain). We don't owe the
+        //captain anything.
+        //In boring terms: We need to avoid reference dependency loops so
+        //the cpatain can be garbage collected.
+        MerchantCaptain captain = new MerchantCaptain();
+        captain.barge = this;
+        captain.fetchOrders();
+        mutiny(captain);
+        
+    }//FUNC::END
+    
+    /**
+     * When the captain has completed their task, and we no longer
+     * need the captain, kill the captain and throw him in a dumpster.
+     * AKA: Garbage collect the captain.
+     * @param captain :The captain of the ship to kill/dereference.
+     */
+    private static void mutiny(MerchantCaptain captain){
+        if(null == captain){doError("[The captain has vanished!?]");}
+        if(null == captain.barge){
+            String msg = "[Someone already took the captain's ship away]";
+            msg += "[From him/her. Or did they not have a ship all along?]";
+            doError(msg);
+        }//No barge error.
+        captain.barge = null;
+        captain = null;
+    }//FUNC::END
+    
     /**
      * Creates a new partially configured order,
      * adds it to the current orders, and then returns
@@ -114,6 +180,18 @@ public class GalleonBarge {
         op.hold   = CargoHold.make();
         op.agenda = AgendaClipBoard.make();
         return op;
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = GalleonBarge.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw MyError.make(clazz, err);
     }//FUNC::END
     
 }//CLASS::END

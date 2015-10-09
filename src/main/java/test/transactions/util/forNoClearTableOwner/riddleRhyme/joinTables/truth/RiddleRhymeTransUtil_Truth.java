@@ -227,7 +227,7 @@ public class RiddleRhymeTransUtil_Truth {
         Class clazz = RiddleRhymeTransUtil_Truth.class;
         err += clazz.getSimpleName();
         err += msg;
-        throw new MyError(clazz, err);
+        throw MyError.make(clazz, err);
     }//FUNC::END
     
 }//CLASS::START

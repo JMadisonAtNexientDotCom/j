@@ -79,7 +79,7 @@ public class ServiceURLRegistry {
         Class clazz = ServiceURLRegistry.class;
         err += clazz.getSimpleName();
         err += msg;
-        throw new MyError(clazz, err);
+        throw MyError.make(clazz, err);
     }//FUNC::END
     
     private static boolean notEQ(String s01, String s02){

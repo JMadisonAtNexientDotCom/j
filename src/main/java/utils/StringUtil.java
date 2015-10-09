@@ -194,7 +194,7 @@ public class StringUtil {
         Class clazz = StringUtil.class;
         err += clazz.getSimpleName();
         err += msg;
-        throw new MyError(clazz, err);
+        throw MyError.make(clazz, err);
     }//FUNC::END
     
     public static boolean unitTest(){

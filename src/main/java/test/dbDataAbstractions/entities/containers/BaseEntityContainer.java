@@ -98,7 +98,7 @@ public class BaseEntityContainer {
         Class clazz = BaseEntityContainer.class;
         err += clazz.getSimpleName();
         err += msg;
-        throw new MyError(clazz, err);
+        throw MyError.make(clazz, err);
     }//FUNC::END
     
 }//CLASS::END

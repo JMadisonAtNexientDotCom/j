@@ -195,7 +195,7 @@ public class UniqueValueValidator {
         Class clazz = UniqueValueValidator.class;
         err += clazz.getSimpleName();
         err += msg;
-        throw new MyError(clazz, err);
+        throw MyError.make(clazz, err);
     }//FUNC::END
     
 }//CLASS::END
