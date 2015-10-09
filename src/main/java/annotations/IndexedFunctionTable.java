@@ -1,0 +1,263 @@
+package annotations;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import test.MyError;
+import utils.ReflectionHelperUtil;
+
+/**
+ * Scans @IndexedFunction methods, and then assembles a lookup table with them.
+ * Will throw error if any of the ~indicies~ are NOT unique.
+ * @author jmadison :2015.10.08
+ */
+public class IndexedFunctionTable {
+    
+    /** For code readability. **/
+    private final static boolean GET_STATIC   = true;
+    
+    /** For code readability. **/
+    private final static boolean GET_INSTANCE = true;
+    
+    /** After we are done adding all of the classes to scan, this is the
+     *  total number of annotated functions found. **/
+    private int _totalNumberOfFunctionsFoundToIndex = 0;
+    
+    /** This is the annotated function with the highest lookup table key found.
+     *  Used to allocated the correct sized array. As well as check for holes
+     *  in our lookup table. **/
+    private int _maxIndexFoundWhileAddingClasses = 0;
+    
+    /** We might not want a function at index [0]. But we DON'T want
+     *  someone to use a ridiculous index of 1,000 when there are only
+     *  5 functions or something. So to prevent that, we allocate how many
+     *  holes are allowed to be in our lookup table. **/
+    private int _maxNumberOfHolesAllowedInArray  = 20;
+    
+    /** Flagged to true after class has been built. **/
+    private boolean _hasBeenBuilt = false;
+    
+    /** Protect against adding the same class twice. **/
+    private HashMap<Class,Boolean> _collisionInsurance = 
+                                                   new HashMap<Class,Boolean>();
+    
+    /** Master list of all classes that have been added to lookup table. **/
+    private List<Class> _classTable = new ArrayList<Class>();
+    
+    /** Master lookup table we are building. 
+        Null until we know how much space we need to allocate to it.**/
+    private IndexedFunctionTableEntry[] _lookupTable = null;
+                                    
+    /** Add a class to scan and add to the lookup table. **/
+    public void addClass(Class clazz){
+        
+        if(_hasBeenBuilt){
+            doError("[Cannot add class. Already built.]");
+        }//ERROR?
+        
+        //Make sure we are not adding the same class twice:
+        addClassToCollisionRegistry(clazz);
+        _classTable.add(clazz);
+  
+        List<Field> fields;
+        fields = ReflectionHelperUtil.getFieldsWithAnnotation
+                         (clazz, IndexedFunction.class,GET_STATIC,GET_INSTANCE);
+        /** index to put function at. **/
+        short putDex;
+        
+        //Collect stats for all of the annotated fields:
+        for(Field f : fields){
+            _totalNumberOfFunctionsFoundToIndex++;
+            
+            putDex = getFieldsLookupIndex(f);
+            if(putDex < 0){doError("lookup table cannot use negative index");}
+            if(putDex > _maxIndexFoundWhileAddingClasses){
+                _maxIndexFoundWhileAddingClasses = putDex;
+            }//find max.
+            
+        }//Next annotation of proper type.
+     
+    }//FUNC::END
+    
+    /** Adds the class to the collision registry.
+     *  Throws error if trying to add class twice. **/
+    private void addClassToCollisionRegistry(Class clazz){
+        if(_collisionInsurance.containsKey(clazz)){
+            doError("[Attempting to add class more than once!]");
+        }//Error?
+        _collisionInsurance.put(clazz, true);
+    }//FUNC::END
+    
+    /**
+     * @param f: A field annotated with @IndexedFunction
+     * @return : The index it wants to have within the lookup table.
+     */
+    private short getFieldsLookupIndex(Field f){
+        //Find the index this wants to belong at:
+        Annotation ann        = f.getAnnotation(IndexedFunction.class);
+        IndexedFunction iFunc = (IndexedFunction)ann;
+        short lookupIndex     = iFunc.key();
+        return lookupIndex;
+    }//FUNC::END
+    
+    /** It is going to be easier to scan and index after figuring out the
+     *  highest value. That way we can allocate an ARRAY instead of an array
+     *  list. Also, checking for collisions will be easier this way.
+     */
+    public void build(){
+        
+        if(_hasBeenBuilt){
+            doError("[cannot build more than once!]");
+        }//Error?
+        
+        throwErrorIfTooManyHolesWillBeInLookupTable();
+        allocateLookupTableSpace();
+        populateLookupTable();
+        
+        //Kill the hash map. Reliquish those resources.
+        _collisionInsurance.clear();
+        _collisionInsurance = null;
+        _hasBeenBuilt = true;
+    }//FUNC::END
+    
+    public Method getMethodByIndex(short dex, Class[] paramTypes){
+        
+        if(false == _hasBeenBuilt){
+            doError("[cannot use function until setup and built.]");
+        }//ERROR?
+        
+        //Check inputs for validity:
+        if(dex<0){
+            doError("inputted index should be >= 0.");
+        }//ERROR?
+        
+        //Get everything you need to find function:
+        IndexedFunctionTableEntry ent = _lookupTable[dex];
+        if(null == ent){
+            //This is why I'd prefer to keep as little holes in the
+            //lookup table as possible.
+            doError("[Index could not be resolved to a function.]");
+        }//ERROR?
+        
+        //Get the method:
+        Method m = null;
+        if(null == ent.clazz){doError("[entry stored null class ref somehow]");}
+        if(null == ent.funcName){doError("[funcName is null]");}
+        if("".equals(ent.funcName)){doError("[emptystring is bad funcname]");}
+        try{//TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+            //m = ent.clazz.getDeclaredMethod(ent.funcName, paramTypes);
+            
+            if(paramTypes.length != 2){
+                doError("[HACK: Only supporting 2 args. AlterCode?]");
+            }//CHECK.
+            
+            //http://stackoverflow.com/questions/160970/
+            //Think mkyong was wrong on this one and have to use positional
+            //arguments. We will have to test to know for sure.
+            m = ent.clazz.getDeclaredMethod(ent.funcName, paramTypes[0], 
+                                                          paramTypes[1]);
+     
+        }catch(Exception exep){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            doError("[Method did not exist. Perhaps bad signature given?]");
+        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+        //Make absolutely sure method is NOT null:
+        if(null==m){doError("[Method is null for some reason]");}
+        
+        //Return the method:
+        return m;
+    }//FUNC::END
+    
+    /** Allocates enough slots to build the lookup table with all of the
+     *  annotated functions that have been scanned. **/
+    private void allocateLookupTableSpace(){
+        int len      = _maxIndexFoundWhileAddingClasses+1;
+        _lookupTable = new IndexedFunctionTableEntry[len];
+    }//FUNC::END
+    
+    /** Scans through all of the classes that have been added and packs
+     *  their registered functions into the lookup table. **/
+    private void populateLookupTable(){
+        
+        //Iterate through all classes:
+        for(Class clazz : _classTable){
+            scanClassAndMakeTableEntries(clazz);
+        }//Next registered class.
+
+    }//FUNC::END
+    
+    /** Scan a single class that has been registered and register all of
+     *  it's annotated functions with this lookup table.
+     * @param clazz :The class to make lookup table entries for. **/
+    private void scanClassAndMakeTableEntries(Class clazz){
+        IndexedFunctionTableEntry entry;
+        
+        /** Get all fields annotated with @IndexedFunction **/
+        List<Field> fields;
+        fields = ReflectionHelperUtil.getFieldsWithAnnotation
+                         (clazz, IndexedFunction.class,GET_STATIC,GET_INSTANCE);
+        /** index to put function at. **/
+        short putDex;
+        
+        //Collect stats for all of the annotated fields:
+        for(Field f : fields){
+            
+            //Create entry:
+            entry          = new IndexedFunctionTableEntry();
+            entry.clazz    = clazz;
+            entry.funcName = f.getName();
+            entry.isStatic = ReflectionHelperUtil.getIsFieldStatic(f);
+          
+            //Get where to put entry.
+            //And then put it into that position with the lookup table:
+            putDex = getFieldsLookupIndex(f);
+            if(putDex < 0){doError("lookup table cannot use negative index");}
+            
+            //Put entry where it belongs:
+            _lookupTable[putDex] = entry;
+            
+        }//Next annotation of proper type.
+
+    }//FUNC::END
+    
+    /** Will throw error if too many holes will be in the lookup table.
+     *  This is to prevent someone from giving a function a ridiculous
+     *  index of 2,000 when there are only ten(10) functions to register
+     *  with the lookup table. **/
+    private void throwErrorIfTooManyHolesWillBeInLookupTable(){
+        
+        //Max index + 1 == total number of allocated slots needed.
+        int totalSlotsNeeded = _maxIndexFoundWhileAddingClasses + 1;
+        
+        if(totalSlotsNeeded < _totalNumberOfFunctionsFoundToIndex){
+            doError("[We are reporting we need less that what is found.]");
+        }//ERROR?
+        
+        int numUnAllocatedSlots = 
+                         totalSlotsNeeded - _totalNumberOfFunctionsFoundToIndex;
+        
+        //We want to avoid un-allocated slots in our lookup table:
+        if(numUnAllocatedSlots > _maxNumberOfHolesAllowedInArray){
+            String msg = "[Too many holes in your lookup table!]";
+            msg += "[try to use uniform enums, starting from 1 or 0.]";
+            doError(msg);
+        }//ERROR?
+                  
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = IndexedFunctionTable.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw new MyError(clazz, err);
+    }//FUNC::END
+    
+}//CLASS::END
