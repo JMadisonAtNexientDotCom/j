@@ -3,6 +3,7 @@ package test.transactions.cargoSystem.dataTypes;
 import java.util.ArrayList;
 import java.util.List;
 import test.MyError;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.transactions.util.TransValidateUtil;
 
 /**
@@ -140,6 +141,64 @@ public class CargoHold {
             
         return op;
  
+    }//FUNC::END
+    
+    /**
+     * Takes a single entity and adds it to a new cage within the hold.
+     * @param ent: The entity to put into a cage within the hold.
+     * @param order:Original order slip used to secure the entities.
+     *              Used as a receipt associated with the cage.
+     * @param saveEntityOnExit: Means all entities in this cage will be saved
+     *                          to database when all of the transactions on
+     *                          the barge have been completed.
+     */
+    public EntityCage addCageWithOneEntity
+                    (BaseEntity ent, OrderSlip order, boolean saveEntityOnExit){
+          
+        //Basic error checks:
+        if(null == ent){doError("input entity null");}
+        if(null == order){doError("order slip to use as receipt is null");}
+               
+        //Make the cage and populate with data:
+        EntityCage cage = EntityCage.make(ent.getClass(), order);
+        cage.merchandise.add(ent);
+        cage.requiresSaving = saveEntityOnExit;
+        
+        //return the cage:
+        return cage;
+    }//FUNC::END
+    
+    /**
+     * Does same thing as addCageWithOneEntity, but will also make sure
+     * that the supplier is unique. Example: If you ALREADY have a cage full
+     * of DOG entities on your barge, then adding another cage full of DOGS
+     * would be an error. Use this when the Agenda you are creating is supposed
+     * to be pulling from all unique tables.
+     * @param ent
+     * @param entitySupplier 
+     * @return :Returns the entity cage made, so you can further configure it.
+     */
+    public EntityCage addCageWithOneEntity_AndAssertUnique
+                    (BaseEntity ent, OrderSlip order, boolean saveEntityOnExit){
+        //Error check inputs:
+        if(null==ent){doError("[null==ent]");}
+        if(null==order){doError("[null==order");}
+                
+        //Get class of base entity we are caging:               
+        Class classOfInputEntity = ent.getClass();
+                        
+        //go through all the suppliers of the different cages and see if   
+        //an entity cage with that supplier already exists. If it DOESN'T.
+        //then all is okay. If it does, throw error:
+        for(EntityCage c : cages){
+            if(c.entityClass == classOfInputEntity){
+                doError("[This cage of specimens is not unique.]");
+            }//ERROR
+        }//next cage.
+        
+        //if all goes well, call the core logic:
+        return addCageWithOneEntity(ent, order, saveEntityOnExit);
+                            
     }//FUNC::END
     
     /** make an empty cargo hold that is ready to be filled. **/

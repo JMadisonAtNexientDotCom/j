@@ -2,6 +2,7 @@ package test.transactions.cargoSystem.dataTypes;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 
 
@@ -22,7 +23,7 @@ public class EntityCage {
      * Think of the entities as live animals in cages
      * that are merchandise for sale. A bit morbid of
      * an analogy, but I think it will be helpful to remember. **/
-    public ArrayList<BaseEntity> merchandise;
+    public List<BaseEntity> merchandise;
     
     /** The original order slip that was used 
      *  to create this batch of entities. **/
@@ -34,6 +35,23 @@ public class EntityCage {
      *  this should be flagged as TRUE.
      **/
     public boolean requiresSaving = false;
+    
+    /**-------------------------------------------------------------------------
+     * Maker function that will make sure all properties from resulting
+     * construction are non-null.
+     * @param inEntityClass :The entity class that all entities within cage
+     *                       should belong to.
+     * @param inReceipt     :The original OrderSlip used to gather these
+     *                       entities. Used as a receipt.
+     * @return :See above.
+     ------------------------------------------------------------------------**/
+    public static EntityCage make(Class inEntityClass, OrderSlip inReceipt){
+        EntityCage op  = new EntityCage();
+        op.entityClass = inEntityClass;
+        op.receipt     = inReceipt;
+        op.merchandise = new ArrayList<BaseEntity>();
+        return op;
+    }//FUNC::END
     
     
 }//CLASS::END
