@@ -42,6 +42,10 @@ public class GalleonBarge {
     public static int STATUS_EXECUTING_AGENDA          = 4;
     public static int STATUS_TRIP_COMPLETE_CARGO_READY = 5;
     ///////////////////////////////////////////////////////
+    
+    //Constructor locks to prevent un-authorized access to the constructor.
+    //private static boolean _constructorLock_makeNullInstance = true;
+    //private static boolean _constructorLock_make = true;
   
     /** Holds all of the entities that have been collected from requests.
      *  Called cargo hold because we think of entities as exotic dinosaurs
@@ -55,6 +59,12 @@ public class GalleonBarge {
     
     /** The status of the barge. **/
     public int status;
+    
+    private GalleonBarge(){
+        //Do nothing. Just here to force the default constructor
+        //to be PRIVATE and inaccessible.
+        //use the .make functions on the class instead.
+    }//CONSTRUCTOR
     
     /**
      * Creates a new partially configured order,
@@ -73,10 +83,33 @@ public class GalleonBarge {
        
     }//FUNC::END
     
+    /** By null instance. I mean an instance where all the properties
+     *  of this object are null references. You would use something like
+     *  this when you want to do some manual configuration.
+     * 
+     *  SYNCHRONIZED TO PROTECT THE CONSTRUCTOR LOCK!
+     * 
+     * @return :A GalleonBarge that contains all null references.
+     */
+    synchronized public static GalleonBarge makeNullInstance(){
+        //_constructorLock_makeNullInstance = false;
+        // GalleonBarge op = new GalleonBarge(makerID);
+        //_constructorLock_makeNullInstance = true;
+        
+        //If I can make constructors private, won't need any fancy lockers.
+        GalleonBarge op = new GalleonBarge();
+        return op;
+    }//FUNC::END
+    
     /** Make a GalleonBarge that does NOT have null references.
      *  And is ready to be populated with data.
      * @return : See above. **/
-    public static GalleonBarge make(){
+    synchronized public static GalleonBarge make(){
+        //_constructorLock_make = false;
+        //GalleonBarge op = new GalleonBarge(makerID);
+        //_constructorLock_make = true;
+        
+        //If I can make constructors private, won't need any fancy lockers.
         GalleonBarge op = new GalleonBarge();
         op.hold   = CargoHold.make();
         op.agenda = AgendaClipBoard.make();

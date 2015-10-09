@@ -23,7 +23,7 @@ public class DryDock {
      */
     public static GalleonBarge createNewToken(){
         
-        GalleonBarge barge = new GalleonBarge();
+        GalleonBarge barge = GalleonBarge.make();
         OrderSlip order;
         order = OrderSlip.makeUsingPortID(TokenPorts.CREATE_NEW_TOKEN);
         barge.agenda.addOrder(order);
@@ -33,7 +33,7 @@ public class DryDock {
     
     public static GalleonBarge dispatch_trial_token_and_link_to_ninja(){
         
-        GalleonBarge barge = new GalleonBarge();
+        GalleonBarge barge = GalleonBarge.make();
         OrderSlip order;
         
         order = barge.placeOrder(TokenPorts.CREATE_NEW_TOKEN);
