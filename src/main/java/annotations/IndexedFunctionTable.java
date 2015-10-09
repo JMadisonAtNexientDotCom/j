@@ -134,6 +134,12 @@ public class IndexedFunctionTable {
             doError("inputted index should be >= 0.");
         }//ERROR?
         
+        //if the index is out of bounds, do an error, but have the error
+        //dump out the contents of the table for you:
+        if(dex >= _lookupTable.length){
+            doError("[We are out of bounds. Serialize the table for debug]");
+        }//ERROR, OUT OF BOUNDS?
+        
         //Get everything you need to find function:
         IndexedFunctionTableEntry ent = _lookupTable[dex];
         if(null == ent){
