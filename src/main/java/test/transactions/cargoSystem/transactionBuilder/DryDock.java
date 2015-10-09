@@ -12,7 +12,22 @@ import test.transactions.cargoSystem.ports.TokenPorts;
  * The master object holding all of the objects that can create builders
  * for the different request types.
  * 
- * @author jmadison
+ * Why the word DryDock?
+ * A dry dock is where ships are built. It is basically a ShipBuilder.
+ * But I wanted a more concise word for that. I want the main players of
+ * the architecture to have strong+concise+distinguishable names.
+ * 
+ * The DESCRIPTIVENESS of the identifiers in the main architecture should
+ * not come from having a SuperLongDescriptiveNameThatTellsUsExactlyWhatItDoes
+ * but rather by using a unique word who's definition fits into a larger 
+ * analogy.
+ * 
+ * Basically: I am using elaborative encoding techniques 
+ * to help the maintainability of the system. A bit experimental. But after
+ * memorizing 40 digits of pi in under 1 hour... And being able to keep it in
+ * memory for a few months... I think I am onto something.
+ * 
+ * @author jmadison :2015.10.09
  */
 public class DryDock {
     

@@ -102,17 +102,41 @@ public class CargoHold {
         TransValidateUtil.assertIsEntityClass(supplierTable);
         if(null == cages){doError("[Cages are null. Cannot iterate over.]");}
         
+        //This is an error, because user of system should have expectation
+        //of what they are getting.
+        if(cages.size() <= 0){
+            doError("[No cages to search! Cages list is empty.]");
+            return null;
+        }//ERROR END.
+        
         List<EntityCage> op = new ArrayList<EntityCage>();
         for(EntityCage ec : cages){
             
             if(null == ec.entityClass){
                 doError("[No entityClass was stored with this cage!]");
+                return null;
             }//End Func.
             
             if(ec.entityClass == supplierTable){
                 op.add(ec);
             }//Valid entry found!
         }//Next cage.
+        
+        //ZERO IS AN ERROR. When calling, we expect there to be at least
+        //one item. If you DON'T KNOW if there are any items... You are
+        //using the architecture improperly. This check is here because
+        //throwing errors that signify the programmer doesn't know what they
+        //are doing is an EXCELLENT OPPROTUNITY. Because logic errors are some
+        //of the most sinister and hardest to find errors in code.
+        //And ideally we want our error checking to do things that the compiler
+        //CANNOT do because the compiler is not HUMAN and has no insights into
+        //the larger system.
+        if(op.size() <= 0){
+            String msg = "";
+            msg += "[Entity cages were found.]";
+            msg += "[But none registered to the supplier you specified.]";
+            doError(msg);
+        }//NO SUPPLIERS FOUND
             
         return op;
  
