@@ -49,6 +49,54 @@ public class UniqueValueValidator {
         //to fetch values from it.
         validateLongs_InstanceAndStaticCommonCode(fields,STATIC_TRUE,null);
         
+        //TODO NOTES: 2015.10.09:
+        //return the value of all the fields in a list so that we can
+        //use this as a LOOKUP TABLE, if we so desire:
+        //CRAP.. Only works on longs... Should we refactor our shorts to long?
+        //Should we refactor this code??
+        //Quickest way to go would be to refactor shorts to long.
+        
+    }//FUNC::END
+    
+    /** 
+     *  This is.. horrible... Code duplication. Probably should have made
+     *  use of a template function... Oh well. Faster to hack it.
+     * 
+     *  WHAT THIS FUNCTION DOES:
+     *  Validates that all of the static shorts are unique.
+     *  If there is a short with the same value, and a long with the same
+     *  value... That will NOT be caught by this error check.
+     * 
+     *  DESIGN COMMENT:
+     *  there is no REF TYPE of short... like there is with Long&long
+     *  and Integer&int... Which means, must return array. Which means...
+     *  that we cannot have access to built-in methods like index-of.
+     *  That sucks.
+     * @param clazz :The class
+     * @return :returns an array containing all of the values, so that
+     *          we can cache it for a lookup function. This will enable
+     *          us to easily make enum classes that can check to see if
+     *          the value you are asking about exists in the class.
+     */
+    public static short[] validateStaticShorts(Class clazz){
+        
+        return null;
+        
+        //we could solve this using TEMPLATE functions to create validation
+        //for different types. Lets figure that out.
+        /*
+        makeSureFieldsDoNotHaveIncorrectAnnotations(clazz);
+        
+        List<Field> fields;
+        fields = ReflectionHelperUtil.getFieldsWithAnnotation
+                         (clazz, UniqueStaticValue.class, IGNORE, GET_INSTANCE);
+        
+        //This mostly makes sense on ENUM style classes:
+        Object inst = ReflectionHelperUtil.makeInstanceUsingClass(clazz);
+        
+        validateShorts_InstanceAndStaticCommonCode(fields,STATIC_TRUE, null);
+        */
+        
     }//FUNC::END
     
     /**-------------------------------------------------------------------------

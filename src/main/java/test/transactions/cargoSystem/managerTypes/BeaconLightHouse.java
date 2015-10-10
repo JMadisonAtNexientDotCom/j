@@ -3,10 +3,12 @@ package test.transactions.cargoSystem.managerTypes;
 import annotations.IndexedFunctionTable;
 import java.lang.reflect.Method;
 import test.MyError;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.transactions.cargoSystem.dataTypes.EntityCage;
 import test.transactions.cargoSystem.dataTypes.GalleonBarge;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
 import test.transactions.cargoSystem.ports.TokenPorts;
+import test.transactions.cargoSystem.ports.config.MasterPortList;
 
 /**
  * This is a static registry class that helps resolve the different
@@ -67,6 +69,41 @@ public class BeaconLightHouse {
      */
     public static void guideShipToPort(GalleonBarge barge, OrderSlip order){
         
+        validateIncommingShip(barge,order);
+        
+        //Regardless of if we are loading entities using a port,
+        //we need to check the validity of how the order has been setup:
+        validateKeyLoadingConfigOnOrder(order);
+        
+        //NOTE:If the Order has been pre-loaded with IDS, then we DO NOT
+        //use a port function to fetch the data. We just get it directly
+        //from the table using the transaction utility, querying for the
+        //primary keys:
+        if(false == order.loadKeysUsingPort){
+            loadBargeUsingTable(barge,order);
+        }else
+        if(true == order.loadKeysUsingPort){
+            loadBargeUsingPort(barge,order);
+        }else{
+            doError("[This should be line of dead code.]");
+        }//BLOCK::END
+        
+        //Has order been fufilled, and fufilled properly?
+        //validate that entities from the order have been collected
+        //and that they have been collected PROPERLY.
+        validateCollectedMerchandise(barge,order);
+ 
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+     *  Do basic validation on an ~incoming~ ship that wants to have an
+     *  order completed.
+     * @param barge :The ship that is ~fufilling~ orders on the Agenda.
+     * @param order :The current order on the AgendaClipBoard that is
+     *               up for ~fufillment~.
+     ------------------------------------------------------------------------**/
+    private static void validateIncommingShip
+                                          (GalleonBarge barge, OrderSlip order){
         //Error check inputs:
         if(null == barge){doError("[input barge is null]");}
         if(null == order){doError("[input order is null]");}
@@ -76,6 +113,70 @@ public class BeaconLightHouse {
             msg += "[on quest to fufil your agenda.]";
             doError(msg);
         }//ERROR?
+    }//FUNC::END
+    
+    private static void validateCollectedMerchandise
+                                          (GalleonBarge barge, OrderSlip order){
+        //Todo: Validate that for every deposited primary key, there is
+        //also the corresponding entity.
+        EntityCage cage = barge.hold.getCageUsingReceipt(order);
+        if(cage.merchandise.size() != order.primaryKey_ids.size()){
+            String msg = "";
+            msg+="[Keys did not evenly pair with actual entities.]";
+            msg+="[This is a requirement!]";
+           doError(msg);
+        }//Checksum error.
+        
+        //If checksum error passes, we want to make sure the POSITIONS
+        //all match up.
+        long id_from_key_list;
+        BaseEntity be;
+        long id_from_caged_entity;
+        int len = cage.merchandise.size();
+        for(int i = 0; i < len; i++){
+            id_from_key_list = order.primaryKey_ids.get(i);
+            be = cage.merchandise.get(i);
+            
+            //Make sure entity is of the correct type:
+            if(be.getClass() != cage.entityClass){
+                String msg = "";
+                msg += "The wrong type of entity is in this cage";
+                msg += "Analogous to putting a CAT into the DOG kennel";
+                doError(msg);
+            }//Wrong entity stored?
+            
+            id_from_caged_entity = be.getId();
+            if(id_from_key_list != id_from_caged_entity){
+                String msg = "";
+                msg += "IDs must be paired.";
+                msg += "possible reasons for error:";
+                msg += "1: All keys have a match, but the keys are shuffled";
+                msg += "and do not line up with the entity array paired with";
+                msg += "2: You are looking at WRONG collection of entities.";
+                doError(msg);
+            }//Pairing error?   
+        }//NEXT i
+    }//FUNC::END
+    
+    /**For an order that is NOT configured to use a port function to get
+     * the requested merchandise(entities), we want to do a straight pull
+     * from the supplier table, using the primary key ids that have been
+     * specified on the order slip. **/
+    private static void loadBargeUsingTable
+                                          (GalleonBarge barge, OrderSlip order){
+        
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+     *  This function loads up the ship(barge) with the requested order.
+     *  Using a PORT FUNCTION to do the work. 
+     * @param barge :The ship ~travelling~ around and collecting the cargo
+     *               on the AgendaClipBoard containing all of the orders.
+     * @param order :The current order on the agenda that is being ~fufilled~.
+     ------------------------------------------------------------------------**/
+    private static void loadBargeUsingPort(GalleonBarge barge, OrderSlip order){
+        //Confirm that the portID is valid:
+        MasterPortList.validatePortID(order.portID);
         
         //Get the correct port from the OrderSlip,
         //This is basically, the destination where we will find what
@@ -93,16 +194,69 @@ public class BeaconLightHouse {
         }catch(Exception exep){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             doError("[Failed to invoke method!]");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+    }//FUNC::END
+    
+    /**
+     * Make sure the configuration of the keys is correct before we try
+     * and satisfy the order. Keys either come pre-loaded and are used to
+     * fetch entities, or keys don't exist and the port loads both the
+     * key and the entities.
+     * 
+     *              |--loadKeysUsingPort=TRUE--|--loadKeysUsingPort==FALSE--|
+     * INITIAL KEYS:|       NULL/EMPTY         |      1 or more primary keys|
+     * INITIAL ENTITIES:    NONE IN CARGO      |     NONE IN CARGO          |
+     * ----------------------------------------------------------------------
+     * ENTITIES ON  |     Entities in cargo, and one primary key loaded
+     * ORDER COMPLETE:    into order for each entity.
+     * ----------------------------------------------------------------------
+     * 
+     * 
+     * @param order :The order we want to ~analyse~ the integrity of before
+     *               carrying it out.
+     */
+    private static void validateKeyLoadingConfigOnOrder(OrderSlip order){
         
-        //Todo: Validate that for every deposited primary key, there is
-        //also the corresponding entity.
-        EntityCage cage = barge.hold.getCageUsingReceipt(order);
-        if(cage.merchandise.size() != order.primaryKey_ids.size()){
-            String msg = "";
-            msg+="[Keys did not evenly pair with actual entities.]";
-            msg+="[This is a requirement!]";
-           doError(msg);
-        }//Checksum error.
+        if(order.isOrderComplete()){
+            doError("[Order has already been completed]");
+        }//FUNC::END
+        
+        //Configured to fetch primary keys and entities
+        //using a port function?
+        if(true==order.loadKeysUsingPort){
+            if(null != order.primaryKey_ids){
+                if(order.primaryKey_ids.size() >= 0){
+                    String msg = "";
+                    msg += "[we are configured to fetch keys using port.]";
+                    msg += "[But already has come pre-loaded with keys.]";
+                    doError(msg);
+                }//Has keys already loaded?
+            }//keys object is NOT null.
+        }//should we load keys into order using a port function?
+        
+        //Are we pre-loading the primary keys in order to fetch entities
+        //from the table using straight-up keys? If this is the case,
+        //there should be ZERO SPECS in this order. As it is being used
+        //as a sort of constant.
+        if(false == order.loadKeysUsingPort){
+      
+            //If flagged as preloading, there must actually be keys!
+            if(null == order.primaryKey_ids){
+                doError("[no loaded primary key list. Null.]");
+            }//
+            if(order.primaryKey_ids.size() <= 0){
+                doError("[No primary key list. EMPTY.]");
+            }//
+            
+            //Design question: 
+            //What should we do if primary key asked for
+            //ends up NOT existing? I think we should just throw an error.
+            //But is there any situtation where we have to get something
+            //we don't know exists by primary key?
+            //I don't think there should ever be that scenario within this
+            //system. The dependencies are wired up. And if information we
+            //ask for does not exist, the kind of breaks the entire system.
+            
+        }//PRE-LOADED KEYS?
         
     }//FUNC::END
     
