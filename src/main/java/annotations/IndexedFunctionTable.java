@@ -123,6 +123,28 @@ public class IndexedFunctionTable {
         _hasBeenBuilt = true;
     }//FUNC::END
     
+    /** Serializes lookup table for debug printout. **/
+    private String serializeLookupTable(){
+        String lenStr = Integer.toString(_lookupTable.length);
+        int maxValidIndex = _lookupTable.length -1 ;
+        IndexedFunctionTableEntry entry;
+        String msg = "";
+        msg += "Length:[" + lenStr + "]";
+        msg += "Values:[";
+        for(int i = 0; i <= maxValidIndex; i++){
+            entry = _lookupTable[i];
+            msg += "#" + Integer.toString(i) + ":";
+            msg += "funcName:[" + entry.funcName + "]";
+            msg += "class:["    + entry.clazz    + "]";
+            msg += "isStatic:[" + entry.isStatic + "]";
+            if(i < maxValidIndex){
+                msg+= ",";
+            }//add comma?
+        }//next i (next entry)
+        
+        return msg;
+    }//FUNC::END
+    
     public Method getMethodByIndex(short dex, Class[] paramTypes){
         
         if(false == _hasBeenBuilt){
@@ -137,7 +159,11 @@ public class IndexedFunctionTable {
         //if the index is out of bounds, do an error, but have the error
         //dump out the contents of the table for you:
         if(dex >= _lookupTable.length){
-            doError("[We are out of bounds. Serialize the table for debug]");
+            String msg = "";
+            msg += "[We are out of bounds. Serialize the table for debug]";
+            msg += serializeLookupTable();
+            msg += "[Serialized lookup table END]";
+            doError(msg);
         }//ERROR, OUT OF BOUNDS?
         
         //Get everything you need to find function:
