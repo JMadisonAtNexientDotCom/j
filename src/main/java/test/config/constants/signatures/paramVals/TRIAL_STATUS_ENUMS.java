@@ -28,8 +28,16 @@ public class TRIAL_STATUS_ENUMS {
         _staticInitAlreadyCalled = true;
         
         //Possible inifinte recursion:
-        UniqueValueValidator.validateStaticLongs(TRIAL_STATUS_ENUMS.class);
-        UniqueValueValidator.validateInstanceLongs(TRIAL_STATUS_ENUMS.class);
+        Class[] clazz = new Class[2];
+        clazz[0] = Long.class;
+        clazz[1] = long.class;
+        UniqueValueValidator.validateInstanceTypes
+                                        (TRIAL_STATUS_ENUMS.class, clazz);
+        UniqueValueValidator.validateStaticTypes
+                                        (TRIAL_STATUS_ENUMS.class, clazz);
+        
+        //UniqueValueValidator.validateStaticTypes(TRIAL_STATUS_ENUMS.class);
+        //UniqueValueValidator.validateInstanceTypes(TRIAL_STATUS_ENUMS.class);
         
     }//FUNC::END
     

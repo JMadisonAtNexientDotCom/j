@@ -33,11 +33,23 @@ public class UniqueValueValidator {
      * Throw error if all ~publically~ exposed STATIC values are NOT unique.
      * @param clazz :The class to inspect via reflection. Note: Only checks
      *               for unique amongst annotated.
+     * @param types :The types to validate. Note: They should be equivalent
+     *               types that only differ in that one is REF-type and the
+     *               other is VALUE-type. Example: Long+long, Short+short,
+     *               Integer+int. THE FIRST ENTRY should be a reference type.
+     *               The type that you want returned in the output list.
+     * 
+     * @param <T> :  The REF-type of the members of the collection you want
+     *               to return. Should be same type as types[0], or compatible
+     *               with types[1]. Like Integer+int
+     * 
      * @return : Returns a list of all of the validated values. This makes
      *           it possible to auto-generate a lookup table for your enum
      *           class.
      */
-    public static List<Long> validateStaticLongs(Class clazz){
+    public static <T> List<T> validateStaticTypes(Class clazz, Class[] types){
+        
+        validate__Types_checkInputParameter(types);
         
         //For checking that @UniqueStaticValue is not on an INSTANCE field.
         //Or alternatively  @UniqueInstanceValue is not on a STATIC field.
@@ -50,11 +62,11 @@ public class UniqueValueValidator {
         //Supply TRUE, because the fields are static:
         //Give null, because static fields do not require an instance
         //to fetch values from it.
-        Class[] longs = new Class[2];
-        longs[0] = Long.class;
-        longs[1] = long.class;
+        //Class[] longs = new Class[2];
+        //longs[0] = Long.class;
+        //longs[1] = long.class;
         return validateAndCollectValuesOfType_InstanceAndStaticCommonCode
-                                                (fields,STATIC_TRUE,null,longs);
+                                                (fields,STATIC_TRUE,null,types);
         
         //TODO NOTES: 2015.10.09:
         //return the value of all the fields in a list so that we can
@@ -63,6 +75,66 @@ public class UniqueValueValidator {
         //Should we refactor this code??
         //Quickest way to go would be to refactor shorts to long.
         
+    }//FUNC::END
+    
+    /**
+     * Input validation code for validateStaticTypes function.
+     * As a separation of concerns, decided to put all the error checking code
+     * into it's own function to reduce the clutter.
+     * @param types :Array of classes/type to validate.
+     */
+    private static void validate__Types_checkInputParameter(Class[] types){
+        
+        if(null == types){doError("null input!");}
+        
+        if(types.length <= 0){doError("must provide at least one input!");}
+        
+        //Forget about this check for now. Since we might check only
+        //shorts instead of Shorts + shorts. You never know!
+        //if(true == types[0].isPrimitive()){
+        //    doError("First type should be REF-type so we can pass to list.");
+        //}//error?
+        
+        if(types.length > 2){
+            String msg = "";
+            msg += "[The array must hold 1 to 2 items. The 2nd being]";
+            msg += "[optional VALUE-TYPE representation of reftype]";
+            doError(msg);
+        }//
+        
+        //Check supported types that have REFERENCE and VALUE representations.
+        //Hackish, but rather have error checking + self-documentation of how
+        //to properly use this function:
+        if(types[0] == Long.class){
+            if(types[1] != long.class){
+                doError("The 2nd input should be valuetype:long");
+            }//
+        }else
+        if(types[0] == Short.class){
+            if(types[1] != short.class){
+                doError("2nd input should be valuetype:short");
+            }//
+        }else
+        if(types[0] == Integer.class){
+            if(types[1] != int.class){
+                doError("2nd input should be valuetype:int");
+            }//
+        }else
+        if(types[0] == String.class){
+            if(types.length > 1){
+                String msg = "No 2nd arg allowed for String,";
+                msg += "has no equivalent value type.";
+                doError(msg);
+            }//
+        }else{
+            if(types.length > 1){
+                String msg = "No 2nd arg allowed for types";
+                msg += "That are not paired with a boxed or unboxed equivalent";
+                msg += "If this is the case, add code for the type";
+                msg += "into this error checking block.";
+                doError(msg);
+            }//
+        }//Input param checks over.
     }//FUNC::END
     
     /** 
@@ -110,10 +182,22 @@ public class UniqueValueValidator {
      * Throw error if all ~publically~ exposed INSTANCE values are NOT unique.
      * @param clazz :The class to inspect via reflection. Note: Only checks
      *               for unique amongst annotated.
+     * @param types: If types.length == 1:
+     *               types[0] = T OR types[0] = BOXED version of T.
+     * 
+     *               If types.length == 2:
+     *               types[0] = T
+     *               types[1] = Boxed version of T (EX:Integer is boxed int)
+     * 
+     *               types.length MUST be 1 or 2 in length.
+     * 
+     * @param <T> :The type being evaluated that will be returned in a list.
      * @return :Generates list of all validated values. Make it possible
      *          to auto-generate a lookup table for enum classes.
      ------------------------------------------------------------------------**/
-    public static List<Long> validateInstanceLongs(Class clazz){
+    public static <T> List<T> validateInstanceTypes(Class clazz, Class[] types){
+        
+        validate__Types_checkInputParameter(types);
         
         makeSureFieldsDoNotHaveIncorrectAnnotations(clazz);
         
