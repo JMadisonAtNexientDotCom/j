@@ -53,7 +53,7 @@ public class UniqueValueValidator {
         Class[] longs = new Class[2];
         longs[0] = Long.class;
         longs[1] = long.class;
-        return validateLongs_InstanceAndStaticCommonCode
+        return validateAndCollectValuesOfType_InstanceAndStaticCommonCode
                                                 (fields,STATIC_TRUE,null,longs);
         
         //TODO NOTES: 2015.10.09:
@@ -128,7 +128,7 @@ public class UniqueValueValidator {
         Class[] longs = new Class[2];
         longs[0] = Long.class;
         longs[1] = long.class;
-        return validateLongs_InstanceAndStaticCommonCode
+        return validateAndCollectValuesOfType_InstanceAndStaticCommonCode
                                                (fields,STATIC_FALSE,inst,longs);
         
         
@@ -150,7 +150,8 @@ public class UniqueValueValidator {
      *              array should be the same as the type of the data we
      *              are RETURNING in the collection.
      */
-    private static <T> List<T> validateLongs_InstanceAndStaticCommonCode
+    private static <T> List<T> 
+    validateAndCollectValuesOfType_InstanceAndStaticCommonCode
     (List<Field> fields, boolean doStaticCheckMode, Object inst, Class[] types){            
         //Create a hashmap that will collect all of the values on the fields.
         //If collision, we throw error. Validation has failed.
