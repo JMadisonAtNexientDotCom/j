@@ -157,25 +157,27 @@ public class UniqueValueValidator {
      *          us to easily make enum classes that can check to see if
      *          the value you are asking about exists in the class.
      */
-    public static short[] validateStaticShorts(Class clazz){
+    public static List<Short> validateStaticShorts(Class clazz){
         
-        return null;
+        Class[] types = getShortTypes();
+        validateInstanceTypes(clazz, types);
+        return validateStaticTypes(clazz, types); //<--static check.
+       
+    }//FUNC::END
+    
+    public static List<Short> validateInstanceShorts(Class clazz){
         
-        //we could solve this using TEMPLATE functions to create validation
-        //for different types. Lets figure that out.
-        /*
-        makeSureFieldsDoNotHaveIncorrectAnnotations(clazz);
-        
-        List<Field> fields;
-        fields = ReflectionHelperUtil.getFieldsWithAnnotation
-                         (clazz, UniqueStaticValue.class, IGNORE, GET_INSTANCE);
-        
-        //This mostly makes sense on ENUM style classes:
-        Object inst = ReflectionHelperUtil.makeInstanceUsingClass(clazz);
-        
-        validateShorts_InstanceAndStaticCommonCode(fields,STATIC_TRUE, null);
-        */
-        
+        Class[] types = getShortTypes();
+        validateInstanceTypes(clazz, types);
+        return validateInstanceTypes(clazz, types); //<--instance check.
+       
+    }//FUNC::END
+    
+    private static Class[] getShortTypes(){
+        Class[] types = new Class[2];
+        types[0] = Short.class;
+        types[1] = short.class;
+        return types;
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
