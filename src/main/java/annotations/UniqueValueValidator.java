@@ -33,8 +33,11 @@ public class UniqueValueValidator {
      * Throw error if all ~publically~ exposed STATIC values are NOT unique.
      * @param clazz :The class to inspect via reflection. Note: Only checks
      *               for unique amongst annotated.
+     * @return : Returns a list of all of the validated values. This makes
+     *           it possible to auto-generate a lookup table for your enum
+     *           class.
      */
-    public static void validateStaticLongs(Class clazz){
+    public static List<Long> validateStaticLongs(Class clazz){
         
         //For checking that @UniqueStaticValue is not on an INSTANCE field.
         //Or alternatively  @UniqueInstanceValue is not on a STATIC field.
@@ -50,7 +53,7 @@ public class UniqueValueValidator {
         Class[] longs = new Class[2];
         longs[0] = Long.class;
         longs[1] = long.class;
-        validateLongs_InstanceAndStaticCommonCode
+        return validateLongs_InstanceAndStaticCommonCode
                                                 (fields,STATIC_TRUE,null,longs);
         
         //TODO NOTES: 2015.10.09:
@@ -107,8 +110,10 @@ public class UniqueValueValidator {
      * Throw error if all ~publically~ exposed INSTANCE values are NOT unique.
      * @param clazz :The class to inspect via reflection. Note: Only checks
      *               for unique amongst annotated.
+     * @return :Generates list of all validated values. Make it possible
+     *          to auto-generate a lookup table for enum classes.
      ------------------------------------------------------------------------**/
-    public static void validateInstanceLongs(Class clazz){
+    public static List<Long> validateInstanceLongs(Class clazz){
         
         makeSureFieldsDoNotHaveIncorrectAnnotations(clazz);
         
@@ -123,7 +128,7 @@ public class UniqueValueValidator {
         Class[] longs = new Class[2];
         longs[0] = Long.class;
         longs[1] = long.class;
-        validateLongs_InstanceAndStaticCommonCode
+        return validateLongs_InstanceAndStaticCommonCode
                                                (fields,STATIC_FALSE,inst,longs);
         
         
