@@ -245,9 +245,10 @@ public class UniqueValueValidator {
         //create our output of all of the unique validated
         //long or Long values.
         List<T> list_of_t = new ArrayList<T>();
-                        
+           
+        //Since we want to return an array list anyways, lets not use a hashmap
         //This map will check for value collisions:
-        HashMap<T,Boolean> mapOfUniqueValues = new HashMap<T,Boolean>();                   
+        //HashMap<T,Boolean> mapOfUniqueValues = new HashMap<T,Boolean>();                   
                         
         T value;
         Object valueOfUnknownType;
@@ -256,10 +257,13 @@ public class UniqueValueValidator {
                                                      (f,doStaticCheckMode,inst);
             if(is_a_type(valueOfUnknownType, types)){
                 value = (T)valueOfUnknownType; //cast to output type.
-                if(mapOfUniqueValues.containsKey(value)){
+                //if(mapOfUniqueValues.containsKey(value)){
+                if(list_of_t.indexOf(value) >= 0){
                     doError("[validation of instance longs/Longs has failed]");
                 }//CRASH!
-                mapOfUniqueValues.put(value, true);
+                //mapOfUniqueValues.put(value, true);
+                list_of_t.add(value);
+            
             }//Is type we are checking for.
         }//Next field.
         
