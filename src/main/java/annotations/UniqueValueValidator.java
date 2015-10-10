@@ -47,7 +47,11 @@ public class UniqueValueValidator {
         //Supply TRUE, because the fields are static:
         //Give null, because static fields do not require an instance
         //to fetch values from it.
-        validateLongs_InstanceAndStaticCommonCode(fields,STATIC_TRUE,null);
+        Class[] longs = new Class[2];
+        longs[0] = Long.class;
+        longs[1] = long.class;
+        validateLongs_InstanceAndStaticCommonCode
+                                                (fields,STATIC_TRUE,null,longs);
         
         //TODO NOTES: 2015.10.09:
         //return the value of all the fields in a list so that we can
@@ -116,40 +120,59 @@ public class UniqueValueValidator {
         Object inst = ReflectionHelperUtil.makeInstanceUsingClass(clazz);
         
         //Supply false, because the fields are NON-STATIC:
-        validateLongs_InstanceAndStaticCommonCode(fields,STATIC_FALSE,inst);
+        Class[] longs = new Class[2];
+        longs[0] = Long.class;
+        longs[1] = long.class;
+        validateLongs_InstanceAndStaticCommonCode
+                                               (fields,STATIC_FALSE,inst,longs);
         
         
     }//FUNC::END
     
     /**
+     * 
+     * UPDATE: Function originally only validated Long+long types.
+     * Now trying to make it a generic/template type function that will
+     * take an array of classes to check.
+     * 
      * private shared common code between functions:
      * 1: validateInstanceLongs
      * 2: validateStaticLongs
      * @param fields :Fields to validate.
      * @param doStaticCheckMode :Are we checking static fields?
      * @param inst :If checking instance fields, we must provide instance.
+     * @param types:The types we are checking against. The FIRST type in the
+     *              array should be the same as the type of the data we
+     *              are RETURNING in the collection.
      */
-    private static void validateLongs_InstanceAndStaticCommonCode
-                   (List<Field> fields, boolean doStaticCheckMode, Object inst){            
+    private static <T> List<T> validateLongs_InstanceAndStaticCommonCode
+    (List<Field> fields, boolean doStaticCheckMode, Object inst, Class[] types){            
         //Create a hashmap that will collect all of the values on the fields.
         //If collision, we throw error. Validation has failed.
+        
+        //create our output of all of the unique validated
+        //long or Long values.
+        List<T> list_of_t = new ArrayList<T>();
                         
         //This map will check for value collisions:
-        HashMap<Long,Boolean> mapOfUniqueValues = new HashMap<Long,Boolean>();                   
+        HashMap<T,Boolean> mapOfUniqueValues = new HashMap<T,Boolean>();                   
                         
-        Long value;
+        T value;
         Object valueOfUnknownType;
         for(Field f : fields){
             valueOfUnknownType = ReflectionHelperUtil.getValueOfField
                                                      (f,doStaticCheckMode,inst);
-            if(is_long_or_Long(valueOfUnknownType)){
-                value = (Long)valueOfUnknownType;
+            if(is_a_type(valueOfUnknownType, types)){
+                value = (T)valueOfUnknownType; //cast to output type.
                 if(mapOfUniqueValues.containsKey(value)){
                     doError("[validation of instance longs/Longs has failed]");
                 }//CRASH!
                 mapOfUniqueValues.put(value, true);
             }//Is type we are checking for.
         }//Next field.
+        
+        return list_of_t;
+        
     }//FUNC::END
     
     /**
@@ -214,6 +237,39 @@ public class UniqueValueValidator {
             return true;
         }//is long?
         return false; //NOT long or Long type.
+    }//FUNC::END
+    
+
+    /**
+     * The generic version of is_long_or_Long: 2015.10.10.
+     * @param valueOfUnknownType :A value that we do NOT know the type of.
+     * @param validTypes         :Valid types to check against. If the object
+     *                            is of one of these types in the array, then
+     *                            we may return true.
+     * @return :TRUE if valueOfUnknownType instanceof entry in validTypes
+     * @author :JMadison 2015.10.10
+     */
+    private static boolean is_a_type
+                                (Object valueOfUnknownType, Class[] validTypes){
+        Class curClass;
+        int len = validTypes.length;
+        for(int i = 0; i < len; i++){
+            curClass = validTypes[i];
+            if(true == curClass.isPrimitive()){ //<--type is passed by REF.
+                if(valueOfUnknownType.getClass() == curClass){
+                    return true;
+                }//Input matches a primitive type in array.
+            }else
+            if(false== curClass.isPrimitive()){ //<--type is passed by VALUE.
+                //Cannot use: valueOfUnknownType instanceof curClass
+                if(curClass.isInstance(valueOfUnknownType)){
+                    return true;
+                }//Input matches a REFERENCE type in array.
+            }else{
+                doError("This should be dead line of code.");
+            }//BLOCK::END
+        }//NEXT i
+        return false;
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
