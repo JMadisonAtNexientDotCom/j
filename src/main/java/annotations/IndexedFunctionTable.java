@@ -134,9 +134,7 @@ public class IndexedFunctionTable {
         for(int i = 0; i <= maxValidIndex; i++){
             entry = _lookupTable[i];
             msg += "#" + Integer.toString(i) + ":";
-            msg += "funcName:[" + entry.funcName + "]";
-            msg += "class:["    + entry.clazz    + "]";
-            msg += "isStatic:[" + entry.isStatic + "]";
+            msg += IndexedFunctionTableEntry.printForDebug( entry );
             if(i < maxValidIndex){
                 msg+= ",";
             }//add comma?
