@@ -22,7 +22,13 @@ public class IndexedFunctionTableEntry {
      * @return :See above.
      ------------------------------------------------------------------------**/
     public static String printForDebug(IndexedFunctionTableEntry entry){
+        
         String msg = "";
+        
+        if(null == entry){
+            return "[NULL IndexedFunctionTableEntry!!]";
+        }//Bail if null.
+        
         String fnName = (null != entry.funcName ? entry.funcName : "NULL!");
         String clName = (null != entry.clazz ? entry.clazz.getCanonicalName() 
                                                                  : "NULL!");
