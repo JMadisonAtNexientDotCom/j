@@ -30,8 +30,15 @@ public class MasterPortList {
         
         //Validate that master collection of all valid indicies has been
         //properly setup:
-        if(_masterIndexValidatorTable.size() != LONG_CHECK_SUM){
-            doError("[CheckSum validation failed.]");
+        long extractedSumOfShortEnums = _masterIndexValidatorTable.size();
+        if( extractedSumOfShortEnums != LONG_CHECK_SUM){
+            String checkSumAsString = Long.toString(LONG_CHECK_SUM);
+            String actualSumAsString= Long.toString(extractedSumOfShortEnums);
+            String msg = "";
+            msg += "[CheckSum validation failed.]";
+            msg += "[WANTED SUM:[" + checkSumAsString + "]";
+            msg += "[ACTUAL SUM:[" + actualSumAsString + "]";
+            doError(msg);
         }//Error?
         
     }//FUNC::END
