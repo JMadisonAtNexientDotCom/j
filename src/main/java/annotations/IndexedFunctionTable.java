@@ -65,6 +65,13 @@ public class IndexedFunctionTable {
         List<Field> fields;
         fields = ReflectionHelperUtil.getFieldsWithAnnotation
                          (clazz, IndexedFunction.class,GET_STATIC,GET_INSTANCE);
+        
+        //This signifies an error in our setup, so throw error if happens.
+        //Do not allow scanning of class that contains no valid information:
+        if(fields.size() <= 0){
+            doError("[You added a class for scanning that contained nothing]");
+        }//Error?
+        
         /** index to put function at. **/
         short putDex;
         
@@ -154,6 +161,10 @@ public class IndexedFunctionTable {
             doError("inputted index should be >= 0.");
         }//ERROR?
         
+        if(null == _lookupTable){
+            doError("The entire lookup table is null");
+        }//Uh oh...
+        
         //if the index is out of bounds, do an error, but have the error
         //dump out the contents of the table for you:
         if(dex >= _lookupTable.length){
@@ -212,6 +223,15 @@ public class IndexedFunctionTable {
      *  their registered functions into the lookup table. **/
     private void populateLookupTable(){
         
+        if(_classTable.size() <= 0){
+            String msg = "";
+            msg += "[Trying to populate lookup table with empty class table]";
+            msg += "[Possible errors:]";
+            msg += "[1. Using build() function before adding any classes.]";
+            msg += "[2. Error in this class's code.]";
+            doError(msg);
+        }//NOTHING TO USE!
+        
         //Iterate through all classes:
         for(Class clazz : _classTable){
             scanClassAndMakeTableEntries(clazz);
@@ -231,6 +251,15 @@ public class IndexedFunctionTable {
                          (clazz, IndexedFunction.class,GET_STATIC,GET_INSTANCE);
         /** index to put function at. **/
         short putDex;
+        
+        //We cannot allow this. It is indicative of error in setup and
+        //should be strictly enforced that it is now allowed.
+        if(fields.size() <= 0){
+            String msg = "";
+            msg +="Nothing to scan for this class!";
+            msg +="Class:[" + clazz.getCanonicalName() + "]";
+            doError(msg);
+        }//Nothing in the class for you!
         
         //Collect stats for all of the annotated fields:
         for(Field f : fields){
@@ -276,6 +305,21 @@ public class IndexedFunctionTable {
             doError(msg);
         }//ERROR?
                   
+    }//FUNC::END
+    
+    /** validates that build went properly. **/
+    public void validateBuild(){
+        if(null == _lookupTable){
+            doError("_lookupTable is null!");
+        }//
+        
+        if(_lookupTable.length <= 0){
+            doError("_lookupTable is EMPTY!");
+        }//
+        
+        for(int i = 0; i < _lookupTable.length; i++){
+            IndexedFunctionTableEntry.validateEntry( _lookupTable[i] );
+        }//next i.
     }//FUNC::END
     
     /**-------------------------------------------------------------------------

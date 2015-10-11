@@ -56,6 +56,9 @@ public class BeaconLightHouse {
         //Build after all has been added:
         _ports.build();
         
+        //Validate that after building, there are no null entries in the table:
+        _ports.validateBuild();
+        
     }//FUNC::END
     
     /** Manages the resolution of a given OrderSlip
