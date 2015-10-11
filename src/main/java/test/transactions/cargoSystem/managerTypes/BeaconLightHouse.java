@@ -238,7 +238,7 @@ public class BeaconLightHouse {
         }finally{
             
             String mName = m.toGenericString();
-            msg = "[Failed to invoke method!]";
+            msg += "[Failed to invoke method!]";
             if(false == isStatic){
                 msg+="[NOT DESIGNED TO HANDLE NON-STATIC METHODS!]";
             }//not static?
