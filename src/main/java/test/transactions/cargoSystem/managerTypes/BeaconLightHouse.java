@@ -240,6 +240,11 @@ public class BeaconLightHouse {
             msg += ite.getMessage();
             msg += "[End of invocationTargetException details]";
           
+        }catch(IllegalArgumentException illegal){
+            
+            msg += "[Illegal argument exception happened]";
+            msg += "[MSG[" + illegal.getMessage() + "]MSG]";
+            
         }catch(Exception exep){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
             msg += "[Exception was NOT type InvocationTargetException]";
