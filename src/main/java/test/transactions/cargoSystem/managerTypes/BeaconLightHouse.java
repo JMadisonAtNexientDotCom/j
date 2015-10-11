@@ -192,7 +192,7 @@ public class BeaconLightHouse {
         if(null == _paramTypes){doError("[params null]");}
         if(_paramTypes.length != 2){doError("[param len]");}
         if(_paramTypes[0] != GalleonBarge.class){doError("[wrong 1st param]");}
-        if(_paramTypes[0] != OrderSlip.class){doError("[wrong 2nd param]");}
+        if(_paramTypes[1] != OrderSlip.class){doError("[wrong 2nd param]");}
         
         //Try catches, stupid. Don't run your program in
         //a broken state. Ever. The longer you put off fixing an error,
