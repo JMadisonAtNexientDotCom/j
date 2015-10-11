@@ -193,7 +193,8 @@ public class BeaconLightHouse {
         //the longer it takes to fix. An error that would take 1 hour to fix
         //will take 24hours to fix if you put it off for 3 months.
         try{//TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-           m.invoke(m, _paramTypes[0], _paramTypes[1]); 
+           //m.invoke(m, _paramTypes[0], _paramTypes[1]); 
+            m.invoke(m, _paramTypes); //<--try this way?
         }catch(Exception exep){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             doError("[Failed to invoke method!]");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
