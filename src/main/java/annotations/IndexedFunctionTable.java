@@ -224,6 +224,9 @@ public class IndexedFunctionTable {
         
         IndexedFunctionTableEntry ent = getContainer(dex);
         
+        //make sure we do not have null param types:
+        validateParamTypeArray(paramTypes);
+        
         //Get the method:
         Method m = null;
         if(null == ent.clazz){doError("[entry stored null class ref somehow]");}
@@ -251,6 +254,15 @@ public class IndexedFunctionTable {
         
         //Return the method:
         return m;
+    }//FUNC::END
+    
+    private static void validateParamTypeArray(Class[] paramTypes){
+        if(null == paramTypes){doError("null paramTypes");}
+        for(int i = 0; i < paramTypes.length; i++){
+            if(null==paramTypes[i]){
+                doError("NULL PARAM IN paramTypes[]");
+            }//null?
+        }//next i.
     }//FUNC::END
     
     /** Allocates enough slots to build the lookup table with all of the

@@ -2,6 +2,8 @@ package test.transactions.cargoSystem.ports;
 
 import annotations.IndexedFunction;
 import org.hibernate.Session;
+import test.config.debug.DebugConfig;
+import test.config.debug.DebugConfigLogger;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.transactions.cargoSystem.dataTypes.GalleonBarge;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
@@ -44,7 +46,10 @@ public class TokenPorts {
     @IndexedFunction(key=DEBUGGER_STUB_FUNCTION)
     public static void debugger_stub_function
                                           (GalleonBarge barge, OrderSlip order){
-        
+        if(DebugConfig.isDebugBuild){
+            
+            DebugConfigLogger.add("static!", "[debugger stub function()]");
+        }//
         //do nothing. Just a stub to see if we can invoke without crash.
     }//FUNC::END
     
