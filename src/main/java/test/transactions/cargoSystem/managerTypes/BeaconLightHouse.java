@@ -242,6 +242,7 @@ public class BeaconLightHouse {
                    
     }//FUNC::END
                
+    /*
     private static void attemptInvocationOfStaticMethod
                (Method m,GalleonBarge barge, OrderSlip order){
          
@@ -309,11 +310,12 @@ public class BeaconLightHouse {
             
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
     }//FUNC::END
+    */
     
-    /*
     private static void attemptInvocationOfStaticMethod
                (Method m,GalleonBarge barge, OrderSlip order){
          String msg = ""; //message string for if error happens.
+         boolean specificExceptionFound = false;
         
         //Try catches, stupid. Don't run your program in
         //a broken state. Ever. The longer you put off fixing an error,
@@ -343,28 +345,28 @@ public class BeaconLightHouse {
                                           //to the docs you've been reading.
          
         }catch(InvocationTargetException ite){
-          
+            specificExceptionFound=true;
             msg += "[InvocationTargetException:]";
             msg += ite.getMessage();
             msg += "[End of invocationTargetException details]";
             
         }catch(IllegalAccessException illax){
-            
+            specificExceptionFound=true;
             msg += "[ILLEGAL ACCESS EXEPTION!]";
             msg += "Details:[" + illax.getMessage() + "]";
             
         }catch(ExceptionInInitializerError initErr){
-            
+            specificExceptionFound=true;
             msg += "[Init provoked by m.invoke caused error in class init]";
             msg += "Details:[" + initErr.getMessage() + "]";
-            
+            specificExceptionFound=true;
         }catch(NullPointerException npex){
-            
+            specificExceptionFound=true;
             msg += "[Null PTR EXEPTION]";
             msg += "Msg:[" + npex.getMessage() + "]";
-          
+            specificExceptionFound=true;
         }catch(IllegalArgumentException illegal){
-            
+            specificExceptionFound=true;
             //We are going to want to dump out some information on what the
             //parameters that this function take are, so we can figure out
             //how we managed to call it improperly.
@@ -379,13 +381,12 @@ public class BeaconLightHouse {
                 String num = Integer.toString(i);
                 msg += "#" + num + ":[" + paramTypes[i].getName() + "]";
             }//next i (next parameter)
-            
-            
-        }catch(Exception exep){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-        
-            msg += "[Exception was NOT type InvocationTargetException]";
-            
+     
         }finally{
+            
+            if(false == specificExceptionFound){
+                msg+="[UNABLE TO FIND SPECIFIC EXCEPTION!]";
+            }//RAWER.
             
             String mName = m.toGenericString();
             msg += "[Failed to invoke method!]";
@@ -396,7 +397,7 @@ public class BeaconLightHouse {
             
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
     }//FUNC::END
-    */
+    
     
     /**
      * Make sure the configuration of the keys is correct before we try
