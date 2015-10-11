@@ -188,13 +188,20 @@ public class BeaconLightHouse {
         //that holds the function "getGiraffeesByColor(...)"
         Method m = _ports.getMethodByIndex(order.portID, _paramTypes);
         
+        //DEBUG: Make sure _paramTypes is NOT NULL.
+        if(null == _paramTypes){doError("[params null]");}
+        if(_paramTypes.length != 2){doError("[param len]");}
+        if(_paramTypes[0] != GalleonBarge.class){doError("[wrong 1st param]");}
+        if(_paramTypes[0] != OrderSlip.class){doError("[wrong 2nd param]");}
+        
         //Try catches, stupid. Don't run your program in
         //a broken state. Ever. The longer you put off fixing an error,
         //the longer it takes to fix. An error that would take 1 hour to fix
         //will take 24hours to fix if you put it off for 3 months.
         try{//TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-           //m.invoke(m, _paramTypes[0], _paramTypes[1]); 
-            m.invoke(m, _paramTypes); //<--try this way?
+            //m.invoke(m, _paramTypes[0], _paramTypes[1]); 
+            //m.invoke(m, _paramTypes); //<--try this way?
+            m.invoke(m, barge, order); //<--wow... I was stupid.
         }catch(Exception exep){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             doError("[Failed to invoke method!]");
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
