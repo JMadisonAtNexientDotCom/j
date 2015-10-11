@@ -345,9 +345,30 @@ public class IndexedFunctionTable {
             doError("_lookupTable is EMPTY!");
         }//
         
+        //IGNORE COMPILER ON "advanced loop".
+        //I can't be certain that such loop will not IGNORE the null entries.
+        //And I want to count null entires.
+        IndexedFunctionTableEntry entry;
+        int holesFound = 0;
+        int functionsFound = 0;
         for(int i = 0; i < _lookupTable.length; i++){
-            IndexedFunctionTableEntry.validateEntry( _lookupTable[i] );
+            entry = _lookupTable[i];
+            if(null == entry){
+                holesFound++;
+            }else{
+                functionsFound++;
+                IndexedFunctionTableEntry.validateEntry( _lookupTable[i] );
+            }
         }//next i.
+        
+        if(holesFound > _maxNumberOfHolesAllowedInArray){
+            doError("too many holes in your lookup table");
+        }//too holy.
+        
+        if(functionsFound <= 0){
+            doError("Function table should contain at least one function");
+        }//no functions.
+        
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
