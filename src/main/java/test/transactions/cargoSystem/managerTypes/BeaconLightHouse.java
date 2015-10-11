@@ -242,76 +242,7 @@ public class BeaconLightHouse {
                    
     }//FUNC::END
                
-    /*
-    private static void attemptInvocationOfStaticMethod
-               (Method m,GalleonBarge barge, OrderSlip order){
-         
-        //put outide so available in finally block:
-        String msg = "";
-                   
-        //Try catches, stupid. Don't run your program in
-        //a broken state. Ever. The longer you put off fixing an error,
-        //the longer it takes to fix. An error that would take 1 hour to fix
-        //will take 24hours to fix if you put it off for 3 months.
-        try{//TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-            //m.invoke(m, _paramTypes[0], _paramTypes[1]); 
-            //m.invoke(m, _paramTypes); //<--try this way?
-            //m.invoke(m, barge, order); //<--wow... I was stupid.
-            //m.invoke(barge,order); //<--....really stupid.
-            
-            //READ THE DOCUMENTATION:
-            //https://docs.oracle.com/javase/tutorial/reflect/member/
-            //                                             methodInvocation.html
-            // (If the method is static, the first argument should be null.) 
-
-            //m.invoke(null, _paramTypes[0], _paramTypes[1]);
-            //m.invoke(null, (Object)_paramTypes);
-            //m.invoke(null, (Object[])_paramTypes);
-            //m.invoke(null, _paramTypes[0], _paramTypes[1]);
-
-            //maybe don't use first arg as null? What type is _paramTypes?
-            //Hmm.. try down-cast?
-            m.invoke(null, barge, order); //really?? Okay Try....
-                                          //If this works, you've done a
-                                          //horrible job paying attention
-                                          //to the docs you've been reading.
-         
-        }catch(Exception excep){
-            
-            //Use this rather than multiple catches so that if the exception
-            //is not covered, we can get still get access to the eception
-            //object and work with it.
-            if(excep instanceof InvocationTargetException){
-                msg+="[InvocationTargetException]";
-            }else
-            if(excep instanceof IllegalAccessException){
-                msg+="[IllegalAccessException]";
-            }else
-            //if(excep instanceof ExceptionInInitializerError){
-            //    msg+="[ExceptionInInitializerError]";
-            //}else
-            if(excep instanceof NullPointerException){
-                msg+="[NullPointerException]";
-            }else
-            if(excep instanceof IllegalArgumentException){
-                msg+="[IllegalArgumentException]";
-            }else{
-                msg+="[Exception not covered]";
-            }//BLOCK::END
-            
-        }finally{
-            
-            String mName = m.toGenericString();
-            msg += "[xxx---Failed to invoke method!---xxx]";
-            msg += "[METHOD INFO:: START]";
-            msg += mName;
-            msg += "[METHOD INFO:: END]";
-            doError(msg);  
-            
-        }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-    }//FUNC::END
-    */
-    
+ 
     private static void attemptInvocationOfStaticMethod
                (Method m,GalleonBarge barge, OrderSlip order){
          String msg = ""; //message string for if error happens.
@@ -349,7 +280,8 @@ public class BeaconLightHouse {
        
             //Grasp at straws:
             //http://www.avajava.com/tutorials/lessons/how-do-i-call-a-method-using-reflection.html
-            m.invoke(null, new Object[] { barge, order });
+            //m.invoke(null, new Object[] { barge, order });
+            m.invoke(null, new Object[] { barge,  order});
             
         }catch(InvocationTargetException ite){
             specificExceptionFound=true;
