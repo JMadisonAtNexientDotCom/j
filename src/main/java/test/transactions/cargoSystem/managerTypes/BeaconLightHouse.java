@@ -203,6 +203,8 @@ public class BeaconLightHouse {
             doError("needed input is null");
         }//ERRRRRRR
         
+        String msg = ""; //message string for if error happens.
+        
         //Try catches, stupid. Don't run your program in
         //a broken state. Ever. The longer you put off fixing an error,
         //the longer it takes to fix. An error that would take 1 hour to fix
@@ -223,16 +225,17 @@ public class BeaconLightHouse {
             }else{
                 doError("[Not designed to handle non-static methods.]");
             }//FUNC::END  
+        }catch(InvocationTargetException ite){
+          
+            msg += "[InvocationTargetException:]";
+            msg += ite.getMessage();
+            msg += "[End of invocationTargetException details]";
+          
         }catch(Exception exep){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        
+            msg += "[Exception was NOT type InvocationTargetException]";
             
-            String msg = "";
-            
-            if(exep instanceof InvocationTargetException){
-                InvocationTargetException ite = (InvocationTargetException)exep;
-                msg += "[InvocationTargetException:]";
-                msg += ite.getMessage();
-                msg += "[End of invocationTargetException details]";
-            }//
+        }finally{
             
             String mName = m.toGenericString();
             msg = "[Failed to invoke method!]";
@@ -243,6 +246,7 @@ public class BeaconLightHouse {
             msg += mName;
             msg += "[METHOD INFO:: END]";
             doError(msg);  
+            
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
     }//FUNC::END
     
