@@ -281,7 +281,12 @@ public class BeaconLightHouse {
             //Grasp at straws:
             //http://www.avajava.com/tutorials/lessons/how-do-i-call-a-method-using-reflection.html
             //m.invoke(null, new Object[] { barge, order });
-            m.invoke(null, new Object[] { barge,  order});
+            //m.invoke(null, new Object[] { barge,  order});
+            
+            Object[] args = new Object[2];
+            args[0] = barge;
+            args[1] = order;
+            m.invoke(null, args);
             
         }catch(InvocationTargetException ite){
             specificExceptionFound=true;
