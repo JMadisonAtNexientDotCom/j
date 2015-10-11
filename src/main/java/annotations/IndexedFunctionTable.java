@@ -172,8 +172,11 @@ public class IndexedFunctionTable {
         return msg;
     }//FUNC::END
     
-    public Method getMethodByIndex(short dex, Class[] paramTypes){
-        
+    /** Makes sure index you are using is valid. As well as makes sure
+     *  that system is properly setup to be able to use index.
+     * @param dex :The index of the function we want.
+     */
+    private void validateFetchingIndexWeAreAboutToUse(short dex){
         if(false == _hasBeenBuilt){
             doError("[cannot use function until setup and built.]");
         }//ERROR?
@@ -196,6 +199,10 @@ public class IndexedFunctionTable {
             msg += "[Serialized lookup table END]";
             doError(msg);
         }//ERROR, OUT OF BOUNDS?
+    }//FUNC::END
+    
+    private IndexedFunctionTableEntry getContainer(short dex){
+        validateFetchingIndexWeAreAboutToUse(dex);
         
         //Get everything you need to find function:
         IndexedFunctionTableEntry ent = _lookupTable[dex];
@@ -204,6 +211,18 @@ public class IndexedFunctionTable {
             //lookup table as possible.
             doError("[Index could not be resolved to a function.]");
         }//ERROR?
+        
+        return ent;
+    }//FUNC::END
+    
+    public boolean getIsMethodStaticByIndex(short dex, Class[] paramTypes){
+        IndexedFunctionTableEntry ent = getContainer(dex);
+        return ent.isStatic;
+    }//FUNC::END
+    
+    public Method getMethodByIndex(short dex, Class[] paramTypes){
+        
+        IndexedFunctionTableEntry ent = getContainer(dex);
         
         //Get the method:
         Method m = null;

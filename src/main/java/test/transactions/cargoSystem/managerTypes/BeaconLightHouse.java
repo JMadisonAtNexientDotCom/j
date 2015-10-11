@@ -187,6 +187,8 @@ public class BeaconLightHouse {
         //For getting BLUE Giraffees. And the order.portID points to a port
         //that holds the function "getGiraffeesByColor(...)"
         Method m = _ports.getMethodByIndex(order.portID, _paramTypes);
+        boolean isStatic = _ports.getIsMethodStaticByIndex
+                                                    (order.portID, _paramTypes);
         
         //DEBUG: Make sure _paramTypes is NOT NULL.
         if(null == _paramTypes){doError("[params null]");}
@@ -208,11 +210,23 @@ public class BeaconLightHouse {
             //m.invoke(m, _paramTypes[0], _paramTypes[1]); 
             //m.invoke(m, _paramTypes); //<--try this way?
             //m.invoke(m, barge, order); //<--wow... I was stupid.
-            m.invoke(barge,order); //<--....really stupid.
+            //m.invoke(barge,order); //<--....really stupid.
+            
+            //READ THE DOCUMENTATION:
+            //https://docs.oracle.com/javase/tutorial/reflect/member/
+            //                                             methodInvocation.html
+            // (If the method is static, the first argument should be null.) 
+            if(isStatic){ 
+                m.invoke(null, _paramTypes[0], _paramTypes[1]);
+            }else{
+                doError("[Not designed to handle non-static methods.]");
+            }//FUNC::END  
         }catch(Exception exep){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             String mName = m.toGenericString();
             String msg = "[Failed to invoke method!]";
-            msg += "";
+            if(false == isStatic){
+                msg+="[NOT DESIGNED TO HANDLE NON-STATIC METHODS!]";
+            }//not static?
             msg += "[METHOD INFO:: START]";
             msg += mName;
             msg += "[METHOD INFO:: END]";
