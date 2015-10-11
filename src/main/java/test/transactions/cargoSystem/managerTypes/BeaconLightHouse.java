@@ -217,7 +217,8 @@ public class BeaconLightHouse {
             //                                             methodInvocation.html
             // (If the method is static, the first argument should be null.) 
             if(isStatic){ 
-                m.invoke(null, _paramTypes[0], _paramTypes[1]);
+                //m.invoke(null, _paramTypes[0], _paramTypes[1]);
+                m.invoke(null, (Object)_paramTypes);
             }else{
                 doError("[Not designed to handle non-static methods.]");
             }//FUNC::END  
