@@ -2,7 +2,9 @@ package utils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import test.MyError;
 
@@ -138,6 +140,14 @@ public class ReflectionHelperUtil {
         return myList;
     }//FUNC::END
     
+    public static boolean getIsMethodStatic(Method m){
+        boolean result = false;
+        if(java.lang.reflect.Modifier.isStatic( m.getModifiers()) ){
+            result = true;
+        }//Modifier logic.
+        return result;
+    }//FUNC::END
+    
     public static boolean getIsFieldStatic(Field f){
        boolean result = false;     
        //http://stackoverflow.com/questions/3422390/
@@ -253,6 +263,47 @@ public class ReflectionHelperUtil {
         return value;
         
     }//FUNC::END
+                     
+    /**
+     * Gets STATIC & INSTANCE METHODS. And scans the hierarchy, taking into
+     * account inheritance.
+     *
+     * SOURCE: http://stackoverflow.com/questions/6593597/
+     *    java-seek-a-method-with-specific-annotation-and-its-annotation-element
+     * @param type       :The class we are scanning.
+     * @param annotation :The annotation we are looking for.
+     * @return           :A list of all the methods with annotations you want.
+     */
+    public static List<Method> getMethodsAnnotatedWith
+           (final Class<?> type, final Class<? extends Annotation> annotation) {
+        final List<Method> methods = new ArrayList<Method>();
+        Class<?> klass = type;
+        while (klass != Object.class) { 
+            //need to iterated thought hierarchy in order to retrieve methods 
+            //from above the current instance iterate though the list of methods 
+            //declared in the class represented by klass variable, and add those 
+            //annotated with the specified annotation
+            final List<Method> allMethods = new ArrayList<Method>
+                                    (Arrays.asList(klass.getDeclaredMethods()));       
+            for (final Method method : allMethods) {
+                if (method.isAnnotationPresent(annotation)) {
+                    
+                    //If you wanted to do more:
+                    //Annotation annotInstance = method.getAnnotation
+                    //                                             (annotation);
+                    // TODO process annotInstance
+                    
+                    methods.add(method);
+                }//Is annotation you want present?
+            }//get next method.
+            
+            //move to the upper class in the 
+            //hierarchy in search for more methods
+            klass = klass.getSuperclass();
+        }//INF LOOP.
+        return methods;
+    }//FUNC::END
+                                  
     
     /**-------------------------------------------------------------------------
     -*- Wrapper function to throw errors from this class.   --------------------

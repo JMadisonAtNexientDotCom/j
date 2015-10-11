@@ -62,13 +62,18 @@ public class IndexedFunctionTable {
         addClassToCollisionRegistry(clazz);
         _classTable.add(clazz);
   
-        List<Field> fields;
-        fields = ReflectionHelperUtil.getFieldsWithAnnotation
-                         (clazz, IndexedFunction.class,GET_STATIC,GET_INSTANCE);
+        //WRONG!! We are indexing METHODS, not fields...
+        //List<Field> fields;
+        //fields = ReflectionHelperUtil.getFieldsWithAnnotation
+        //                 (clazz, IndexedFunction.class,GET_STATIC,GET_INSTANCE);
+        
+        List<Method> methods;
+        methods = ReflectionHelperUtil.getMethodsAnnotatedWith
+                                                 (clazz, IndexedFunction.class);
         
         //This signifies an error in our setup, so throw error if happens.
         //Do not allow scanning of class that contains no valid information:
-        if(fields.size() <= 0){
+        if(methods.size() <= 0){
             String msg = "";
             msg+="[You added a class for scanning that contained nothing]";
             msg+="Class:[" + clazz.getCanonicalName() + "]";
@@ -79,10 +84,10 @@ public class IndexedFunctionTable {
         short putDex;
         
         //Collect stats for all of the annotated fields:
-        for(Field f : fields){
+        for(Method m : methods){
             _totalNumberOfFunctionsFoundToIndex++;
             
-            putDex = getFieldsLookupIndex(f);
+            putDex = getMethodsLookupIndex(m);
             if(putDex < 0){doError("lookup table cannot use negative index");}
             if(putDex > _maxIndexFoundWhileAddingClasses){
                 _maxIndexFoundWhileAddingClasses = putDex;
@@ -101,13 +106,27 @@ public class IndexedFunctionTable {
         _collisionInsurance.put(clazz, true);
     }//FUNC::END
     
-    /**
+    /* delete later.
+    ///
      * @param f: A field annotated with @IndexedFunction
      * @return : The index it wants to have within the lookup table.
-     */
+     //
     private short getFieldsLookupIndex(Field f){
         //Find the index this wants to belong at:
         Annotation ann        = f.getAnnotation(IndexedFunction.class);
+        IndexedFunction iFunc = (IndexedFunction)ann;
+        short lookupIndex     = iFunc.key();
+        return lookupIndex;
+    }//FUNC::END
+    */
+    
+    /**
+     * @param m: A METHOD annotated with @IndexedFunction
+     * @return : The index it wants to have within the lookup table.
+     */
+    private short getMethodsLookupIndex(Method m){
+        //Find the index this wants to belong at:
+        Annotation ann        = m.getAnnotation(IndexedFunction.class);
         IndexedFunction iFunc = (IndexedFunction)ann;
         short lookupIndex     = iFunc.key();
         return lookupIndex;
@@ -249,15 +268,21 @@ public class IndexedFunctionTable {
         IndexedFunctionTableEntry entry;
         
         /** Get all fields annotated with @IndexedFunction **/
-        List<Field> fields;
-        fields = ReflectionHelperUtil.getFieldsWithAnnotation
-                         (clazz, IndexedFunction.class,GET_STATIC,GET_INSTANCE);
+        //List<Field> fields;
+        //fields = ReflectionHelperUtil.getFieldsWithAnnotation
+        //                 (clazz, IndexedFunction.class,GET_STATIC,GET_INSTANCE);
+        
+        List<Method> methods;
+        methods = ReflectionHelperUtil.getMethodsAnnotatedWith
+                                                 (clazz, IndexedFunction.class);
+        
+        
         /** index to put function at. **/
         short putDex;
         
         //We cannot allow this. It is indicative of error in setup and
         //should be strictly enforced that it is now allowed.
-        if(fields.size() <= 0){
+        if(methods.size() <= 0){
             String msg = "";
             msg +="Nothing to scan for this class!";
             msg +="Class:[" + clazz.getCanonicalName() + "]";
@@ -265,17 +290,17 @@ public class IndexedFunctionTable {
         }//Nothing in the class for you!
         
         //Collect stats for all of the annotated fields:
-        for(Field f : fields){
+        for(Method m : methods){
             
             //Create entry:
             entry          = new IndexedFunctionTableEntry();
             entry.clazz    = clazz;
-            entry.funcName = f.getName();
-            entry.isStatic = ReflectionHelperUtil.getIsFieldStatic(f);
+            entry.funcName = m.getName();
+            entry.isStatic = ReflectionHelperUtil.getIsMethodStatic(m);
           
             //Get where to put entry.
             //And then put it into that position with the lookup table:
-            putDex = getFieldsLookupIndex(f);
+            putDex = getMethodsLookupIndex(m);
             if(putDex < 0){doError("lookup table cannot use negative index");}
             
             //Put entry where it belongs:
