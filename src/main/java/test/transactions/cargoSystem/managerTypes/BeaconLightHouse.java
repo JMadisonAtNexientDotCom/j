@@ -191,6 +191,10 @@ public class BeaconLightHouse {
         boolean isStatic = _ports.getIsMethodStaticByIndex
                                                     (order.portID, _paramTypes);
         
+        //SOMETHING I DID NOT TRY.. Perhaps the method itself is... null?
+        if(null == m){doError("Method returned was null.");}
+        
+        
         //DEBUG: Make sure _paramTypes is NOT NULL.
         if(null == _paramTypes){doError("[params null]");}
         if(_paramTypes.length != 2){doError("[param len]");}
