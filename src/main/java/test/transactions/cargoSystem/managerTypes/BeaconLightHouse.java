@@ -249,6 +249,21 @@ public class BeaconLightHouse {
             msg += "[InvocationTargetException:]";
             msg += ite.getMessage();
             msg += "[End of invocationTargetException details]";
+            
+        }catch(IllegalAccessException illax){
+            
+            msg += "[ILLEGAL ACCESS EXEPTION!]";
+            msg += "Details:[" + illax.getMessage() + "]";
+            
+        }catch(ExceptionInInitializerError initErr){
+            
+            msg += "[Init provoked by m.invoke caused error in class init]";
+            msg += "Details:[" + initErr.getMessage() + "]";
+            
+        }catch(NullPointerException npex){
+            
+            msg += "[Null PTR EXEPTION]";
+            msg += "Msg:[" + npex.getMessage() + "]";
           
         }catch(IllegalArgumentException illegal){
             
