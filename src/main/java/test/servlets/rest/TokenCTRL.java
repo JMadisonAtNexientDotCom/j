@@ -56,7 +56,7 @@ public class TokenCTRL extends BaseCTRL {
             Session ses = TransUtil.enterTransaction();
             
             GalleonBarge barge = DryDock.debugger_stub_function();
-            //barge.embark();
+            barge.embark();
             
             String str = JSONUtil.serializeObj_NoNULL(barge);
             Response r = JSONUtil.stringToJSONResponse(str,"hi",false);

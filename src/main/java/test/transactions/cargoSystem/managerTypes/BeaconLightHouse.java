@@ -221,8 +221,12 @@ public class BeaconLightHouse {
             // (If the method is static, the first argument should be null.) 
             if(isStatic){ 
                 //m.invoke(null, _paramTypes[0], _paramTypes[1]);
-                m.invoke(null, (Object)_paramTypes);
+                //m.invoke(null, (Object)_paramTypes);
+                m.invoke(null, (Object[])_paramTypes);
+                
             }else{
+                //Put msg += incase this error is hidden by the try catch.
+                msg += "[NOT DESIGNED TO HANDLE NON-STATIC METHODS.]";
                 doError("[Not designed to handle non-static methods.]");
             }//FUNC::END  
         }catch(InvocationTargetException ite){
