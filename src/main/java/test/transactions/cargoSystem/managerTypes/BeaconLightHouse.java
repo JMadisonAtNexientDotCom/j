@@ -195,7 +195,7 @@ public class BeaconLightHouse {
         //SOMETHING I DID NOT TRY.. Perhaps the method itself is... null?
         if(null == m){doError("Method returned was null.");}
         
-        String msg = ""; //message string for if error happens.
+       
         
         //DEBUG: Make sure _paramTypes is NOT NULL.
         if(null == _paramTypes){doError("[params null]");}
@@ -209,7 +209,42 @@ public class BeaconLightHouse {
             doError("needed input is null");
         }//ERRRRRRR
         
+        if(isStatic){
+          attemptInvocationOfStaticMethod(m,barge,order);
+        }else{
+          attemptInvocationOfMethod(m,barge,order);  
+        }
+        
        
+    }//FUNC::END
+    
+    /** It seems that catching for SPECIFIC errors will make your try-catch
+     *  SKIP over catching for generic exceptions. Meaning, if you are unaware
+     *  of all the exceptions that could be thrown, you might find your error
+     *  checking code skipping all the way to finally.
+     * 
+     *  Maybe I don't know what I am doing. But I can see why one would
+     *  catch GENERIC exception and then check what it actually is within
+     *  the body using instanceof.
+     * 
+     * 
+     * @param m
+     * @param barge
+     * @param order 
+     */
+    private static void attemptInvocationOfMethod
+               (Method m,GalleonBarge barge, OrderSlip order){
+                   
+              m.toString();
+              barge.toString();
+              order.toString();
+              doError("no support for non-static method");
+                   
+    }//FUNC::END
+    
+    private static void attemptInvocationOfStaticMethod
+               (Method m,GalleonBarge barge, OrderSlip order){
+         String msg = ""; //message string for if error happens.
         
         //Try catches, stupid. Don't run your program in
         //a broken state. Ever. The longer you put off fixing an error,
@@ -225,25 +260,19 @@ public class BeaconLightHouse {
             //https://docs.oracle.com/javase/tutorial/reflect/member/
             //                                             methodInvocation.html
             // (If the method is static, the first argument should be null.) 
-            if(isStatic){ 
-                //m.invoke(null, _paramTypes[0], _paramTypes[1]);
-                //m.invoke(null, (Object)_paramTypes);
-                //m.invoke(null, (Object[])_paramTypes);
-                //m.invoke(null, _paramTypes[0], _paramTypes[1]);
-                
-                //maybe don't use first arg as null? What type is _paramTypes?
-                //Hmm.. try down-cast?
-                m.invoke(null, barge, order); //really?? Okay Try....
-                                              //If this works, you've done a
-                                              //horrible job paying attention
-                                              //to the docs you've been reading.
-                
-                
-            }else{
-                //Put msg += incase this error is hidden by the try catch.
-                msg += "[NOT DESIGNED TO HANDLE NON-STATIC METHODS.]";
-                doError("[Not designed to handle non-static methods.]");
-            }//FUNC::END  
+
+            //m.invoke(null, _paramTypes[0], _paramTypes[1]);
+            //m.invoke(null, (Object)_paramTypes);
+            //m.invoke(null, (Object[])_paramTypes);
+            //m.invoke(null, _paramTypes[0], _paramTypes[1]);
+
+            //maybe don't use first arg as null? What type is _paramTypes?
+            //Hmm.. try down-cast?
+            m.invoke(null, barge, order); //really?? Okay Try....
+                                          //If this works, you've done a
+                                          //horrible job paying attention
+                                          //to the docs you've been reading.
+         
         }catch(InvocationTargetException ite){
           
             msg += "[InvocationTargetException:]";
@@ -291,9 +320,6 @@ public class BeaconLightHouse {
             
             String mName = m.toGenericString();
             msg += "[Failed to invoke method!]";
-            if(false == isStatic){
-                msg+="[NOT DESIGNED TO HANDLE NON-STATIC METHODS!]";
-            }//not static?
             msg += "[METHOD INFO:: START]";
             msg += mName;
             msg += "[METHOD INFO:: END]";
