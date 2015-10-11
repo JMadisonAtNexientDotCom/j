@@ -194,6 +194,8 @@ public class BeaconLightHouse {
         if(_paramTypes[0] != GalleonBarge.class){doError("[wrong 1st param]");}
         if(_paramTypes[1] != OrderSlip.class){doError("[wrong 2nd param]");}
         
+        //DEBUG: Grasping at straws. Make sure inputs are NOT NULL...Wait..
+        
         //Try catches, stupid. Don't run your program in
         //a broken state. Ever. The longer you put off fixing an error,
         //the longer it takes to fix. An error that would take 1 hour to fix
@@ -201,7 +203,8 @@ public class BeaconLightHouse {
         try{//TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
             //m.invoke(m, _paramTypes[0], _paramTypes[1]); 
             //m.invoke(m, _paramTypes); //<--try this way?
-            m.invoke(m, barge, order); //<--wow... I was stupid.
+            //m.invoke(m, barge, order); //<--wow... I was stupid.
+            m.invoke(barge,order); //<--....really stupid.
         }catch(Exception exep){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             String mName = m.toGenericString();
             String msg = "[Failed to invoke method!]";
