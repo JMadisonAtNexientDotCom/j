@@ -344,8 +344,12 @@ public class BeaconLightHouse {
                                           //horrible job paying attention
                                           //to the docs you've been reading.
             
-            m.invoke(null, (Object)barge, (Object)order); //maybe?
+            //Errors, but does not trip any specific exception:
+            //m.invoke(null, (Object)barge, (Object)order); //maybe?
        
+            //Grasp at straws:
+            //http://www.avajava.com/tutorials/lessons/how-do-i-call-a-method-using-reflection.html
+            m.invoke(null, new Object[] { barge, order });
             
         }catch(InvocationTargetException ite){
             specificExceptionFound=true;
