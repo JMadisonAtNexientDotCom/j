@@ -43,6 +43,26 @@ import utils.JSONUtil;
 public class TokenCTRL extends BaseCTRL {
  
     public static final String CLASS_MAPPING = TokenCTRL.class.getSimpleName() + "/";
+    
+    
+        /** A simple stub function not meant to accomplish anything except
+         *  NOT CRASH. We can't program more logic until we figure out what
+         *  is going wrong with dynamic method invocation.
+         */
+        @GET
+        @Path(FuncNameReg.DEBUGGER_STUB_FUNCTION)
+        public Response debugger_stub_function(){
+            //ENTER transaction:
+            Session ses = TransUtil.enterTransaction();
+            
+            GalleonBarge barge = DryDock.debugger_stub_function();
+            barge.embark();
+            
+            String str = JSONUtil.serializeObj_NoNULL(barge);
+            Response r = JSONUtil.stringToJSONResponse(str,"hi",false);
+            return r;
+        }//FUNC::END
+            
    
         //This version is GUTTED and replaced with some experimental
         //code to do the same thing.

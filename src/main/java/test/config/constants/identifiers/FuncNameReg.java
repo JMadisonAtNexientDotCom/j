@@ -20,6 +20,9 @@ public class FuncNameReg {
     //    validate();
    // }////////////////
     
+    //DEBUG:
+    public static final String DEBUGGER_STUB_FUNCTION="debugger_stub_function";
+    
     //TRIAL SERVICE:
     public static final String DISPATCH_TOKENS="dispatch_tokens";
     public static final String DISPATCH_TOKENS_DEBUG="dispatch_tokens_debug";

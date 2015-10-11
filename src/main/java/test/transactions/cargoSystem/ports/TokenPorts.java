@@ -19,7 +19,8 @@ import test.transactions.util.forOwnedMainlyByOneTable.token.TokenTransUtil;
 //@Supplier(clazz=TokenTable.clazz);
 public class TokenPorts {
     
-    public static final short CREATE_NEW_TOKEN = MasterPortList.CREATE_NEW_TOKEN;
+    public static final short CREATE_NEW_TOKEN       = MasterPortList.CREATE_NEW_TOKEN;
+    public static final short DEBUGGER_STUB_FUNCTION = MasterPortList.DEBUGGER_STUB_FUNCTION;
     
     @IndexedFunction(key=CREATE_NEW_TOKEN) 
     public static void create_new_token(GalleonBarge barge, OrderSlip order){
@@ -38,6 +39,13 @@ public class TokenPorts {
         barge.hold.addCageWithOneEntity_AndAssertUnique(tt, order, saveOnExit);
         order.primaryKey_ids.add(tt.getId());
         
+    }//FUNC::END
+    
+    @IndexedFunction(key=DEBUGGER_STUB_FUNCTION)
+    public static void debugger_stub_function
+                                          (GalleonBarge barge, OrderSlip order){
+        
+        //do nothing. Just a stub to see if we can invoke without crash.
     }//FUNC::END
     
     

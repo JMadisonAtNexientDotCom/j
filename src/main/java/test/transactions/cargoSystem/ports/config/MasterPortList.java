@@ -45,10 +45,12 @@ public class MasterPortList {
     
     @UniqueStaticValue
     public static final short CREATE_NEW_TOKEN = 1;
+    @UniqueStaticValue
+    public static final short DEBUGGER_STUB_FUNCTION = 2;
     
     /** Check sum so I can validate my _masterIndexValidatorTable extraction
      *  is working properly. **/
-    public static final long  LONG_CHECK_SUM = 1;
+    public static final long  LONG_CHECK_SUM = 2;
     
     /**-------------------------------------------------------------------------
      *  throws error if the portID is invalid.
