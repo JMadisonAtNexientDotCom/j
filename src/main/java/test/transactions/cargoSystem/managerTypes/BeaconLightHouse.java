@@ -4,6 +4,7 @@ import annotations.IndexedFunctionTable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import test.MyError;
+import test.config.debug.DebugConfig;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.transactions.cargoSystem.dataTypes.EntityCage;
 import test.transactions.cargoSystem.dataTypes.GalleonBarge;
@@ -194,6 +195,20 @@ public class BeaconLightHouse {
         //SOMETHING I DID NOT TRY.. Perhaps the method itself is... null?
         if(null == m){doError("Method returned was null.");}
         
+        String msg = ""; //message string for if error happens.
+        
+        //Print out stats about function AHEAD OF TIME. IN case you need them
+        //when error happens:
+        if(DebugConfig.isDebugBuild){
+            String paramCount = Integer.toString( m.getParameterCount() );
+            Class<?>[] paramTypes = m.getParameterTypes();
+            msg += "#Params:[" + paramCount + "]";
+            for(int i = 0; i < paramTypes.length; i++){
+                String num = Integer.toString(i);
+                msg += "#" + num + ":[" + paramTypes[i].getName() + "]";
+            }//next i (next parameter)
+        }//DEBUG MODE?
+        
         
         //DEBUG: Make sure _paramTypes is NOT NULL.
         if(null == _paramTypes){doError("[params null]");}
@@ -207,7 +222,7 @@ public class BeaconLightHouse {
             doError("needed input is null");
         }//ERRRRRRR
         
-        String msg = ""; //message string for if error happens.
+       
         
         //Try catches, stupid. Don't run your program in
         //a broken state. Ever. The longer you put off fixing an error,
@@ -247,13 +262,7 @@ public class BeaconLightHouse {
             //how we managed to call it improperly.
             msg += "[Illegal argument exception happened]";
             msg += "[MSG[" + illegal.getMessage() + "]MSG]";
-            String paramCount = Integer.toString( m.getParameterCount() );
-            Class<?>[] paramTypes = m.getParameterTypes();
-            msg += "#Params:[" + paramCount + "]";
-            for(int i = 0; i < paramTypes.length; i++){
-                String num = Integer.toString(i);
-                msg += "#" + num + ":[" + paramTypes[i].getName() + "]";
-            }//next i (next parameter)
+            
             
         }catch(Exception exep){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
