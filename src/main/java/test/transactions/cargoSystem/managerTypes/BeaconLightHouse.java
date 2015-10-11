@@ -193,16 +193,16 @@ public class BeaconLightHouse {
                                                     (order.portID, _paramTypes);
         
         //SOMETHING I DID NOT TRY.. Perhaps the method itself is... null?
-        //if(null == m){doError("Method returned was null.");}
+        if(null == m){doError("Method returned was null.");}
         
         String msg = ""; //message string for if error happens.
         
         //Print out stats about function AHEAD OF TIME. IN case you need them
         //when error happens:
         if(DebugConfig.isDebugBuild){
-            int numParams = m.getParameterCount();
-            String paramCount = Integer.toString( numParams );
+            //int numParams = m.getParameterCount(); //java 1.8
             Class<?>[] paramTypes = m.getParameterTypes();
+            String paramCount = Integer.toString( paramTypes.length );
             msg += "#Params:[" + paramCount + "]";
             for(int i = 0; i < paramTypes.length; i++){
                 String num = Integer.toString(i);
