@@ -197,20 +197,6 @@ public class BeaconLightHouse {
         
         String msg = ""; //message string for if error happens.
         
-        //Print out stats about function AHEAD OF TIME. IN case you need them
-        //when error happens:
-        if(DebugConfig.isDebugBuild){
-            //int numParams = m.getParameterCount(); //java 1.8
-            Class<?>[] paramTypes = m.getParameterTypes();
-            String paramCount = Integer.toString( paramTypes.length );
-            msg += "#Params:[" + paramCount + "]";
-            for(int i = 0; i < paramTypes.length; i++){
-                String num = Integer.toString(i);
-                msg += "#" + num + ":[" + paramTypes[i].getName() + "]";
-            }//next i (next parameter)
-        }//DEBUG MODE?
-        
-        
         //DEBUG: Make sure _paramTypes is NOT NULL.
         if(null == _paramTypes){doError("[params null]");}
         if(_paramTypes.length != 2){doError("[param len]");}
@@ -243,7 +229,13 @@ public class BeaconLightHouse {
                 //m.invoke(null, _paramTypes[0], _paramTypes[1]);
                 //m.invoke(null, (Object)_paramTypes);
                 //m.invoke(null, (Object[])_paramTypes);
-                m.invoke(null, _paramTypes[0], _paramTypes[1]);
+                //m.invoke(null, _paramTypes[0], _paramTypes[1]);
+                
+                //maybe don't use first arg as null? What type is _paramTypes?
+                //Hmm.. try down-cast?
+                m.invoke(null, (Object)_paramTypes[0],
+                               (Object)_paramTypes[1]);
+                
                 
             }else{
                 //Put msg += incase this error is hidden by the try catch.
@@ -263,6 +255,15 @@ public class BeaconLightHouse {
             //how we managed to call it improperly.
             msg += "[Illegal argument exception happened]";
             msg += "[MSG[" + illegal.getMessage() + "]MSG]";
+            
+            //int numParams = m.getParameterCount(); //java 1.8
+            Class<?>[] paramTypes = m.getParameterTypes();
+            String paramCount = Integer.toString( paramTypes.length );
+            msg += "#Params:[" + paramCount + "]";
+            for(int i = 0; i < paramTypes.length; i++){
+                String num = Integer.toString(i);
+                msg += "#" + num + ":[" + paramTypes[i].getName() + "]";
+            }//next i (next parameter)
             
             
         }catch(Exception exep){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
