@@ -301,7 +301,7 @@ public class BeaconLightHouse {
         }finally{
             
             String mName = m.toGenericString();
-            msg += "[Failed to invoke method!]";
+            msg += "[xxx---Failed to invoke method!---xxx]";
             msg += "[METHOD INFO:: START]";
             msg += mName;
             msg += "[METHOD INFO:: END]";
