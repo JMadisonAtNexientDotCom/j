@@ -222,7 +222,8 @@ public class BeaconLightHouse {
             if(isStatic){ 
                 //m.invoke(null, _paramTypes[0], _paramTypes[1]);
                 //m.invoke(null, (Object)_paramTypes);
-                m.invoke(null, (Object[])_paramTypes);
+                //m.invoke(null, (Object[])_paramTypes);
+                m.invoke(null, _paramTypes[0], _paramTypes[1]);
                 
             }else{
                 //Put msg += incase this error is hidden by the try catch.
