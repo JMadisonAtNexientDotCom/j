@@ -233,8 +233,10 @@ public class BeaconLightHouse {
                 
                 //maybe don't use first arg as null? What type is _paramTypes?
                 //Hmm.. try down-cast?
-                m.invoke(null, (Object)_paramTypes[0],
-                               (Object)_paramTypes[1]);
+                m.invoke(null, barge, order); //really?? Okay Try....
+                                              //If this works, you've done a
+                                              //horrible job paying attention
+                                              //to the docs you've been reading.
                 
                 
             }else{
