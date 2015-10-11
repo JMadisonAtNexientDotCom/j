@@ -1,6 +1,7 @@
 package test.transactions.cargoSystem.managerTypes;
 
 import annotations.IndexedFunctionTable;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import test.MyError;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
@@ -223,8 +224,18 @@ public class BeaconLightHouse {
                 doError("[Not designed to handle non-static methods.]");
             }//FUNC::END  
         }catch(Exception exep){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            
+            String msg = "";
+            
+            if(exep instanceof InvocationTargetException){
+                InvocationTargetException ite = (InvocationTargetException)exep;
+                msg += "[InvocationTargetException:]";
+                msg += ite.getMessage();
+                msg += "[End of invocationTargetException details]";
+            }//
+            
             String mName = m.toGenericString();
-            String msg = "[Failed to invoke method!]";
+            msg = "[Failed to invoke method!]";
             if(false == isStatic){
                 msg+="[NOT DESIGNED TO HANDLE NON-STATIC METHODS!]";
             }//not static?
