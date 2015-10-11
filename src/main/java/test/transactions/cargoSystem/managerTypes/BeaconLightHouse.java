@@ -339,15 +339,19 @@ public class BeaconLightHouse {
 
             //maybe don't use first arg as null? What type is _paramTypes?
             //Hmm.. try down-cast?
-            m.invoke(null, barge, order); //really?? Okay Try....
+            //m.invoke(null, barge, order); //really?? Okay Try....
                                           //If this works, you've done a
                                           //horrible job paying attention
                                           //to the docs you've been reading.
-         
+            
+            m.invoke(null, (Object)barge, (Object)order); //maybe?
+       
+            
         }catch(InvocationTargetException ite){
             specificExceptionFound=true;
             msg += "[InvocationTargetException:]";
             msg += ite.getMessage();
+            msg += ite.getCause().toString();
             msg += "[End of invocationTargetException details]";
             
         }catch(IllegalAccessException illax){
