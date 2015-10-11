@@ -203,7 +203,13 @@ public class BeaconLightHouse {
             //m.invoke(m, _paramTypes); //<--try this way?
             m.invoke(m, barge, order); //<--wow... I was stupid.
         }catch(Exception exep){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            doError("[Failed to invoke method!]");
+            String mName = m.toGenericString();
+            String msg = "[Failed to invoke method!]";
+            msg += "";
+            msg += "[METHOD INFO:: START]";
+            msg += mName;
+            msg += "[METHOD INFO:: END]";
+            doError(msg);  
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
     }//FUNC::END
     
