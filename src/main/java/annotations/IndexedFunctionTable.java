@@ -69,7 +69,10 @@ public class IndexedFunctionTable {
         //This signifies an error in our setup, so throw error if happens.
         //Do not allow scanning of class that contains no valid information:
         if(fields.size() <= 0){
-            doError("[You added a class for scanning that contained nothing]");
+            String msg = "";
+            msg+="[You added a class for scanning that contained nothing]";
+            msg+="Class:[" + clazz.getCanonicalName() + "]";
+            doError(msg);
         }//Error?
         
         /** index to put function at. **/
