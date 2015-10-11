@@ -242,8 +242,18 @@ public class BeaconLightHouse {
           
         }catch(IllegalArgumentException illegal){
             
+            //We are going to want to dump out some information on what the
+            //parameters that this function take are, so we can figure out
+            //how we managed to call it improperly.
             msg += "[Illegal argument exception happened]";
             msg += "[MSG[" + illegal.getMessage() + "]MSG]";
+            String paramCount = Integer.toString( m.getParameterCount() );
+            Class<?>[] paramTypes = m.getParameterTypes();
+            msg += "#Params:[" + paramCount + "]";
+            for(int i = 0; i < paramTypes.length; i++){
+                String num = Integer.toString(i);
+                msg += "#" + num + ":[" + paramTypes[i].getName() + "]";
+            }//next i (next parameter)
             
         }catch(Exception exep){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
