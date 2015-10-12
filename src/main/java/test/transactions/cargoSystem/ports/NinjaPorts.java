@@ -44,7 +44,8 @@ public class NinjaPorts {
         Long ninja_id = order.specs.getValLong(VarNameReg.NINJA_ID);
         NinjaTable ninja = NinjaTransUtil.getNinjaByID(ninja_id);
         
-        barge.hold.addCageWithOneEntity_AndAssertUnique(ninja, order);
+        //Will fill the cage in the hold, as well as the reciept:
+        barge.fillOrderOfOne(order, ninja);
         
     }//FUNC::END
     

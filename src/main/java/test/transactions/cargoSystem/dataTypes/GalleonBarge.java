@@ -3,6 +3,7 @@ package test.transactions.cargoSystem.dataTypes;
 import test.MyError;
 import test.config.debug.DebugConfig;
 import test.config.debug.DebugConfigLogger;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.transactions.cargoSystem.managerTypes.MerchantCaptain;
 
 /**
@@ -147,6 +148,28 @@ public class GalleonBarge {
        agenda.addOrder(order);
        return order;
        
+    }//FUNC::END
+    
+    /** Fills an order for ONE ENTITY. Fills the cargo hold with the entity,
+     *  as well as enters the entity primary key ids into the order.
+     * @param order  :The order that has been completed.
+     * @param entity :The entity that has been aquired from order.
+     */
+    public void fillOrderOfOne(OrderSlip order, BaseEntity entity){
+        
+        //Make sure there is a cage with the entity:
+        this.hold.addCageWithOneEntity_AndAssertUnique(entity, order);
+        
+        //make sure the pirmaryKeys_ids list is non-null and empty. As we
+        //are about to populate it:
+        if(null == order.primaryKey_ids){doError("[ShouldNotBeNull]");}
+        if(0 != order.primaryKey_ids.size()){doError("[ShouldBeEmpty]");}
+        
+        //Add the primary key to the order's primary key array:
+        long ent_id = entity.getId();
+        if(ent_id <= 0){doError("[lazy fetch error maybe?]");}
+        order.primaryKey_ids.add( ent_id );
+        
     }//FUNC::END
     
     /** By null instance. I mean an instance where all the properties
