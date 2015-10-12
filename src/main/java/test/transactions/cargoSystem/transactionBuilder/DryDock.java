@@ -31,6 +31,7 @@ import test.transactions.cargoSystem.ports.TokenPorts;
  */
 public class DryDock {
     
+    /**
     public static GalleonBarge debugger_stub_function(){
         GalleonBarge barge = GalleonBarge.make();
         OrderSlip order;
@@ -38,6 +39,7 @@ public class DryDock {
         barge.agenda.addOrder(order);
         return barge;
     }//FUNC::END
+    **/
     
     /** Before we get too complex. Test the DryDock by re-creating previous
      *  functionality using this new pattern. If it passes, we can work up
