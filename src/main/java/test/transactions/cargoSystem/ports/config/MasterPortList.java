@@ -6,6 +6,7 @@ import java.util.List;
 import test.MyError;
 import test.transactions.cargoSystem.dataTypes.GalleonBarge;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
+import test.transactions.cargoSystem.ports.NinjaPorts;
 import test.transactions.cargoSystem.ports.TokenPorts;
 
 /**
@@ -91,8 +92,11 @@ public class MasterPortList {
         //errors.
         int bc = 0;//break count.
         switch(portID){
-        case CREATE_NEW_TOKEN:
+        case           CREATE_NEW_TOKEN:
             TokenPorts.create_new_token(galleon, order);
+            bc++; break;
+        case           GET_ONE_NINJA_BY_ID:
+            NinjaPorts.get_one_ninja_by_id(galleon, order);
             bc++; break;
         default:
             //Default should never trigger, because "validatePortID()" validates
