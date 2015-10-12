@@ -174,6 +174,9 @@ public class CargoHold {
         cage.merchandise.add(ent);
         cage.requiresSaving = saveEntityOnExit;
         
+        //BUGFIX: Don't forget to actually add the cage to our master list!
+        cages.add(cage);
+        
         //return the cage:
         return cage;
     }//FUNC::END
