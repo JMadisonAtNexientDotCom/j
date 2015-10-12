@@ -31,6 +31,7 @@ public class TokenPorts {
         //the function being called.
         
         //Core logic:
+        TransUtil.insideTransactionCheck();
         Session ses = TransUtil.getActiveTransactionSession();
         TokenTable tt = TokenTransUtil.makeNextToken();
         ses.save(tt); //<--save to force making of primary key.

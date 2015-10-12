@@ -1,5 +1,6 @@
 package test.transactions.cargoSystem.dataTypes;
 
+import java.util.ArrayList;
 import java.util.List;
 import test.MyError;
 
@@ -155,12 +156,20 @@ public class OrderSlip {
      *                  to fufill the order.
      */
     public static OrderSlip makeUsingPortID(short inPortID){
-        OrderSlip op = new OrderSlip();
+        OrderSlip op = makeReadyToPopulateInstance();
         op.portID            = inPortID;
         op.loadKeysUsingPort = true;
         
         //to get this to work, you may have to edit the lookup table.
         //op.supplier          = resolvePortIDToSupplyingTableEntity(inPortID);
+        return op;
+    }//FUNC::END
+    
+    public static OrderSlip makeReadyToPopulateInstance(){
+        OrderSlip op = new OrderSlip();
+        op.primaryKey_ids = new ArrayList<Long>();
+        op.dependencies   = new OrderSlip[0];
+        op.specs          = new OrderArg[0];
         return op;
     }//FUNC::END
     
