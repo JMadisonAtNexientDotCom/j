@@ -99,11 +99,36 @@ public class SpecialInstructionsStickyNote {
         }//Next i
         
         if(false == wasFound){
-            throw new Error("[Variable was not found!]");
+            String msg = "";
+            msg += "[Variable was not found!]";
+            msg += printAllArgs();
+            throw new Error(msg);
         }//NOT FOUND!
         
         return null;
         
+    }//FUNC::END
+    
+    /** Converts all of the arguments to string for debug. **/
+    private String printAllArgs(){
+        String msg = "";
+        msg += "[Arg Dump Start:]";
+        OrderArg cur;
+        int len = notes.size();
+        for(int i = 0; i < len; i++){
+            cur = notes.get(i);
+            msg +="[";
+            msg +="Name:" + cur.varName;
+            msg +="Val:"  + cur.varValue.toString();
+            msg += "]";
+        }//Next i
+        
+        if(len <= 0){
+            msg += "[EMPTY ARG LIST!]";
+        }//EMPTY.
+        msg += "[:Arg Dump End]";
+        
+        return msg;
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
