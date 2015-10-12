@@ -34,6 +34,9 @@ public class CargoHold {
     public EntityCage getCageUsingReceipt(OrderSlip receipt){
         if(null == cages){doError("[Cages are null!]");}
         if(null == receipt){doError("[receipt is null!]");}
+        if(cages.size() <= 0){
+            doError("[No possible way to find! No cages in cages list!]");
+        }//No way!
         
         for(EntityCage c : cages){
             if(c.receipt == receipt){
