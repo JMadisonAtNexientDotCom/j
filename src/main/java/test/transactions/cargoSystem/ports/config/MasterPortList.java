@@ -4,6 +4,9 @@ import annotations.UniqueStaticValue;
 import annotations.UniqueValueValidator;
 import java.util.List;
 import test.MyError;
+import test.transactions.cargoSystem.dataTypes.GalleonBarge;
+import test.transactions.cargoSystem.dataTypes.OrderSlip;
+import test.transactions.cargoSystem.ports.TokenPorts;
 
 /**
  * A master indexing of all of the ports so that we can help prevent collisions.
@@ -66,6 +69,44 @@ public class MasterPortList {
             msg += "This means it cannot be a valid port/function handle.";
             doError(msg);
         }//Error?
+    }//FUNC::END
+    
+    /** A lookup table. A bit hackish, but cannot get reflection to work.
+     *  So this is the best idea I have to remidy the problem.
+     * @param barge :The barge (cargo ship) to operate on.
+     * @param order   :The current order to fill.
+     */
+    public static void call(GalleonBarge galleon, OrderSlip order){
+        
+        //make sure portID is valid:
+        short portID = order.portID;
+        validatePortID(portID);
+        
+        //Enter my hackish lookup table. Because Java sucks and functions are
+        //not first class citizens and reflection causes weird untraceable 
+        //errors.
+        int bc = 0;//break count.
+        switch(portID){
+        case CREATE_NEW_TOKEN:
+            TokenPorts.create_new_token(galleon, order);
+            bc++; break;
+        case DEBUGGER_STUB_FUNCTION:
+            TokenPorts.debugger_stub_function(galleon, order);
+            bc++; break;
+        default:
+            //Default should never trigger, because "validatePortID()" validates
+            //that we are using a valid portID. If default triggers, it means
+            //we forgot to add a function to our lookup table.
+            throw new Error("[Switch case forgotten for valid table index!]");
+            //bc++; break;
+        }//SWITCH::END
+        
+        //hackish way to make sure we don't accidentially fall-through
+        //from forgetting to use break keyword:
+        if(bc != 1){
+            doError("[Missing a break in switch statement likely.]");
+        }//break count != 1 ?
+        
     }//FUNC::END
     
     /**-------------------------------------------------------------------------

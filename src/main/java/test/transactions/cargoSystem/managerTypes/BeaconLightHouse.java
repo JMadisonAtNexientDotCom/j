@@ -184,6 +184,16 @@ public class BeaconLightHouse {
         //Confirm that the portID is valid:
         MasterPortList.validatePortID(order.portID);
         
+        //I used reflection in a small test project. But when I try to use it
+        //here, the code crashes. An none of the specific exceptions that
+        //invoking a method are supposed to throw are thrown. The result is
+        //A stack-trace that leads NOWHERE. Rather than use a dynamically built
+        //lookup table that invokes functions using reflection, I am going to
+        //create a hard-coded lookup table within MasterPortList.java and
+        //execute through there!
+        MasterPortList.call(barge, order);
+        
+        /* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
         //Get the correct port from the OrderSlip,
         //This is basically, the destination where we will find what
         //We need to fufill the order. Example: Maybe it is an order
@@ -220,7 +230,7 @@ public class BeaconLightHouse {
         }else{
           attemptInvocationOfMethod(m,barge,order);  
         }//BLOCK::END
-        
+         XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX **/ 
        
     }//FUNC::END
     
