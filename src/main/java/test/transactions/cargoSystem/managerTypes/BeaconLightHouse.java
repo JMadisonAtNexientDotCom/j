@@ -11,6 +11,7 @@ import test.transactions.cargoSystem.dataTypes.GalleonBarge;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
 import test.transactions.cargoSystem.ports.TokenPorts;
 import test.transactions.cargoSystem.ports.config.MasterPortList;
+import utils.ArrayUtil;
 
 /**
  * This is a static registry class that helps resolve the different
@@ -377,10 +378,11 @@ public class BeaconLightHouse {
         //using a port function?
         if(true==order.loadKeysUsingPort){
             if(null != order.primaryKey_ids){
-                if(order.primaryKey_ids.size() >= 0){
+                if(order.primaryKey_ids.size() > 0){
                     String msg = "";
                     msg += "[we are configured to fetch keys using port.]";
                     msg += "[But already has come pre-loaded with keys.]";
+                    msg += "[keys should have ZERO ENTRIES or be NULL.]";
                     doError(msg);
                 }//Has keys already loaded?
             }//keys object is NOT null.
@@ -411,6 +413,10 @@ public class BeaconLightHouse {
             
         }//PRE-LOADED KEYS?
         
+    }//FUNC::END
+    
+     private static <T> boolean doesArrayHaveData(T[] arr){
+        return ArrayUtil.doesArrayHaveData(arr);
     }//FUNC::END
     
     

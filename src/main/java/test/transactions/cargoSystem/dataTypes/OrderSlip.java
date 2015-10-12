@@ -3,6 +3,7 @@ package test.transactions.cargoSystem.dataTypes;
 import java.util.ArrayList;
 import java.util.List;
 import test.MyError;
+import utils.ArrayUtil;
 
 /**
  * An OrderSlip is a yellow slip of carbon paper that has order information
@@ -112,9 +113,7 @@ public class OrderSlip {
     }//FUNC::END
     
     private static <T> boolean doesArrayHaveData(T[] arr){
-        if(null == arr){return false;}
-        if(arr.length <= 0){return false;}
-        return true;
+        return ArrayUtil.doesArrayHaveData(arr);
     }//FUNC::END
     
     /** Throws error if SPECS flags are not properly set. **/
