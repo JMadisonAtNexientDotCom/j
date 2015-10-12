@@ -57,7 +57,7 @@ public class MasterPortList {
     
     /** Check sum so I can validate my _masterIndexValidatorTable extraction
      *  is working properly. **/
-    public static final long  LONG_CHECK_SUM = 1;
+    public static final long  LONG_CHECK_SUM = 2;
     
     /**-------------------------------------------------------------------------
      *  throws error if the portID is invalid.
