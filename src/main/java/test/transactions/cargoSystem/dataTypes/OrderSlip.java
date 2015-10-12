@@ -98,18 +98,23 @@ public class OrderSlip {
     
    /** Throws error if dependency flags are not properly set. **/
     private static void validateDependencyFlags(OrderSlip order){
-        if(null == order.dependencies && order.hasDependencies){
+        
+        boolean has = doesArrayHaveData(order.dependencies);
+       
+        if((false==has) && true==order.hasDependencies){
             doError("[dependency flag does not agree with data.]");
         }//
         
-        if(null != order.dependencies && false==order.hasDependencies){
+        if( (true==has) && false==order.hasDependencies){
             doError("[another mis-match for dependency flags]");
         }//
         
-        if(null == order.dependencies){return;}
-        if(order.dependencies.length <= 0){
-            doError("[Dependencies flagged as true. But array is empty.]");
-        }//
+    }//FUNC::END
+    
+    private static <T> boolean doesArrayHaveData(T[] arr){
+        if(null == arr){return false;}
+        if(arr.length <= 0){return false;}
+        return true;
     }//FUNC::END
     
     /** Throws error if SPECS flags are not properly set. **/
