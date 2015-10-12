@@ -80,6 +80,7 @@ public class DryDock {
         OrderSlip order;
         order = OrderSlip.makeUsingPortID(NinjaPorts.GET_ONE_NINJA_BY_ID);
         order.supplier = NinjaTable.class;
+        order.specs.add(VarNameReg.NINJA_ID, ninja_id);
         barge.agenda.addOrder(order);
         return barge;
     }//FUNC::END
@@ -94,7 +95,6 @@ public class DryDock {
         order = barge.placeOrder(TokenPorts.CREATE_NEW_TOKEN);
         order.supplier        = TokenTable.class;
         order.hasDependencies = false;
-        order.hasSpecs        = false;
         barge.agenda.addOrder(order);
         
         //Get a ninja, using ninja's ID:
@@ -102,7 +102,6 @@ public class DryDock {
         //      operate using SPECS rather than loading primary keys in list.
         order = barge.placeOrder(NinjaPorts.GET_ONE_NINJA_BY_ID);
         order.supplier        = NinjaTable.class;
-        order.hasSpecs        = true;
         order.specs.add(VarNameReg.NINJA_ID,ninjaID);
         barge.agenda.addOrder(order);
         

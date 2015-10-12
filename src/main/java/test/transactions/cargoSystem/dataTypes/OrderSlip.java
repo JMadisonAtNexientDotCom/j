@@ -102,8 +102,12 @@ public class OrderSlip {
      *  instructions, you could get pineapple pizza.
      */
     public SpecialInstructionsStickyNote specs = null;
+    
+    //Forget "hasSpecs". Specs simply always should be non-null when
+    //using an order slip. And maybe the specs list is EMPTY. But don't.
+    //use these paired vars. Makes things more verbose and pain.
     //public OrderArg[] specs = null;
-    public boolean hasSpecs = false;
+    //public boolean hasSpecs = false;
     
    /** Throws error if dependency flags are not properly set. **/
     private static void validateDependencyFlags(OrderSlip order){
@@ -124,7 +128,8 @@ public class OrderSlip {
         return ArrayUtil.doesArrayHaveData(arr);
     }//FUNC::END
     
-    /** Throws error if SPECS flags are not properly set. **/
+    /* xxxxxxxxxxxxxxxxxxxxxxxxx
+    // Throws error if SPECS flags are not properly set.//
     private static void validateSpecsFlags(OrderSlip order){
         if(null == order.specs && order.hasSpecs){
             doError("[SPECS flag does not agree with data.]");
@@ -139,6 +144,7 @@ public class OrderSlip {
             doError("[SPECS flagged as true. But array is empty.]");
         }//
     }//FUNC::END
+    xxxxxxxxxxxxxxxxxxxxxxxxx */
     
     /**
      * @param orders:Array of orders
