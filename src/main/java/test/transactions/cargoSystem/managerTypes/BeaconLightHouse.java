@@ -213,7 +213,8 @@ public class BeaconLightHouse {
           //attemptInvocationOfStaticMethod(m,barge,order);
             
           //hack: Assume problem is NOT in refelection but actual method.
-          TokenPorts.debugger_stub_function(barge, order);
+          //TokenPorts.debugger_stub_function(barge, order);
+            TokenPorts.create_new_token(barge, order);
             
         }else{
           attemptInvocationOfMethod(m,barge,order);  
