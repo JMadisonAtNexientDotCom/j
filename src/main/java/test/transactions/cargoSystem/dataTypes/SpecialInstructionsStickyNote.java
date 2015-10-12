@@ -43,6 +43,11 @@ public class SpecialInstructionsStickyNote {
         OrderArg oa = new OrderArg();
         oa.varName = varName;
         oa.varValue= varValue;
+        
+        //BUG-FIX: Have to actually add to notes!!
+        if(null == notes){doError("[notes are null]");}
+        notes.add(oa);
+        
     }//FUNC::END
     
     //cant seeem to do this:
