@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import test.config.debug.DebugConfig;
 import test.config.debug.DebugConfigLogger;
 import test.dbDataAbstractions.entities.tables.TokenTable;
+import test.transactions.cargoSystem.dataTypes.EntityCage;
 import test.transactions.cargoSystem.dataTypes.GalleonBarge;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
 import test.transactions.cargoSystem.ports.config.MasterPortList;
@@ -38,8 +39,9 @@ public class TokenPorts {
         
         //Barge abstraction: (Load data onto the barge)
         //Register what you've gotten with the Hold and Order:
-        boolean saveOnExit = true;
-        barge.hold.addCageWithOneEntity_AndAssertUnique(tt, order, saveOnExit);
+        EntityCage cage;
+        cage = barge.hold.addCageWithOneEntity_AndAssertUnique(tt, order);
+        cage.requiresSaving = true; //save this entity on exit.
         order.primaryKey_ids.add(tt.getId());
         
     }//FUNC::END
