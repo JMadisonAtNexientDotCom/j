@@ -46,8 +46,13 @@ public class MasterPortList {
         
     }//FUNC::END
     
+    //TOKEN PORTS:
     @UniqueStaticValue
     public static final short CREATE_NEW_TOKEN = 1;
+    
+    //NINJA PORTS:
+    @UniqueStaticValue
+    public static final short GET_ONE_NINJA_BY_ID = 2;
    
     
     /** Check sum so I can validate my _masterIndexValidatorTable extraction

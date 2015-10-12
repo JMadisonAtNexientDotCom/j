@@ -29,12 +29,17 @@ public class EntityCage {
      *  to create this batch of entities. **/
     public OrderSlip receipt;
     
-    /** If we are just fetching entities for reference, and don't need to
+    /** 
+     *  Default to TRUE because it is better to mistakenly SAVE an entity
+     *  that has NOT changed than to mistakenly NOT-SAVE an entity
+     *  that HAS-CHANGED.
+     * 
+     *  If we are just fetching entities for reference, and don't need to
      *  save them in the database, this should be FALSE.
      *  If entities have been edited and need to be saved in database,
      *  this should be flagged as TRUE.
      **/
-    public boolean requiresSaving = false;
+    public boolean requiresSaving = true; //<--DEFAULT TRUE.
     
     /**-------------------------------------------------------------------------
      * Maker function that will make sure all properties from resulting

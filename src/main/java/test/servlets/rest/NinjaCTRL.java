@@ -35,6 +35,10 @@ import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.composites.Clan;
 import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
+import test.dbDataAbstractions.entities.tables.TokenTable;
+import test.transactions.cargoSystem.dataTypes.EntityCage;
+import test.transactions.cargoSystem.dataTypes.GalleonBarge;
+import test.transactions.cargoSystem.transactionBuilder.DryDock;
 import utils.JSONUtil;
 import utils.StringUtil;
 
@@ -244,6 +248,40 @@ public class NinjaCTRL extends BaseCTRL {
         TransUtil.exitTransaction(ses, doSave);
     }//FUNC::END
         
+    /** A more complicated implementation of get_ninja_by_id that is just
+     *  meant to make sure that the cargoSystem is working for this type of
+     *  request.
+     * @param id :The ID of the ninja you want.
+     * @return   :Returns the ninja entity.
+     */                                        
+    @GET
+    @Path(FuncNameReg.GET_NINJA_BY_ID)
+    public Response get_ninja_by_id(@QueryParam(VarNameReg.ID) long id){
+        //ENTER transaction:
+            Session ses = TransUtil.enterTransaction();
+            
+            //Transaction logic:
+            NinjaTable nt;
+            GalleonBarge barge;
+            EntityCage cage;
+            barge = DryDock.getNinjaByID(id);
+            barge.embark();
+            
+            //Fetching info after barge has embarked:
+            cage = barge.hold.getCageUsingSupplier(NinjaTable.class);
+            nt = (NinjaTable)cage.merchandise.get(0);
+            
+            //Will have to exit transaction session without knowing
+            //if saving is needed:
+            
+            //EXIT transaction:
+            TransUtil.exitTransaction(ses);
+            
+            //Return entity as body of 200/ok response:
+            return JSONUtil.entityToJSONResponse(nt);
+    }//FUNC::END
+                                                  
+    /*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     @GET
     @Path(FuncNameReg.GET_NINJA_BY_ID)
     public Response get_ninja_by_id(@QueryParam(VarNameReg.ID) long id){
@@ -263,6 +301,7 @@ public class NinjaCTRL extends BaseCTRL {
         //Return entity as body of 200/ok response:
         return JSONUtil.entityToJSONResponse(nt);
     }//FUNC::END
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
         
     @GET
     @Path(FuncNameReg.GET_NEXT_NINJA) //removed slash at end. Lets try again.

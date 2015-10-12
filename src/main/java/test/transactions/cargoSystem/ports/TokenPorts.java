@@ -44,6 +44,16 @@ public class TokenPorts {
         
     }//FUNC::END
     
+    //
+    // * Like create_new_token, but makes multiple tokens.
+    // * Uses arguments to do so.
+    // * @param barge
+    // * @param order 
+    //
+    //public static void create_token_batch(GalleonBarge barge, OrderSlip order){
+    //    
+    //}//FUNC::END
+    
     
     /**
     @IndexedFunction(key=DEBUGGER_STUB_FUNCTION)

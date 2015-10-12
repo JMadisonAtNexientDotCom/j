@@ -162,8 +162,7 @@ public class CargoHold {
      *                          to database when all of the transactions on
      *                          the barge have been completed.
      */
-    public EntityCage addCageWithOneEntity
-                    (BaseEntity ent, OrderSlip order, boolean saveEntityOnExit){
+    public EntityCage addCageWithOneEntity(BaseEntity ent, OrderSlip order){
           
         //Basic error checks:
         if(null == ent){doError("input entity null");}
@@ -172,7 +171,7 @@ public class CargoHold {
         //Make the cage and populate with data:
         EntityCage cage = EntityCage.make(ent.getClass(), order);
         cage.merchandise.add(ent);
-        cage.requiresSaving = saveEntityOnExit;
+        //cage.requiresSaving = saveEntityOnExit;
         
         //BUGFIX: Don't forget to actually add the cage to our master list!
         cages.add(cage);
@@ -192,7 +191,7 @@ public class CargoHold {
      * @return :Returns the entity cage made, so you can further configure it.
      */
     public EntityCage addCageWithOneEntity_AndAssertUnique
-                    (BaseEntity ent, OrderSlip order, boolean saveEntityOnExit){
+                                              (BaseEntity ent, OrderSlip order){
         //Error check inputs:
         if(null==ent){doError("[null==ent]");}
         if(null==order){doError("[null==order");}
@@ -210,7 +209,7 @@ public class CargoHold {
         }//next cage.
         
         //if all goes well, call the core logic:
-        return addCageWithOneEntity(ent, order, saveEntityOnExit);
+        return addCageWithOneEntity(ent, order);
                             
     }//FUNC::END
     

@@ -3,6 +3,7 @@ package test.transactions.cargoSystem.dataTypes;
 import java.util.ArrayList;
 import java.util.List;
 import test.MyError;
+import test.transactions.util.TransValidateUtil;
 import utils.ArrayUtil;
 
 /**
@@ -55,11 +56,17 @@ public class OrderSlip {
      */
     public boolean areKeysLoaded = false;
     
+    /** Entities need to be loaded into the cargo hold eventually for the
+     *  order to be completed. Even if we don't use them. Also, the very act
+     *  of loading entities into cargo asserts that those primary key ids
+     *  are actually valid. **/
+    public boolean areEntitiesLoaded = false;
+    
     /** Function that I only added to help document isKeyLoaded variable,
      *  and give it a synonym. Though we could put error checking in it.
      * @return :Returns true if this order is complete. **/
     public boolean isOrderComplete(){
-        return areKeysLoaded;
+        return ( areKeysLoaded && areEntitiesLoaded);
     }//FUNC::END
     
     //uncessarry and will just needlessly complexify things.
@@ -94,7 +101,8 @@ public class OrderSlip {
      *  you a pepperoni pizza. But if you specify specific special
      *  instructions, you could get pineapple pizza.
      */
-    public OrderArg[] specs = null;
+    public SpecialInstructionsStickyNote specs = null;
+    //public OrderArg[] specs = null;
     public boolean hasSpecs = false;
     
    /** Throws error if dependency flags are not properly set. **/
@@ -127,7 +135,7 @@ public class OrderSlip {
         }//
         
         if(null == order.specs){return;}
-        if(order.specs.length <= 0){
+        if(order.specs.size() <= 0){
             doError("[SPECS flagged as true. But array is empty.]");
         }//
     }//FUNC::END
@@ -170,11 +178,90 @@ public class OrderSlip {
     }//FUNC::END
     
     public static OrderSlip makeReadyToPopulateInstance(){
-        OrderSlip op = new OrderSlip();
+        OrderSlip op      = new OrderSlip();
         op.primaryKey_ids = new ArrayList<Long>();
         op.dependencies   = new OrderSlip[0];
-        op.specs          = new OrderArg[0];
+        op.specs          = SpecialInstructionsStickyNote.makeReadyFill();
         return op;
+    }//FUNC::END
+    
+    /** An enabler is someone who SUPPORTS a dependant. If an order has
+     *  other orders it DEPENDS ON. We are going to want to fetch those orders
+     *  so that we can work with them.
+     * @param order :The order that is dependant on other orders.
+     * @param supplierTableThisOrderIsDependantOn : Reference to actual table
+     *        used to create one of the orders that our input order is dependant
+     *        on. This way we can extract an enabling order from the list of
+     *        order dependencies.
+     *        Example: If one order in the dependency list was made using the
+     *        TokenTable and another was made using the NinjaTable, we could
+     *        create a reference to the TokenTable's order by:
+     *        Order ninja_order = getEnabler(order, NinjaTable.class);
+     * @return :Returns the correct enabling order. If order is not found,
+     *          or order has no dependency list, will throw error.
+     */
+    public static OrderSlip getEnabler
+                   (OrderSlip order, Class supplierTableThisOrderIsDependantOn){
+        
+        //check inputs:
+        if(null == order){doError("null order input");}
+        if(null == supplierTableThisOrderIsDependantOn){doError("nullClass");}
+        if(false == TransValidateUtil.isEntityClass
+                                        (supplierTableThisOrderIsDependantOn) ){
+            doError("input class does not derive from base enitity.");
+        }//Entity Class?
+                       
+        //does object have orders?
+        if(order.hasDependencies){doError("[flagged as having no deps]");}
+        if(null == order.dependencies){doError("[null dependency list]");}
+        if(order.dependencies.length <= 0) {doError("[zerolen deplist]");}
+        boolean orderFound = false;
+        OrderSlip foundOrder = null;
+                       
+        for(OrderSlip o : order.dependencies){
+            if(o.supplier == supplierTableThisOrderIsDependantOn){
+                foundOrder = o;
+                break;
+            }//match?
+        }//next order.
+        
+        if(orderFound){
+            if(false == foundOrder.isOrderComplete()){
+                doError("[enabler order found, but not completed!]");
+            }//Order not completed?
+        }else{
+            doError("[Was not able to find enabler order using class!]");
+        }//Found or not?
+        
+        return foundOrder;
+                       
+    }//FUNC::END
+                  
+    /** When the barge lands at a port. We want to validate the integrity
+     *  of the order before we start filling it.
+     * @param order   :The order to validate.
+     * @param supplierOrNull:The supplier table that will be supplying the 
+     *                 entities. If no supplier table, supply NULL. 
+     *                 NULL is ALLOWED.
+     */
+    public static void preFillCheck(OrderSlip order, Class supplierOrNull){
+        
+        //might want to replace this call with check to see if order is already
+        //filled. But for now, good like this:
+        if(order.areEntitiesLoaded){doError("Entities already loaded");}
+        
+        //Make sure the port can supply the goods you are asking for:
+        if(order.supplier != supplierOrNull){
+            String msg = "[You are at the wrong port for this order.]";
+            msg += "[Possible problems:]";
+            msg += "[1. ERROR in PORT FUNCTION:]";
+            msg += "[Port function wrongly identifies the supplier table]";
+            msg += "[That it is grabbing from.]";
+            msg += "[2. ERROR in DryDock's setup of this order.";
+            msg += "[The port functions are okay, but the order setup";
+            msg += "[Is mentioning the wrong supplier table.";
+            doError(msg);
+        }//FUNC::END
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
