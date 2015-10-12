@@ -62,6 +62,7 @@ public class DryDock {
         GalleonBarge barge = GalleonBarge.make();
         OrderSlip order;
         order = OrderSlip.makeUsingPortID(TokenPorts.CREATE_NEW_TOKEN);
+        order.supplier = TokenTable.class; //<--TODO: make automaticly supplied.
         barge.agenda.addOrder(order);
         return barge;
         

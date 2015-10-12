@@ -25,8 +25,20 @@ public class NinjaPorts {
      */
     public static void get_one_ninja_by_id(GalleonBarge barge, OrderSlip order){
         
-        if(order.hasDependencies){doError("This order should have zero dependencies!");}
-        if(order.supplier != NinjaTable.class){doError("Wrong supplier identified in order setup.");}
+        if(order.hasDependencies){
+            doError("[This order should have zero dependencies!]");
+        }
+        if(order.supplier != NinjaTable.class){
+            String sName = (null==order.supplier?"NULL!":order.supplier.
+                                                            getCanonicalName());
+            String nTable = NinjaTable.class.getCanonicalName();
+            String msg = "";
+            msg += "[Wrong supplier identified in order setup].";
+            msg += "supplier:[" + sName + "]";
+            msg += "NinjaTable:[" + nTable + "]";
+            doError(msg);
+        }//Bad supplier on order??
+        
         OrderSlip.preFillCheck(order, NinjaTable.class);
         
         Long ninja_id = order.specs.getValLong(VarNameReg.NINJA_ID);

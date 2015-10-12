@@ -252,7 +252,8 @@ public class OrderSlip {
         
         //Make sure the port can supply the goods you are asking for:
         if(order.supplier != supplierOrNull){
-            String msg = "[You are at the wrong port for this order.]";
+            String msg = "";
+            msg += "[You are at the wrong port for this order.]";
             msg += "[Possible problems:]";
             msg += "[1. ERROR in PORT FUNCTION:]";
             msg += "[Port function wrongly identifies the supplier table]";
@@ -260,8 +261,17 @@ public class OrderSlip {
             msg += "[2. ERROR in DryDock's setup of this order.";
             msg += "[The port functions are okay, but the order setup";
             msg += "[Is mentioning the wrong supplier table.";
+            String sName = getNameOfPossiblyNullClass(supplierOrNull);
+            String otNme= getNameOfPossiblyNullClass(order.supplier);
+            msg += "supplier arg:["      + sName + "]";
+            msg += "supplier on order:[" + otNme + "]";
             doError(msg);
         }//FUNC::END
+    }//FUNC::END
+    
+    private static String getNameOfPossiblyNullClass(Class clazz){
+         String cName = (clazz==null?"NULL!":clazz.getCanonicalName());
+         return cName;
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
