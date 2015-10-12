@@ -21,7 +21,7 @@ public class FuncNameReg {
    // }////////////////
     
     //DEBUG:
-    public static final String DEBUGGER_STUB_FUNCTION="debugger_stub_function";
+    //public static final String DEBUGGER_STUB_FUNCTION="debugger_stub_function";
     
     //TRIAL SERVICE:
     public static final String DISPATCH_TOKENS="dispatch_tokens";

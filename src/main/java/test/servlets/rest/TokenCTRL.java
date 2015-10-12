@@ -49,6 +49,7 @@ public class TokenCTRL extends BaseCTRL {
          *  NOT CRASH. We can't program more logic until we figure out what
          *  is going wrong with dynamic method invocation.
          */
+        /*
         @GET
         @Path(FuncNameReg.DEBUGGER_STUB_FUNCTION)
         public Response debugger_stub_function(){
@@ -62,6 +63,7 @@ public class TokenCTRL extends BaseCTRL {
             Response r = JSONUtil.stringToJSONResponse(str,"hi",false);
             return r;
         }//FUNC::END
+        */
             
    
         //This version is GUTTED and replaced with some experimental

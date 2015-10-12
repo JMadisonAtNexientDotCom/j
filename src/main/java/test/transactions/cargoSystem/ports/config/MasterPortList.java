@@ -48,12 +48,11 @@ public class MasterPortList {
     
     @UniqueStaticValue
     public static final short CREATE_NEW_TOKEN = 1;
-    @UniqueStaticValue
-    public static final short DEBUGGER_STUB_FUNCTION = 2;
+   
     
     /** Check sum so I can validate my _masterIndexValidatorTable extraction
      *  is working properly. **/
-    public static final long  LONG_CHECK_SUM = 2;
+    public static final long  LONG_CHECK_SUM = 1;
     
     /**-------------------------------------------------------------------------
      *  throws error if the portID is invalid.
@@ -89,9 +88,6 @@ public class MasterPortList {
         switch(portID){
         case CREATE_NEW_TOKEN:
             TokenPorts.create_new_token(galleon, order);
-            bc++; break;
-        case DEBUGGER_STUB_FUNCTION:
-            TokenPorts.debugger_stub_function(galleon, order);
             bc++; break;
         default:
             //Default should never trigger, because "validatePortID()" validates
