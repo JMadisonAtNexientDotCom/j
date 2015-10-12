@@ -79,6 +79,7 @@ public class DryDock {
         GalleonBarge barge = GalleonBarge.make();
         OrderSlip order;
         order = OrderSlip.makeUsingPortID(NinjaPorts.GET_ONE_NINJA_BY_ID);
+        order.supplier = NinjaTable.class;
         barge.agenda.addOrder(order);
         return barge;
     }//FUNC::END
