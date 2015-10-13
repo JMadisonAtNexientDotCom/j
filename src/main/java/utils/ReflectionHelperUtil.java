@@ -16,7 +16,17 @@ import test.MyError;
  */
 public class ReflectionHelperUtil {
     
-    
+    /**
+     * Validates that class is an annotation. Helps prevent
+     * us from ~accidentially~ transposing the annotation class with
+     * the class we are checking.
+     * @param anno :The class we want to make sure is an annotation.
+     */
+    public static void validateIsAnnotation(Class anno){
+        if(false == anno.isAnnotation()){
+            doError("[class not annotation. Did you transpose arguments?]");
+        }//
+    }//FUNC::END
     
     
     public static List<Field> getFieldsWithAnnotation
@@ -26,6 +36,10 @@ public class ReflectionHelperUtil {
         if(null == clazz){doError("[inputted class is null!]");}
         if(null == anno){doError("[inputted annotation class is null!]");}
         if(false==(getStatic || getInstance)){doError("[Pick at least 1!]");}
+        
+        //Check for accidential transposition of arguments by making sure
+        //the anno class is an annotation:
+        validateIsAnnotation(anno);
         
         //Get the wanted field types:
         List<Field> fields = null;
