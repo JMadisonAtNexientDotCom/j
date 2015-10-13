@@ -220,12 +220,12 @@ public class UniqueValueValidator {
         Object inst = ReflectionHelperUtil.makeInstanceUsingClass(clazz);
         
         //Supply false, because the fields are NON-STATIC:
-        Class[] longs = new Class[2];
-        longs[0] = Long.class;
-        longs[1] = long.class;
+        //Class[] longs = new Class[2];
+        //longs[0] = Long.class;
+        //longs[1] = long.class;
         List<T> op;
         op = validateAndCollectValuesOfType_InstanceAndStaticCommonCode
-                                               (fields,STATIC_FALSE,inst,longs);
+                                               (fields,STATIC_FALSE,inst,types);
         
         if(null == op || op.isEmpty()){
             doError("[INSTANCE VALIDATION FAIL]");
@@ -274,7 +274,10 @@ public class UniqueValueValidator {
             valueOfUnknownType = ReflectionHelperUtil.getValueOfField
                                                      (f,doStaticCheckMode,inst);
             if(is_a_type(valueOfUnknownType, types)){
+                
+                //I think because of type erasure, this does NOT WORK:
                 value = (T)valueOfUnknownType; //cast to output type.
+                
                 //if(mapOfUniqueValues.containsKey(value)){
                 if(list_of_t.indexOf(value) >= 0){
                     doError("[validation of instance longs/Longs has failed]");
