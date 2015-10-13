@@ -46,6 +46,9 @@ public class ReflectionHelperUtil {
         //In case one of the funcs returned null:
         if(null == fields){doError("[fields can be empty, but not null!]");}
         
+        //TEMPORARY ERROR: Don't allow for empty either:
+        if(fields.isEmpty()){doError("[TEMP ERROR: DO not allow empty list]");}
+        
         //Filter down results to get only the fields that have the
         //annotation you asked for:
         List<Field> wantedFields = new ArrayList<Field>();

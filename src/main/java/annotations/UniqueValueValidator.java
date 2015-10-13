@@ -212,6 +212,10 @@ public class UniqueValueValidator {
         fields = ReflectionHelperUtil.getFieldsWithAnnotation
                          (clazz, UniqueStaticValue.class, IGNORE, GET_INSTANCE);
         
+        if(fields.isEmpty()){
+            doError("[No instance fields found!]");
+        }//FUNC::END
+        
         //This mostly makes sense on ENUM style classes:
         Object inst = ReflectionHelperUtil.makeInstanceUsingClass(clazz);
         
