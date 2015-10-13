@@ -87,7 +87,7 @@ public class ConfigServlet extends HttpServlet{
         //know why!
         
         //Validate this class:
-        TRIAL_STATUS_ENUMS.validateClass();
+        //TRIAL_STATUS_ENUMS.validateClass();
         
     }//FUNC::END
 }//CLASS::END
