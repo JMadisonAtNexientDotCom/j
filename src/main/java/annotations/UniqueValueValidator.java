@@ -257,6 +257,9 @@ public class UniqueValueValidator {
         //Create a hashmap that will collect all of the values on the fields.
         //If collision, we throw error. Validation has failed.
         
+        if(null == types){doError("NulLTypeArrayNotAllowed");}
+        if(types.length <= 0){doError("EmptyTypeArrayNotAllowed");}
+        
         //create our output of all of the unique validated
         //long or Long values.
         List<T> list_of_t = new ArrayList<T>();
@@ -362,6 +365,9 @@ public class UniqueValueValidator {
      */
     private static boolean is_a_type
                                 (Object valueOfUnknownType, Class[] validTypes){
+        if(null == validTypes){doError("[null type array supplied]");}
+        if(validTypes.length <= 0){doError("[empty type array]");}
+                                    
         Class curClass;
         int len = validTypes.length;
         for(int i = 0; i < len; i++){
