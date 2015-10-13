@@ -65,8 +65,13 @@ public class UniqueValueValidator {
         //Class[] longs = new Class[2];
         //longs[0] = Long.class;
         //longs[1] = long.class;
-        return validateAndCollectValuesOfType_InstanceAndStaticCommonCode
+        List<T> op = validateAndCollectValuesOfType_InstanceAndStaticCommonCode
                                                 (fields,STATIC_TRUE,null,types);
+        if(null == op || op.isEmpty()){
+            doError("[STATIC VALIDATION FAIL]");
+        }//ERROR?
+        
+        return op;
         
         //TODO NOTES: 2015.10.09:
         //return the value of all the fields in a list so that we can
@@ -214,9 +219,15 @@ public class UniqueValueValidator {
         Class[] longs = new Class[2];
         longs[0] = Long.class;
         longs[1] = long.class;
-        return validateAndCollectValuesOfType_InstanceAndStaticCommonCode
+        List<T> op;
+        op = validateAndCollectValuesOfType_InstanceAndStaticCommonCode
                                                (fields,STATIC_FALSE,inst,longs);
         
+        if(null == op || op.isEmpty()){
+            doError("[INSTANCE VALIDATION FAIL]");
+        }//ERROR?
+        
+        return op;
         
     }//FUNC::END
     
