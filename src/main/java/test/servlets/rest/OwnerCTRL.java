@@ -51,6 +51,9 @@ import utils.JSONUtil;
 @Path(ServletClassNames.OwnerCTRL_MAPPING)
 public class OwnerCTRL extends BaseCTRL{
     
+    
+   
+    
     @GET
     @Path(FuncNameReg.IS_TOKEN_HASH_OWNED_BY_NINJA)
     public Response is_token_hash_owned_by_ninja(@DefaultValue("NOT_SET") 

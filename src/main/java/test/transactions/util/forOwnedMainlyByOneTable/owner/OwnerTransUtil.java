@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import test.MyError;
 import test.config.constants.DatabaseConsts;
+import test.config.constants.signatures.paramVals.TRIAL_STATUS_ENUMS;
 import test.config.debug.DebugConfig;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
@@ -14,6 +15,7 @@ import test.dbDataAbstractions.entities.tables.AdminTable;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
+import test.dbDataAbstractions.entities.tables.TrialTable;
 import test.debug.debugUtils.table.TableDebugUtil;
 import test.transactions.util.TransUtil;
 import test.transactions.util.TransValidateUtil;
@@ -87,6 +89,7 @@ public class OwnerTransUtil {
     private static long UNUSED_ID = DatabaseConsts.UNUSED_ID;
     
     /**
+     * NOTE: Now there is a generic method for this in EntityUtil.java
      * 
      * @param ownerRecords :list of owner records to extract tokenIDs from.
      *                      Will be casted from BaseEntity to OwnerTable inside.
@@ -485,6 +488,35 @@ public class OwnerTransUtil {
         //return the owner table that has the entry:
         return own;
         
+    }//FUNC::END
+    
+    /** Create a whole bunch of new OwnerTable entities. Only thing
+     *  filled out on them is their primary keys.
+     * @param numStubs :How many stubs do you want?
+     * @return :See above.
+     */
+    public static List<OwnerTable> makeBatchOfOwnerStubs(int numStubs){
+        TransUtil.insideTransactionCheck();
+        
+        Session ses = TransUtil.getActiveTransactionSession();
+        
+        List<OwnerTable> stubs = new ArrayList<OwnerTable>(numStubs);
+        OwnerTable cur;
+        String iStr;
+        for(int i = 0; i < numStubs; i++){
+            iStr = Integer.toString(i);
+            cur = new OwnerTable();
+            cur.setComment("[Touched by makeBatchOfOwnerStubs()]#:" + iStr);
+            //Need this to force auto-numbering of the primary keys.
+            //Which will be necessary for joining columns
+            ses.save(cur); //<--Wrap in utility so fields set?
+            
+            //put the current trial record into collection:
+            stubs.set(i, cur);
+        }//next i
+        
+        //return the list of trials.
+        return stubs;
     }//FUNC::END
     
     /*

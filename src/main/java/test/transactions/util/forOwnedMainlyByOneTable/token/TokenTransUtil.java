@@ -1,5 +1,7 @@
 package test.transactions.util.forOwnedMainlyByOneTable.token;
 
+import java.util.ArrayList;
+import java.util.List;
 import test.MyError;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -139,6 +141,26 @@ public class TokenTransUtil {
         
         return unboxedOutput;
         */
+        
+    }//FUNC::END
+    
+    /**
+     * Creates a batch of freshly made tokens! They even have a hash!
+     * @param numTokensToMake :How many do we want made?
+     * @return :Return an list of TokenTable entities.
+     */
+    public static List<TokenTable> makeBatchOfTokens(int numTokensToMake){
+        TransUtil.insideTransactionCheck();
+        
+        //A bit hackish, but will work. Optimize later when
+        //you actually have something fully functional:
+        List<TokenTable> op = new ArrayList<TokenTable>();
+        for(int i = 0; i < numTokensToMake; i++){
+            op.add( makeNextToken() );
+        }//next i
+        
+        //return the collection of fresh tokens:
+        return op;
         
     }//FUNC::END
     

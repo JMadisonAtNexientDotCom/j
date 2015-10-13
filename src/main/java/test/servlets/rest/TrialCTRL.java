@@ -60,6 +60,14 @@ public class TrialCTRL extends BaseCTRL {
         return dispatch_tokens_PRIVATE(jsonRequest);
     }//FUNC::END
     
+     
+    /**
+     * Will dispatch a trial for each Ninja. Giving them all the
+     * same test kind, and the same allotted time.
+     * @return :A coffer filled with tickets that contain the token
+     *          as well as basic ninja information so both HUMAN and
+     *          PROGRAM can identify the ninja.
+     */
     @POST
     //@Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)

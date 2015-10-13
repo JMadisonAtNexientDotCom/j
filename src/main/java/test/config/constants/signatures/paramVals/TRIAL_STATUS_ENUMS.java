@@ -48,31 +48,35 @@ public class TRIAL_STATUS_ENUMS {
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
-    public static int CREATED_             = 1;
+    public static int STUB_CREATED_        = 1;
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
-    public static int KNOWNOF_             = 2;
+    public static int CREATED_LINKED_      = 2;
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
-    public static int CONFIRMED_           = 3;
+    public static int KNOWNOF_             = 3;
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
-    public static int PROGRESS_            = 4;
+    public static int CONFIRMED_           = 4;
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
-    public static int EXPIRED_COMPLETED_   = 5;
+    public static int PROGRESS_            = 5;
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
-    public static int EXPIRED_TIME_OUT_    = 6;
+    public static int EXPIRED_COMPLETED_   = 6;
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
-    public static int EXPIRED_COMPROMISED_ = 7;
+    public static int EXPIRED_TIME_OUT_    = 7;
+    /** "_" at end because should match instance vars.
+     *  For documentation, see instance variable version. **/
+    @UniqueStaticValue
+    public static int EXPIRED_COMPROMISED_ = 8;
     
     /** If zero, is initialization error. Integers initialize at zero.
      *  So we DONT want to use an enum of zero. As it could make error
@@ -80,10 +84,15 @@ public class TRIAL_STATUS_ENUMS {
     @UniqueInstanceValue
     public final int INIT_ERROR         = TRIAL_STATUS_ENUMS.INIT_ERROR_;
     
+    /** New trial has been created. But has not been linked to ANYTHING.
+     *  Not a test, not a token. It is a stub. **/
+    @UniqueInstanceValue
+    public final int STUB_CREATED       = TRIAL_STATUS_ENUMS.STUB_CREATED_;
+    
     /** New trial has been created. And the token has been linked
      *  to it. But the token has not been confirmed to be used. **/
     @UniqueInstanceValue
-    public final int CREATED            = TRIAL_STATUS_ENUMS.CREATED_;
+    public final int CREATED_LINKED      = TRIAL_STATUS_ENUMS.CREATED_LINKED_;
     
     /** Known of: Someone has entered the token. But has not said
      *  "YES" to the "Is this you?" confirmation page that comes after
@@ -131,7 +140,7 @@ public class TRIAL_STATUS_ENUMS {
         if(inStatus <= 0){ doError("[invalid enum state!!]");}
         
         //Trial has just been created.
-        if(CREATED_  == inStatus){ return false;}
+        if(CREATED_LINKED_  == inStatus){ return false;}
         
         //Some Ninja out there knows of this trial token's existance.
         if(KNOWNOF_  == inStatus){ return false;}

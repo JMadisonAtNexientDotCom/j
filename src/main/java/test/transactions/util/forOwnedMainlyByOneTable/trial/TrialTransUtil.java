@@ -1,8 +1,10 @@
 package test.transactions.util.forOwnedMainlyByOneTable.trial;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 import primitives.RealAndFakeIDs;
+import test.MyError;
 import test.config.constants.signatures.paramVals.TRIAL_STATUS_ENUMS;
 import test.dbDataAbstractions.entities.tables.TrialTable;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.Coffer;
@@ -36,6 +38,8 @@ public class TrialTransUtil {
      */
     public static Coffer dispatchTokens(List<Long> ninja_id_list,int trial_kind,
                                                        int duration_in_minutes){
+        
+        doError("This is the thingy we are tyring to get working!!!");
         
         TransUtil.insideTransactionCheck();
         
@@ -87,8 +91,55 @@ public class TrialTransUtil {
         
     }//FUNC::END
     
+    /**
+     * @param num_trials :How many trial table entities should we make?
+     * @param kind: The kind of trial we are making. 
+     *              Basically "type" but was keyword in SQL.
+     * @param allotted: The amount of time allotted for this test in 
+     *                  milliseconds.
+     * @return :See above.
+     */
+    public static List<TrialTable> makeBatchOfTrialStubs
+        (int num_trials, int kind, long allotted){
+        TransUtil.insideTransactionCheck();
+        
+        Session ses = TransUtil.getActiveTransactionSession();
+        
+        List<TrialTable> trials = new ArrayList<TrialTable>(num_trials);
+        TrialTable cur;
+        String iStr;
+        for(int i = 0; i < num_trials; i++){
+            iStr = Integer.toString(i);
+            cur = new TrialTable();
+            cur.setAllotted(allotted);
+            cur.setComment("[Touched by makeBatchOfTrialStubs()]#:" + iStr);
+            cur.setKind(kind);
+            cur.setStatus(TRIAL_STATUS_ENUMS.STUB_CREATED_);
+            //Need this to force auto-numbering of the primary keys.
+            //Which will be necessary for joining columns
+            ses.save(cur);
+            
+            //put the current trial record into collection:
+            trials.set(i, cur);
+        }//next i
+        
+        //return the list of trials.
+        return trials;
+        
+    }//FUNC::END
     
-
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = TrialTransUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw MyError.make(clazz, err);
+    }//FUNC::END
   
     
 }//CLASS::END

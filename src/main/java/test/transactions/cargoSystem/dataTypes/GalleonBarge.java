@@ -1,8 +1,10 @@
 package test.transactions.cargoSystem.dataTypes;
 
+import java.util.List;
 import test.MyError;
 import test.config.debug.DebugConfig;
 import test.config.debug.DebugConfigLogger;
+import test.dbDataAbstractions.entities.EntityUtil;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.transactions.cargoSystem.managerTypes.MerchantCaptain;
 
@@ -150,6 +152,17 @@ public class GalleonBarge {
        
     }//FUNC::END
     
+    public void fillOrder(OrderSlip order, List<BaseEntity> entities){
+        
+        //error checking:
+        assertPrimaryKeysEmptyButNotNull(order);
+        
+        //load up cargo and fill out order with ids:
+        this.hold.addCage(entities, order);
+        order.primaryKey_ids = EntityUtil.StripPrimaryIDS(entities);
+        
+    }//FUNC::END
+    
     /** Fills an order for ONE ENTITY. Fills the cargo hold with the entity,
      *  as well as enters the entity primary key ids into the order.
      * @param order  :The order that has been completed.
@@ -160,16 +173,20 @@ public class GalleonBarge {
         //Make sure there is a cage with the entity:
         this.hold.addCageWithOneEntity_AndAssertUnique(entity, order);
         
-        //make sure the pirmaryKeys_ids list is non-null and empty. As we
-        //are about to populate it:
-        if(null == order.primaryKey_ids){doError("[ShouldNotBeNull]");}
-        if(0 != order.primaryKey_ids.size()){doError("[ShouldBeEmpty]");}
+        assertPrimaryKeysEmptyButNotNull(order);
         
         //Add the primary key to the order's primary key array:
         long ent_id = entity.getId();
         if(ent_id <= 0){doError("[lazy fetch error maybe?]");}
         order.primaryKey_ids.add( ent_id );
         
+    }//FUNC::END
+    
+    private static void assertPrimaryKeysEmptyButNotNull(OrderSlip order){
+        //make sure the pirmaryKeys_ids list is non-null and empty. As we
+        //are about to populate it:
+        if(null == order.primaryKey_ids){doError("[ShouldNotBeNull]");}
+        if(0 != order.primaryKey_ids.size()){doError("[ShouldBeEmpty]");}
     }//FUNC::END
     
     /** By null instance. I mean an instance where all the properties

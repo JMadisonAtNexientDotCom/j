@@ -83,6 +83,31 @@ public class SpecialInstructionsStickyNote {
        
     }//FUNC::END
     
+     /**
+     * Get value explicitly as a long value. 
+     * @param varName :The variable name to identify.
+     * @return :See above.
+     */
+    public int getValInt(String varName){
+        Object val = getValue(varName);
+        
+        if(val instanceof Integer){
+           return (Integer)val;
+        }//Long
+        
+        //handle it if it happens:
+        if(val.getClass() == int.class){
+            doError("[no clue how to handle this scenario]");
+        }//long
+        
+        if(DebugConfig.isDebugBuild){
+            doError("[Was not able to cast value to Integer.]");
+        }//
+        
+        return (-1);
+       
+    }//FUNC::END
+    
     /** 
      * Retrieve that value of variable stored in the args.
      * Assumes that all entries in list have unique variable names.

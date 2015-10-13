@@ -1,9 +1,13 @@
 package test.transactions.cargoSystem.ports;
 
 import annotations.IndexedFunction;
+import java.util.List;
 import org.hibernate.Session;
+import test.config.constants.identifiers.VarNameReg;
 import test.config.debug.DebugConfig;
 import test.config.debug.DebugConfigLogger;
+import test.dbDataAbstractions.entities.EntityUtil;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.transactions.cargoSystem.dataTypes.EntityCage;
 import test.transactions.cargoSystem.dataTypes.GalleonBarge;
@@ -22,8 +26,28 @@ import test.transactions.util.forOwnedMainlyByOneTable.token.TokenTransUtil;
 //@Supplier(clazz=TokenTable.clazz);
 public class TokenPorts {
     
-    public static final short CREATE_NEW_TOKEN       = MasterPortList.CREATE_NEW_TOKEN;
-    //public static final short DEBUGGER_STUB_FUNCTION = MasterPortList.DEBUGGER_STUB_FUNCTION;
+    public static final short CREATE_NEW_TOKEN       = 
+               MasterPortList.CREATE_NEW_TOKEN;
+    
+    public static final short MAKE_BATCH_OF_TOKENS   = 
+               MasterPortList.MAKE_BATCH_OF_TOKENS;
+    
+    @IndexedFunction(key=MAKE_BATCH_OF_TOKENS)
+    public static void make_batch_of_tokens
+                                          (GalleonBarge barge, OrderSlip order){
+        
+        //Core logic:
+        int numTokens = order.specs.getValInt(VarNameReg.NUM_TOKENS);
+        List<TokenTable> tokens;
+        tokens = TokenTransUtil.makeBatchOfTokens(numTokens);
+        
+        //Add to our barge (cargo ship)
+       // EntityCage cage;
+        //cage = barge.hold.addCage(tokens, order);
+        List<BaseEntity> bel = EntityUtil.downCastEntities(tokens);
+        barge.fillOrder(order, bel);
+        
+    }//FUNC::END
     
     @IndexedFunction(key=CREATE_NEW_TOKEN) 
     public static void create_new_token(GalleonBarge barge, OrderSlip order){

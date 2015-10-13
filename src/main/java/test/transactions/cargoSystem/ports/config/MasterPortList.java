@@ -7,7 +7,9 @@ import test.MyError;
 import test.transactions.cargoSystem.dataTypes.GalleonBarge;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
 import test.transactions.cargoSystem.ports.NinjaPorts;
+import test.transactions.cargoSystem.ports.OwnerPorts;
 import test.transactions.cargoSystem.ports.TokenPorts;
+import test.transactions.cargoSystem.ports.TrialPorts;
 
 /**
  * A master indexing of all of the ports so that we can help prevent collisions.
@@ -49,16 +51,28 @@ public class MasterPortList {
     
     //TOKEN PORTS:
     @UniqueStaticValue
-    public static final short CREATE_NEW_TOKEN = 1;
+    public static final short CREATE_NEW_TOKEN     = 1;
+    @UniqueStaticValue
+    public static final short MAKE_BATCH_OF_TOKENS = 2;
     
     //NINJA PORTS:
     @UniqueStaticValue
-    public static final short GET_ONE_NINJA_BY_ID = 2;
+    public static final short GET_ONE_NINJA_BY_ID  = 3;
+    @UniqueStaticValue
+    public static final short FIND_BATCH_OF_NINJAS = 4;
+            
+    //TRIAL PORTS:
+    @UniqueStaticValue
+    public static final short MAKE_BATCH_OF_TRIAL_STUBS = 5;
+    
+    //OWNER PORTS:
+    @UniqueStaticValue
+    public static final short MAKE_BATCH_OF_OWNER_STUBS = 6;
    
     
     /** Check sum so I can validate my _masterIndexValidatorTable extraction
      *  is working properly. **/
-    public static final long  LONG_CHECK_SUM = 2;
+    public static final long  LONG_CHECK_SUM = 6;
     
     /**-------------------------------------------------------------------------
      *  throws error if the portID is invalid.
@@ -81,7 +95,7 @@ public class MasterPortList {
      * @param barge :The barge (cargo ship) to operate on.
      * @param order   :The current order to fill.
      */
-    public static void call(GalleonBarge galleon, OrderSlip order){
+    public static void call(GalleonBarge barge, OrderSlip order){
         
         //make sure portID is valid:
         short portID = order.portID;
@@ -93,10 +107,22 @@ public class MasterPortList {
         int bc = 0;//break count.
         switch(portID){
         case           CREATE_NEW_TOKEN:
-            TokenPorts.create_new_token(galleon, order);
+            TokenPorts.create_new_token(barge, order);
             bc++; break;
         case           GET_ONE_NINJA_BY_ID:
-            NinjaPorts.get_one_ninja_by_id(galleon, order);
+            NinjaPorts.get_one_ninja_by_id(barge, order);
+            bc++; break;
+        case           FIND_BATCH_OF_NINJAS:
+            NinjaPorts.find_batch_of_ninjas(barge, order);
+            bc++; break;
+        case           MAKE_BATCH_OF_TOKENS:
+            TokenPorts.make_batch_of_tokens(barge, order);
+            bc++; break;
+        case           MAKE_BATCH_OF_TRIAL_STUBS:
+            TrialPorts.make_batch_of_trial_stubs(barge, order);
+            bc++; break;
+        case           MAKE_BATCH_OF_OWNER_STUBS:
+            OwnerPorts.make_batch_of_owner_stubs(barge, order);
             bc++; break;
         default:
             //Default should never trigger, because "validatePortID()" validates

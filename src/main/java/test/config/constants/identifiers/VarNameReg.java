@@ -147,6 +147,12 @@ public class VarNameReg {
     //For HTTP POST:
     public static final String JSON_OBJ             = "json_obj";
     
+    //Initially were for PORTS in the cargo system:
+    public static final String NUM_NINJAS = "num_ninjas";
+    public static final String NUM_TOKENS = "num_tokens";
+    public static final String NUM_TRIALS = "num_trials";
+    public static final String NUM_OWNERS = "num_owners";
+    
    
     
     /**

@@ -181,6 +181,43 @@ public class CargoHold {
     }//FUNC::END
     
     /**
+     * Appends a cage that is filled with the entities specified.
+     * Also uses the order used to fetch those entities as a reciept
+     * that will be posted onto the cage. Think of it as a carbon-paper
+     * copy of the original order.
+     * @param entities :The entities to cage.
+     * @param order    :The order that was used to get those entities.
+     * @return         :Returns the cage, in case you want to configure it.
+     *                  Or error check it.
+     */
+    public EntityCage addCage(List<? extends BaseEntity> entities, OrderSlip order){
+        //Error check inputs:
+        if(null==entities){doError("[null==entities]");}
+        if(null==order){doError("[null==order]");}
+        if(entities.isEmpty()){doError("[Empty list not allowed]");}
+        
+        //Get class of base entity we are caging:               
+        Class classOfInputEntity = entities.get(0).getClass();
+        EntityCage cage = EntityCage.make(classOfInputEntity, order);
+        cage.merchandise = (List<BaseEntity>)entities;
+        cages.add(cage);
+        
+        //Return the cage with multiple entities in it:
+        return cage;
+  
+    }//FUNC::END
+    
+    public EntityCage addCage_AndAssertUnique
+                                   (List<BaseEntity> entities, OrderSlip order){
+        //Get class of base entity we are caging:               
+        Class classOfInputEntity = entities.get(0).getClass();
+        
+        errorIfSupplierAlreadyExists(classOfInputEntity);
+        
+        return addCage(entities, order);
+    }//FUNC::END
+    
+    /**
      * Does same thing as addCageWithOneEntity, but will also make sure
      * that the supplier is unique. Example: If you ALREADY have a cage full
      * of DOG entities on your barge, then adding another cage full of DOGS
@@ -199,6 +236,15 @@ public class CargoHold {
         //Get class of base entity we are caging:               
         Class classOfInputEntity = ent.getClass();
                         
+        errorIfSupplierAlreadyExists(classOfInputEntity);
+        
+        //if all goes well, call the core logic:
+        return addCageWithOneEntity(ent, order);
+                            
+    }//FUNC::END
+                                              
+    
+    public void errorIfSupplierAlreadyExists(Class classOfInputEntity){
         //go through all the suppliers of the different cages and see if   
         //an entity cage with that supplier already exists. If it DOESN'T.
         //then all is okay. If it does, throw error:
@@ -207,10 +253,6 @@ public class CargoHold {
                 doError("[This cage of specimens is not unique.]");
             }//ERROR
         }//next cage.
-        
-        //if all goes well, call the core logic:
-        return addCageWithOneEntity(ent, order);
-                            
     }//FUNC::END
     
     /** make an empty cargo hold that is ready to be filled. **/

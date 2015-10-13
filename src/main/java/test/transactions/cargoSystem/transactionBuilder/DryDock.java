@@ -1,14 +1,21 @@
 package test.transactions.cargoSystem.transactionBuilder;
 
 import java.util.List;
+import test.MyError;
 import test.config.constants.identifiers.VarNameReg;
+import test.config.constants.signatures.paramVals.TRIAL_KIND_ENUMS;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
+import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
+import test.dbDataAbstractions.entities.tables.TrialTable;
 import test.transactions.cargoSystem.dataTypes.GalleonBarge;
 import test.transactions.cargoSystem.dataTypes.OrderArg;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
 import test.transactions.cargoSystem.ports.NinjaPorts;
+import test.transactions.cargoSystem.ports.OwnerPorts;
 import test.transactions.cargoSystem.ports.TokenPorts;
+import test.transactions.cargoSystem.ports.TrialPorts;
+import utils.TimeMathUtil;
 
 /**
  * SIMPLE SUMMARY:
@@ -68,6 +75,104 @@ public class DryDock {
         
     }//FUNC::END
     
+   
+    
+    /**
+     *  Will create trials, for each ninja id specified. And output
+     *  the corrosponding token_ids that will be used for access.
+     * @param ids_of_ninjas :List of ninjas.
+     * @return :Returns a ship ready to take on the task it has been
+     *          configured for.
+     */
+    public static GalleonBarge dispatch_trials(List<Long> ids_of_ninjas){
+        
+        //Error check inputs:
+        if(null == ids_of_ninjas){doError("null ninjas input");}
+        if(ids_of_ninjas.isEmpty()){doError("ninja id list is empty");}
+        
+        //get number of ninjas in list:
+        int numNinjas = ids_of_ninjas.size();
+        int numTokens = numNinjas; //one token per ninja.
+        int numTrials = numNinjas; //one trial per ninja.
+        int numOwners = numNinjas; //one owner per ninja.
+        
+        GalleonBarge barge = GalleonBarge.make();
+        
+        //Fill out an order for the ACTUAL ninjas.
+        //If all ninjas do not exist. We will error out before any of the
+        //needed data for the request is made:
+        OrderSlip nin_order;
+        nin_order = OrderSlip.makeUsingPortID(NinjaPorts.FIND_BATCH_OF_NINJAS);
+        nin_order.supplier = NinjaTable.class;
+        nin_order.specs.add(VarNameReg.NUM_NINJAS, numNinjas);
+        barge.agenda.addOrder(nin_order);
+      
+        //Fill out an order for tokens.
+        //As many tokens as there are ninja ids.
+        OrderSlip tok_order;
+        tok_order = OrderSlip.makeUsingPortID(TokenPorts.MAKE_BATCH_OF_TOKENS);
+        tok_order.supplier = TokenTable.class;
+        tok_order.specs.add(VarNameReg.NUM_TOKENS, numTokens);
+        barge.agenda.addOrder(tok_order);
+        
+        //Create Trials, one per ninja:
+        //No dependencies!
+        OrderSlip tri_order;
+        tri_order = OrderSlip.makeUsingPortID(TrialPorts.MAKE_BATCH_OF_TRIAL_STUBS);
+        tri_order.supplier = TrialTable.class;
+        tri_order.specs.add (VarNameReg.KIND, TRIAL_KIND_ENUMS.RIDDLE_TRIAL_);
+        tri_order.specs.add (VarNameReg.NUM_TRIALS, numTrials);
+        tri_order.specs.add (VarNameReg.ALLOTTED, TimeMathUtil.minutesToMS(30));
+        barge.agenda.addOrder(tri_order);
+        
+        //Make sure each ninja owns one of the tokens, and thus, owns the
+        //trial that is associated with that token:
+        OrderSlip own_order;
+        own_order = OrderSlip.makeUsingPortID(OwnerPorts.MAKE_BATCH_OF_OWNER_STUBS);
+        own_order.supplier = OwnerTable.class;
+        own_order.specs.add(VarNameReg.NUM_OWNERS, numOwners);
+        barge.agenda.addOrder(own_order);
+        
+        /*
+        //Welding jobs will be configured to happen AFTER orders are made.
+        //And the weld-jobs will use references to the orders to complete
+        //their tasks.
+        //LINK STUFF!
+        WelderJobTicket tok_own;//insert token_id(s) into owner_table
+        WelderJobTicket nin_own; //insert ninja_id(s) into owner_table
+        WelderJobTicket tok_tri; //insert token_id(s) into trial_table
+        
+        //Allocate the Welder Job Tickets:
+        tok_own = barge.jobs.makeEmptyWeldJobTicket();
+        nin_own = barge.jobs.makeEmptyWeldJobTicket();
+        tok_tri = barge.jobs.makeEmptyWeldJobTicket();
+        
+        //Create joins in owner table:
+        //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+        tok_own.fromOrder = tok_order;//tokens
+        tok_own.destOrder = own_order;//owners
+        tok_own.destColumn= OwnerTable.TOKEN_ID_COLUMN;
+        
+        nin_own.fromOrder = nin_order;//ninjas
+        nin_own.destOrder = own_order;//owners
+        nin_own.destColumn= OwnerTable.NINJA_ID_COLUMN;
+        //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+        
+        //Create joins in trial table:
+        //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+        tok_tri.fromOrder = tok_order;
+        tok_tri.destOrder = tri_order;
+        tok_tri.destColumn= TrialTable.TOKEN_ID_COLUMN;
+        //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+        */
+     
+        
+       
+        return barge;
+    }//FUNC::END
+    
+    
+    
     /** Testing DryDoc by re-creating previous functionality using the
      *  new cargo-system pattern. Need all the individual pieces to pass
      *  before I can confidentially build up to:
@@ -85,6 +190,7 @@ public class DryDock {
         return barge;
     }//FUNC::END
     
+    /*
     public static GalleonBarge dispatch_trial_token_and_link_to_one_ninja
                                                                  (long ninjaID){
         
@@ -115,5 +221,18 @@ public class DryDock {
         return barge;
         
     }//FUNC::END
+    */
     
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = DryDock.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw MyError.make(clazz, err);
+    }//FUNC::END                                                       
+                                                                 
 }//CLASS::END

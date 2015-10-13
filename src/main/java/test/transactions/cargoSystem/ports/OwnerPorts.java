@@ -2,12 +2,18 @@ package test.transactions.cargoSystem.ports;
 
 import java.util.List;
 import test.MyError;
+import test.config.constants.identifiers.VarNameReg;
+import test.dbDataAbstractions.entities.EntityUtil;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
+import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
+import test.dbDataAbstractions.entities.tables.TrialTable;
 import test.transactions.cargoSystem.dataTypes.GalleonBarge;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
 import test.transactions.cargoSystem.ports.config.MasterPortList;
 import test.transactions.util.forOwnedMainlyByOneTable.owner.OwnerTransUtil;
+import test.transactions.util.forOwnedMainlyByOneTable.trial.TrialTransUtil;
 
 /**
  *
@@ -15,12 +21,44 @@ import test.transactions.util.forOwnedMainlyByOneTable.owner.OwnerTransUtil;
  */
 public class OwnerPorts {
     
-   /**
-    * 
+    public static final short MAKE_BATCH_OF_OWNER_STUBS = 
+               MasterPortList.MAKE_BATCH_OF_OWNER_STUBS;
+    
+    
+    /**
+     * Creates a batch of fresh owner records. That have not been
+     * filled out. The only thing filled out being their auto-generated
+     * primary keys.
+     * @param barge :The cargo-ship to load up the entities onto.
+     * @param order :The order slip that asked for this function to be called.
+     *               We want to fill out the order slip here as a sort of 
+     *               receipt, and also use it to confirm we are in the correct
+     *               function.
+     */
+    public static void make_batch_of_owner_stubs
+                                          (GalleonBarge barge, OrderSlip order){
+        
+         //Core logic:
+        int  numOwners         = order.specs.getValInt(VarNameReg.NUM_OWNERS);
+        List<OwnerTable> owners;
+        owners = OwnerTransUtil.makeBatchOfOwnerStubs(numOwners);
+        
+        //Add to our barge (cargo ship)
+       // EntityCage cage;
+        //cage = barge.hold.addCage(tokens, order);
+        List<BaseEntity> bel = EntityUtil.downCastEntities(owners);
+        barge.fillOrder(order, bel);
+        
+    }//FUNC::END
+    
+    
+   /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   //
+    * TODO: Should use welder-job at end of trip to do linkage between tables.
     * @param barge :The barge we are loading up
     * @param order :OrderSlip expected to have dependencies of a 
     *               TOKEN_ORDER and NINJA_ORDER.
-    */
+   //
    public static void give_ninja_ownership_of_token
                                           (GalleonBarge barge, OrderSlip order){
        
@@ -47,6 +85,7 @@ public class OwnerPorts {
         }//Next id.
         
    }//FUNC::END
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
                                           
     /**-------------------------------------------------------------------------
     -*- Wrapper function to throw errors from this class.   --------------------
