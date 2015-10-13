@@ -34,8 +34,7 @@ public class TrialCTRL extends BaseCTRL {
     
     /** A wrapper that calls the @POST method dispatch_tokens
      *  so I can more easily debug what is going wrong.
-     * @return 
-     */
+     * @return */
     @GET
     @Path(FuncNameReg.DISPATCH_TOKENS_DEBUG)
     public Response dispatch_tokens_debug(){
