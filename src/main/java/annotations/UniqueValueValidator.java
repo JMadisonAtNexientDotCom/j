@@ -210,7 +210,7 @@ public class UniqueValueValidator {
         
         List<Field> fields;
         fields = ReflectionHelperUtil.getFieldsWithAnnotation
-                         (clazz, UniqueStaticValue.class, IGNORE, GET_INSTANCE);
+                         (clazz, UniqueInstanceValue.class, IGNORE, GET_INSTANCE);
         
         if(fields.isEmpty()){
             doError("[No instance fields found!]");
