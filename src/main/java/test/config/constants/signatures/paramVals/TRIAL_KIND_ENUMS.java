@@ -23,6 +23,10 @@ public class TRIAL_KIND_ENUMS {
     }//////////////
     
     private static void doStaticInit(){
+        //validate might need to be done OUTSIDE of class.
+    }//
+    
+    public static void validateClass(){
         
         //To help avoid infinite recursion:
         if(_staticInitAlreadyCalled){ return;}
