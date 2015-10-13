@@ -1,4 +1,4 @@
-package test.servlets.rest.utilityServlets;
+package test.servlets.rest.other.utilityServlets;
 
 import IDontKnowWhereToPutTheseClasses.ReaderContainer;
 import java.io.BufferedReader;
@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 import test.MyError;
 import test.config.constants.ResourceRelativeFolderPaths;
 import test.config.constants.ServletClassNames;
-import test.servlets.restCore.BaseCTRL;
+import test.servlets.rest.restCore.BaseCTRL;
 import utils.JSONUtil;
 //import ntsResponseMachine.MyError;
 //import ntsResponseMachine.configClasses.ResourceRelativeFolderPaths;

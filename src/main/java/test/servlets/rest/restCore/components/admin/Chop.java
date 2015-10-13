@@ -1,4 +1,4 @@
-package test.servlets.restCore.components.admin;
+package test.servlets.rest.restCore.components.admin;
 
 /**-----------------------------------------------------------------------------
  * Process:
@@ -9,6 +9,6 @@ package test.servlets.restCore.components.admin;
  *
  * @author jmadison :2015.10.13
  ----------------------------------------------------------------------------**/
-public class Join {
+public class Chop {
     
 }//CLASS::END

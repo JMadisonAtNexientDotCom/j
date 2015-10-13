@@ -1,4 +1,4 @@
-package test.servlets.restCore.components.trial;
+package test.servlets.rest.restCore.components.trial;
 import annotations.PairedStaticFunction;
 import annotations.Verbatim;
 import javax.ws.rs.core.Response;

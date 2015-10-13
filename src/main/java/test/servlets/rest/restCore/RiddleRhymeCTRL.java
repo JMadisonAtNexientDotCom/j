@@ -1,4 +1,4 @@
-package test.servlets.rest.riddleRhyme;
+package test.servlets.rest.restCore;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.QueryParam;
@@ -21,7 +21,7 @@ import test.dbDataAbstractions.entities.composites.Quar;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
 import test.debug.debugUtils.tempDataStore.TempServiceDataUtil;
-import test.servlets.restCore.BaseCTRL;
+import test.servlets.rest.restCore.BaseCTRL;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forBundleEntities.TriviaBundleTransUtil;
 import test.transactions.util.forCompositeEntities.SlateTransUtil;

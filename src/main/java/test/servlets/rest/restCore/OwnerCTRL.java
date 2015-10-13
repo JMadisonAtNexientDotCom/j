@@ -1,4 +1,4 @@
-package test.servlets.restCore;
+package test.servlets.rest.restCore;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;

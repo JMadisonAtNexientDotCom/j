@@ -1,109 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<web-app version="3.0"
-         xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-         metadata-complete="false">
-
-    
-         <!-- SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS -->
-         <servlet>
-             <servlet-name>theServletName</servlet-name>
-             <servlet-class>test.TestServlet</servlet-class>
-             <load-on-startup>1</load-on-startup>
-         </servlet>
-         
-         <servlet-mapping>
-             <servlet-name>theServletName</servlet-name>
-             <url-pattern>/pattern</url-pattern>
-         </servlet-mapping>
-         <!-- SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS -->
-         
-         <!-- HHHHHHHHHHHHHHHHHHH Hard Coded Fetch TestHHHHHHHHHHHHHHHHHHHHH -->
-         <servlet>
-             <servlet-name>tokenHardCodedFetch_ServletName</servlet-name>
-             <servlet-class>test.servlets.testServlets.TokenHardCodedFetchTestServlet</servlet-class>
-         </servlet>
-         
-         <servlet-mapping>
-             <servlet-name>tokenHardCodedFetch_ServletName</servlet-name>
-             <url-pattern>/tokenHardCodedFetch_TestPage</url-pattern>
-         </servlet-mapping>
-          <!-- HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH -->
-         
-        <!-- Configuration servlet experiment. -->
-        <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
-        <servlet>
-            <!-- We want this servlet loaded before all others to do config stuff. -->
-            <servlet-name>theConfigServletName</servlet-name>
-            <servlet-class>test.ConfigServlet</servlet-class>
-            <load-on-startup>0</load-on-startup>
-        </servlet>
-        <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
-         
-        <!-- JERSEY RESTFUL API DEMO: JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ -->
-        <!-- http://www.mkyong.com/webservices/jax-rs/jersey-hello-world-example/ -->
-        <!-- JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ -->
-        <servlet>
-		<servlet-name>jersey-serlvet</servlet-name>
-		<servlet-class>
+<web-app metadata-complete="false" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <!-- SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS -->
+    <servlet>
+        <servlet-name>theServletName</servlet-name>
+        <servlet-class>test.TestServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>theServletName</servlet-name>
+        <url-pattern>/pattern</url-pattern>
+    </servlet-mapping>
+    <!-- SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS -->
+    <!-- HHHHHHHHHHHHHHHHHHH Hard Coded Fetch TestHHHHHHHHHHHHHHHHHHHHH -->
+    <servlet>
+        <servlet-name>tokenHardCodedFetch_ServletName</servlet-name>
+        <servlet-class>test.servlets.testServlets.TokenHardCodedFetchTestServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>tokenHardCodedFetch_ServletName</servlet-name>
+        <url-pattern>/tokenHardCodedFetch_TestPage</url-pattern>
+    </servlet-mapping>
+    <!-- HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH -->
+    <!-- Configuration servlet experiment. -->
+    <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+    <servlet>
+        <!-- We want this servlet loaded before all others to do config stuff. -->
+        <servlet-name>theConfigServletName</servlet-name>
+        <servlet-class>test.ConfigServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+    <!-- JERSEY RESTFUL API DEMO: JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ -->
+    <!-- http://www.mkyong.com/webservices/jax-rs/jersey-hello-world-example/ -->
+    <!-- JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ -->
+    <servlet>
+        <servlet-name>jersey-serlvet</servlet-name>
+        <servlet-class>
                      com.sun.jersey.spi.container.servlet.ServletContainer
                      <!-- test.servlets.jerseyServletContainer.ServletContainerWithDebug -->
                 </servlet-class>
-		<init-param>
-		     <param-name>com.sun.jersey.config.property.packages</param-name>
-		     <param-value>com.mkyong.rest</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>jersey-serlvet</servlet-name>
-		<url-pattern>/rest/*</url-pattern>
-	</servlet-mapping>
-        <!-- JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ -->
-        
-        <!-- This is basically configuration for a front-controller.         -->
-        <!-- It points to test.servlets.rest package. All of the servlets    -->
-        <!-- Within that package have url of [appUrlRoot]/api/whatever.      -->
-        <!--[API] [API] [API] [API] [API] [API] [API] [API] [API] [API] [API]-->
-        <servlet>
-		<servlet-name>ApiFrontController_ServletName</servlet-name>
-		<servlet-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>com.mkyong.rest</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jersey-serlvet</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+    <!-- JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ -->
+    <!-- This is basically configuration for a front-controller.         -->
+    <!-- It points to test.servlets.rest package. All of the servlets    -->
+    <!-- Within that package have url of [appUrlRoot]/api/whatever.      -->
+    <!--[API] [API] [API] [API] [API] [API] [API] [API] [API] [API] [API]-->
+    <servlet>
+        <servlet-name>ApiFrontController_ServletName</servlet-name>
+        <servlet-class>
                      com.sun.jersey.spi.container.servlet.ServletContainer
                 </servlet-class>
-		<init-param>
-		     <param-name>com.sun.jersey.config.property.packages</param-name>
-		     <param-value>test.servlets.rest</param-value>
-		</init-param>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>ApiFrontController_ServletName</servlet-name>
-		<url-pattern>/api/*</url-pattern>
-	</servlet-mapping>
-        <!--[API] [API] [API] [API] [API] [API] [API] [API] [API] [API] [API]-->
-        
-        <!-- CORS filter to be used with API: -->
-        <!-- SRC: http://stackoverflow.com/questions/30974730/
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>test.servlets.rest</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ApiFrontController_ServletName</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+    <!--[API] [API] [API] [API] [API] [API] [API] [API] [API] [API] [API]-->
+    <!-- CORS filter to be used with API: -->
+    <!-- SRC: http://stackoverflow.com/questions/30974730/
                                                  jersey-cross-domain-request -->
-        <!--[FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL]-->
-        <filter>
-            <filter-name>MyCorsFilter</filter-name>
-            <filter-class>
+    <!--[FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL]-->
+    <filter>
+        <filter-name>MyCorsFilter</filter-name>
+        <filter-class>
                 test.servlets.corsFiltering.MyCorsFilter
             </filter-class>
-        </filter>
-        <filter-mapping>
-            <filter-name>MyCorsFilter</filter-name>
-            <url-pattern>/api/*</url-pattern>
-        </filter-mapping>
-        <!--[FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL]-->
-        <!--[API] [API] [API] [API] [API] [API] [API] [API] [API] [API] [API]-->
-        
-        
-        
-         
+    </filter>
+    <filter-mapping>
+        <filter-name>MyCorsFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+    <!--[FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL] [FIL]-->
+    <!--[API] [API] [API] [API] [API] [API] [API] [API] [API] [API] [API]-->
 </web-app>
-

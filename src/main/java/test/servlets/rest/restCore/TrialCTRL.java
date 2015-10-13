@@ -1,4 +1,4 @@
-package test.servlets.restCore;
+package test.servlets.rest.restCore;
 
 import java.util.ArrayList;
 import javax.ws.rs.Consumes;
@@ -17,11 +17,11 @@ import test.transactions.util.TransUtil;
 import utils.JSONUtil;
 
 //The 4 processes involved in processing request:
-import test.servlets.restCore.components.trial.Book; //standardize into object.
-import test.servlets.restCore.components.trial.Chop; //Halve object. good/bad
-import test.servlets.restCore.components.trial.Fill; //Fill the orders.
-import test.servlets.restCore.components.trial.Join; //Join the orders.
-import test.servlets.restCore.components.trial.Shop;
+import test.servlets.rest.restCore.components.trial.Book; //standardize into object.
+import test.servlets.rest.restCore.components.trial.Chop; //Halve object. good/bad
+import test.servlets.rest.restCore.components.trial.Fill; //Fill the orders.
+import test.servlets.rest.restCore.components.trial.Join; //Join the orders.
+import test.servlets.rest.restCore.components.trial.Shop;
 
 
 /**

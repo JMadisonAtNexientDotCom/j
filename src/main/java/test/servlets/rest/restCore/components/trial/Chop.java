@@ -1,11 +1,10 @@
-package test.servlets.restCore.components.trial;
+package test.servlets.rest.restCore.components.trial;
 
 import annotations.PairedStaticFunction;
 import annotations.Verbatim;
 import primitives.RealAndFakeIDs;
 import test.config.constants.identifiers.FuncNameReg;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postRequest.Edict;
-import test.servlets.restCore.components.admin.*;
 import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
 
 /**-----------------------------------------------------------------------------

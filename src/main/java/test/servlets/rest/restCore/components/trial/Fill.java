@@ -1,4 +1,4 @@
-package test.servlets.restCore.components.trial;
+package test.servlets.rest.restCore.components.trial;
 
 import annotations.PairedStaticFunction;
 import annotations.Verbatim;
@@ -6,7 +6,6 @@ import test.MyError;
 import test.config.constants.identifiers.FuncNameReg;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postRequest.Edict;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.Coffer;
-import test.servlets.restCore.components.admin.*;
 
 /**-----------------------------------------------------------------------------
  * Process:
