@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletException; //-------------tomcat/lib/servlet-api.jar
 
 import test.config.constants.ResourceRelativeFolderPaths;
+import test.config.constants.signatures.paramVals.TRIAL_STATUS_ENUMS;
 import test.config.debug.ProjectConstValidator;
 import test.debug.GlobalErrorState;
 import utils.files.FileToTextUtil;
@@ -84,6 +85,9 @@ public class ConfigServlet extends HttpServlet{
         //Create initial session in session_table so that the table shows up.
         //For some reason. My session table does not exist. And I do not
         //know why!
+        
+        //Validate this class:
+        TRIAL_STATUS_ENUMS.validateClass();
         
     }//FUNC::END
 }//CLASS::END

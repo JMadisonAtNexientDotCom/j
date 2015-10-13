@@ -15,17 +15,22 @@ import test.MyError;
 public class TRIAL_STATUS_ENUMS {
     
     /** To help avoid infinite recursion. **/
-    private static boolean _staticInitAlreadyCalled = false;
+    private static boolean _classValidationDone = false;
     
     static{//////////////
         doStaticInit();
     }////////////////////
     
     private static void doStaticInit(){
-        
-        //To help avoid infinite recursion:
-        if(_staticInitAlreadyCalled){ return;}
-        _staticInitAlreadyCalled = true;
+        //Do nothing. Validation inside static block is not working.
+    }//FUNC::END
+    
+    /** Validates that class is setup properly.
+     *  Does not seem to work if called from this class (itself) **/
+    public static void validateClass(){
+        //To stop validation from happening more than once.
+        if(_classValidationDone){ return;}
+        _classValidationDone = true;
         
         //Possible inifinte recursion:
         Class[] clazz = new Class[2];
@@ -38,7 +43,6 @@ public class TRIAL_STATUS_ENUMS {
         
         //UniqueValueValidator.validateStaticTypes(TRIAL_STATUS_ENUMS.class);
         //UniqueValueValidator.validateInstanceTypes(TRIAL_STATUS_ENUMS.class);
-        
     }//FUNC::END
     
     /** "_" at end because should match instance vars.
