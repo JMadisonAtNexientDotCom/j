@@ -1,0 +1,53 @@
+This folder contains the following pattern:
+
+FLAT FILE SYSTEM OF CONTROLLERS:
+1 controller loosly associated with an individual table.
+  No two-table controllers... Just gets confusing as to where to place things.
+  Just, make a decision, or if you have a function called,
+  "MakeTokenForNinja" you could make it so you could call that function
+   from NinjaCTRL or TokenCTRL.
+
+COMPONENTS IN SEPARATE "components" folder.
+To de-clutter the controllers and make them readable,
+the core logic of the controllers is thrown into the components folder.
+
+    components folder:
+    The file structure here is FOLDERS ONLY + FLAT.
+    One folder with the base-name of the controller is contains
+    components for.
+
+         Specific component folder for a specific controller:
+         Example: The folder "token" for the "tokenCTRL.java"
+         Contains flat file system with:
+         1. Book.java <--converts incomming arguments to concrete class.
+         2. Chop.java <--splits class into valid+bogus instances.
+         3. Fill.java <--fills the orders, for both valid+bogus data.
+         4. Join.java <--merges the orders in a way seen fit.
+         5. Shop.java <--Returns Response from server. Contains 1-4 objects.
+         
+         More on Book.java:
+         In order to standardize information comming in from GET+POST,
+         we want to put the info into a concrete class format, no matter
+         if we are doing a GET or POST.
+
+         More on Chop.java:
+         Some of the information comming in may be INVALID.
+         Here we have the opprotunity to SPLIT the Booked object into
+         two instances. The valid data going in array slot[0], the bogus
+         data going into array slot[1].
+
+         More on Fill.java:
+         We now use the concrete classes as inputs to complete the request.
+         If inputArrayArg[0] is non null, we process a VALID request.
+         If inputArrayArg[1] is non null, we process a BOGUS request.
+         If BOTH are null, considered an fatal ERROR and program will halt.
+
+         More on Join.java:
+         Merges the concrete class instances made from Fill.java into
+         one object. We have the opprotunity to be cleaver here, or we
+         can simply choose to return the valid or bogus data.
+         By convention, if you want to impliment this quick&dirty,
+         always choose the BOGUS one if both valid and bogus data exist.
+         This is because we do NOT want to swallow errors.
+
+         

@@ -15,6 +15,9 @@ public class EntityErrorCodes {
      *  error with this this code. **/
     public static final String ACCESS_DENIED = "access_denied";
     
+    /** Means JSON was unable to be parsed to create object **/
+    public static final String JSON_PARSE_ERROR = "json_parse_error";
+    
     /**
      * Means we are certain this is an error. But we have not specified
      * a specific scenario about the error. **/

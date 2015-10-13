@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import primitives.BooleanWithComment;
 import test.MyError;
+import test.config.constants.EntityErrorCodes;
 import test.config.constants.identifiers.VarNameReg;
 import test.config.constants.signatures.paramVals.TRIAL_KIND_ENUMS;
+import utils.JSONUtil;
+import utils.MapperUtil;
 
 /**
  * *****************************************************************************
@@ -78,6 +81,29 @@ public class Edict extends PostRequestType {
         //If valid, comment field will be empty string.
         return stat;
         
+    }//FUNC::END
+    
+    /** Deep copy is easier to pull off. Because we can simply serialize
+     *  and de-serialize it. So go with that.
+     * @param ed :The edict to copy.
+     * @return :A deep-copy/clone of object.
+     */
+    public static Edict clone(Edict ed){
+      
+        String tex = JSONUtil.serializeObj_NoNULL(ed);
+        return (Edict)MapperUtil.readAsObjectOf(Edict.class, tex);
+        
+    }//FUNC::END
+    
+    public static Edict makeErrorEdict(String msg){
+        Edict op = new Edict();
+        op.isError             = true;
+        op.comment             = msg;
+        op.errorCode           = EntityErrorCodes.GENERIC_ERROR;
+        op.ninja_id_list       = new ArrayList<Long>();
+        op.duration_in_minutes = (-12);
+        op.trial_kind          = (-13);
+        return op;
     }//FUNC::END
     
     

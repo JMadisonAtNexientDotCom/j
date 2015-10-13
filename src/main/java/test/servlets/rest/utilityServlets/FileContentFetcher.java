@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 import test.MyError;
 import test.config.constants.ResourceRelativeFolderPaths;
 import test.config.constants.ServletClassNames;
-import test.servlets.rest.BaseCTRL;
+import test.servlets.restCore.BaseCTRL;
 import utils.JSONUtil;
 //import ntsResponseMachine.MyError;
 //import ntsResponseMachine.configClasses.ResourceRelativeFolderPaths;

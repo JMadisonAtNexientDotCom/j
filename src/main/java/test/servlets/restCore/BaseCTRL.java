@@ -1,4 +1,4 @@
-package test.servlets.rest;
+package test.servlets.restCore;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

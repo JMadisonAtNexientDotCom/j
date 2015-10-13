@@ -5,7 +5,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import test.config.constants.ServletClassNames;
-import test.servlets.rest.BaseCTRL;
+import test.servlets.restCore.BaseCTRL;
 import test.transactions.util.TransUtil;
 import test.transactions.util.debugUtils.TransUtil_Debugger;
 import utils.JSONUtil;

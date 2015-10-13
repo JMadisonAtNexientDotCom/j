@@ -1,4 +1,4 @@
-package test.servlets.rest;
+package test.servlets.restCore;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -11,7 +11,7 @@ import test.config.constants.EntityErrorCodes;
 import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.identifiers.VarNameReg;
-import test.servlets.rest.BaseCTRL;
+import test.servlets.restCore.BaseCTRL;
 
 
 import test.transactions.util.TransUtil;

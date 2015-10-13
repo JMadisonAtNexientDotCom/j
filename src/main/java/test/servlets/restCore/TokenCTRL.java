@@ -1,4 +1,4 @@
-package test.servlets.rest;
+package test.servlets.restCore;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javax.ws.rs.GET;

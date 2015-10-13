@@ -1,6 +1,6 @@
 package test.debug;
 
-import test.servlets.rest.TokenCTRL;
+import test.servlets.restCore.TokenCTRL;
 
 /**
  * Constants for debugging/experimenting as I develop.

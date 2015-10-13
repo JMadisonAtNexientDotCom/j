@@ -23,11 +23,11 @@ import test.config.constants.signatures.sig.TokenId_EndPoint;
 import test.config.constants.signatures.sig.TokenId_NinjaId_EndPoint;
 import test.config.constants.signatures.sig.UserName_PassWord_EndPoint;
 import test.config.constants.signatures.sig.Void_EndPoint;
-import test.servlets.rest.AdminCTRL;
-import test.servlets.rest.NinjaCTRL;
-import test.servlets.rest.OwnerCTRL;
-import test.servlets.rest.TokenCTRL;
-import test.servlets.rest.TrialCTRL;
+import test.servlets.restCore.AdminCTRL;
+import test.servlets.restCore.NinjaCTRL;
+import test.servlets.restCore.OwnerCTRL;
+import test.servlets.restCore.TokenCTRL;
+import test.servlets.restCore.TrialCTRL;
 import test.servlets.rest.riddleRhyme.RiddleRhymeCTRL;
 
 /**

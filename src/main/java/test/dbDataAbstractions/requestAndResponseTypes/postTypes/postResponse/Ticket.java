@@ -74,6 +74,9 @@ public class Ticket extends TypeWithCommentBase{
         op.comment   = "STUB/TEMP:[" + msg + "]";
         op.isError   = false; //<-- not valid. But not an error.
         op.errorCode = EntityErrorCodes.NONE_SET;
+        
+        op.ninja_id = (-160);
+        op.ninja_name = "STUB:[" + msg + "]";
         return op;
     }//FUNC::END
     

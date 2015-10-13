@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import primitives.TypeWithCommentBase;
 import test.config.constants.EntityErrorCodes;
+import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postRequest.Edict;
 
 /**
  * *****************************************************************************
@@ -50,6 +51,38 @@ public class Coffer extends PostResponseType{
         op.tickets.add( errorTicket);
         
         //return the Coffer that has been configured as an error:
+        return op;
+        
+    }//FUNC::END
+    
+    /** Make a STUB response using a valid request/Edict.
+     *  For temporary measures while putting logic together.
+     *  
+     *  USAGE: To give the UI something to work with, even though it
+     *         is BOGUS information. It will pretend to be valid info.
+     * 
+     * @param ed :The edict to use a stub for.
+     * @return 
+     */
+    public static Coffer makeStubCofferUsingEdict(Edict ed){
+        Coffer op = new Coffer();
+        op.comment="[Stub Coffer. While working out logic]";
+        op.tickets= new ArrayList<Ticket>(0);
+        String ninjaIDText;
+        if(ed.ninja_id_list != null && (false==ed.ninja_id_list.isEmpty())){
+            for(long lng : ed.ninja_id_list){
+                ninjaIDText = "N#:[" + Long.toString(lng) + "]";
+                op.tickets.add( Ticket.makeStubTicket(ninjaIDText));
+            }//next entry.
+        }else{
+           int len = ed.ninja_id_list.size();
+           for(int i = 0; i < len; i++){
+               ninjaIDText = "I#:[" + Integer.toString(i) + "]";
+               op.tickets.add( Ticket.makeStubTicket(ninjaIDText));
+           }//next i
+        }//FUNC::END
+        
+        //Return the stub:
         return op;
         
     }//FUNC::END

@@ -1,4 +1,4 @@
-package test.servlets.rest;
+package test.servlets.restCore;
 
 import java.util.ArrayList;
 import javax.ws.rs.Consumes;
@@ -8,18 +8,21 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
-import primitives.BooleanWithComment;
 import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.signatures.paramVals.TRIAL_KIND_ENUMS;
-import test.dbDataAbstractions.entities.composites.Quar;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postRequest.Edict;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.Coffer;
-import test.debug.debugUtils.tempDataStore.TempServiceDataUtil;
 import test.transactions.util.TransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.trial.TrialTransUtil;
 import utils.JSONUtil;
-import utils.MapperUtil;
+
+//The 4 processes involved in processing request:
+import test.servlets.restCore.components.trial.Book; //standardize into object.
+import test.servlets.restCore.components.trial.Chop; //Halve object. good/bad
+import test.servlets.restCore.components.trial.Fill; //Fill the orders.
+import test.servlets.restCore.components.trial.Join; //Join the orders.
+import test.servlets.restCore.components.trial.Shop;
+
 
 /**
  * A controller that manages services mainly concerned with Trials.
@@ -57,7 +60,8 @@ public class TrialCTRL extends BaseCTRL {
         //Exit transaction state:
         TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
         
-        return dispatch_tokens_PRIVATE(jsonRequest);
+        return dispatch_tokens(jsonRequest);
+        //return dispatch_tokens_PRIVATE(jsonRequest);
     }//FUNC::END
     
      
@@ -72,10 +76,14 @@ public class TrialCTRL extends BaseCTRL {
     //@Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path(FuncNameReg.DISPATCH_TOKENS)
-    public Response dispatch_tokens(String jsonRequest){
-        return dispatch_tokens_PRIVATE(jsonRequest);
+    public Response dispatch_tokens(String jsonRequest){ 
+        return Shop.dispatch_tokens(jsonRequest);
     }//FUNC::END
     
+   
+    
+    /*
+    old version in progress of being replaced.
     private Response dispatch_tokens_PRIVATE(String jsonRequest){
         //Enter transaction state:
         Session ses = TransUtil.enterTransaction();
@@ -158,6 +166,7 @@ public class TrialCTRL extends BaseCTRL {
         //Send back a 200OK response with the data!
         return JSONUtil.postResponseToJSONResponse(tickets);
     }//FUNC::END
+    */
     
 }//CLASS::END
 
