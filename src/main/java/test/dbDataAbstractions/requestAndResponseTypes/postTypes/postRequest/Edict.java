@@ -20,7 +20,8 @@ import utils.MapperUtil;
  * *****************************************************************************
  * 
  * An edict is an order from the administrator to dispatch tokens for
- * ninjas.
+ * ninjas. The number values must be of type "long" in order to avoid
+ * loss of precision. Since these values are used as database record values.
  * 
  * 
  * @author jmadison :2015.10.04
@@ -44,12 +45,12 @@ public class Edict extends PostRequestType {
     
     /** The enum representing the kind of test to be taken. **/
     @Verbatim(name=VarNameReg.TRIAL_KIND)
-    public int   trial_kind          = (-1);
+    public long   trial_kind      = (-1); //MUST BE LONG
     
     /** The time alloted for our Ninjas (Candidates) to complete the 
      *  test once it has began. **/
     @Verbatim(name=VarNameReg.DURATION_IN_MINUTES)
-    public int   duration_in_minutes = (-1);
+    public long   duration_in_minutes = (-1); //MUST BE LONG
     
     /**
      * Validate object without crashing.
