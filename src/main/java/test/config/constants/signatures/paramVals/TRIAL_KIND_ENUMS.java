@@ -51,7 +51,11 @@ public class TRIAL_KIND_ENUMS {
         }//Error.
         
         if(stats.size() != ENUM_CHECKSUM){
-            doError("[CHECKSUM OFF! Update checksum, or fix types of enums.]");
+            String msg = "";
+            msg += "[CHECKSUM OFF! Update checksum, or fix types of enums.]";
+            msg += "Num insts:[" + Integer.toString(insts.size()) + "]";
+            msg += "Num stats:[" + Integer.toString(stats.size()) + "]";
+            doError(msg);
         }//Error
      
         //UniqueValueValidator.validateStaticTypes(TRIAL_STATUS_ENUMS.class);
