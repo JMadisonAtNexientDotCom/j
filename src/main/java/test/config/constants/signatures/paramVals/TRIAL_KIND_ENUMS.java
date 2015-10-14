@@ -42,9 +42,13 @@ public class TRIAL_KIND_ENUMS {
         clazz[0] = Long.class;
         clazz[1] = long.class;
         List<Long> insts = UniqueValueValidator.validateInstanceTypes
-                                        (TRIAL_STATUS_ENUMS.class, clazz);
+                                        (TRIAL_KIND_ENUMS.class, clazz);
         List<Long> stats = UniqueValueValidator.validateStaticTypes
-                                        (TRIAL_STATUS_ENUMS.class, clazz);
+                                        (TRIAL_KIND_ENUMS.class, clazz);
+        
+        if(insts.isEmpty() || stats.isEmpty()){
+            doError("[Nothing collected!!! But validation passed... Hmm..]");
+        }//Error
         
         if(insts.size() != stats.size()){
             doError("[Should have same amount of instance as static vars.]");

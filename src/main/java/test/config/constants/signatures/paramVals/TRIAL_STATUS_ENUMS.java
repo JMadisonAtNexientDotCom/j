@@ -4,6 +4,7 @@ import annotations.UniqueInstanceValue;
 import annotations.UniqueStaticValue;
 import annotations.UniqueValueValidator;
 import annotations.VerbatimValidatorUtil;
+import java.util.List;
 import test.MyError;
 
 /**
@@ -36,31 +37,37 @@ public class TRIAL_STATUS_ENUMS {
         Class[] clazz = new Class[2];
         clazz[0] = Long.class;
         clazz[1] = long.class;
-        UniqueValueValidator.validateInstanceTypes
+        List<Long> insts = UniqueValueValidator.validateInstanceTypes
                                         (TRIAL_STATUS_ENUMS.class, clazz);
-        UniqueValueValidator.validateStaticTypes
+        List<Long> stats = UniqueValueValidator.validateStaticTypes
                                         (TRIAL_STATUS_ENUMS.class, clazz);
+        
+        if(insts.size() != ENUM_CHECKSUM){doError("[Insts checksum fail]");}
+        if(stats.size() != ENUM_CHECKSUM){doError("[Stats checksum fail]");}
         
         //UniqueValueValidator.validateStaticTypes(TRIAL_STATUS_ENUMS.class);
         //UniqueValueValidator.validateInstanceTypes(TRIAL_STATUS_ENUMS.class);
     }//FUNC::END
     
+    /** Checksum set to total number of enums in this file. **/
+    private final static long ENUM_CHECKSUM = 8;
+    
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
-    public static long INIT_ERROR_          = 0;
+    public static final long INIT_ERROR_          = 0;
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
-    public static long STUB_CREATED_        = 1;
+    public static final long STUB_CREATED_        = 1;
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
-    public static long CREATED_LINKED_      = 2;
+    public static final long CREATED_LINKED_      = 2;
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
-    public static long KNOWNOF_             = 3;
+    public static final long KNOWNOF_             = 3;
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
@@ -68,19 +75,19 @@ public class TRIAL_STATUS_ENUMS {
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
-    public static long PROGRESS_            = 5;
+    public static final long PROGRESS_            = 5;
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
-    public static long EXPIRED_COMPLETED_   = 6;
+    public static final long EXPIRED_COMPLETED_   = 6;
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
-    public static long EXPIRED_TIME_OUT_    = 7;
+    public static final long EXPIRED_TIME_OUT_    = 7;
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
-    public static long EXPIRED_COMPROMISED_ = 8;
+    public static final long EXPIRED_COMPROMISED_ = 8;
     
     /** If zero, is initialization error. Integers initialize at zero.
      *  So we DONT want to use an enum of zero. As it could make error
