@@ -32,9 +32,9 @@
 
 
               <form name="userForm" style="width:100%;" novalidate>
-                <select name="multipleSelect" data-ng-change="onListChange( data )"
+                <select name="multipleSelect" data-ng-change="onListChange( formData )"
                 style="width:100%; height:280px;" 
-                id="mulipass" ng-model="data.multipleSelect" multiple>
+                id="mulipass" ng-model="formData.multipleSelect" multiple>
                   <!-- This chunk repeats for each item in users collection          -->
                   <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
                   <option data-ng-repeat="ninja in instancedJSON_01.members" 
