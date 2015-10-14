@@ -34,11 +34,11 @@ public class Chop {
     @Verbatim( name=FuncNameReg.DISPATCH_TOKENS ) //refactor easier.
     public static Edict[] dispatch_tokens(Edict ed){
         
-        //if(DebugConfig.isDebugBuild){
-            //String idPrintOut;
-            //idPrintOut = "NINJA IDS:[" + ed.ninja_id_list.toString() + "]";
-            //DebugConfigLogger.addFromStatic(Chop.class, idPrintOut);
-        //}//
+        if(DebugConfig.isDebugBuild){
+            String idPrintOut;
+            idPrintOut = "NINJA IDS:[" + ed.ninja_id_list.toString() + "]";
+            DebugConfigLogger.addFromStatic(Chop.class, idPrintOut);
+        }//
         
         Edict[] op = new Edict[2];
         op[0] = null; //good slot.
