@@ -90,9 +90,8 @@
               style="z-index:3;background:#AAAAAA;position:absolute;float:none;
               width:100%; height:100%;"><!--333333333333333333333333333333333-->
                 
-                <!-- Give: {{data.multipleSelect}} a <%=I.DN().TRIAL%>! -->
-                TODO: Figure out how to re-make the selection list.
-                Click button below to give a trial.
+                Give: {{data.multipleSelect}} a <%=I.DN().TRIAL%>!
+                
                 
                 <button class="btn" id="token_giver_button">DISPATCH TOKENS</button>
                 
@@ -258,14 +257,15 @@
       
       //HTTP POST REQUEST FOR DIPATCHING TOKENS:
       $scope.postRequest = function(){
-        ids = create_id_list();
-        $scope.arg_obj.<%= I.API().DISPATCH_TOKENS.POSTARG.NINJA_ID_LIST %> = ids;
+        //ids = create_id_list();
+        $scope.arg_obj.<%= I.API().DISPATCH_TOKENS.POSTARG.NINJA_ID_LIST %> = []; //ids;
         $scope.arg_obj.<%= I.API().DISPATCH_TOKENS.POSTARG.DURATION_IN_MINUTES%> = 30;
         $scope.arg_obj.<%= I.API().DISPATCH_TOKENS.POSTARG.TRIAL_KIND %> = <%= I.PV().TRIAL_KIND.RIDDLE_TRIAL %>
         postURL = "<%= I.API().DISPATCH_TOKENS.URL %>";
         $http.post(postURL,$scope.arg_obj).success(onPostResponse);
       };//FUNC::END
       
+      /*
       //Create list of ninjas from whatever was selected in UI:
       function create_id_list(){
         arr = $scope.data.multipleSelect; //get all ninjas.
@@ -276,6 +276,7 @@
         
         return ids;
       }//FUNC::END
+      */
       
       //Response to $scope.postRequest. No $scope on this because we do not
       //want it to be exposed outside of the controller.
