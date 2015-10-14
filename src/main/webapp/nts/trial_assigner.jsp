@@ -287,7 +287,7 @@
         for (ninja_dex in arr){
           cur_ninja_json = arr[ninja_dex];
           cur_ninja      = JSON.parse(cur_ninja_json); //<--HACK
-          cur_id         = cur_ninja.<%=I.OT().NINJA.ID%>);
+          cur_id         = cur_ninja.<%=I.OT().NINJA.ID%>;
           ids.push( cur_id );
         }//next ninja
        
