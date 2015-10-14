@@ -82,7 +82,10 @@ public class UniqueValueValidator {
         List<T> op = validateAndCollectValuesOfType_InstanceAndStaticCommonCode
                                                 (fields,STATIC_TRUE,null,types);
         if(null == op || op.isEmpty()){
-            doError("[STATIC VALIDATION FAIL]");
+            String msg = "";
+            msg += "[STATIC VALIDATION FAIL]";
+            msg += makeBasicHelpForErrorValidationFailure();
+            doError(msg);
         }//ERROR?
         
         return op;
@@ -94,6 +97,18 @@ public class UniqueValueValidator {
         //Should we refactor this code??
         //Quickest way to go would be to refactor shorts to long.
         
+    }//FUNC::END
+    
+    /** Part of error message if validation fails. Hopefully will help you
+     *  fix the problem.
+     * @return : See above **/
+    private static String makeBasicHelpForErrorValidationFailure(){
+        String msg = "";
+        msg += "[Getting to here probably means you are validating the]";
+        msg += "[Wrong types. For instance, maybe you are checking for]";
+        msg += "[Type's long&Long when you should be looking for]";
+        msg += "[Int & Integer.]";
+        return msg;
     }//FUNC::END
     
     /**
@@ -242,7 +257,10 @@ public class UniqueValueValidator {
                                                (fields,STATIC_FALSE,inst,types);
         
         if(null == op || op.isEmpty()){
-            doError("[INSTANCE VALIDATION FAIL]");
+            String msg = "";
+            msg += "[INSTANCE VALIDATION FAIL]";
+            msg += makeBasicHelpForErrorValidationFailure();
+            doError(msg);
         }//ERROR?
         
         return op;

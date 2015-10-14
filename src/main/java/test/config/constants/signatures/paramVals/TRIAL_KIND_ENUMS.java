@@ -10,7 +10,8 @@ import test.config.constants.identifiers.VarNameReg;
 
 /**
  * Valid arguments values for TRIAL_KIND parameter.
- * @author jmadison
+ * Should be of type long since used as keys in database.
+ * @author jmadison :2015.10.14: (October 14th, Year 2015, Wednesday)
  */
 @Verbatim(name=VarNameReg.TRIAL_KIND + "_ENUMS")
 public class TRIAL_KIND_ENUMS {
@@ -48,14 +49,14 @@ public class TRIAL_KIND_ENUMS {
     }//FUNC::END
     
     @UniqueStaticValue
-    public final static int INIT_FAILURE_ = 0;
+    public final static long INIT_FAILURE_ = 0;
     
     @UniqueStaticValue
-    public final static int RIDDLE_TRIAL_ = 1;
+    public final static long RIDDLE_TRIAL_ = 1;
     
     @UniqueInstanceValue
-    public final int INIT_FAILURE = INIT_FAILURE_;
+    public final long INIT_FAILURE = INIT_FAILURE_;
     @UniqueInstanceValue
-    public final int RIDDLE_TRIAL = RIDDLE_TRIAL_; //<--Only supported trial type for now.
+    public final long RIDDLE_TRIAL = RIDDLE_TRIAL_; //<--Only supported trial type for now.
   
 }//CLASS::END
