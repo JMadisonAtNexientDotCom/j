@@ -90,10 +90,9 @@
               style="z-index:3;background:#AAAAAA;position:absolute;float:none;
               width:100%; height:100%;"><!--333333333333333333333333333333333-->
                 
-                Give: {{formData.multipleSelect}} a <%=I.DN().TRIAL%>!
-                
-                
-                <button class="btn" id="token_giver_button">DISPATCH TOKENS</button>
+                <button class="btn" id="token_giver_button">
+                  DISPATCH {{formData.multipleSelect.length}} TOKEN(S)
+                </button>
                 
               </div> <!--3333333333333333333333333333333333333333333333333333-->
               <div      id="subpanel_phase___PLEASE_WAIT_CREATING_TRIAL"
@@ -266,19 +265,34 @@
       };//FUNC::END
       
       
-      //Create list of ninjas from whatever was selected in UI:
+     //Create list of ninjas from whatever was selected in UI:
       function create_id_list(){
-        var arr = $scope.formData.multipleSelect; //get all ninjas.
+        //The ninjas selected in the UI's mutliple select picker window:
+        //
+        //HACK:
+        //
+        //For some reason, each entry in this objec is non-parsed JSON, even
+        //though it operates on a parsed json object. I have no clue why.
+        //hence why we have the JSON.parse line in the for loop.
+        //Possibly if data format changes, so that arr[ninja_dex] is an
+        //actual object, this code will break.
+        var arr = $scope.formData.multipleSelect;
+     
         var ids = [];
-        var debug01 = [];
+        var cur_ninja_json;
+        var cur_ninja;
+        var cur_id;
         var ninja_dex;
-        for (ninja_dex in arr){
-          ids.push(arr[ ninja_dex ].<%=I.OT().NINJA.ID%>);
-          debug01.push( ninja_dex );
-        }//next ninja
         
-        //return ids;
-        return debug01;
+        for (ninja_dex in arr){
+          cur_ninja_json = arr[ninja_dex];
+          cur_ninja      = JSON.parse(cur_ninja_json); //<--HACK
+          cur_id         = cur_ninja.id;
+          ids.push( cur_id );
+        }//next ninja
+       
+        return ids;
+    
       }//FUNC::END
       
       

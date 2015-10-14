@@ -2,65 +2,420 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>AHK SHORTCUT:?scroll</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Scroll Bars libs -->
-    <script src="../jsLib/git_repo_3rd_party/ng_scrollable/ng-scrollable.min.js"></script>
-    <link href="../jsLib/git_repo_3rd_party/ng_scrollable/ng-scrollable.min.css" rel="stylesheet">
+    <title> Trial Assigner</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+				
+<!-- for async spinners. THEY WORK! -->
+<script src="../jsLib/node_modules/angular-spinners/src/spinner-service.js"></script>
+<script src="../jsLib/node_modules/angular-spinners/src/spinner-directive.js"></script>
+<script src="../jsLib/node_modules/angular-spinners/dist/angular-spinners.js"></script>
+
+<!-- host jquery so $ make sense? I think. -->
+<!-- we probably don't need this version of Jquery since we are using another.
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+-->
+
+<!-- BEFORE BOOTSTRAP INCLUDE: Bootstrap requiers JQuery Library.        -->
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!-- Bootstrap: .js and .css respectively.                               -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Angular Materials Project. Makes UI asthetically pleasing. -->
+<!-- MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM -->
+<!-- Angular Material Dependencies -->
+<!-- include: angular.min.js -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+
+<!-- Angular Material Javascript now available via Google CDN; version 0.10 used here -->
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script>
+
+<!-- Get some scroll bar action up in here! -->
+<script src="../jsLib/git_repo_3rd_party/ng_scrollable/ng-scrollable.min.js"></script>
+
+    <!-- spinner animation for waiting after pressing button that -->
+<!-- results in an asynchronous call. AKA: Wait for something to load and -->
+<!-- let user know the UI is still responsive. -->
+<LINK REL=StyleSheet HREF="../jsLib/css/components/loading_spinner.css" TYPE="text/css">
+
+<!-- Angular Material CSS now available via Google CDN; version 0.10 used here -->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css">
+<!-- MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM -->
+
+<!-- style stuff for scrollbars! -->
+<link rel="stylesheet" href="../jsLib/git_repo_3rd_party/ng_scrollable/ng-scrollable.min.css">
+
+<!-- enable centering. -->
+ <link href="../jsLib/css/layout/vertcen.css" rel="stylesheet">
+ <link href="../jsLib/css/layout/horcen.css" rel="stylesheet">
+ <link href="../jsLib/css/layout/bs_docs_example.css" rel="stylesheet">
+ <link href="../jsLib/css/aesthetics/roundeddivs.css" rel="stylesheet">
+
+		
   </head>
+<!-- AUTHOR: JMadison.  ON:2015.09.18_0223AMPM                               -->
+<!-- TABSIZE: 2 Spaces.                                                      -->
+<!-- This header belongs BELOW the <head></head> declaration.                -->
+<!--   10|       20|       30|       40|       50|       60|       70|       -->
 <!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
   <body>
-    <div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="VI();">
-      <button data-ng-click="onClick();">Click Me!</button>
+    <div id="PIKA" data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="VI();">
       
-        <div id="my_scroll_bar" ng-scrollable="{scrollX:'none',scrollY:'right'}" 
-        style="width: 25%; height: 100px;background:#AA0000;">
-            <form name="userForm" style="width: 95%; height:100%;" novalidate>
-              <div class="form-group" 
-              data-ng-repeat="user in instancedJSON_01.users"
-              data-ng-class="{ 'has-error' : userFieldForm.email.$invalid }" >
-                <!-- This chunk repeats for each item in users collection          -->
-                <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
-                <data-ng-form name='userFieldForm'>
-                  <label>{{ user.name }}'s Email </label>
-                  <span data-ng-show='userFieldForm.email.$invalid' 
-                                                              style="color:#AA0000;" >
-                  IS INVALID!
-                  </span>
-                  <input class='form-control' name='email' ng-model='user.email' 
-                  required='' type='email'>
-                  </input>
-                </data-ng-form>
-                <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
-              </div> <!-- form-group -->
-            </form>  <!-- userForm   -->
-        </div> <!-- my_scroll_bar -->
-    </div>
+      <!-- Vertically + horizontally centered dialog -->
+      <div class="horcen_parent" > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+      <div class="horcen_child"  > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+   
+        <div id="roundeddivs_wireframe" style="width:100%; height:100%;">
+
+          <div id="roundeddivs_headertab" align="center" style="margin-bottom:25px;">
+            <h2 style="color:#fff">Trial Assigner</h2>
+          </div>
+          
+          <div style="width:600px; height:400px;"> <!-- split container::START -->
+            <div class="panel panel-default" style="width:300px; height:100%; float:left">
+            <div class="panel-heading">Who below will be taking this Trial?</div>
+
+
+              <form name="userForm" style="width:100%;" novalidate>
+                <select name="multipleSelect" data-ng-change="onListChange( formData )"
+                style="width:100%; height:280px;" 
+                id="mulipass" ng-model="formData.multipleSelect" multiple>
+                  <!-- This chunk repeats for each item in users collection          -->
+                  <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
+                  <option data-ng-repeat="ninja in instancedJSON_01.members" 
+                    value="{{ninja}}"> <!-- In QUOTES. This is why must  -->
+                    {{ninja.name}}     <!-- Re-parse selection entries.  -->
+                  </option>
+                  <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
+                </select> <!-- form-group -->
+
+               <nav class="navbar navbar-default">
+                <ul class="pager">
+                 <li class="previous" id="ninja_list_prv"><a href=""><span aria-hidden="true">&larr;</span> PREV</a></li>
+                 
+                  <li type="button" style="padding:0px;" class="btn btn-primary">{{ninja_page_title}}</li>
+                 
+                 <li class="next" id="ninja_list_nxt"><a href="#">NEXT <span aria-hidden="true">&rarr;</span></a></li>
+                </ul>
+               </nav>
+
+                <!--
+                useful for showing you what is selected from the list:
+               <tt>multipleSelect = {{data.multipleSelect}}</tt><br/>
+                -->
+
+              </form>  <!-- userForm   -->
+            </div> <!--panel -->
+          
+            <!-- THE RIGHT SIDE OF THE UI: HOLDER FOR MULTIPLE PANELS. ----- -->
+            <div class="panel panel-default" 
+            style="position:relative; z-index:0;
+            width:300px; height:100%;
+            float:right;background:#AAAAAA;">
+
+              <div      id="subpanel_phase___SELECT_A_NINJA_PROMPT"
+              data-ng-show="subpanel_phase===SELECT_A_NINJA_PROMPT;"
+              style="z-index:1;background:#4488FF;position:absolute;float:none;
+              color:#FFFFFF;
+              width:100%; height:100%;"> <!--11111111111111111111111111111111-->
+                
+                WELCOME! To begin, select a Ninja from the list to the left.
+
+              </div><!--11111111111111111111111111111111111111111111111111111-->
+              <div      id="subpanel_phase___PLEASE_WAIT_LOADING_NINJA_LIST"
+              data-ng-show="subpanel_phase===PLEASE_WAIT_LOADING_NINJA_LIST;"
+              style="z-index:2;background:#FF8800;position:absolute;float:none;
+              width:100%; height:100%;"><!--222222222222222222222222222222222-->
+                
+                WAIT! We are loading the list of Ninja's for you.
+                
+              </div> <!--2222222222222222222222222222222222222222222222222222-->
+              <div      id="subpanel_phase___ASSIGN_TRIAL_TOKEN_TO_NINJA"
+              data-ng-show="subpanel_phase===ASSIGN_TRIAL_TOKEN_TO_NINJA;"
+              style="z-index:3;background:#AAAAAA;position:absolute;float:none;
+              width:100%; height:100%;"><!--333333333333333333333333333333333-->
+                
+                <button class="btn" id="token_giver_button">
+                  DISPATCH {{formData.multipleSelect.length}} TOKEN(S)
+                </button>
+                
+              </div> <!--3333333333333333333333333333333333333333333333333333-->
+              <div      id="subpanel_phase___PLEASE_WAIT_CREATING_TRIAL"
+              data-ng-show="subpanel_phase===PLEASE_WAIT_CREATING_TRIAL;"
+              style="z-index:4;background:#FF8800;position:absolute;float:none;
+              width:100%; height:100%;"><!--444444444444444444444444444444444-->
+                
+                WAIT! We are creating a Trial for this ninja. 
+                A token you can give to this Ninja will be 
+                available shortly.
+                
+              </div> <!--4444444444444444444444444444444444444444444444444444-->
+              <div      id="subpanel_phase___GIVE_NINJA_BOB_THIS_TOKEN"
+              data-ng-show="subpanel_phase===GIVE_NINJA_BOB_THIS_TOKEN;"
+              style="z-index:5;background:#22FFAA;position:absolute;float:none;
+              color:#000000;
+              width:100%; height:100%;"><!--555555555555555555555555555555555-->
+                
+                <!-- [80][80][80][80][80][80][80][80][80][80][80][80][80][80]-->
+                <div style="width:100%; height:80%;">
+                <!-- SCROLLING CONTENT! -->
+                <!-- SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS[SCROLL::START]SSSS -->
+                <div id="my_scroll_bar" 
+                ng-scrollable="{scrollX:'none',scrollY:'right'}" 
+                style="width: 100%; height: 100%;background:#AA0000;">
+                    <form name="userForm" novalidate
+                    style="width: 95%; height:100%;" >
+                      <div class="form-group" 
+                      data-ng-repeat="ticket in coffer.tickets" >
+                        <!-- Repeats for each item in users collection       -->
+                        <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
+                        <data-ng-form name='userFieldForm'>
+                          <label>Ninja {{ ticket.ninja_name }}'s TOKEN: </label>
+                          <input class='form-control' name='token_entry' 
+                          ng-model='ticket.token_hash' required='' type='text'>
+                          </input>
+                        </data-ng-form>
+                        <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
+                      </div> <!-- form-group -->
+                    </form>  <!-- userForm   -->
+                </div> <!-- my_scroll_bar -->
+                <!-- SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS[SCROLL::END]SSSS -->
+                </div>
+                <!-- [80][80][80][80][80][80][80][80][80][80][80][80][80][80]-->
+                
+                <!-- [20][20][20][20][20][20][20][20][20][20][20][20][20][20]-->
+                <div style="width:100%; height:20%;">
+                  <h2>DONE!</h2>
+                </div>
+                <!-- [20][20][20][20][20][20][20][20][20][20][20][20][20][20]-->
+                
+              </div> <!--5555555555555555555555555555555555555555555555555555-->
+            </div> <!--panel::THE RIGHT SIDE. END -->
+          </div><!-- split container::END -->
+          
+          
+          
+
+        </div> <!-- ROUNDED BLUE CORNERS -->
+      </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+      </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+      
+      
+      
+      
+      
+		
+    </div> <!-- APP::END -->
+		
+		<script>
+		$(function() { 
+    //http://dotnet-concept.com/Tip/2015/6/5798829/
+    //                   How-to-call-angularJS-function-from-javascript-jquery
+    
+    //Reading up on this, says I should not do it the way above I mentioned
+    //because it will NOT work in debug mode:
+    //http://www.toptal.com/angular-js/
+    //                           top-18-most-common-angularjs-developer-mistakes
+    //UNFORTUNATELY, DOES NOT OFFER AN ALTERNATIVE!!!
+
+    $("#token_giver_button").click(function(){
+    angular.element(document.getElementById('PIKA')).scope().dispatchTokens();
+    });
+
+    $("#ninja_list_prv").click(function() {
+    angular.element(document.getElementById('PIKA')).scope().goBAK();
+    });
+
+    $("#ninja_list_nxt").click(function() {
+    angular.element(document.getElementById('PIKA')).scope().goFWD();
+    });
+			
+		});
+		</script>
+		
+		
+		
     <script>
     var app = angular.module('myApp', ['ngScrollable']);
-    app.controller('myCtrl', function($scope) {
+    app.controller('myCtrl', function($scope, $http) {
       //function to execute on click
       $scope.onClick = function(){
         var obj = JSON.parse(document.getElementById('embeddedJSON_01').innerHTML);
         $scope.instancedJSON_01=obj;
-        //if size of content changes, call $scope.$emit:
-        $scope.$emit('content.changed');//https://github.com/echa/ng-scrollable
-      }//FUNC::END
+      };//FUNC::END
       //Variable initialization:
       $scope.VI = function(){
+        
+        //INITIALIZE CONSTANTS:
+        $scope.SELECT_A_NINJA_PROMPT          = 1; //Tell admin what to do.
+        $scope.PLEASE_WAIT_LOADING_NINJA_LIST = 2; //ASYNC LOADING
+        $scope.ASSIGN_TRIAL_TOKEN_TO_NINJA    = 3; //Let admin dispatch token.
+        $scope.PLEASE_WAIT_CREATING_TRIAL     = 4; //ASYNCH LOADING
+        $scope.GIVE_NINJA_BOB_THIS_TOKEN      = 5; //Tell admin what to do.
+        $scope.subpanel_phase = $scope.SELECT_A_NINJA_PROMPT;
+        
         $scope.instancedJSON_01 = {};
         $scope.isInitialized = true;
+       	$scope.pageIndexWanted   = 0;
+        $scope.numResultsPerPage = 8;
+        $scope.ninja_page_title = "READY";
+        
+        
+        ///// EMBEDDED REQUEST SCHEMA :: START /////
+        $scope.arg_obj = 
+        {
+          "isError" : false,
+          "errorCode" : "none_set",
+          "comment" : "NO_COMMENT_SET",
+          "ninja_id_list" : [ ],
+          "trial_kind" : -1,
+          "duration_in_minutes" : -1
+        };
+        ///// EMBEDDED REQUEST SCHEMA :: END   /////
+        
+        $scope.callService();
+        
+      };//FUNC::END
+      
+      //Function execute when item is click on
+      //from the multi-select ninja-selector.
+      $scope.onListChange = function(){
+        console.log("onListChange() called!");
+        $scope.subpanel_phase = $scope.ASSIGN_TRIAL_TOKEN_TO_NINJA;
+      };//FUNC::END
+      
+      $scope.dispatchTokens = function(){
+        
+        $scope.subpanel_phase = $scope.PLEASE_WAIT_CREATING_TRIAL;
+        console.log("dispatchTokens() was entered!");
+        $scope.$apply(); //http://stackoverflow.com/questions/22389949/div-with-ng-show-not-updating-after-ajax-call Maybe?
+        $scope.postRequest();
+        
+      };//FUNC::END
+			
+      $scope.goBAK = function(){
+        $scope.pageIndexWanted--;
+        $scope.callService();
+      };//FUNC::END
+
+      $scope.goFWD = function(){
+        $scope.pageIndexWanted++;
+        $scope.callService();
+      };//FUNC::END
+
+      //TODO: Some more comprehensive logic.
+      $scope.goTOG = function(){
+        $scope.pageIndexWanted = 2;
+        $scope.callService();
+      };//FUNC::END
+      
+      //HTTP POST REQUEST FOR DIPATCHING TOKENS:
+      $scope.postRequest = function(){
+        var ids = create_id_list();
+        $scope.arg_obj.ninja_id_list = ids;
+        $scope.arg_obj.duration_in_minutes = 30;
+        $scope.arg_obj.trial_kind = 1
+        postURL = "https://j1clone01-madnamespace.rhcloud.com/api/TrialCTRL/dispatch_tokens";
+        $http.post(postURL,$scope.arg_obj).success(onPostResponse);
+      };//FUNC::END
+      
+      
+      //Create list of ninjas from whatever was selected in UI:
+      function create_id_list(){
+        //The ninjas selected in the UI's mutliple select picker window:
+        //
+        //HACK:
+        //
+        //For some reason, each entry in this objec is non-parsed JSON, even
+        //though it operates on a parsed json object. I have no clue why.
+        //hence why we have the JSON.parse line in the for loop.
+        //Possibly if data format changes, so that arr[ninja_dex] is an
+        //actual object, this code will break.
+        var arr = $scope.formData.multipleSelect;
+     
+        var ids = [];
+        var cur_ninja_json;
+        var cur_ninja;
+        var cur_id;
+        var ninja_dex;
+        
+        for (ninja_dex in arr){
+          cur_ninja_json = arr[ninja_dex];
+          cur_ninja      = JSON.parse(cur_ninja_json); //<--HACK
+          cur_id         = cur_ninja.id;
+          ids.push( cur_id );
+        }//next ninja
+       
+        return ids;
+    
       }//FUNC::END
+      
+      
+      //Response to $scope.postRequest. No $scope on this because we do not
+      //want it to be exposed outside of the controller.
+      function onPostResponse(response){
+        
+        //When response is given back, we can give the tokens!
+        console.log("onPostResponse() was entered!");
+        $scope.subpanel_phase = $scope.GIVE_NINJA_BOB_THIS_TOKEN;
+        $scope.coffer = response; //the ticket coffer given by server.
+        console.log("fist token in ticket coffer:" + $scope.coffer.tickets[0].token_hash);
+        $scope.$emit('content.changed'); //<-- to register scroll bar change.
+        $scope.$apply();
+        
+      }//FUNC::END
+
+      $scope.callService = function()
+      {
+        $scope.subpanel_phase = $scope.PLEASE_WAIT_LOADING_NINJA_LIST;
+        $scope.ninja_page_title = "LOADING";
+        
+        serviceURL = "https://j1clone01-madnamespace.rhcloud.com/api/NinjaCTRL/get_page_of_ninjas";
+
+        //Build query string using J-QUERY:
+        //SOURCE: http://stackoverflow.com/questions/316781/
+        //                             how-to-build-query-string-with-javascript
+        qs = "";
+        qs = $.param({ 
+        page_index:$scope.pageIndexWanted, 
+        num_results_per_page:$scope.numResultsPerPage});
+
+        //url of rest-api responsible for making new ninja records using arguments:
+        apiURL= serviceURL + "?" + qs;
+
+        $http.get(apiURL).success( onResponded );
+      };//FUNC::END
+
+      function onResponded(response){
+        $scope.instancedJSON_01 = response;
+        $scope.ninja_page_title = response.displayName;
+        $scope.subpanel_phase = $scope.SELECT_A_NINJA_PROMPT;
+      };//FUNC::END
+						
+      //Can you bind function output? NO YOU CANNOT. Read the documentation.
+			   $scope.testBindingFunc = function(){
+        return "TESTING123";
+      };//FUNC::END
+			
     });//APP::END
     </script>
+		
     <script type="application/json" id="embeddedJSON_01">
-      { "users":[ { "name":"bob", "email":"bob@bob.com"},
-                  { "name":"sam", "email":"sam@sam.com"},
-                  { "name":"jay", "email":"jay@jay.com"}]  }
+      {
+      "members":[ { "name":"bob", "email":"bob@bob.com"},
+                   { "name":"sam", "email":"sam@sam.com"},
+                   { "name":"jay", "email":"jay@jay.com"}],
+
+      "unicorns": "awesome",
+      "abc": [1, 2, 3]
+      }
     </script>
   </body>
 </html>
+<!--   10|       20|       30|       40|       50|       60|       70|       -->
 <!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
+
+
+
