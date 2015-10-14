@@ -1,10 +1,13 @@
 package test.servlets.rest.restCore.components.trial;
+
 import annotations.PairedStaticFunction;
 import annotations.Verbatim;
 import javax.ws.rs.core.Response;
+import org.hibernate.Session;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postRequest.Edict;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.Coffer;
 import test.config.constants.identifiers.FuncNameReg;
+import test.transactions.util.TransUtil;
 import utils.JSONUtil;
 
 /**
@@ -20,6 +23,8 @@ public class Shop {
     @Verbatim( name=FuncNameReg.DISPATCH_TOKENS ) //refactor easier.
     public static Response dispatch_tokens(String jsonRequest){
         //return dispatch_tokens_PRIVATE(jsonRequest);
+        
+        Session ses = TransUtil.enterTransaction();
       
         //Process Summary: We convert input into an object,
         //we then CHOP that object into two objects, one representing a
@@ -32,6 +37,8 @@ public class Shop {
         Edict [] eds = Chop.dispatch_tokens(ed);          //Chop into good+bad
         Coffer[] cofs= Fill.dispatch_tokens(eds);         //Fill orders
         Coffer   cof = Join.dispatch_tokens(cofs);        //Join into one object
+        
+        TransUtil.exitTransaction(ses);
         
         //Convert Coffer into Json response:
         Response op = JSONUtil.postResponseToJSONResponse(cof);

@@ -5,6 +5,8 @@ import annotations.UniqueStaticValue;
 import annotations.UniqueValueValidator;
 import annotations.Verbatim;
 import annotations.VerbatimValidatorUtil;
+import java.util.List;
+import test.MyError;
 import test.config.constants.apiDocs.MasterApiDoc;
 import test.config.constants.identifiers.VarNameReg;
 
@@ -39,14 +41,25 @@ public class TRIAL_KIND_ENUMS {
         Class[] clazz = new Class[2];
         clazz[0] = Long.class;
         clazz[1] = long.class;
-        UniqueValueValidator.validateInstanceTypes
+        List<Long> insts = UniqueValueValidator.validateInstanceTypes
                                         (TRIAL_STATUS_ENUMS.class, clazz);
-        UniqueValueValidator.validateStaticTypes
+        List<Long> stats = UniqueValueValidator.validateStaticTypes
                                         (TRIAL_STATUS_ENUMS.class, clazz);
+        
+        if(insts.size() != stats.size()){
+            doError("[Should have same amount of instance as static vars.]");
+        }//Error.
+        
+        if(stats.size() != ENUM_CHECKSUM){
+            doError("[CHECKSUM OFF! Update checksum, or fix types of enums.]");
+        }//Error
      
         //UniqueValueValidator.validateStaticTypes(TRIAL_STATUS_ENUMS.class);
         //UniqueValueValidator.validateInstanceTypes(TRIAL_STATUS_ENUMS.class);
     }//FUNC::END
+    
+    /** Checksum telling us how many enums should be in this class. **/
+    private static final long ENUM_CHECKSUM = 2;
     
     @UniqueStaticValue
     public final static long INIT_FAILURE_ = 0;
@@ -59,4 +72,17 @@ public class TRIAL_KIND_ENUMS {
     @UniqueInstanceValue
     public final long RIDDLE_TRIAL = RIDDLE_TRIAL_; //<--Only supported trial type for now.
   
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = TRIAL_KIND_ENUMS.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw MyError.make(clazz, err);
+    }//FUNC::END
+    
 }//CLASS::END
