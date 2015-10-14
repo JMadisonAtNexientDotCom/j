@@ -257,8 +257,8 @@
       
       //HTTP POST REQUEST FOR DIPATCHING TOKENS:
       $scope.postRequest = function(){
-        //ids = create_id_list();
-        $scope.arg_obj.<%= I.API().DISPATCH_TOKENS.POSTARG.NINJA_ID_LIST %> = []; //ids;
+        var ids = create_id_list();
+        $scope.arg_obj.<%= I.API().DISPATCH_TOKENS.POSTARG.NINJA_ID_LIST %> = ids;
         $scope.arg_obj.<%= I.API().DISPATCH_TOKENS.POSTARG.DURATION_IN_MINUTES%> = 30;
         $scope.arg_obj.<%= I.API().DISPATCH_TOKENS.POSTARG.TRIAL_KIND %> = <%= I.PV().TRIAL_KIND.RIDDLE_TRIAL %>
         postURL = "<%= I.API().DISPATCH_TOKENS.URL %>";
