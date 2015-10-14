@@ -14,6 +14,16 @@ import utils.ReflectionHelperUtil;
  */
 public class UniqueValueValidator {
     
+    static{/////////////
+        doStaticInit();
+    }///////////////////
+    
+    /** First time class is used, unit test code for that class is
+     *  ran on it. **/
+    private static void doStaticInit(){
+        unitTest();
+    }//FUNC::END
+    
     /**For readability **/
     private static final boolean GET_STATIC = true;
     
@@ -408,6 +418,43 @@ public class UniqueValueValidator {
      * @param fArr :The array of Field(s) you want to convert to List. **/
     private static List<Field> arrayToList_Field(Field[] fArr){
         return ReflectionHelperUtil.arrayToList_Field(fArr);
+    }//FUNC::END
+    
+    /**
+     * Unit test for this class:
+     */
+    private static void unitTest(){
+        
+        //Unit test longs:
+        long l = 2;
+        Long L = new Long(2);
+        Class[] longs = new Class[2];
+        longs[0] = long.class;
+        longs[1] = Long.class;
+        
+        if(false == is_a_type(l,longs) ){
+            doError("lower long fail");
+        }//
+        
+        if(false == is_a_type(L,longs) ){
+            doError("upper long fail");
+        }//
+        
+        //Unit test shorts:
+        short s = 3;
+        Short S = 3;
+        Class[] shorts = new Class[2];
+        shorts[0] = short.class;
+        shorts[1] = Short.class;
+        
+        if(false == is_a_type(s,shorts) ){
+            doError("lower short fail");
+        }//
+        
+        if(false == is_a_type(S,shorts) ){
+            doError("upper short fail");
+        }//
+        
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
