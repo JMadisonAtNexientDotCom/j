@@ -79,6 +79,10 @@ public class Chop {
         RealAndFakeIDs rf;
         rf = NinjaTransUtil.sortNinjaIDS_IntoRealAndFake(ed.ninja_id_list);
         
+        if(null == rf){doError("Entire rf is null!");}
+        if(null == rf.real){doError("Can be empty, but not null! REAL");}
+        if(null == rf.fake){doError("Can be empty, but not null! FAKE");}
+        
         if(false == rf.real.isEmpty()){
             op[0] = Edict.clone(ed);
             op[0].ninja_id_list = rf.real;
@@ -90,7 +94,7 @@ public class Chop {
             op[1] = Edict.clone(ed);
             op[1].ninja_id_list = rf.fake;
             op[1].comment+="[Fake Ninja's Found]";
-            op[1].comment+="Entries[" + ListUtil.printLongs(rf.fake) + "]";
+            op[1].comment+="Entries[" + ListUtil.printLongs(rf.fake) + "]"; //<-- causes error for some reason.
             op[1].isError = true;
         }//has fake
         

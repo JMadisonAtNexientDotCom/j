@@ -2,6 +2,7 @@ package utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import test.MyError;
 
 /**
  *
@@ -31,6 +32,9 @@ public class ListUtil {
     }//FUNC::END
     
     public static String printLongs(List<Long> inList){
+        
+        if(null == inList){doError("[Input to printLongs was null]");}
+        
         String op = "";
         op += "[";
         for(Long entry : inList){
@@ -55,5 +59,17 @@ public class ListUtil {
      //   op += "]";
     //    return op;
     //}//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = ListUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw MyError.make(clazz, err);
+    }//FUNC::END
     
 }//CLASS::END
