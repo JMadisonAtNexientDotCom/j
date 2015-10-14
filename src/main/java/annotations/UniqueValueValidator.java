@@ -14,6 +14,10 @@ import utils.ReflectionHelperUtil;
  */
 public class UniqueValueValidator {
     
+    /** We only need to keep track that test was ran. Because
+     *  We make app crash if test fails. **/
+    private static boolean _unitTestRan = false;
+    
     static{/////////////
         doStaticInit();
     }///////////////////
@@ -455,6 +459,8 @@ public class UniqueValueValidator {
             doError("upper short fail");
         }//
         
+        _unitTestRan = true;
+        
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
@@ -463,6 +469,7 @@ public class UniqueValueValidator {
     -------------------------------------------------------------------------**/
     private static void doError(String msg){
         String err = "ERROR INSIDE:";
+        err += "Was unit test ran:[" + Boolean.toString(_unitTestRan) + "]";
         Class clazz = UniqueValueValidator.class;
         err += clazz.getSimpleName();
         err += msg;
