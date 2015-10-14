@@ -265,10 +265,10 @@
         $http.post(postURL,$scope.arg_obj).success(onPostResponse);
       };//FUNC::END
       
-      /*
+      
       //Create list of ninjas from whatever was selected in UI:
       function create_id_list(){
-        arr = $scope.data.multipleSelect; //get all ninjas.
+        arr = $scope.formData.multipleSelect; //get all ninjas.
         ids = [];
         for each(ninja in arr){
           ids.push(ninja.<%=I.OT().ENTITY.ID%>);
@@ -276,7 +276,7 @@
         
         return ids;
       }//FUNC::END
-      */
+      
       
       //Response to $scope.postRequest. No $scope on this because we do not
       //want it to be exposed outside of the controller.
