@@ -20,6 +20,14 @@ public class DebugConfigLogger {
      * @param msg : Message text to log.
      */
     public static void add(Object obj, String msg){
+        add_private(obj.getClass(), msg);
+    }//FUNC::END
+    
+    public static void addFromStatic(Class clazz, String msg){
+        add_private(clazz, msg);
+    }//FUNC::END
+    
+    public static void add_private(Class clazz, String msg){
         
         //Knowing what thread we are executing on might
         //be handy for concurrency.
@@ -27,7 +35,7 @@ public class DebugConfigLogger {
         String threadName = t.getName();
         
         String l = "";
-        l += "LOCATION:[" + obj.getClass().getCanonicalName() + "]";
+        l += "LOCATION:[" + clazz.getCanonicalName() + "]";
         l += "MSG:[" + msg + "]";
         l += "THREAD:[" + threadName + "]";
         _logs[_nextLogIndex] = l;

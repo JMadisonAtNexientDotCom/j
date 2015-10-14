@@ -5,6 +5,8 @@ import annotations.Verbatim;
 import primitives.RealAndFakeIDs;
 import test.MyError;
 import test.config.constants.identifiers.FuncNameReg;
+import test.config.debug.DebugConfig;
+import test.config.debug.DebugConfigLogger;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postRequest.Edict;
 import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
 import utils.ListUtil;
@@ -31,6 +33,12 @@ public class Chop {
     @PairedStaticFunction //All classes scanned should have func with this name
     @Verbatim( name=FuncNameReg.DISPATCH_TOKENS ) //refactor easier.
     public static Edict[] dispatch_tokens(Edict ed){
+        
+        //if(DebugConfig.isDebugBuild){
+            //String idPrintOut;
+            //idPrintOut = "NINJA IDS:[" + ed.ninja_id_list.toString() + "]";
+            //DebugConfigLogger.addFromStatic(Chop.class, idPrintOut);
+        //}//
         
         Edict[] op = new Edict[2];
         op[0] = null; //good slot.
@@ -81,7 +89,7 @@ public class Chop {
             op[1] = Edict.clone(ed);
             op[1].ninja_id_list = rf.fake;
             op[1].comment+="[Fake Ninja's Found]";
-            op[1].comment+="Entries[" + ListUtil.print(rf.fake) + "]";
+            //op[1].comment+="Entries[" + ListUtil.print(rf.fake) + "]";
             op[1].isError = true;
         }//has fake
         
