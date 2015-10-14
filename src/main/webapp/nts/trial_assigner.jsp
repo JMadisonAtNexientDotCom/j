@@ -270,8 +270,9 @@
       function create_id_list(){
         var arr = $scope.formData.multipleSelect; //get all ninjas.
         var ids = [];
-        for each(ninja in arr){
-          ids.push(ninja.<%=I.OT().ENTITY.ID%>);
+        var cur_ninja;
+        for each(cur_ninja in arr){
+          ids.push(cur_ninja.<%=I.OT().ENTITY.ID%>);
         }//next ninja
         
         return ids;
