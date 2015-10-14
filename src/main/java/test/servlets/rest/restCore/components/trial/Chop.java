@@ -3,6 +3,7 @@ package test.servlets.rest.restCore.components.trial;
 import annotations.PairedStaticFunction;
 import annotations.Verbatim;
 import primitives.RealAndFakeIDs;
+import test.MyError;
 import test.config.constants.identifiers.FuncNameReg;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postRequest.Edict;
 import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
@@ -67,14 +68,44 @@ public class Chop {
         //Try and split the information into good and bad:
         RealAndFakeIDs rf;
         rf = NinjaTransUtil.sortNinjaIDS_IntoRealAndFake(ed.ninja_id_list);
-        op[0] = Edict.clone(ed);
-        op[0].ninja_id_list = rf.real;
         
-        op[1] = Edict.clone(ed);
-        op[1].ninja_id_list = rf.fake;
+        if(false == rf.real.isEmpty()){
+            op[0] = Edict.clone(ed);
+            op[0].ninja_id_list = rf.real;
+            op[0].comment+="[Real Ninja's Found]";
+            op[0].isError = false;
+        }//has real
+        
+        if(false == rf.fake.isEmpty()){
+            op[1] = Edict.clone(ed);
+            op[1].ninja_id_list = rf.fake;
+            op[1].comment+="[Fake Ninja's Found]";
+            op[1].isError = true;
+        }//has fake
+        
+        //We should have has fake, or real ninjas.
+        //This error signifies error check above was not working,
+        //Or that sorting ninja ids into real+fake lists failed.
+        //This is a FATAL error because it happened due to programmer
+        //error. Not due to bogus user input.
+        if(null == op[0] && null == op[1]){
+            doError("[This error should have been caught earlier]");
+        }//
         
         return op;
             
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = Chop.class;
+        err += clazz.getCanonicalName();
+        err += msg;
+        throw MyError.make(clazz, err);
     }//FUNC::END
     
 }//CLASS::END
