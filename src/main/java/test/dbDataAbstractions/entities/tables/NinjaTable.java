@@ -1,8 +1,10 @@
 package test.dbDataAbstractions.entities.tables;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
 
@@ -48,17 +50,29 @@ public class NinjaTable extends BaseEntity {
   
   @Column(name=NAME_COLUMN)
   private String name;
+  @Transient
+  @JsonIgnore
+  public final String NAME = NAME_COLUMN; //for API access.
   
   //If you do HTTP request to set a phone number that is too long.
   //The response will turn into a 404. Made long instead of int for this reason.
   @Column(name=PHONE_COLUMN)
-  private Long phone;
+  private Long  phone;
+  @Transient
+  @JsonIgnore
+  public final String PHONE = PHONE_COLUMN; //for API access
   
   @Column(name=EMAIL_COLUMN)
   private String email;
+  @Transient
+  @JsonIgnore
+  public final String EMAIL = EMAIL_COLUMN; //for API access
   
   @Column(name=PORTFOLIO_URL_COLUMN)
   private String portfolio_url;
+  @Transient
+  @JsonIgnore
+  public final String PORTFOLIO_URL = PORTFOLIO_URL_COLUMN; //for API access
   
   //DELE, now in base entity.
   //xx @Column(name=COMMENT_COLUMN)

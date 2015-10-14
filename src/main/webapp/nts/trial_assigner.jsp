@@ -39,6 +39,7 @@
                   <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
                    <option data-ng-repeat="ninja in instancedJSON_01.members" 
                             value="{{ninja.name}}">{{ninja.name}}</option>
+                   
                   <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
                 </select> <!-- form-group -->
 
@@ -72,7 +73,7 @@
               color:#FFFFFF;
               width:100%; height:100%;"> <!--11111111111111111111111111111111-->
                 
-                WELCOME! To begin, select a <%=I.DN().NINJA%> from the list to the right.
+                WELCOME! To begin, select a <%=I.DN().NINJA%> from the list to the left.
 
               </div><!--11111111111111111111111111111111111111111111111111111-->
               <div      id="subpanel_phase___PLEASE_WAIT_LOADING_NINJA_LIST"
@@ -253,12 +254,18 @@
       
       //HTTP POST REQUEST FOR DIPATCHING TOKENS:
       $scope.postRequest = function(){
-        $scope.arg_obj.<%= I.API().DISPATCH_TOKENS.POSTARG.NINJA_ID_LIST %> = [];
+        ids = create_id_list();
+        $scope.arg_obj.<%= I.API().DISPATCH_TOKENS.POSTARG.NINJA_ID_LIST %> = ids;
         $scope.arg_obj.<%= I.API().DISPATCH_TOKENS.POSTARG.DURATION_IN_MINUTES%> = 30;
         $scope.arg_obj.<%= I.API().DISPATCH_TOKENS.POSTARG.TRIAL_KIND %> = <%= I.PV().TRIAL_KIND.RIDDLE_TRIAL %>
         postURL = "<%= I.API().DISPATCH_TOKENS.URL %>";
         $http.post(postURL,$scope.arg_obj).success(onPostResponse);
       };//FUNC::END
+      
+      //Create list of ninjas from whatever was selected in UI:
+      function create_id_list(){
+        
+      }//FUNC::END
       
       //Response to $scope.postRequest. No $scope on this because we do not
       //want it to be exposed outside of the controller.
@@ -279,8 +286,6 @@
         $scope.subpanel_phase = $scope.PLEASE_WAIT_LOADING_NINJA_LIST;
         $scope.ninja_page_title = "LOADING";
         
-        //serviceURL = "https://j1clone01-madnamespace.rhcloud.com/api/NinjaRestService/get_page_of_ninjas?page_index=0&num_results_per_page=10";
-        //serviceURL = "https://j1clone01-madnamespace.rhcloud.com/api/NinjaCTRL/get_page_of_ninjas";
         serviceURL = "<%= I.API().GET_PAGE_OF_NINJAS.URL %>";
 
         //Build query string using J-QUERY:

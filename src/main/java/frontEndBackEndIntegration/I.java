@@ -2,6 +2,7 @@ package frontEndBackEndIntegration;
 
 //No package. At root to make less hazardous for refactoring.
 //Since it will be put into .JSP files.
+import frontEndBackEndIntegration.childComponents.ApiOutputTypesRegistry;
 import frontEndBackEndIntegration.childComponents.ApiParamValuesRegistry;
 import test.config.constants.apiDocs.MasterApiDoc;
 import test.config.constants.identifiers.VarNameReg;
@@ -30,6 +31,24 @@ import test.debug.GlobalErrorState;
  * @author jmadison :2015.09.25
  */
 public class I {
+    
+    /** A registry that has a null-reference to each type that can be outputted
+     *  from an API call. The idea is to WRAP the auto-completed path into
+     *  a serialization call so that we can have auto-completing paths and
+     *  easy to refactor UI code. **/
+    public static final ApiOutputTypesRegistry _apiOutputTypes =
+                                                   new ApiOutputTypesRegistry();
+    
+    /** OT for "output types. **/
+    public static final ApiOutputTypesRegistry OT(){
+        return _apiOutputTypes;
+    }//
+    
+    /** OT for "output types. **/
+    public static final ApiOutputTypesRegistry OUTPUT_TYPES(){
+        return _apiOutputTypes;
+    }//
+    
     
     public static final ApiParamValuesRegistry _paramValsContainer =
                                                    new ApiParamValuesRegistry();
