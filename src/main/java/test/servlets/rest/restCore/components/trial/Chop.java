@@ -54,7 +54,11 @@ public class Chop {
         if(ed.ninja_id_list.isEmpty()){
             ed.isError = true;
             ed.comment += "[Empty ninja id list]";
-        }//
+        }else
+        if(ListUtil.doesListHaveNullEntries(ed.ninja_id_list)){
+            ed.isError = true;
+            ed.comment += "[Ninja id list has NULL ENTRIES in slots.]";
+        }//BLOCK::END
         
         //possibly convert to error if invalid input:
         if(ed.duration_in_minutes <= 0){

@@ -31,6 +31,22 @@ public class ListUtil {
         
     }//FUNC::END
     
+    /**
+     * Returns TRUE if list has at least one null entry.
+     * @param <T>   :The type of list. We don't care. So maybe use generic <?>
+     * @param inList:The list to scan for null slots.
+     * @return :See above.
+     */
+    public static <T> boolean doesListHaveNullEntries(List<T> inList){
+        Object cur; //cur entry.
+        int len = inList.size();
+        for(int i = 0; i < len; i++){
+            cur = inList.get(i);
+            if(null == cur){return true;} //has at least one null entry.
+        }//next i
+        return false;
+    }//FUNC::END
+    
     public static String printLongs(List<Long> inList){
         
         if(null == inList){doError("[Input to printLongs was null]");}
@@ -38,6 +54,7 @@ public class ListUtil {
         String op = "";
         op += "[";
         for(Long entry : inList){
+            if(null==entry){doError("[Null entry found in list!]");}
             op += Long.toString( entry );
             op += ","; //<--extra on end. Quick+dirty. Okay for human eyes.
         }//next
