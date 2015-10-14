@@ -5,7 +5,7 @@
         <%-- Inject JavaScript and CSS Libraries --%>
         <%= I.INCLUDE_JS()  %>
         <%= I.INCLUDE_CSS() %>		
-        <title>Ninja Sign Up Form</title>
+        <title><%=I.DN().NINJA%> Sign Up Form</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">						
     </head>
@@ -29,7 +29,7 @@
       <!-- F is for FORM FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
       <!-- FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
       <form name="myForm">
-      <p>New Ninja Registration:</p>
+      <p>New <%=I.DN().NINJA%> Registration:</p>
       <p>Name : <input type="text" name="iName"  ng-model="nName" placeholder="Enter name here" style="width:100%;" ></p>
 
       <!-- using number type is not what I want for phone numbers. It gives me a spinner! -->
@@ -63,6 +63,54 @@
       </spinner> 
 
     </div>
+      
+    <div id="roundeddivs_wireframe" style="width:200px;">
+
+      <!-- The table with title at head of container. -->
+      <div id="roundeddivs_headertab" align="center">
+        <h2 style="color:#fff">Add Ninja:</h2>
+      </div>
+        
+      <!-- F is for FORM FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
+      <!-- FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
+      <form name="myForm">
+      <p>New <%=I.DN().NINJA%> Registration:</p>
+      <p>Name : <input type="text" name="iName"  ng-model="nName" placeholder="Enter name here" style="width:100%;" ></p>
+
+      <!-- using number type is not what I want for phone numbers. It gives me a spinner! -->
+      <p>Phone: <input type="text" name="iPhone" ng-model="nPhone" style="width:100%;"    
+                       ng-required="number"
+                       ng-minlength="3"
+                       ng-maxlength="13"
+                       placeholder="##########">
+          <span class="error" ng-show="myForm.iPhone.$error.minlength">Too short!</span>
+          <span class="error" ng-show="myForm.iPhone.$error.maxlength">Too long!</span>
+      </p>
+      <p>Email: <input type="text" name="iEmail" ng-model="nEmail" placeholder="Required@Email.com" style="width:100%;" ></p>
+      
+      <p>Website / Portfolio / Resume URL: </p>
+      <p><input type="text" name="iPortfolio" ng-model="nPortfolio" placeholder="www.Zombo.com" style="width:100%;" ></p>
+      <button data-ng-click="onButtonClicked()" style="width:100%;" >REGISTER NINJA</button>
+
+      <!--  <textarea readonly>{{apiCallUsed}}</textarea> -->
+      </form>
+      <!-- FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
+      
+
+      <!-- quick test to make sure we have relative .css URL correct. -->
+      <spinner name="html5spinner">  
+        <div class="overlay"></div>
+        <div class="spinner">
+              <div class="double-bounce1"></div>
+              <div class="double-bounce2"></div>
+        </div>
+        <div class="please-wait">Test of loading spinner...</div>
+      </spinner> 
+
+    </div>
+      
+      
+      
   </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
   </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
   </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
