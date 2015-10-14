@@ -48,7 +48,7 @@ public class TRIAL_STATUS_ENUMS {
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
-    public static long INIT_ERROR_          = 0;
+    public static int INIT_ERROR_          = 0;
     /** "_" at end because should match instance vars.
      *  For documentation, see instance variable version. **/
     @UniqueStaticValue
@@ -86,7 +86,7 @@ public class TRIAL_STATUS_ENUMS {
      *  So we DONT want to use an enum of zero. As it could make error
      *  hard to find. **/
     @UniqueInstanceValue
-    public final long INIT_ERROR         = TRIAL_STATUS_ENUMS.INIT_ERROR_;
+    public final int INIT_ERROR         = TRIAL_STATUS_ENUMS.INIT_ERROR_;
     
     /** New trial has been created. But has not been linked to ANYTHING.
      *  Not a test, not a token. It is a stub. **/
