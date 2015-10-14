@@ -1,5 +1,6 @@
 package frontEndBackEndIntegration.childComponents;
 
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.composites.Clan;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
 
@@ -12,4 +13,5 @@ import test.dbDataAbstractions.entities.tables.NinjaTable;
 public class ApiOutputTypesRegistry {
     //public final Clan CLAN = null;
     public final NinjaTable NINJA = new NinjaTable(); 
+    public final BaseEntity ENTITY= new BaseEntity();
 }//CLASS::END

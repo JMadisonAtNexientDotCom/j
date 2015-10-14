@@ -83,6 +83,7 @@ public class KernelEntity implements Serializable{
     //@Access(AccessType.PROPERTY) <--Don't use this either.
     //@Access(AccessType.FIELD) <---take this off. You don't know what you are doing.
     private Long id; //<--hibernate wants REF-TYPES.
+    public static String ID = VarNameReg.ID;//<--.JSP Prop Access for API calls.
     public long getId()
     { 
         return unBoxLong( this.id);

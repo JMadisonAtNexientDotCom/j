@@ -90,7 +90,10 @@
               style="z-index:3;background:#AAAAAA;position:absolute;float:none;
               width:100%; height:100%;"><!--333333333333333333333333333333333-->
                 
-                Give: {{data.multipleSelect}} a <%=I.DN().TRIAL%>!
+                <!-- Give: {{data.multipleSelect}} a <%=I.DN().TRIAL%>! -->
+                TODO: Figure out how to re-make the selection list.
+                Click button below to give a trial.
+                
                 <button class="btn" id="token_giver_button">DISPATCH TOKENS</button>
                 
               </div> <!--3333333333333333333333333333333333333333333333333333-->
@@ -265,7 +268,13 @@
       
       //Create list of ninjas from whatever was selected in UI:
       function create_id_list(){
+        arr = $scope.data.multipleSelect; //get all ninjas.
+        ids = [];
+        for each(ninja in arr){
+          ids.push(ninja.<%=I.OT().ENTITY.ID%>);
+        }//next ninja
         
+        return ids;
       }//FUNC::END
       
       //Response to $scope.postRequest. No $scope on this because we do not
