@@ -90,7 +90,7 @@
               style="z-index:3;background:#AAAAAA;position:absolute;float:none;
               width:100%; height:100%;"><!--333333333333333333333333333333333-->
                 
-                Give: {{data.multipleSelect}} a <%=I.DN().TRIAL%>!
+                Give: {{formData.multipleSelect}} a <%=I.DN().TRIAL%>!
                 
                 
                 <button class="btn" id="token_giver_button">DISPATCH TOKENS</button>
