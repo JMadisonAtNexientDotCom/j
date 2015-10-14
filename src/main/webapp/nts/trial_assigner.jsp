@@ -38,7 +38,7 @@
                   <!-- This chunk repeats for each item in users collection          -->
                   <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
                   <option data-ng-repeat="ninja in instancedJSON_01.members" 
-                           value="{{ninja.<%I.OT().NINJA.NAME%>}}">
+                           value="{{ninja.<%=I.OT().NINJA.NAME%>}}">
                                   {{ninja.<%=I.OT().NINJA.NAME%>}}
                   </option>
                   <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
