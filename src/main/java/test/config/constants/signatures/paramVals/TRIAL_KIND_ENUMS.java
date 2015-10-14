@@ -48,10 +48,10 @@ public class TRIAL_KIND_ENUMS {
     }//FUNC::END
     
     @UniqueStaticValue
-    public static int INIT_FAILURE_ = 0;
+    public final static int INIT_FAILURE_ = 0;
     
     @UniqueStaticValue
-    public static int RIDDLE_TRIAL_ = 1;
+    public final static int RIDDLE_TRIAL_ = 1;
     
     @UniqueInstanceValue
     public final int INIT_FAILURE = INIT_FAILURE_;
