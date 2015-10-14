@@ -37,9 +37,10 @@
                 id="mulipass" ng-model="data.multipleSelect" multiple>
                   <!-- This chunk repeats for each item in users collection          -->
                   <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
-                   <option data-ng-repeat="ninja in instancedJSON_01.members" 
-                            value="{{ninja.name}}">{{ninja.name}}</option>
-                   
+                  <option data-ng-repeat="ninja in instancedJSON_01.members" 
+                           value="{{ninja.<%I.OT().NINJA.NAME%>}}">
+                                  {{ninja.<%=I.OT().NINJA.NAME%>}}
+                  </option>
                   <!-- RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR -->
                 </select> <!-- form-group -->
 
