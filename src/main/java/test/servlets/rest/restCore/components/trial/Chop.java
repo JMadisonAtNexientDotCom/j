@@ -89,7 +89,7 @@ public class Chop {
             op[1] = Edict.clone(ed);
             op[1].ninja_id_list = rf.fake;
             op[1].comment+="[Fake Ninja's Found]";
-            //op[1].comment+="Entries[" + ListUtil.print(rf.fake) + "]";
+            op[1].comment+="Entries[" + ListUtil.print(rf.fake) + "]";
             op[1].isError = true;
         }//has fake
         
