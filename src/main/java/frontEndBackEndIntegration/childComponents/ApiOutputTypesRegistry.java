@@ -10,6 +10,6 @@ import test.dbDataAbstractions.entities.tables.NinjaTable;
  * @author jmadison :2015.10.14
  */
 public class ApiOutputTypesRegistry {
-    public final Clan CLAN = null;
-    public final NinjaTable NINJA = null;
+    //public final Clan CLAN = null;
+    public final NinjaTable NINJA = new NinjaTable(); 
 }//CLASS::END
