@@ -84,6 +84,7 @@ public class UniqueValueValidator {
         if(null == op || op.isEmpty()){
             String msg = "";
             msg += "[STATIC VALIDATION FAIL]";
+            msg += printFields(fields);
             msg += makeBasicHelpForErrorValidationFailure();
             doError(msg);
         }//ERROR?
@@ -259,12 +260,28 @@ public class UniqueValueValidator {
         if(null == op || op.isEmpty()){
             String msg = "";
             msg += "[INSTANCE VALIDATION FAIL]";
+            msg += printFields(fields);
             msg += makeBasicHelpForErrorValidationFailure();
             doError(msg);
         }//ERROR?
         
         return op;
         
+    }//FUNC::END
+    
+    /** Print out fields in debug messages so we can see what is going wrong.**/
+    private static String printFields(List<Field> fields){
+        String fName;
+        int i = 0;
+        String iStr;
+        String msg = "";
+        for(Field f : fields){
+            i++;
+            iStr = Integer.toString(i);
+            fName = f.getName();
+            msg += "F#" + iStr + "[" + fName + "]";
+        }//next f
+        return msg;
     }//FUNC::END
     
     /**
