@@ -7,6 +7,7 @@ import test.MyError;
 import test.config.constants.identifiers.FuncNameReg;
 import test.config.debug.DebugConfig;
 import test.config.debug.DebugConfigLogger;
+import test.dbDataAbstractions.entities.EntityUtil;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postRequest.Edict;
 import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
 import utils.ListUtil;
@@ -89,7 +90,7 @@ public class Chop {
             op[1] = Edict.clone(ed);
             op[1].ninja_id_list = rf.fake;
             op[1].comment+="[Fake Ninja's Found]";
-            op[1].comment+="Entries[" + ListUtil.print(rf.fake) + "]";
+            op[1].comment+="Entries[" + ListUtil.printLongs(rf.fake) + "]";
             op[1].isError = true;
         }//has fake
         

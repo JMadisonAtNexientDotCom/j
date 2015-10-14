@@ -30,17 +30,30 @@ public class ListUtil {
         
     }//FUNC::END
     
-    /** Serialize list for DEBUGGING. 
-     *  Human readable, not machine readable. **/
-    public static <T> String print(List<T> inList){
+    public static String printLongs(List<Long> inList){
         String op = "";
         op += "[";
-        for(T entry : inList){
-            op += entry.toString();
+        for(Long entry : inList){
+            op += Long.toString( entry );
             op += ","; //<--extra on end. Quick+dirty. Okay for human eyes.
         }//next
         op += "]";
         return op;
     }//FUNC::END
+    
+    
+    // delete this. Unable to get template version to work.
+    // /** Serialize list for DEBUGGING. 
+     //  *  Human readable, not machine readable. **/
+    //public static <T> String print(List<T> inList){
+    //    String op = "";
+    //    op += "[";
+    //    for(T entry : inList){
+    //        op += entry.toString();
+    //        op += ","; //<--extra on end. Quick+dirty. Okay for human eyes.
+    //    }//next
+     //   op += "]";
+    //    return op;
+    //}//FUNC::END
     
 }//CLASS::END
