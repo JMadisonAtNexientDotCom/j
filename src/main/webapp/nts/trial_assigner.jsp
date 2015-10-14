@@ -268,8 +268,8 @@
       
       //Create list of ninjas from whatever was selected in UI:
       function create_id_list(){
-        arr = $scope.formData.multipleSelect; //get all ninjas.
-        ids = [];
+        var arr = $scope.formData.multipleSelect; //get all ninjas.
+        var ids = [];
         for each(ninja in arr){
           ids.push(ninja.<%=I.OT().ENTITY.ID%>);
         }//next ninja
