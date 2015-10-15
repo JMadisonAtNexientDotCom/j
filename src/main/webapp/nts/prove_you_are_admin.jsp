@@ -15,6 +15,9 @@
 <!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
 
 <body>
+  
+  <img src="../jsLib/graphics/NexLogoCenteredFaded.svg" >
+  
   <div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="VI();" >
     <!-- Vertically + horizontally centered dialog -->
     <div class="horcen_parent" > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
