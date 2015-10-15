@@ -500,9 +500,18 @@ public class OwnerTransUtil {
         
         Session ses = TransUtil.getActiveTransactionSession();
         
+        //DEBUG: Create an object to store the primary keys. Having a feeling
+        //that primary key generation is not working, find problem before it
+        //gets to hibernate's stack:
+        List<Long> id_check;
+        if(DebugConfig.isDebugBuild){
+            id_check = new ArrayList<Long>(0);
+        }//
+        
         List<OwnerTable> stubs = new ArrayList<OwnerTable>(numStubs);
         OwnerTable cur;
         String iStr;
+        Long cur_id;
         for(int i = 0; i < numStubs; i++){
             iStr = Integer.toString(i);
             cur = new OwnerTable();
@@ -512,6 +521,15 @@ public class OwnerTransUtil {
             //Need this to force auto-numbering of the primary keys.
             //Which will be necessary for joining columns
             ses.save(cur); //<--Wrap in utility so fields set?
+            
+            //Debugging:
+            if(DebugConfig.isDebugBuild){
+                cur_id = cur.getId();
+                if(id_check.indexOf(cur_id) >= 0){
+                    doError("[IDAlreadyExists.PrimaryKeyGenerationFailing.]");
+                }//
+                id_check.add(cur_id); //add the key to our list:
+            }//Debug End.
             
             //We need to force hibernate to sync up with database so we
             //can retrieve a NEW primary key for the next OwnerTable() we make:
