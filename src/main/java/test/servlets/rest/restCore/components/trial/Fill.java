@@ -84,7 +84,8 @@ public class Fill {
             
             //validate and set ticket:
             Ticket.validateNaive(tik);
-            op.tickets.set(i, tik);
+            //dont use set: op.tickets.set(i, tik);
+            op.tickets.add(i,tik);
         }//next i
         
         //return output coffer:
