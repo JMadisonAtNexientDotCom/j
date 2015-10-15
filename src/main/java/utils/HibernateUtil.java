@@ -21,6 +21,7 @@ import test.dbDataAbstractions.entities.tables.SessionTable;
 import test.dbDataAbstractions.entities.tables.TestTable01;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.dbDataAbstractions.entities.tables.TransTable;
+import test.dbDataAbstractions.entities.tables.TrialTable;
 import test.debug.debugUtils.entity.EntityColumnDebugUtil;
 import test.debug.debugUtils.entity.EntityTableNameDebugUtil;
 
@@ -244,6 +245,7 @@ public class HibernateUtil {
         addAnnoEntity(mds, SessionTable.class );
         addAnnoEntity(mds, OwnerTable  .class );
         addAnnoEntity(mds, TransTable  .class );
+        addAnnoEntity(mds, TrialTable  .class );
         addAnnoEntity(mds, RiddleRhymeTruthTable.class );
         addAnnoEntity(mds, RiddleRhymeWrongTable.class );
     }//FUNC::END
