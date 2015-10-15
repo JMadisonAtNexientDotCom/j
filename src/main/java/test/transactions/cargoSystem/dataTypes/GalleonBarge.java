@@ -7,6 +7,7 @@ import test.config.debug.DebugConfigLogger;
 import test.dbDataAbstractions.entities.EntityUtil;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.transactions.cargoSystem.managerTypes.MerchantCaptain;
+import test.transactions.cargoSystem.ports.config.NegativePorts;
 
 /**
  * What is the GalleonBarge:
@@ -152,14 +153,49 @@ public class GalleonBarge {
        
     }//FUNC::END
     
+    /** Fills order on ship using the merchandise(entities) and the 
+     *  original order that was used to fetch the merchandise(entities).
+     *  
+     * @param order   :The order used to aquire the entities.
+     * @param entities:The merchandise aquired from the order.
+     */
     public void fillOrder(OrderSlip order, List<BaseEntity> entities){
         
-        //error checking:
-        assertPrimaryKeysEmptyButNotNull(order);
+        fillOrder_inputParamsErrorChecks(order,entities);
         
         //load up cargo and fill out order with ids:
         this.hold.addCage(entities, order);
-        order.primaryKey_ids = EntityUtil.StripPrimaryIDS(entities);
+        
+        //flag order as complete:
+        order.flagOrderAsCompleted();
+        
+    }//FUNC::END
+    
+    /** Error checks of func put into another function to reduce clutter. **/
+    private void fillOrder_inputParamsErrorChecks
+                                   (OrderSlip order, List<BaseEntity> entities){
+        if(order.loadKeysUsingPort){
+            //For if we used a PORT:
+            if(order.portID != NegativePorts.DO_NOT_USE)
+                                     {doError("[portShouldBeFlaggedToNotUse]");}
+            assertPrimaryKeysEmptyButNotNull(order);
+            if(order.areEntitiesLoaded != false){
+                doError("[KeysAreAboutToBeLoaded,FLAG SHOULD STILL BE FALSE]");
+            }
+            order.primaryKey_ids = EntityUtil.StripPrimaryIDS(entities);
+        }else{
+            if(order.portID <=(-1)){doError("[portShouldBe>=0]");}
+            if(null==order.primaryKey_ids || order.primaryKey_ids.isEmpty()){
+                doError("[primary keys should have already been set]");
+            }//
+            if(order.areKeysLoaded != true){
+                doError("[flag should reflect that keys have been loaded]");
+            }//
+        }//
+        
+        //last error check:
+        EntityUtil.assertEntitiesLineUpWithPrimaryKeys
+                                               (entities, order.primaryKey_ids);
         
     }//FUNC::END
     
@@ -179,6 +215,9 @@ public class GalleonBarge {
         long ent_id = entity.getId();
         if(ent_id <= 0){doError("[lazy fetch error maybe?]");}
         order.primaryKey_ids.add( ent_id );
+        
+        //flag order as complete:
+        order.flagOrderAsCompleted();
         
     }//FUNC::END
     

@@ -86,6 +86,39 @@ public class EntityUtil {
         
     }//FUNC::END
     
+    /** Makes sure the data is correctly paired. We want the original primary
+     *  keys to match up with the produced entities so that we can make
+     *  assumptions in calculations later that may only use the keys list
+     *  rather than the actual entities.
+     * @param ents :The entities in a list.
+     * @param keys :The primary ids of each entity in the other list.
+     */
+    public static void assertEntitiesLineUpWithPrimaryKeys
+                             (List<? extends BaseEntity> ents, List<Long> keys){
+        if(null == ents || null == keys){
+            doError("[Null_Lists_Are_Not_Allowed]");
+        }
+        
+        //Do not allows this, because empty list is sign of error:
+        if(ents.isEmpty() || keys.isEmpty()){
+            doError("[Empty_Lists_Are_Not_Allowed]");
+        }
+        int ent_len = ents.size();
+        int key_len = keys.size();
+        if(ent_len != key_len){doError("[CannotLineUp.DifferentSizes]");}
+        
+        //Iterate though lists and make sure data matches up:
+        for(int i = 0; i < ent_len; i++){
+            BaseEntity cur_ent = ents.get(i);
+            long ent_id = cur_ent.getId();
+            long key_id = keys.get(i);
+            if(ent_id != key_id){
+                doError("EntityIDMisMatchFound");
+            }//
+        }//next i.
+        
+    }//FUNC::END
+    
     /**-------------------------------------------------------------------------
     -*- Wrapper function to throw errors from this class.   --------------------
     -*- @param msg :Specific error message.                 --------------------

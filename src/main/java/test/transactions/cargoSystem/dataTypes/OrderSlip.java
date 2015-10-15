@@ -71,6 +71,11 @@ public class OrderSlip {
         return ( areKeysLoaded && areEntitiesLoaded);
     }//FUNC::END
     
+    public void flagOrderAsCompleted(){
+        areKeysLoaded     = true;
+        areEntitiesLoaded = true;
+    }//FUNC::END
+    
     //uncessarry and will just needlessly complexify things.
     //if order object is in agenda, we use it. End of story.
     //no pretending it doesn't exist. We are not going to
