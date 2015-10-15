@@ -912,7 +912,8 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
             //Without a FLUSH, this part only will work ONCE:
             //Need this to force auto-numbering of the primary keys.
             //Which will be necessary for joining columns
-            ses.save(cur); //<--Wrap in utility so fields set?
+            ses.saveOrUpdate(cur);
+            //ses.save(cur); //<--Wrap in utility so fields set?
             
             //Debugging:
             if(DebugConfig.isDebugBuild){
