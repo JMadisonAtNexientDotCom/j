@@ -235,7 +235,7 @@ public class NinjaTransUtil {
         ninja.setName(name);
         ninja.setPhone(phone);
         ninja.setEmail(email);
-        ninja.setPortfolioURL(portfolio_url);
+        ninja.setPortfolio_url(portfolio_url);
         
         //Set debug comment:
         ninja.setComment("last touched by setNinjaBasicInfo()");

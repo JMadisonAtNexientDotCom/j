@@ -60,6 +60,7 @@
 
 <div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="VI();" >
  
+  <img src="../jsLib/graphics/NexLogoCenteredFaded.svg" >
   
   <!-- Vertically + horizontally centered dialog -->
   <div class="horcen_parent" > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
@@ -218,6 +219,12 @@ app.controller('myCtrl', function($scope, $http, $window, spinnerService) {
 
     function onResponded(response){
       spinnerService.hide('html5spinner');
+      
+    
+      $scope.prev_ninja.name          = response.name;
+      $scope.prev_ninja.email         = response.email;
+      $scope.prev_ninja.phone         = response.phone;
+      $scope.prev_ninja.portfolio_url = response.portfolio_url;
     }
     
     $scope.goto_home = function(){

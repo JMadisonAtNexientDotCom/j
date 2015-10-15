@@ -169,7 +169,7 @@ public class NinjaCTRL extends BaseCTRL {
             oobNinja.setName("[END OF LIST]");
             oobNinja.setEmail("[END OF LIST]");
             oobNinja.setPhone(-989898);
-            oobNinja.setPortfolioURL("[END OF LIST]");
+            oobNinja.setPortfolio_url("[END OF LIST]");
             oobNinja.setIsError(true);
             pageOfNinjas.members.add(oobNinja);
         }else{ //OUT OF BOUNDS POSITIVE ^^^
@@ -213,7 +213,7 @@ public class NinjaCTRL extends BaseCTRL {
             errorNinja.setEmail("error@error.com");
             errorNinja.setPhone(-888);
             errorNinja.setName("Dr.Error");
-            errorNinja.setPortfolioURL("www.ERROR.com");
+            errorNinja.setPortfolio_url("www.ERROR.com");
             
             //EXIT TRANSACTION, and return error response:
             makeNinjaRecord_exitTransaction(ses, TransUtil.EXIT_NO_SAVING);

@@ -88,7 +88,7 @@ public class Clan extends CompositeEntityBase {
         errorNinja.setComment(com);
         errorNinja.setName(errorMSG);
         errorNinja.setEmail(errorMSG);
-        errorNinja.setPortfolioURL(errorMSG);
+        errorNinja.setPortfolio_url(errorMSG);
         errorNinja.setPhone(-999);
         errorNinja.setErrorCode(EntityErrorCodes.GENERIC_ERROR);
         errorNinja.setIsError(true);

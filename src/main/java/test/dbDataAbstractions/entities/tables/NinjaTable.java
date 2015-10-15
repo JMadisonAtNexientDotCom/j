@@ -100,8 +100,8 @@ public class NinjaTable extends BaseEntity {
   public String getEmail(){ return email;}
   public void setEmail(String email){ this.email = email;}
   
-  public String getPortfolioURL(){ return portfolio_url;}
-  public void setPortfolioURL(String portfolio_url)
+  public String getPortfolio_url(){ return portfolio_url;}
+  public void setPortfolio_url(String portfolio_url)
   { this.portfolio_url = portfolio_url;}
   
   //DELE: Now in base entity.
