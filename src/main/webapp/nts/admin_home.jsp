@@ -35,6 +35,7 @@
           <p> {{msg_for_user}} </p>
           <button data-ng-click="make_user();"   style="width:100%;">Make User</button>
           <button data-ng-click="give_test();"   style="width:100%;">Give Test</button>
+          <button data-ng-click="user_stats();"   style="width:100%;">User Stats</button>
           <button data-ng-click="merge_user();" style="width:100%;">TODO:Merge User</button>
           
           <!-- quick test to make sure we have relative .css URL correct. -->
@@ -83,6 +84,11 @@
     $scope.give_test = function(){
         msg_for_user = "Redirecting...";
         $window.location = "trial_assigner.jsp"; //try this.
+    };//FUNC::END
+    
+    $scope.user_stats = function(){
+        msg_for_user = "Redirecting...";
+        $window.location = "find_user_stats.jsp"; //try this.
     };//FUNC::END
     
     $scope.merge_user = function(){
