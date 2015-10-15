@@ -176,15 +176,18 @@ public class GalleonBarge {
                                    (OrderSlip order, List<BaseEntity> entities){
         if(order.loadKeysUsingPort){
             //For if we used a PORT:
-            if(order.portID != NegativePorts.DO_NOT_USE)
-                                     {doError("[portShouldBeFlaggedToNotUse]");}
+            if(order.portID <=(-1)){
+                doError("[portEnumIsNotValidForThisOrderType]");
+            }
             assertPrimaryKeysEmptyButNotNull(order);
             if(order.areEntitiesLoaded != false){
                 doError("[KeysAreAboutToBeLoaded,FLAG SHOULD STILL BE FALSE]");
             }
             order.primaryKey_ids = EntityUtil.StripPrimaryIDS(entities);
         }else{
-            if(order.portID <=(-1)){doError("[portShouldBe>=0]");}
+            //For if we used a TABLE, not a port:
+            if(order.portID != NegativePorts.DO_NOT_USE)
+                                     {doError("[portShouldBeFlaggedToNotUse]");}
             if(null==order.primaryKey_ids || order.primaryKey_ids.isEmpty()){
                 doError("[primary keys should have already been set]");
             }//
