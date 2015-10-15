@@ -500,44 +500,16 @@ public class OwnerTransUtil {
         
         Session ses = TransUtil.getActiveTransactionSession();
         
-        //DEBUG: Create an object to store the primary keys. Having a feeling
-        //that primary key generation is not working, find problem before it
-        //gets to hibernate's stack:
-        List<Long> id_check;
-        if(DebugConfig.isDebugBuild){
-            id_check = new ArrayList<Long>(0);
-        }//
         
-        List<OwnerTable> stubs = new ArrayList<OwnerTable>(numStubs);
-        OwnerTable cur;
-        String iStr;
-        Long cur_id;
-        for(int i = 0; i < numStubs; i++){
-            iStr = Integer.toString(i);
-            cur = new OwnerTable();
-            cur.setComment("[Touched by makeBatchOfOwnerStubs()]#:" + iStr);
-            
-            //Without a FLUSH, this part only will work ONCE:
-            //Need this to force auto-numbering of the primary keys.
-            //Which will be necessary for joining columns
-            ses.save(cur); //<--Wrap in utility so fields set?
-            
-            //Debugging:
-            if(DebugConfig.isDebugBuild){
-                cur_id = cur.getId();
-                if(id_check.indexOf(cur_id) >= 0){
-                    doError("[IDAlreadyExists.PrimaryKeyGenerationFailing.]");
-                }//
-                id_check.add(cur_id); //add the key to our list:
-            }//Debug End.
-            
-            //We need to force hibernate to sync up with database so we
-            //can retrieve a NEW primary key for the next OwnerTable() we make:
-            ses.flush();
-            
-            //put the current trial record into collection:
-            stubs.set(i, cur);
-        }//next i
+        
+        //This was giving me trouble. Created a generic helper function in
+        //transaction utility that will attempt to make this easier.
+        //It seems we can get the FIRST auto-generated key easily, but after
+        //that, we have no luck.
+        List<OwnerTable> stubs = TransUtil.makeStubsWithUniquePrimaryKeys
+                                                   (OwnerTable.class, numStubs);
+        
+        
         
         //return the list of trials.
         return stubs;

@@ -19,6 +19,7 @@ import test.globalState.SynchronizedConversationCounter;
 import test.globalState.SynchronizedGlobalSaveCounter;
 import test.globalState.SynchronizedLogCounter;
 import utils.HibernateUtil;
+import utils.ReflectionHelperUtil;
 
 
 /**The instance-able core of our static TransUtil. -----------------------------
@@ -872,6 +873,70 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         //return the criteria:
         return cri;
         
+    }//FUNC::END
+    
+    /** Creates stubs WITHIN DATABASE that will have unique primary keys.
+     *  AKA: The ID column will be unique. Making this function to handle,
+     *  because it has proven to be a deceptively hard challenge.
+     * @param <T> :The type of entity we are making a list of.
+     * @param tableClass :The [table/entity] we are [grabbing from / making]
+     * @param numStubs   :How many entities do you want?
+     * @return :Entities with only ID column set.
+     */
+    public <T extends BaseEntity> List<T> makeStubsWithUniquePrimaryKeys
+                         (Class<? extends BaseEntity> tableClass, int numStubs){
+        Session ses = getActiveTransactionSession();
+        
+        //HACK: To get all of the ID's we need, we will get the FIRST
+        //Auto-generated ID using ses.save on new entity. The other's must
+        //have their id's made using logic from this function.
+        
+        //DEBUG: Create an object to store the primary keys. Having a feeling
+        //that primary key generation is not working, find problem before it
+        //gets to hibernate's stack:
+        List<Long> id_check;
+        if(DebugConfig.isDebugBuild){
+            id_check = new ArrayList<Long>(0);
+        }//
+        
+        
+        List<T> stubs = new ArrayList<T>(numStubs);
+        T cur;
+        String iStr;
+        Long cur_id;
+        for(int i = 0; i < numStubs; i++){
+            iStr = Integer.toString(i);
+            cur = (T)ReflectionHelperUtil.makeInstanceUsingClass(tableClass);
+            cur.setComment("[Touched by makeBatchOfOwnerStubs()]#:" + iStr);
+            
+            //Without a FLUSH, this part only will work ONCE:
+            //Need this to force auto-numbering of the primary keys.
+            //Which will be necessary for joining columns
+            ses.save(cur); //<--Wrap in utility so fields set?
+            
+            //Debugging:
+            if(DebugConfig.isDebugBuild){
+                cur_id = cur.getId();
+                
+                //After ses.save(cur), the id was still bad:
+                if(cur_id <= 0){doError("weDontAllowZeroOrNegativeIDS");}
+                
+                if(id_check.indexOf(cur_id) >= 0){
+                    doError("[IDAlreadyExists.PrimaryKeyGenerationFailing.]");
+                }//
+                id_check.add(cur_id); //add the key to our list:
+            }//Debug End.
+            
+            //We need to force hibernate to sync up with database so we
+            //can retrieve a NEW primary key for the next OwnerTable() we make:
+            ses.flush();
+            
+            //put the current trial record into collection:
+            stubs.set(i, cur);
+        }//next i
+        
+        return stubs;
+                                                
     }//FUNC::END
     
     /**-------------------------------------------------------------------------

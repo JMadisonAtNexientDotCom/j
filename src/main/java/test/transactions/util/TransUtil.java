@@ -220,4 +220,9 @@ public class TransUtil {
         return i().returnExistingPrimaryKeys
              (      tableClass,        columnName,            possiblyValidIDs);
     }//WRAPPER::END
+             
+    public static <T extends BaseEntity> List<T> makeStubsWithUniquePrimaryKeys
+                         (Class<? extends BaseEntity> tableClass, int numStubs){
+        return i().makeStubsWithUniquePrimaryKeys(    tableClass,     numStubs);
+    }//WRAPPER::END
 }//END::CLASS
