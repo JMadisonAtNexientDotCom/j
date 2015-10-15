@@ -938,7 +938,8 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
             ses.flush();
             
             //put the current trial record into collection:
-            stubs.set(i, cur);
+            //DO NOT USE SET! Use ADD. stubs.set(i, cur);
+            stubs.add(i,cur);
         }//next i
         
         return stubs;
