@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
+import test.MyError;
 import test.config.constants.EntityErrorCodes;
 import test.config.constants.identifiers.VarNameReg;
 
@@ -94,7 +95,11 @@ public class KernelEntity implements Serializable{
      *  primary key used by hibernate.
      * @param id :The ID value to set.
      */
-    public void setId(long id){ this.id = id;}
+    public void setId(long id)
+    { 
+        if(id <= 0){doError("IDMustBeNonZeroPositive");}
+        this.id = boxUpLong(id);
+    }
     
      //Boilerplate implementation of Serializable interface:
     //Usage: Keep compiler happy.
@@ -157,6 +162,16 @@ public class KernelEntity implements Serializable{
         return errorCode;
     }//FUNC::END
     
-    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = KernelEntity.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw MyError.make(clazz, err);
+    }//FUNC::END
     
 }//CLASS::END
