@@ -106,9 +106,7 @@ public class DryDock {
         //If all ninjas do not exist. We will error out before any of the
         //needed data for the request is made:
         OrderSlip nin_order;
-        nin_order = OrderSlip.makeUsingPortID(NinjaPorts.FIND_BATCH_OF_NINJAS);
-        nin_order.supplier = NinjaTable.class;
-        nin_order.specs.add(VarNameReg.NUM_NINJAS, numNinjas);
+        nin_order = OrderSlip.makeUsingTable(NinjaTable.class, ids_of_ninjas);
         barge.agenda.addOrder(nin_order);
       
         //Fill out an order for tokens.

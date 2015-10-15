@@ -17,6 +17,32 @@ import test.transactions.cargoSystem.ports.TrialPorts;
  */
 public class MasterPortList {
     
+    //TOKEN PORTS:
+    @UniqueStaticValue
+    public static final short CREATE_NEW_TOKEN     = 1;
+    @UniqueStaticValue
+    public static final short MAKE_BATCH_OF_TOKENS = 2;
+    
+    //NINJA PORTS:
+    @UniqueStaticValue
+    public static final short GET_ONE_NINJA_BY_ID  = 3;
+    //delete//@UniqueStaticValue
+    //delete//public static final short FIND_BATCH_OF_NINJAS = 4;
+            
+    //TRIAL PORTS:
+    @UniqueStaticValue
+    public static final short MAKE_BATCH_OF_TRIAL_STUBS = 4;
+    
+    //OWNER PORTS:
+    @UniqueStaticValue
+    public static final short MAKE_BATCH_OF_OWNER_STUBS = 5;
+   
+    
+    /** Check sum so I can validate my _masterIndexValidatorTable extraction
+     *  is working properly. **/
+    public static final long  LONG_CHECK_SUM = 5;
+    
+    
     /** All of the values within this enum class are cached into here
      *  so that we can easily look up indicies and validate that they
      *  are valid port function handles. **/
@@ -48,31 +74,6 @@ public class MasterPortList {
         }//Error?
         
     }//FUNC::END
-    
-    //TOKEN PORTS:
-    @UniqueStaticValue
-    public static final short CREATE_NEW_TOKEN     = 1;
-    @UniqueStaticValue
-    public static final short MAKE_BATCH_OF_TOKENS = 2;
-    
-    //NINJA PORTS:
-    @UniqueStaticValue
-    public static final short GET_ONE_NINJA_BY_ID  = 3;
-    @UniqueStaticValue
-    public static final short FIND_BATCH_OF_NINJAS = 4;
-            
-    //TRIAL PORTS:
-    @UniqueStaticValue
-    public static final short MAKE_BATCH_OF_TRIAL_STUBS = 5;
-    
-    //OWNER PORTS:
-    @UniqueStaticValue
-    public static final short MAKE_BATCH_OF_OWNER_STUBS = 6;
-   
-    
-    /** Check sum so I can validate my _masterIndexValidatorTable extraction
-     *  is working properly. **/
-    public static final long  LONG_CHECK_SUM = 6;
     
     /**-------------------------------------------------------------------------
      *  throws error if the portID is invalid.
@@ -112,9 +113,9 @@ public class MasterPortList {
         case           GET_ONE_NINJA_BY_ID:
             NinjaPorts.get_one_ninja_by_id(barge, order);
             bc++; break;
-        case           FIND_BATCH_OF_NINJAS:
-            NinjaPorts.find_batch_of_ninjas(barge, order);
-            bc++; break;
+        //delete//case           FIND_BATCH_OF_NINJAS:
+        //delete//    NinjaPorts.find_batch_of_ninjas(barge, order);
+        //delete//    bc++; break;
         case           MAKE_BATCH_OF_TOKENS:
             TokenPorts.make_batch_of_tokens(barge, order);
             bc++; break;

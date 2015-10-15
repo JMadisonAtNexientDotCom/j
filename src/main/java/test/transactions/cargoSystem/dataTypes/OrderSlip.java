@@ -3,6 +3,8 @@ package test.transactions.cargoSystem.dataTypes;
 import java.util.ArrayList;
 import java.util.List;
 import test.MyError;
+import test.dbDataAbstractions.entities.tables.NinjaTable;
+import test.transactions.cargoSystem.ports.config.NegativePorts;
 import test.transactions.util.TransValidateUtil;
 import utils.ArrayUtil;
 
@@ -122,7 +124,7 @@ public class OrderSlip {
             doError("[another mis-match for dependency flags]");
         }//
         
-    }//FUNC::END
+    }//FUNC::END 
     
     private static <T> boolean doesArrayHaveData(T[] arr){
         return ArrayUtil.doesArrayHaveData(arr);
@@ -180,6 +182,33 @@ public class OrderSlip {
         
         //to get this to work, you may have to edit the lookup table.
         //op.supplier          = resolvePortIDToSupplyingTableEntity(inPortID);
+        return op;
+    }//FUNC::END
+    
+    /** Creates an order that is configured to grab directly from a table,
+     *  rather than go through a specific port.
+     * @param tableEntity    :The supplier table that we grab entities from.
+     * @param primaryKey_ids :The primary keys of those entities/records.
+     * @return :See above. **/
+    public static OrderSlip makeUsingTable
+                                 (Class tableEntity, List<Long> primaryKey_ids){
+    
+        //basic error check inputs:
+        if(null == tableEntity){doError("TableEntityIsNull");}
+        if(null == primaryKey_ids){doError("nullprimaryKeyIds423432");}
+        if(primaryKey_ids.isEmpty()){doError("primaryKeysAreEmpty34234");}
+                                     
+        OrderSlip op = new OrderSlip();
+        op.supplier = tableEntity;
+        op.primaryKey_ids = primaryKey_ids;
+        op.areKeysLoaded  = true;
+        op.specs          = SpecialInstructionsStickyNote.makeReadyFill();
+        op.dependencies   = new OrderSlip[0];
+        
+        //We are NOT going to load using a port!
+        op.portID            = NegativePorts.DO_NOT_USE;
+        op.loadKeysUsingPort = false;
+        
         return op;
     }//FUNC::END
     
@@ -273,6 +302,28 @@ public class OrderSlip {
             msg += "supplier on order:[" + otNme + "]";
             doError(msg);
         }//FUNC::END
+    }//FUNC::END
+    
+    /**
+     * Validate that order slip is correctly configured to fetch directly
+     * from a table, rather than going to a port.
+     * @param order :The order slip to validate. **/
+    public static void assertIsTableOrder(OrderSlip order){
+        if(null == order){doError("[null order cannot be valid.]");}
+        if(order.areEntitiesLoaded){doError("already filled");}
+        if(false == order.areKeysLoaded){doError("should be flagged true!");}
+        if(null == order.primaryKey_ids || order.primaryKey_ids.size() <= 0){
+            doError("primary keys should exist to extract from table");
+        }
+        if(order.portID != NegativePorts.DO_NOT_USE){
+            doError("portID should be flagged as DO NOT USE!");
+        }
+        
+        //make sure a supplier table exists, and that it is a base entity:
+        if(null == order.supplier){doError("SuppliertablecannotBeNull");}
+        TransValidateUtil.assertIsEntityClass(order.supplier);
+        
+        //specs + dependencies allowed to exist.
     }//FUNC::END
     
     private static String getNameOfPossiblyNullClass(Class clazz){

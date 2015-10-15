@@ -3,6 +3,7 @@ package test.transactions.cargoSystem.managerTypes;
 import annotations.IndexedFunctionTable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 import test.MyError;
 import test.config.debug.DebugConfig;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
@@ -11,6 +12,7 @@ import test.transactions.cargoSystem.dataTypes.GalleonBarge;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
 import test.transactions.cargoSystem.ports.TokenPorts;
 import test.transactions.cargoSystem.ports.config.MasterPortList;
+import test.transactions.util.TransUtil;
 import utils.ArrayUtil;
 
 /**
@@ -170,7 +172,23 @@ public class BeaconLightHouse {
      * specified on the order slip. **/
     private static void loadBargeUsingTable
                                           (GalleonBarge barge, OrderSlip order){
+                                              
+        //Error Check Inputs:
+        if(null == barge){doError("[bargeIsNull-53532]");}
+        if(null == order){doError("[orderIsNull-34532]");}
+        OrderSlip.assertIsTableOrder(order);
         
+        //Get entitites:
+        Class      table  = order.supplier;      
+        String     column = BaseEntity.ID;
+        List<Long> values = order.primaryKey_ids;
+        List<BaseEntity> ents = TransUtil.getEntitiesUsingListOfLong
+                                                        (table, column, values);
+        
+        //Load entities into barge:
+        barge.fillOrder(order, ents);
+                                              
+                                              
     }//FUNC::END
     
     /**-------------------------------------------------------------------------

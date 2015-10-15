@@ -13,23 +13,28 @@ import test.transactions.util.TransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
 
 /**
- *
- * @author jmadison
+ * Didactic functions that take a barge+order. Used to load the barge 
+ * (cargoShip) with the current order. Port is an analogy for a maritime port.
+ * @author jmadison :Pre:2015.10.15 (Oct15th,Year2015)
  */
 public class NinjaPorts {
     
     public static final short GET_ONE_NINJA_BY_ID = 
                MasterPortList.GET_ONE_NINJA_BY_ID; 
     
-    public static final short FIND_BATCH_OF_NINJAS = 
-               MasterPortList.FIND_BATCH_OF_NINJAS;
+    //delete//public static final short FIND_BATCH_OF_NINJAS = 
+    //delete//           MasterPortList.FIND_BATCH_OF_NINJAS;
     
-    /**
-     * Loads the cargo ship with the ninja_ids specified on the orderslip.
-     * If ANY specified ninjas do NOT exist, an error will be thrown.
-     * @param barge :The cargo ship being loaded.
-     * @param order :The order for ninjas being filled.
-     */
+    
+    //Should really be using a generic order that loads from a table
+    //than this function.
+    /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    //
+    // Loads the cargo ship with the ninja_ids specified on the orderslip.
+    // If ANY specified ninjas do NOT exist, an error will be thrown.
+    // @param barge :The cargo ship being loaded.
+    // @param order :The order for ninjas being filled.
+    //
     public static void find_batch_of_ninjas
                                           (GalleonBarge barge, OrderSlip order){
         preFillCheck(order);
@@ -63,6 +68,7 @@ public class NinjaPorts {
         //DONE!
         
     }//FUNC::END
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
     
     /** Gets one ninja, using ID. Order is filled out by having a SPEC
      *  that specifies a variable ninja_id with a value of the ninja's id.
