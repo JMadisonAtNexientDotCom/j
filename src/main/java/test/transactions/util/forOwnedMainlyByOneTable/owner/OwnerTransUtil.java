@@ -507,9 +507,15 @@ public class OwnerTransUtil {
             iStr = Integer.toString(i);
             cur = new OwnerTable();
             cur.setComment("[Touched by makeBatchOfOwnerStubs()]#:" + iStr);
+            
+            //Without a FLUSH, this part only will work ONCE:
             //Need this to force auto-numbering of the primary keys.
             //Which will be necessary for joining columns
             ses.save(cur); //<--Wrap in utility so fields set?
+            
+            //We need to force hibernate to sync up with database so we
+            //can retrieve a NEW primary key for the next OwnerTable() we make:
+            ses.flush();
             
             //put the current trial record into collection:
             stubs.set(i, cur);
