@@ -22,7 +22,7 @@ import test.transactions.cargoSystem.transactionBuilder.DryDock;
  * FILL -- Fills the INVALID booked order, and the VALID booked order.
  * JOIN -- Joins the invalid+valid back together into one output object.
  *
- * @author jmadison :2015.10.13
+ * @author jmadison :2015.10.13 (October,Thirteenth,Tuesay.Year2015)
  ----------------------------------------------------------------------------**/
 public class Fill {
     
