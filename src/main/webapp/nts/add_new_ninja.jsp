@@ -11,118 +11,113 @@
     </head>
 <body>
 
-<div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="apiCallUsed='ONE';" >
+<div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="VI();" >
  
+  <img src="../jsLib/graphics/NexLogoCenteredFaded.svg" >
   
   <!-- Vertically + horizontally centered dialog -->
   <div class="horcen_parent" > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
   <div class="horcen_child"  > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
   <div class="vertcen_parent"> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
   <div class="vertcen_child" > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
-    <div id="roundeddivs_wireframe" style="width:200px;">
+    
+    <div id="PACK_OF_TWO" style="width:500px;margin-left:-250px;">
+    
+      <div id="roundeddivs_wireframe" style="width:200px;float:left;">
 
-      <!-- The table with title at head of container. -->
-      <div id="roundeddivs_headertab" align="center">
-        <h2 style="color:#fff">Add Ninja:</h2>
-      </div>
-        
-      <!-- F is for FORM FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
-      <!-- FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
-      <form name="myForm">
-      <p>New <%=I.DN().NINJA%> Registration:</p>
-      <p>Name : <input type="text" name="iName"  ng-model="nName" placeholder="Enter name here" style="width:100%;" ></p>
-
-      <!-- using number type is not what I want for phone numbers. It gives me a spinner! -->
-      <p>Phone: <input type="text" name="iPhone" ng-model="nPhone" style="width:100%;"    
-                       ng-required="number"
-                       ng-minlength="3"
-                       ng-maxlength="13"
-                       placeholder="##########">
-          <span class="error" ng-show="myForm.iPhone.$error.minlength">Too short!</span>
-          <span class="error" ng-show="myForm.iPhone.$error.maxlength">Too long!</span>
-      </p>
-      <p>Email: <input type="text" name="iEmail" ng-model="nEmail" placeholder="Required@Email.com" style="width:100%;" ></p>
-      
-      <p>Website / Portfolio / Resume URL: </p>
-      <p><input type="text" name="iPortfolio" ng-model="nPortfolio" placeholder="www.Zombo.com" style="width:100%;" ></p>
-      <button data-ng-click="onButtonClicked()" style="width:100%;" >REGISTER NINJA</button>
-
-      <!--  <textarea readonly>{{apiCallUsed}}</textarea> -->
-      </form>
-      <!-- FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
-      
-
-      <!-- quick test to make sure we have relative .css URL correct. -->
-      <spinner name="html5spinner">  
-        <div class="overlay"></div>
-        <div class="spinner">
-              <div class="double-bounce1"></div>
-              <div class="double-bounce2"></div>
+        <!-- The table with title at head of container. -->
+        <div id="roundeddivs_headertab" align="center">
+          <h2 style="color:#fff">Add Ninja:</h2>
         </div>
-        <div class="please-wait">Test of loading spinner...</div>
-      </spinner> 
 
-    </div>
-      
-    <div id="roundeddivs_wireframe" style="width:200px;">
+        <!-- F is for FORM FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
+        <!-- FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
+        <form name="myForm">
+        <p>New Ninja Registration:</p>
+        <p>
+          Name : <input type="text" name="iName"  ng-model="nName" 
+                        placeholder="Enter name here" style="width:100%;" >
+        </p>
 
-      <!-- The table with title at head of container. -->
-      <div id="roundeddivs_headertab" align="center">
-        <h2 style="color:#fff">Add Ninja:</h2>
-      </div>
+        <!-- using number type is not what I want for phone numbers. It gives me a spinner! -->
+        <p>Phone: <input type="text" 
+                         name="iPhone" 
+                         ng-model="nPhone" 
+                         style="width:100%;"    
+                         ng-required="number"
+                         ng-minlength="3"
+                         ng-maxlength="13"
+                         placeholder="##########">
+            <span class="error" ng-show="myForm.iPhone.$error.minlength">
+              Too short!
+            </span>
+            <span class="error" ng-show="myForm.iPhone.$error.maxlength">
+              Too long!
+            </span>
+        </p>
+        <p>
+           Email: <input type="text" name="iEmail" ng-model="nEmail" 
+           placeholder="Required@Email.com" style="width:100%;" >
+        </p>
+
+        <p>Website / Portfolio / Resume URL: </p>
+        <p><input type="text" name="iPortfolio" ng-model="nPortfolio" placeholder="www.Zombo.com" style="width:100%;" ></p>
+        <button data-ng-click="onButtonClicked()" style="width:100%;" >REGISTER NINJA</button>
+
+        <!--  <textarea readonly>{{apiCallUsed}}</textarea> -->
+        </form>
+        <!-- FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
         
-      <!-- F is for FORM FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
-      <!-- FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
-      <form name="myForm">
-      <p>New <%=I.DN().NINJA%> Registration:</p>
-      <p>Name : <input type="text" name="iName"  ng-model="nName" placeholder="Enter name here" style="width:100%;" ></p>
+        <!-- quick test to make sure we have relative .css URL correct. -->
+        <spinner name="html5spinner">  
+          <div class="overlay"></div>
+          <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+          </div>
+          <div class="please-wait">Test of loading spinner...</div>
+        </spinner> 
+      </div> <!-- SIGN UP FORM DIV ABOVE -->
+    
+    
+      <div id="roundeddivs_wireframe" ng-show="has_a_ninja_been_made"
+      style="width:300px;float:right;border-color:#FF8800;">
 
-      <!-- using number type is not what I want for phone numbers. It gives me a spinner! -->
-      <p>Phone: <input type="text" name="iPhone" ng-model="nPhone" style="width:100%;"    
-                       ng-required="number"
-                       ng-minlength="3"
-                       ng-maxlength="13"
-                       placeholder="##########">
-          <span class="error" ng-show="myForm.iPhone.$error.minlength">Too short!</span>
-          <span class="error" ng-show="myForm.iPhone.$error.maxlength">Too long!</span>
-      </p>
-      <p>Email: <input type="text" name="iEmail" ng-model="nEmail" placeholder="Required@Email.com" style="width:100%;" ></p>
-      
-      <p>Website / Portfolio / Resume URL: </p>
-      <p><input type="text" name="iPortfolio" ng-model="nPortfolio" placeholder="www.Zombo.com" style="width:100%;" ></p>
-      <button data-ng-click="onButtonClicked()" style="width:100%;" >REGISTER NINJA</button>
-
-      <!--  <textarea readonly>{{apiCallUsed}}</textarea> -->
-      </form>
-      <!-- FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
-      
-
-      <!-- quick test to make sure we have relative .css URL correct. -->
-      <spinner name="html5spinner">  
-        <div class="overlay"></div>
-        <div class="spinner">
-              <div class="double-bounce1"></div>
-              <div class="double-bounce2"></div>
+        <!-- The table with title at head of container. -->
+        <div id="roundeddivs_headertab" align="center" style="background:#FF8800;">
+          <h2 style="color:#fff">Just Made:</h2>
         </div>
-        <div class="please-wait">Test of loading spinner...</div>
-      </spinner> 
 
-    </div>
-      
-      
-      
+        <!-- F is for FORM FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
+        <!-- FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
+        <form name="myForm">
+        
+          <p>Name : <b>{{prev_ninja.name}}</b> </p>
+
+        <!-- using number type is not what I want for phone numbers. It gives me a spinner! -->
+        <p>Phone: <b>{{prev_ninja.phone}}</b> </p>
+        <p>Email: <b>{{prev_ninja.email}}</b> </p>
+
+        <p>Website / Portfolio / Resume URL: </p>
+        <p><b>{{prev_ninja.portfolio_url}}</b></p>
+        
+        <p><i>You can make more, or:</i></p>
+        <button data-ng-click="goto_home()" 
+        style="width:100%;" >
+          GOTO ADMIN HOME
+        </button>
+
+        <!--  <textarea readonly>{{apiCallUsed}}</textarea> -->
+        </form>
+        <!-- FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
+      </div> <!-- JUST MADE DIV -->
+    
+    </div> <!-- PACK_OF_TWO -->
+    
   </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
   </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
   </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
   </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
-  
-  
-  
-
-
-
-
-
 </div> <!-- APP::END -->
 
 <script>
@@ -137,6 +132,16 @@ app.controller('myCtrl', function($scope, $http, spinnerService) {
 
     //set function reference:
     $scope.onButtonClicked = onRegisterButtonClick;
+    
+    $scope.VI = function(){
+      $scope.has_a_ninja_been_made=false;
+      $scope.apiCallUsed='ONE';
+      $scope.prev_ninja = {};
+      $scope.prev_ninja.<%=I.OT().NINJA.NAME%> = "MASTER SPLINTER";
+      $scope.prev_ninja.<%=I.OT().NINJA.EMAIL%>= "NINJA@EMAIL.COM";
+      $scope.prev_ninja.<%=I.OT().NINJA.PHONE%>= "555-555-555";
+      $scope.prev_ninja.<%=I.OT().NINJA.PORTFOLIO_URL%> = "ENTER_THE_NINJA.COM";
+    };//FUNC::END
 
     function onRegisterButtonClick(){
         spinnerService.show('html5spinner');
@@ -162,9 +167,19 @@ app.controller('myCtrl', function($scope, $http, spinnerService) {
     }
 
     function onResponded(response){
-	//$scope.theStuffWeReallyNeed = response;
-	spinnerService.hide('html5spinner');
+      spinnerService.hide('html5spinner');
+      
+      $scope.has_a_ninja_been_made    = true;
+      $scope.prev_ninja.<%=I.OT().NINJA.NAME%>          = response.<%=I.OT().NINJA.NAME%>;
+      $scope.prev_ninja.<%=I.OT().NINJA.EMAIL%>         = response.<%=I.OT().NINJA.EMAIL%> ;
+      $scope.prev_ninja.<%=I.OT().NINJA.PHONE%>         = response.<%=I.OT().NINJA.PHONE%> ;
+      $scope.prev_ninja.<%=I.OT().NINJA.PORTFOLIO_URL%> = response.<%=I.OT().NINJA.PORTFOLIO_URL%> ;
     }
+    
+    $scope.goto_home = function(){
+      msg_for_user     = "Redirecting...";
+      $window.location = "admin_home.jsp";
+    };//FUNC::END
 
 });
 </script>

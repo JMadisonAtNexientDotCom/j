@@ -100,6 +100,7 @@ public class NinjaTable extends BaseEntity {
   public String getEmail(){ return email;}
   public void setEmail(String email){ this.email = email;}
   
+  //setter needs to have this exact name to serialize to name of variable:
   public String getPortfolio_url(){ return portfolio_url;}
   public void setPortfolio_url(String portfolio_url)
   { this.portfolio_url = portfolio_url;}
