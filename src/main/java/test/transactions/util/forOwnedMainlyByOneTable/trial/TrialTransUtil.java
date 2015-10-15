@@ -120,7 +120,13 @@ public class TrialTransUtil {
             ses.save(cur);
             
             //put the current trial record into collection:
-            trials.set(i, cur);
+            //trials.set(i, cur); <--why no work? allocated enough space??
+            //http://stackoverflow.com/questions/17301329/
+            //java-arraylist-indexoutofboundsexception-despite-giving-an
+            //                                                 -initial-capacity
+            trials.add(i, cur);
+            
+            
         }//next i
         
         //return the list of trials.
