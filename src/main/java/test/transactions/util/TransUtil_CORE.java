@@ -909,6 +909,11 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
             cur = (T)ReflectionHelperUtil.makeInstanceUsingClass(tableClass);
             cur.setComment("[Touched by makeBatchOfOwnerStubs()]#:" + iStr);
             
+            //NOTE: saveOrUpdate or save will FAIL if you have columns in the
+            //database that are NOT ALLOWED TO BE NULL! While I do not like
+            //having null in my fields, the process I am using of creating stubs
+            //and then filling them out later REQUIRES non-null fields.
+            //
             //Without a FLUSH, this part only will work ONCE:
             //Need this to force auto-numbering of the primary keys.
             //Which will be necessary for joining columns
