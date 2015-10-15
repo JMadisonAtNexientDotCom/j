@@ -195,7 +195,6 @@ public class UniqueValueValidator {
     public static List<Short> validateStaticShorts(Class clazz){
         
         Class[] types = getShortTypes();
-        validateInstanceTypes(clazz, types);
         return validateStaticTypes(clazz, types); //<--static check.
        
     }//FUNC::END
@@ -203,7 +202,6 @@ public class UniqueValueValidator {
     public static List<Short> validateInstanceShorts(Class clazz){
         
         Class[] types = getShortTypes();
-        validateInstanceTypes(clazz, types);
         return validateInstanceTypes(clazz, types); //<--instance check.
        
     }//FUNC::END
