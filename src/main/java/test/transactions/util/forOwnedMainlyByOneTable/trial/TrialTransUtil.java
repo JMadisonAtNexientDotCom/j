@@ -100,7 +100,7 @@ public class TrialTransUtil {
      * @return :See above.
      */
     public static List<TrialTable> makeBatchOfTrialStubs
-        (int num_trials, int kind, long allotted){
+        (int num_trials, long kind, long allotted){
         TransUtil.insideTransactionCheck();
         
         Session ses = TransUtil.getActiveTransactionSession();
