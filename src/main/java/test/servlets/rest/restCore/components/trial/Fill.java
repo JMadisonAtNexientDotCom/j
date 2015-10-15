@@ -2,10 +2,18 @@ package test.servlets.rest.restCore.components.trial;
 
 import annotations.PairedStaticFunction;
 import annotations.Verbatim;
+import java.util.ArrayList;
+import java.util.List;
 import test.MyError;
 import test.config.constants.identifiers.FuncNameReg;
+import test.dbDataAbstractions.entities.tables.NinjaTable;
+import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postRequest.Edict;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.Coffer;
+import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.Ticket;
+import test.transactions.cargoSystem.dataTypes.EntityCage;
+import test.transactions.cargoSystem.dataTypes.GalleonBarge;
+import test.transactions.cargoSystem.transactionBuilder.DryDock;
 
 /**-----------------------------------------------------------------------------
  * Process:
@@ -42,10 +50,46 @@ public class Fill {
         
         if(ed==null){return null;}
 
+        //Delete this block of comments later:
         //TODO: Actual logic:
-        Coffer op = Coffer.makeStubCofferUsingEdict(ed);
+        //Coffer op = Coffer.makeStubCofferUsingEdict(ed);
+        //return op;
+        
+        //Create a cargo-ship configured to carry out the order,
+        //Then instruct ship to carry out order:
+        GalleonBarge barge = DryDock.dispatch_trials(ed);
+        barge.embark();
+        EntityCage nin_cage = barge.hold.getCageUsingSupplier(NinjaTable.class);
+        EntityCage tok_cage = barge.hold.getCageUsingSupplier(TokenTable.class);
+        List<NinjaTable> ninjas = nin_cage.getMerchandise();
+        List<TokenTable> tokens = tok_cage.getMerchandise();
+        if(ninjas.size() != tokens.size()){
+            doError("Orders should have been of equal sizes!");
+        }//Error!
+        
+        //Extract contents of order and pack into a coffer:
+        int len = ninjas.size();
+        Coffer op = new Coffer();
+        op.comment = "Touched by Fill.dispatch_tokens_process_valid";
+        op.tickets = new ArrayList<Ticket>(len);
+        for(int i = 0; i < len; i++){
+            NinjaTable nin = ninjas.get(i);
+            TokenTable tok = tokens.get(i);
+            
+            //populate ticket:
+            Ticket tik     = new Ticket();
+            tik.ninja_id   = nin.getId();
+            tik.ninja_name = nin.getName();
+            tik.token_hash = tok.getToken_hash();
+            
+            //validate and set ticket:
+            Ticket.validateNaive(tik);
+            op.tickets.set(i, tik);
+        }//next i
+        
+        //return output coffer:
         return op;
-
+        
     }//FUNC::END
     
     /** Process BOGUS request. **/

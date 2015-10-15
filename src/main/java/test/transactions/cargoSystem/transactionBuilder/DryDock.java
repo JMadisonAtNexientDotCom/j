@@ -8,6 +8,7 @@ import test.dbDataAbstractions.entities.tables.NinjaTable;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.dbDataAbstractions.entities.tables.TrialTable;
+import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postRequest.Edict;
 import test.transactions.cargoSystem.dataTypes.GalleonBarge;
 import test.transactions.cargoSystem.dataTypes.OrderArg;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
@@ -84,7 +85,10 @@ public class DryDock {
      * @return :Returns a ship ready to take on the task it has been
      *          configured for.
      */
-    public static GalleonBarge dispatch_trials(List<Long> ids_of_ninjas){
+    public static GalleonBarge dispatch_trials(Edict theEdict){
+        
+        if(null == theEdict){doError("inputted edict is null");}
+        List<Long> ids_of_ninjas = theEdict.ninja_id_list;
         
         //Error check inputs:
         if(null == ids_of_ninjas){doError("null ninjas input");}
@@ -120,9 +124,11 @@ public class DryDock {
         OrderSlip tri_order;
         tri_order = OrderSlip.makeUsingPortID(TrialPorts.MAKE_BATCH_OF_TRIAL_STUBS);
         tri_order.supplier = TrialTable.class;
-        tri_order.specs.add (VarNameReg.KIND, TRIAL_KIND_ENUMS.RIDDLE_TRIAL_);
+        tri_order.specs.add (VarNameReg.KIND, theEdict.trial_kind);
         tri_order.specs.add (VarNameReg.NUM_TRIALS, numTrials);
-        tri_order.specs.add (VarNameReg.ALLOTTED, TimeMathUtil.minutesToMS(30));
+        int  minutes   = (int)(theEdict.duration_in_minutes);
+        long millisecs = TimeMathUtil.minutesToMS(minutes);
+        tri_order.specs.add (VarNameReg.ALLOTTED, millisecs);
         barge.agenda.addOrder(tri_order);
         
         //Make sure each ninja owns one of the tokens, and thus, owns the

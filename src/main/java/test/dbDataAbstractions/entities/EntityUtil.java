@@ -29,6 +29,33 @@ public class EntityUtil {
         
         return op;
     }//FUNC::END
+            
+    /**  **/
+    /**
+     * Takes base entities and UPCASTS them to their actual type.
+     * @param <T> :The type we want to cast to.
+     * @param ents:List of generic base entities.
+     * 
+     * //Maybe not needed? Delete if you read this later.
+     * @param upcastType:The type we want to cast to.
+     *        Class<T> upcastType
+     * 
+     * @return 
+     */
+    public static <T> List<T> upCastEntities
+        (List<? extends BaseEntity> ents){
+              
+        List<T> op = new ArrayList<T>();
+        int len = ents.size();
+        T cur_specific_entity_type;
+        for(int i = 0; i < len; i++){
+            cur_specific_entity_type = (T)ents.get(i); //cast to type.
+            op.add(cur_specific_entity_type);
+        }//next i
+        
+        return op;                        
+                                
+    }//FUNC::END
     
     /** I swear I have made something like this before. Not happy that I am
      *  duplicating code possibly.

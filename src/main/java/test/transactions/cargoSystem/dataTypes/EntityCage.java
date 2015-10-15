@@ -3,6 +3,7 @@ package test.transactions.cargoSystem.dataTypes;
 
 import java.util.ArrayList;
 import java.util.List;
+import test.dbDataAbstractions.entities.EntityUtil;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 
 
@@ -24,6 +25,11 @@ public class EntityCage {
      * that are merchandise for sale. A bit morbid of
      * an analogy, but I think it will be helpful to remember. **/
     public List<BaseEntity> merchandise;
+    
+    /**  Handles casting for you. **/
+    public <T> List<T> getMerchandise(){
+        return EntityUtil.upCastEntities(merchandise);
+    }//FUNC::END
     
     /** The original order slip that was used 
      *  to create this batch of entities. **/

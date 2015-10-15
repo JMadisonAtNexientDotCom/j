@@ -5,6 +5,7 @@ import annotations.Verbatim;
 import annotations.VerbatimValidatorUtil;
 import primitives.Flaggable;
 import primitives.TypeWithCommentBase;
+import test.MyError;
 import test.config.constants.EntityErrorCodes;
 
 /**
@@ -78,6 +79,34 @@ public class Ticket extends TypeWithCommentBase{
         op.ninja_id = (-160);
         op.ninja_name = "STUB:[" + msg + "]";
         return op;
+    }//FUNC::END
+    
+    /**
+     * Does a naive validation of ticket. Checks for basic integrity,
+     * but will NOT confirm that this data actually exists in database.
+     * @param t :The ticket to check.
+     */
+    public static void validateNaive(Ticket t){
+        if(t.isError){doError("If error, not valid ticket.");}
+        if(t.ninja_id <= 0){doError("ninja id indicative of lazy fetch");}
+        if(null==t.ninja_name || t.ninja_name.equals("")){
+            doError("bad ninja name on ticket");
+        }//bad name
+        if(null==t.token_hash || t.token_hash.equals("")){
+            doError("bad tokenhash on ticket");
+        }//bad token hash
+    }//FUNC::END
+    
+        /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = Ticket.class;
+        err += clazz.getCanonicalName();
+        err += msg;
+        throw MyError.make(clazz, err);
     }//FUNC::END
     
 }//CLASS::END
