@@ -65,6 +65,9 @@ public class OwnerCTRL extends BaseCTRL{
         boolean result;
         result = OwnerTokenTransUtil.isTokenHashOwnedByNinja(token_hash);
         
+        //EXIT TRANSACTION STATE:
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+        
         String comment = "touched by is_token_hash_owned_by_ninja";
         Response output_response;
         output_response = JSONUtil.booleanToJSONResponse
@@ -82,6 +85,9 @@ public class OwnerCTRL extends BaseCTRL{
         //LOGIC:
         boolean result;
         result = OwnerTokenTransUtil.isTokenHashOwnedByAdmin(token_hash);
+        
+        //EXIT TRANSACTION STATE:
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
         
         String comment = "touched by is_token_hash_owned_by_admin";
         Response output_response;
