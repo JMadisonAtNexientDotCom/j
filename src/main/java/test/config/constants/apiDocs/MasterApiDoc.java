@@ -18,6 +18,7 @@ import test.config.constants.signatures.sig.PageIndex_NumResultsPerPage_EndPoint
 import test.config.constants.signatures.sig.RiddleId_EndPoint;
 import test.config.constants.signatures.sig.RiddleId_NumberOfChoices_NumberOfTruths_EndPoint;
 import test.config.constants.signatures.sig.RiddleId_RhymeId_EndPoint;
+import test.config.constants.signatures.sig.TokenHash_EndPoint;
 import test.config.constants.signatures.sig.TokenId_AdminId_EndPoint;
 import test.config.constants.signatures.sig.TokenId_EndPoint;
 import test.config.constants.signatures.sig.TokenId_NinjaId_EndPoint;
@@ -116,10 +117,10 @@ public class MasterApiDoc {
     public TokenId_EndPoint    IS_TOKEN_ID_OWNED  = new TokenId_EndPoint();
     
     @Verbatim(name=FuncNameReg.IS_TOKEN_HASH_OWNED_BY_ADMIN, nameMod=Verbatim.UPPER_CASE)
-    public TokenId_EndPoint    IS_TOKEN_HASH_OWNED_BY_ADMIN  = new TokenId_EndPoint();
+    public TokenHash_EndPoint  IS_TOKEN_HASH_OWNED_BY_ADMIN  = new TokenHash_EndPoint();
     
     @Verbatim(name=FuncNameReg.IS_TOKEN_HASH_OWNED_BY_NINJA, nameMod=Verbatim.UPPER_CASE)
-    public TokenId_EndPoint    IS_TOKEN_HASH_OWNED_BY_NINJA  = new TokenId_EndPoint();
+    public TokenHash_EndPoint  IS_TOKEN_HASH_OWNED_BY_NINJA  = new TokenHash_EndPoint();
     
     @Verbatim(name=FuncNameReg.GET_TOKEN_OWNER, nameMod=Verbatim.UPPER_CASE)
     public TokenId_EndPoint    GET_TOKEN_OWNER        = new TokenId_EndPoint();

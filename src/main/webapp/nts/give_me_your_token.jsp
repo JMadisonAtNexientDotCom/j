@@ -68,11 +68,11 @@
 
     function callService()
     {
-        serviceURL ="<%= I.API().IS_TOKEN_ID_OWNED.URL %>";
+        serviceURL ="<%= I.API().IS_TOKEN_HASH_OWNED_BY_NINJA.URL %>";
         
         qs = ""; //query string.
         qs = $.param({ 
-        <%=I.API().IS_TOKEN_ID_OWNED.ARG.TOKEN_ID %>:$scope.token_input
+        <%=I.API().IS_TOKEN_HASH_OWNED_BY_NINJA.ARG.TOKEN_HASH %>:$scope.token_input
         });//QUERYSTRING::END
         
         apiCallURL = serviceURL + "?" + qs;

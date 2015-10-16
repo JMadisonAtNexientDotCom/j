@@ -23,6 +23,7 @@ import test.transactions.util.forNoClearTableOwner.AdminTokenTransUtil;
 import test.transactions.util.forNoClearTableOwner.OwnerTokenTransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.admin.AdminTransUtil;
 import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
+import test.transactions.util.forOwnedMainlyByOneTable.token.TokenTransUtil;
 
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 /**##########################CLASS HEADER FILE##################################
@@ -299,25 +300,83 @@ public class OwnerTransUtil {
      * @return         :Returns true if token has owner associated with it.
      */
     public static boolean isTokenIDOwned(long token_id){
-        
-        //Error Checking:
-        TransUtil.insideTransactionCheck();
-        
-        //Involves owner_table + token_table, code belongs in
-        //OwnerTokenTransUtil.java
-        return OwnerTokenTransUtil.isTokenIDOwned(token_id);
-    }//FUNC::END
-    
-    /**
-     * Returns TRUE if the token is owned by an ADMIN or NINJA
-     * @param token_id :id of token we want to find ownership of.
-     * @return :Returns TRUE if token has an owner.
-     */                         
-    public static boolean isTokenOwned(long token_id){
         TransUtil.insideTransactionCheck();
         BaseEntityContainer bec = getTokenOwner(token_id);
         return bec.exists;
     }//FUNC::END
+    
+    /** See if the token HASH is owned by ANY USER. (ADMIN OR NINJA) **/
+    public static boolean doesTokenHashHaveOwner
+                                         (String token_hash, boolean adminTrue){
+                                             
+        /*
+        DELETE THIS BLOCK:
+        ARGH! Wrote all this code because forgot about OwnerTokenTransUtil.
+        TransUtil.insideTransactionCheck();
+        BaseEntityContainer bec;
+        bec = TokenTransUtil.getTokenEntityUsingTokenString(token_hash);
+        if(false==bec.exists){return false;}//cannot own non-existant token.
+        
+        TokenTable tt = (TokenTable)bec.entity;
+        long token_id = tt.getId();
+        
+        BaseEntityContainer base_own = getTokenOwner(token_id);
+        if(false==base_own.exists){return false;}//token id not in owner table.
+        
+        OwnerTable own = (OwnerTable)base_own.entity;
+        
+        //Are we seeing if NINJA owns token, or if admin owns token?
+        if(adminTrue){ //looking for admin owner:
+            long admin_id = own.getAdmin_id();
+            if(admin_id <= 0){return false;}
+        }else{ //looking for ninja owner:
+            long ninja_id = own.getNinja_id();
+            if(ninja_id <= 0){return false;}
+        }//
+        
+        //return true if none of cases failed:
+        return true;
+        */            
+        
+        return OwnerTokenTransUtil.doesTokenHashHaveOwner(token_hash);
+                                             
+    }//FUNC::END
+    
+    /**@param token_hash :The HASH representation of token.
+     * @return :Returns TRUE if NINJA user owns this token. **/
+    public static boolean isTokenHashOwnedByNinja(String token_hash){
+        TransUtil.insideTransactionCheck();
+        //deletethis: boolean NOT_ADMIN = false;
+        //deletethis: return isTokenHashOwned(token_hash, NOT_ADMIN);
+        return OwnerTokenTransUtil.isTokenHashOwnedByNinja(token_hash);
+    }//FUNC::END
+    
+    
+    /**@param token_hash :The HASH representation of token.
+     * @return :Returns TRUE if an ADMIN user owns this token. **/
+    public static boolean isTokenHashOwnedByAdmin(String token_hash){
+        TransUtil.insideTransactionCheck();
+        //deletethis: boolean YES_ADMIN = true;
+        //deletethis: return isTokenHashOwned(token_hash, YES_ADMIN);
+        return OwnerTokenTransUtil.isTokenHashOwnedByAdmin(token_hash);
+    }//FUNC::END
+    
+    
+    
+    //
+    // Remove this block. If you see any instances of
+    //isTokenOwned, replace with "isTokenIDOwned
+    //
+    // Returns TRUE if the token is owned by an ADMIN or NINJA
+    // @param token_id :id of token we want to find ownership of.
+    // @return :Returns TRUE if token has an owner.
+    //                         
+    //public static boolean isTokenOwned(long token_id){
+    //    TransUtil.insideTransactionCheck();
+    //    BaseEntityContainer bec = getTokenOwner(token_id);
+    //    return bec.exists;
+    //}//FUNC::END
+    
     ////////////////////////////////////////////////////////////////////////////
     //222222222222222222222222222222222222222222222222222222222222222222222222//
     ////////////////////////////////////////////////////////////////////////////
