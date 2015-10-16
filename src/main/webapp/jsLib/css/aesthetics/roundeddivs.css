@@ -1,14 +1,46 @@
-#roundeddivs_wireframe {
+
+
+#roundeddivs_inner_docked_box
+{
+  /* The rounded boxes I have enforce padding on anything that sits in them.
+     This padding is a bit hard to overcome. If you want items to fit snugly
+     into the roundeddivs divs, then you need to inset one of these docked
+     boxes first and THEN put your elements into this element. 
+  */
+  /* background:#00ff00; */ /* <--For testing. */
+		width:100%; 
+  top:69px; 
+  bottom:25px; 
+  position:absolute; 
+  margin-left:-20px;  
+  padding:0;
+}
+
+
+#roundeddivs_wireframe, 
+#shadowdiv_wireframe {
     border-radius: 25px;
     border: 5px solid #44AAFF;
     padding: 20px;   
 }
 
-#roundeddivs_headertab{
+/** Common coloring & shape between headers + footers. **/
+#roundeddivs_footertab,
+#shadowdiv_footertab,
+#roundeddivs_headertab,
+#shadowdiv_headertab
+{
     border-radius: 25px;
     background: #44AAFF;
     padding: 10px;
     padding-top: 1px;
+    
+}
+
+
+#roundeddivs_headertab,
+#shadowdiv_headertab{
+   
     margin-top: -25px;
     margin-left: -25px;
     margin-right: -25px;
@@ -18,7 +50,32 @@
     
 }
 
-#roundeddivs_divider {
+#roundeddivs_footertab,
+#shadowdiv_footertab{
+   
+    width:100%;
+    height:25px;
+    padding:0;
+    margin-top:0;
+    margin-left: -20px;
+    border-radius:14px;
+    
+    border-top-right-radius:0px;
+    border-top-left-radius:0px;
+    
+   /* position : absolute; */
+   /*  bottom : 0; */
+   /* background:#FF8800; */
+   position: absolute;
+   bottom : 0;
+ 
+    
+}
+
+
+
+#roundeddivs_divider,
+#shadowdiv_divider{
     border-radius: 5px;
     background: #44AAFF;
     padding: 0px;
@@ -27,3 +84,18 @@
     //width: 100px;
     height: 5px;   
 }
+
+#shadowdiv_wireframe,
+#shadowdiv_divider{
+  
+  background:#404040;
+  border-color:#000000;
+}
+
+#shadowdiv_headertab,
+#shadowdiv_footertab{
+  background:#000000
+}
+
+
+

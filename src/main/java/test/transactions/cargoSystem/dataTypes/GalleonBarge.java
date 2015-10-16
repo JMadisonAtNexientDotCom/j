@@ -6,6 +6,7 @@ import test.config.debug.DebugConfig;
 import test.config.debug.DebugConfigLogger;
 import test.dbDataAbstractions.entities.EntityUtil;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
+import test.transactions.cargoSystem.managerTypes.MaintenanceCrew;
 import test.transactions.cargoSystem.managerTypes.MerchantCaptain;
 import test.transactions.cargoSystem.ports.config.NegativePorts;
 
@@ -62,6 +63,10 @@ public class GalleonBarge {
      *  into the cargo hold. Dinosaurs are valuable merchandise. **/
     public CargoHold hold;
     
+    /** Holds all of the job-tickets that need to be done AFTER the ship
+     *  has collected all of the orders and has landed back home. **/
+    public JobBulletin bulletin;
+    
     /** The agenda that contains all of the orders that will be used
      *  to fill up the CargoHold. **/
     public AgendaClipBoard agenda;
@@ -117,6 +122,13 @@ public class GalleonBarge {
         captain.fetchOrders();
         mutiny(captain);
         
+        //Maintenance crew boards and does work AFTER
+        //The ship has made it's journey and collected everything it needs.
+        MaintenanceCrew crew = new MaintenanceCrew();
+        crew.barge = this;
+        crew.work();//Crew will now complete job tickets on bulletin board.
+        fire(crew); //fire the crew. No longer needed.
+        
     }//FUNC::END
     
     /**
@@ -134,6 +146,18 @@ public class GalleonBarge {
         }//No barge error.
         captain.barge = null;
         captain = null;
+    }//FUNC::END
+    
+    /**
+     * When crew is done with work. We fire them.
+     * We need to do this so garbage collection will work.
+     * (Need to get rid of circular references)
+     * @param crew :The crew to fire. **/
+    private static void fire(MaintenanceCrew crew){
+        if(null == crew){doError("[The crew is not present to fire]");}
+        if(null == crew.barge){doError("[The crew knew about the ship??]");}
+        crew.barge = null;
+        crew = null;
     }//FUNC::END
     
     /**
@@ -259,8 +283,9 @@ public class GalleonBarge {
         
         //If I can make constructors private, won't need any fancy lockers.
         GalleonBarge op = new GalleonBarge();
-        op.hold   = CargoHold.make();
-        op.agenda = AgendaClipBoard.make();
+        op.hold     = CargoHold.make();
+        op.agenda   = AgendaClipBoard.make();
+        op.bulletin = JobBulletin.make();
         return op;
     }//FUNC::END
     

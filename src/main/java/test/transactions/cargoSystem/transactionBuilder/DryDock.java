@@ -10,8 +10,12 @@ import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.dbDataAbstractions.entities.tables.TrialTable;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postRequest.Edict;
 import test.transactions.cargoSystem.dataTypes.GalleonBarge;
+import test.transactions.cargoSystem.dataTypes.JobTicket;
+import test.transactions.cargoSystem.dataTypes.JobTicketTypes;
 import test.transactions.cargoSystem.dataTypes.OrderArg;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
+import test.transactions.cargoSystem.dataTypes.jobConsts.JoinOrderVars;
+import test.transactions.cargoSystem.dataTypes.jobConsts.WeldJobVars;
 import test.transactions.cargoSystem.ports.NinjaPorts;
 import test.transactions.cargoSystem.ports.OwnerPorts;
 import test.transactions.cargoSystem.ports.TokenPorts;
@@ -137,38 +141,42 @@ public class DryDock {
         own_order.specs.add(VarNameReg.NUM_OWNERS, numOwners);
         barge.agenda.addOrder(own_order);
         
-        /*
+        
         //Welding jobs will be configured to happen AFTER orders are made.
         //And the weld-jobs will use references to the orders to complete
         //their tasks.
         //LINK STUFF!
-        WelderJobTicket tok_own;//insert token_id(s) into owner_table
-        WelderJobTicket nin_own; //insert ninja_id(s) into owner_table
-        WelderJobTicket tok_tri; //insert token_id(s) into trial_table
+        JobTicket tok_own; //insert token_id(s) into owner_table
+        JobTicket nin_own; //insert ninja_id(s) into owner_table
+        JobTicket tok_tri; //insert token_id(s) into trial_table
         
         //Allocate the Welder Job Tickets:
-        tok_own = barge.jobs.makeEmptyWeldJobTicket();
-        nin_own = barge.jobs.makeEmptyWeldJobTicket();
-        tok_tri = barge.jobs.makeEmptyWeldJobTicket();
+        tok_own = barge.bulletin.addEmptyJobTicket();
+        tok_own = barge.bulletin.addEmptyJobTicket();
+        nin_own = barge.bulletin.addEmptyJobTicket();
+        tok_tri = barge.bulletin.addEmptyJobTicket();
         
         //Create joins in owner table:
         //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-        tok_own.fromOrder = tok_order;//tokens
-        tok_own.destOrder = own_order;//owners
-        tok_own.destColumn= OwnerTable.TOKEN_ID_COLUMN;
-        
-        nin_own.fromOrder = nin_order;//ninjas
-        nin_own.destOrder = own_order;//owners
-        nin_own.destColumn= OwnerTable.NINJA_ID_COLUMN;
+        tok_own.jobType = JobTicketTypes.JOIN_ORDER;
+        tok_own.specs.add(JoinOrderVars .FROM_ORDER , tok_order);
+        tok_own.specs.add(JoinOrderVars .INTO_ORDER , own_order);
+        tok_own.specs.add(JoinOrderVars .DEST_COLUMN, OwnerTable.TOKEN_ID_COLUMN);
+
+        nin_own.jobType = JobTicketTypes.JOIN_ORDER;
+        nin_own.specs.add(JoinOrderVars .FROM_ORDER , nin_order);//ninjas
+        nin_own.specs.add(JoinOrderVars .INTO_ORDER , own_order);//owners
+        nin_own.specs.add(JoinOrderVars .DEST_COLUMN, OwnerTable.NINJA_ID_COLUMN);
         //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
         
         //Create joins in trial table:
         //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-        tok_tri.fromOrder = tok_order;
-        tok_tri.destOrder = tri_order;
-        tok_tri.destColumn= TrialTable.TOKEN_ID_COLUMN;
+        tok_tri.jobType   = JobTicketTypes.JOIN_ORDER;
+        tok_tri.specs.add(JoinOrderVars.FROM_ORDER, tok_order);
+        tok_tri.specs.add(JoinOrderVars.INTO_ORDER, tri_order);
+        tok_tri.specs.add(JoinOrderVars.DEST_COLUMN,TrialTable.TOKEN_ID_COLUMN);
         //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-        */
+        
      
         
        

@@ -18,6 +18,7 @@ import test.dbDataAbstractions.entities.tables.TransTable;
 import test.globalState.SynchronizedConversationCounter;
 import test.globalState.SynchronizedGlobalSaveCounter;
 import test.globalState.SynchronizedLogCounter;
+import test.transactions.HibernateReflectionUtil;
 import utils.HibernateUtil;
 import utils.ReflectionHelperUtil;
 
@@ -945,6 +946,29 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         return stubs;
                                                 
     }//FUNC::END
+         
+    /**-------------------------------------------------------------------------
+     * Performs a Join between two tables.
+     * @param from   :Table entities supplying the primary keys.
+     * @param into   :Table entities to INSERT primary keys as FOREIGN KEYS.
+     * @param column :The column name of the foreign key column.
+     ------------------------------------------------------------------------**/
+    public void join(List<BaseEntity> from, 
+                     List<BaseEntity> into, 
+                            String column){
+        
+        TransUtil_DEBUG.join(from,into,column);
+        TransUtil.insideTransactionCheck();
+        
+        //Core Logic:
+        int len = from.size();
+        for(int i = 0; i < len; i++){
+            BaseEntity entFrom = from.get(i);
+            BaseEntity entInto = into.get(i);
+            HibernateReflectionUtil.doJoin(entFrom, entInto, column);
+        }//next i
+        
+    }//WRAPPER::END                     
     
     /**-------------------------------------------------------------------------
      * Marks STRING/VARCHAR records as DELE (marked for deletion)

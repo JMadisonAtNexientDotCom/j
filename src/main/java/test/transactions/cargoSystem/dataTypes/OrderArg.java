@@ -5,6 +5,10 @@ package test.transactions.cargoSystem.dataTypes;
  * specific data. Doing this way so we can avoid position based parameters.
  * When you have a lot of PBP, it makes code very hard to read.
  * ABBREV: PBP=="Position Based Parameters"
+ * 
+ * UPDATE:2015.10.16, I like this pattern and how it avoids me having
+ * to use positional arguments. Lets use OrderArg array for job tickets too.
+ * 
  * @author jmadison :2015.10.8
  */
 public class OrderArg {

@@ -225,4 +225,11 @@ public class TransUtil {
                          (Class<? extends BaseEntity> tableClass, int numStubs){
         return i().makeStubsWithUniquePrimaryKeys(    tableClass,     numStubs);
     }//WRAPPER::END
+                         
+    public static void join(List<BaseEntity> from, 
+                            List<BaseEntity> into, 
+                            String         column){
+        i().join(from,into,column);
+    }//WRAPPER::END
+                         
 }//END::CLASS

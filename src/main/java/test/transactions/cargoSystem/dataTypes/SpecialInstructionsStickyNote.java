@@ -1,6 +1,7 @@
 package test.transactions.cargoSystem.dataTypes;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import test.MyError;
 import test.config.debug.DebugConfig;
@@ -82,6 +83,52 @@ public class SpecialInstructionsStickyNote {
         return (-1);
        
     }//FUNC::END
+    
+    /**
+     * Functions like getVal, but use to get LISTS of that value.
+     * @param <T>     :see getVal
+     * @param varName :see getVal
+     * @param varType :see getVal
+     * @return :Returns the variable with identifier varName
+     *          that SHOULD reference a LIST of type T.
+     */
+    public <T> List<T> getList(String varName, Class varType){
+        Object genObj = getValue(varName);
+        
+        //Check to see if the object is a LIST:
+        if(genObj instanceof Collection){
+            //do nothing. It's okay.
+        }else{
+            doError("getList retrieved a non-list object");
+        }//
+        
+        List<T> op = (List<T>)getValue(varName);
+        return op;
+    }//FUNC::END
+    
+    /** Allows you to get a value if you know NAME + TYPE.
+     *  Enforces type safety while keeping flexibility.
+     * @param <T> :The type to output;
+     * @param varName :The variable name. (Identifier)
+     * @param varType :The type of the variable.
+     * @return        :Returns the variable, if exists.
+     */
+    public <T> T getVal(String varName, Class varType){
+        if(varType == Class.class){
+            doError("To avoid accidents, make separate func for this case");
+        }//
+        
+        Object unTyped = getValue(varName);
+        if(unTyped.getClass() == varType){
+            return (T)unTyped;
+        }else{
+            doError("[Type Mismatch!]");
+        }
+        
+        //returning null is error, and should be caught earlier.
+        return null;
+        
+    }//class end.
     
      /**
      * Get value explicitly as a long value. 
