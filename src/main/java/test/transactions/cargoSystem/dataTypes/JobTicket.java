@@ -36,6 +36,7 @@ public class JobTicket {
     /** The arguments used to fufill this job ticket.
      *  Should never be null. Empty is okay. **/
     public SpecialInstructionsStickyNote specs = 
-                                            new SpecialInstructionsStickyNote();
+                                  SpecialInstructionsStickyNote.makeReadyFill();
+                                           
     
 }//CLASS::JobTicket
