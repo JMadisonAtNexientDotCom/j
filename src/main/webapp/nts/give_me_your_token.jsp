@@ -53,7 +53,7 @@
   
   <script>
   var app = angular.module('myApp', ['angularSpinners']);
-  app.controller('myCtrl', function($scope, $http, spinnerService) {
+  app.controller('myCtrl', function($scope, $http, $location, spinnerService) {
   
     //variable initialization:
     $scope.VI = function(){
@@ -82,18 +82,22 @@
     };//FUNC::END
     
     function onResponded(response){
-	$scope.instancedJSON_RESPONSE = response;
-	spinnerService.hide('html5spinner');
+      $scope.instancedJSON_RESPONSE = response;
+      spinnerService.hide('html5spinner');
         
         if(response.value === true){
             $scope.msg_for_user = "VALID!";
+            $scope.proceed_further();
         }else{
             $scope.msg_for_user = "BAD TOKEN!";
-        }
-            
-        
+        }//BLOCK::END
     };//FUNC::END
-      
+    
+    //If valid token entered, proceed further:
+    $scope.proceed_further = function(){
+      location.href = '/nts/is_this_you.jsp';
+    };//FUNC::END
+        
   });
   </script>
 </body>
