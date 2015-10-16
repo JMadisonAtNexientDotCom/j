@@ -126,8 +126,8 @@ public class OwnerTokenTransUtil {
                 //Find the owner: 
                 //(If no owner at this point, it is considered an error)
                 boolean hasOneValidOwner = false;
-                boolean hasNinjaOwner = (own.getAdmin_id() >UNUSED_ID);
-                boolean hasAdminOwner = (own.getNinja_id() >UNUSED_ID);
+                boolean hasNinjaOwner = (own.getNinja_id() >UNUSED_ID);
+                boolean hasAdminOwner = (own.getAdmin_id() >UNUSED_ID);
                 if(hasNinjaOwner && hasAdminOwner){
                     doError("token cannot be owned by admin and ninja");
                 }else
