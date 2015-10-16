@@ -96,7 +96,7 @@
     //If valid token entered, proceed further:
     $scope.proceed_further = function(){
       $cookies.put("ACTIVE_TOKEN",$scope.token_input);
-      $location.href = '/nts/is_this_you.jsp';
+      location.href = '/nts/is_this_you.jsp'; //<--why no dollar sign?
     };//FUNC::END
         
   });
