@@ -31,6 +31,7 @@
           <div id="roundeddivs_headertab" align="center">
             
             <h2 style="color:#fff">Is This You?</h2>
+            <p> {{active_token_hash}} </p>
            
           </div>
             <button data-ng-click="proceed_valid();" style="width:100%;">Yes, That's me!</button>
@@ -46,12 +47,13 @@
   </div>
     
   <script>
-  var app = angular.module('myApp', ['angularSpinners']);
-  app.controller('myCtrl', function($scope, $http, $location, spinnerService) {
+  var app = angular.module('myApp', ['ngCookies','angularSpinners']);
+  app.controller('myCtrl', function($scope, $http, $location, $cookies, spinnerService) {
 
     //variable initialization:
     $scope.VI = function(){
       $scope.msg_for_user = "Insert Token:";
+      $scope.active_token_hash = $cookies.get("ACTIVE_TOKEN");
     };
    
     //Everything is in order, proceed onward:

@@ -52,8 +52,8 @@
   </div>
   
   <script>
-  var app = angular.module('myApp', ['angularSpinners']);
-  app.controller('myCtrl', function($scope, $http, $location, spinnerService) {
+  var app = angular.module('myApp', ['ngCookies','angularSpinners']);
+  app.controller('myCtrl', function($scope, $http, $location, $cookies, spinnerService) {
   
     //variable initialization:
     $scope.VI = function(){
@@ -95,7 +95,8 @@
     
     //If valid token entered, proceed further:
     $scope.proceed_further = function(){
-      location.href = '/nts/is_this_you.jsp';
+      $cookies.put("ACTIVE_TOKEN",$scope.token_input);
+      $location.href = '/nts/is_this_you.jsp';
     };//FUNC::END
         
   });
