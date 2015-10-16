@@ -34,8 +34,8 @@
            
           </div>
             <button data-ng-click="proceed_valid();" style="width:100%;">Yes, That's me!</button>
-            <p><b>Not you?</b> That's okay, let us know and we'll fix it!</p>
             <button data-ng-click="proceed_bogus();" style="width:100%;">No.</button>
+            <p><b>Not you?</b> That's okay, just let us know!</p>
             
         </div>
       </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
