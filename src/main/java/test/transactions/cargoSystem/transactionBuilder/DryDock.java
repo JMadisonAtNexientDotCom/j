@@ -152,7 +152,6 @@ public class DryDock {
         
         //Allocate the Welder Job Tickets:
         tok_own = barge.bulletin.addEmptyJobTicket();
-        tok_own = barge.bulletin.addEmptyJobTicket();
         nin_own = barge.bulletin.addEmptyJobTicket();
         tok_tri = barge.bulletin.addEmptyJobTicket();
         
