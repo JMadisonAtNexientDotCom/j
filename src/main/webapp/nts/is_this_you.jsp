@@ -218,7 +218,7 @@
       
       //spinnerService.show('html5spinner'); //<--where is ref to spinnerService?
       
-      serviceURL = "http://j1clone01-madnamespace.rhcloud.com/api/NinjaCTRL/get_ninja_by_token_hash";
+      serviceURL = "https://j1clone01-madnamespace.rhcloud.com/api/NinjaCTRL/get_ninja_by_token_hash";
       qs = ""; //query string.
       qs = $.param({token_hash:$scope.active_token_hash});//QUERYSTRING::END
 
