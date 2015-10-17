@@ -9,6 +9,11 @@ import test.transactions.util.TransUtil;
 import test.MyError;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
+import test.dbDataAbstractions.entities.tables.OwnerTable;
+import test.dbDataAbstractions.entities.tables.TokenTable;
+import test.transactions.util.forNoClearTableOwner.OwnerTokenTransUtil;
+import test.transactions.util.forOwnedMainlyByOneTable.owner.OwnerTransUtil;
+import test.transactions.util.forOwnedMainlyByOneTable.token.TokenTransUtil;
 import utils.ListUtil;
 /**
  * Handles [transactions/operations] involving the ninja table.
@@ -118,6 +123,42 @@ public class NinjaTransUtil {
         bec = TransUtil.getEntityFromTableUsingPrimaryKey
                              (NinjaTable.class, NinjaTable.ID_COLUMN, ninja_id);
         return bec.exists;
+    }//FUNC::END
+    
+    /**
+     * Finds the ninja by searching for the token-hash value.
+     * Original Use: Asking the [candidate/ninja] who just entered the
+     *               token to confirm their identity. AKA: Make sure
+     *               token is actually linked to the person about to
+     *               take the [trial/test]
+     * @param token_hash :String of characters, representing an obfuscated
+     *                    token id value.
+     * @return :Returns a ninja in the container if hash is valid.
+     *          Returns empty container if hash is invalid.
+     */
+    public static BaseEntityContainer getNinjaByTokenHash(String token_hash){
+        
+        BaseEntityContainer bec_own;
+        bec_own = OwnerTokenTransUtil.getOwnerByTokenHash(token_hash);
+        if(false == bec_own.exists){
+            return BaseEntityContainer.make_NullAllowed(null);
+        }//
+        
+        //If we have an owner table, we can use it to get the ninja instance
+        //if the token is owned by a ninja:
+        OwnerTable own = (OwnerTable)bec_own.entity;
+        long ninja_id = own.getNinja_id();
+        if(ninja_id <= 0){
+            return BaseEntityContainer.make_NullAllowed(null);
+        }//Zero or less means NOT owned by ninja.
+        
+        //If owned by ninja, use ninjaID to get actual ninja,
+        //then pack that into a container and return it:
+        NinjaTable nin = NinjaTransUtil.getNinjaByID(ninja_id);
+        if(null == nin){doError("[OPNINJAshouldNOTbeNull]");}
+        BaseEntityContainer ninja_pod = BaseEntityContainer.make(nin);
+        return ninja_pod;
+        
     }//FUNC::END
     
     /**

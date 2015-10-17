@@ -276,6 +276,35 @@ public class OwnerTokenTransUtil {
        return op;
         
     }//FUNC::END
+        
+    /**
+     * Gets the OwnerTable entity that owns the token.
+     * @param token_hash :The HASH representation of the token_id.
+     * @return :OWNER TABLE!!! 
+     *          Does NOT return a Ninja or Admin.
+     */
+    public static BaseEntityContainer getOwnerByTokenHash(String token_hash){
+        
+        BaseEntityContainer bec_tok;
+        bec_tok = TokenTransUtil.getTokenEntityUsingTokenString(token_hash);
+        if(false == bec_tok.exists){
+            return BaseEntityContainer.make_NullAllowed(null);
+        }//return null container. Token does not exist in master table.
+        
+        //Get ID of token, so that we can find owner of token:
+        TokenTable tok = (TokenTable)bec_tok.entity;
+        long token_id = tok.getId();
+        
+        BaseEntityContainer bec_own;
+        bec_own = OwnerTransUtil.getTokenOwner(token_id);
+        if(false == bec_own.exists){
+            return BaseEntityContainer.make_NullAllowed(null);
+        }//token exists in table, but no one owns it.
+        
+        //return container with stuff:
+        return bec_own;
+    }//FUNC::END
+                                                                
                                                                 
     /**-------------------------------------------------------------------------
     -*- Wrapper function to throw errors from this class.   --------------------

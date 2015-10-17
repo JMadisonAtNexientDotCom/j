@@ -33,6 +33,7 @@ import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.composites.Clan;
+import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
@@ -247,6 +248,39 @@ public class NinjaCTRL extends BaseCTRL {
                                                   (Session ses, boolean doSave){
         TransUtil.exitTransaction(ses, doSave);
     }//FUNC::END
+                                                  
+    @GET
+    @Path(FuncNameReg.GET_NINJA_BY_TOKEN_HASH)
+    public Response get_ninja_by_token_hash
+                         (@QueryParam(VarNameReg.TOKEN_HASH) String token_hash){
+        //ENTER TRANSACTION:
+        Session ses = TransUtil.enterTransaction();
+        
+        //Transaction logic:
+        BaseEntityContainer bec;
+        bec = NinjaTransUtil.getNinjaByTokenHash(token_hash);
+        
+        //If container is empty, we will want to make an error response:
+        NinjaTable ninja;
+        if(false == bec.exists){
+            ninja = new NinjaTable();
+            String msg = "ERROR: no ninja with that token_hash";
+            ninja.setName(msg);
+            ninja.setEmail("ERROR@ERROR.COM");
+            ninja.setId(-777);
+            ninja.setPhone(-987654321);
+            ninja.setPortfolio_url("www.ERROR.com");
+        }else{
+            ninja = (NinjaTable)bec.entity;
+        }//exists?
+        
+        //EXIT TRANSACTION:
+        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
+        
+        //Return result:
+        return JSONUtil.entityToJSONResponse(ninja);
+                             
+    }//FUNC::END
         
     /** A more complicated implementation of get_ninja_by_id that is just
      *  meant to make sure that the cargoSystem is working for this type of
@@ -257,7 +291,7 @@ public class NinjaCTRL extends BaseCTRL {
     @GET
     @Path(FuncNameReg.GET_NINJA_BY_ID)
     public Response get_ninja_by_id(@QueryParam(VarNameReg.ID) long id){
-        //ENTER transaction:
+            //ENTER transaction:
             Session ses = TransUtil.enterTransaction();
             
             //Transaction logic:

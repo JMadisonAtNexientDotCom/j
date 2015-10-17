@@ -1,0 +1,56 @@
+
+
+#collegerulepaper_sub_section_left
+{
+  float:left;
+  /*background:#AA0000;*/
+  width:13%;
+  height:100%;
+  position:relative;
+}
+
+#collegerulepaper_sub_section_divider_line
+{
+  float:left;
+  background:#FF8800;
+  width:2%;
+  height:100%;
+  position:relative;
+}
+
+#collegerulepaper_sub_section_right
+{
+  
+  padding:0px;
+  /*background:#AA00FF;*/
+  width:85%;
+  height:100%;
+  right:0px;
+
+  
+ 
+  position:absolute;
+}
+
+/* The square on top-left of college rule paper. **/
+#collegerulepaper_hor_line_whitespace,
+#collegerulepaper_hor_line_whitespace_left_padded
+{
+  /*background:#EA0011;*/
+  height:20px;
+  width:100%;
+}
+
+#collegerulepaper_hor_line_whitespace_left_padded
+{
+  padding-left: 10px;
+}
+
+#collegerulepaper_hor_pen_line
+{
+  background:#D87;
+  height:2px;
+  width:100%;
+  
+}
+
