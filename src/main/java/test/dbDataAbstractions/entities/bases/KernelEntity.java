@@ -97,9 +97,12 @@ public class KernelEntity implements Serializable{
      */
     public void setId(long id)
     { 
-        if(id <= 0){doError("IDMustBeNonZeroPositive");}
+        //When making ERROR ENTITIES, we might want to set the ID to zero or
+        //to negative.
+        //DONT USE: >> if(id <= 0){doError("IDMustBeNonZeroPositive");}
+        
         this.id = boxUpLong(id);
-    }
+    }//set id.
     
      //Boilerplate implementation of Serializable interface:
     //Usage: Keep compiler happy.

@@ -217,13 +217,21 @@
     //That information of the Ninja that owns this token.
     function callService()
     {
-      serviceURL = "http://j1clone01-madnamespace.rhcloud.com/api/NinjaRestService/getNextNinja";
+      
       spinnerService.show('html5spinner'); //<--where is ref to spinnerService?
-      $http.get(serviceURL).success( onResponded );
+      
+      serviceURL = "http://j1clone01-madnamespace.rhcloud.com/api/NinjaCTRL/get_ninja_by_token_hash";
+      qs = ""; //query string.
+      qs = $.param({token_hash:$scope.active_token_hash});//QUERYSTRING::END
+
+      apiCallURL = serviceURL + "?" + qs;
+      
+      
+      $http.get(apiCallURL).success( onResponded );
     };//FUNC::END
     
     function onResponded(response){
-      $scope.instancedJSON_RESPONSE = response;
+      $scope.maybe_you = JSON.parse(response);
       spinnerService.hide('html5spinner');
     }//FUNC::END
    
