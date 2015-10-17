@@ -218,7 +218,7 @@
     function callService()
     {
       
-      spinnerService.show('html5spinner'); //<--where is ref to spinnerService?
+      //spinnerService.show('html5spinner'); //<--where is ref to spinnerService?
       
       serviceURL = "http://j1clone01-madnamespace.rhcloud.com/api/NinjaCTRL/get_ninja_by_token_hash";
       qs = ""; //query string.
@@ -232,7 +232,7 @@
     
     function onResponded(response){
       $scope.maybe_you = JSON.parse(response);
-      spinnerService.hide('html5spinner');
+      //spinnerService.hide('html5spinner');
     }//FUNC::END
    
     //Everything is in order, proceed onward:
