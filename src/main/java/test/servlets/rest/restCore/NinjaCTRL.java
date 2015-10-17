@@ -264,12 +264,12 @@ public class NinjaCTRL extends BaseCTRL {
         NinjaTable ninja;
         if(false == bec.exists){
             ninja = new NinjaTable();
-            String msg = "ERROR: no ninja with that token_hash";
+            String msg = "ERROR no ninja with that token hash";
             ninja.setName(msg);
-            ninja.setEmail("ERROR@ERROR.COM");
+            ninja.setEmail("ERRORatERRORdotCOM");
             ninja.setId(-777);
             ninja.setPhone(-987654321);
-            ninja.setPortfolio_url("www.ERROR.com");
+            ninja.setPortfolio_url("wwwdotERRORdotcom");
         }else{
             ninja = (NinjaTable)bec.entity;
         }//exists?
