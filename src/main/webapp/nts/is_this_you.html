@@ -231,7 +231,9 @@
     };//FUNC::END
     
     function onResponded(response){
-      $scope.maybe_you = JSON.parse(response);
+      //http://stackoverflow.com/questions/8524933/
+      //                                   json-parse-unexpected-character-error
+      $scope.maybe_you = response; //response is already parsed, I think.
       //spinnerService.hide('html5spinner');
     }//FUNC::END
    
