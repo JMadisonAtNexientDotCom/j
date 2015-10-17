@@ -102,7 +102,6 @@
             <div id="roundeddivs_headertab" align="center">
 
               <h2 style="color:#fff">User Info:</h2>
-              <p> {{active_token_hash}} </p>
 
             </div>
             
