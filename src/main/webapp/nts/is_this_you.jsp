@@ -1,11 +1,64 @@
-<%@page import="frontEndBackEndIntegration.I"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <title>Honors System:</title>
-    <%= I.INCLUDE_CSS() %>
-    <%= I.INCLUDE_JS()  %>
+    <!-- spinner animation for waiting after pressing button that -->
+<!-- results in an asynchronous call. AKA: Wait for something to load and -->
+<!-- let user know the UI is still responsive. -->
+<LINK REL=StyleSheet HREF="../jsLib/css/components/loading_spinner.css" TYPE="text/css">
+
+<!-- Angular Material CSS now available via Google CDN; version 0.10 used here -->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css">
+<!-- MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM -->
+
+<!-- style stuff for scrollbars! -->
+<link rel="stylesheet" href="../jsLib/git_repo_3rd_party/ng_scrollable/ng-scrollable.min.css">
+
+<!-- enable centering. -->
+ <link href="../jsLib/css/layout/vertcen.css" rel="stylesheet">
+ <link href="../jsLib/css/layout/horcen.css" rel="stylesheet">
+ <link href="../jsLib/css/layout/bs_docs_example.css" rel="stylesheet">
+ <link href="../jsLib/css/aesthetics/roundeddivs.css" rel="stylesheet">
+ 
+<!-- make it look like school paper. -->
+<link href="../jsLib/css/aesthetics/collegerulepaper.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+
+<!-- for angularJS cookies. SRC: https://code.angularjs.org/ -->
+<!-- VERSION MUST BE IDENTICAL TO ANGULAR VERSION YOU ARE USING!!! -->
+<script src="https://code.angularjs.org/1.4.7/angular-cookies.min.js"></script>
+				
+<!-- for async spinners. THEY WORK! -->
+<script src="../jsLib/node_modules/angular-spinners/src/spinner-service.js"></script>
+<script src="../jsLib/node_modules/angular-spinners/src/spinner-directive.js"></script>
+<script src="../jsLib/node_modules/angular-spinners/dist/angular-spinners.js"></script>
+
+<!-- host jquery so $ make sense? I think. -->
+<!-- we probably don't need this version of Jquery since we are using another.
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+-->
+
+<!-- BEFORE BOOTSTRAP INCLUDE: Bootstrap requiers JQuery Library.        -->
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!-- Bootstrap: .js and .css respectively.                               -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Angular Materials Project. Makes UI asthetically pleasing. -->
+<!-- MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM -->
+<!-- Angular Material Dependencies -->
+<!-- include: angular.min.js -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+
+<!-- Angular Material Javascript now available via Google CDN; version 0.10 used here -->
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script>
+
+<!-- Get some scroll bar action up in here! -->
+<script src="../jsLib/git_repo_3rd_party/ng_scrollable/ng-scrollable.min.js"></script>
+
     
   </head>
 <!-- AUTHOR: JMadison.  ON:20##.##.##_####AMPM                               -->
@@ -201,7 +254,3 @@
 </html>
 <!--   10|       20|       30|       40|       50|       60|       70|       -->
 <!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
-
-<%-- This .JSP page should basically be a normal .JSP page except for this  --%>
-<%-- ONE AND ONLY IMPORT and the references to it.                          --%>
-<%@ page import="frontEndBackEndIntegration.I" %>
