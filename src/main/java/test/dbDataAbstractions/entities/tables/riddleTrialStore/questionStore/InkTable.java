@@ -56,9 +56,9 @@ public class InkTable {
     /** Column name stored as string constant for easy refactoring. **/
     public static final String ID_COLUMN  = VarNameReg.ID;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String INK_GI     = VarNameReg.INK_GI;
+    public static final String INK_GI_COLUMN     = VarNameReg.INK_GI;
     
     /** Foreign key to group_id column within the ink_purse **/
-    @Column public Long ink_gi;
+    @Column(name = INK_GI_COLUMN) public Long ink_gi;
     
 }//CLASS::END

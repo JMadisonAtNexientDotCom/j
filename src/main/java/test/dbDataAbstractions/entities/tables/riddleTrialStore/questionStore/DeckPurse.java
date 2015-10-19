@@ -53,13 +53,13 @@ public class DeckPurse {
     public static final String CUECARD_ID_COLUMN = VarNameReg.CUECARD_ID;
     
     /** Reference a group_id within the master group_table **/
-    @Column public Long group_id;
+    @Column(name = GROUP_ID_COLUMN) public Long group_id;
     
     /** The unique position of this record within the group it belongs to. **/
-    @Column public Long locus;
+    @Column(name = LOCUS_COLUMN) public Long locus;
     
     /** The contents of a single card within the deck. **/
-    @Column public Long cuecard_id;
+    @Column(name = CUECARD_ID_COLUMN) public Long cuecard_id;
     
     
 }//CLASS::END

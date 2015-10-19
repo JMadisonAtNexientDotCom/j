@@ -57,8 +57,7 @@ public class DeckTable extends BaseEntity{
     
     
      /**Foreign GROUP-id referencing the group_id column within DeckPurse**/
-    @Column
-    public Long deck_gi;
+    @Column(name=DECK_GI_COLUMN) public Long deck_gi;
     
     
 }//CLASS::END

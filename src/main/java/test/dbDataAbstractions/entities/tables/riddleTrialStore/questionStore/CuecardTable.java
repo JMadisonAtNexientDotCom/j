@@ -55,11 +55,11 @@ public class CuecardTable {
     
     /** The unique riddle that titles this cue card. 
      *  AKA: The question being asked. **/
-    @Column public Long riddle_id;
+    @Column(name=RIDDLE_ID_COLUMN) public Long riddle_id;
     
     /** The group of quips to select from. 0, 1 or more of these could be
      *  a correct answer to the jest (riddle_id) being asked. 
         Quip = A possible answer to question, in the context of a cuecard.
         Jest = A riddle/question being asked, in context of a cuecard. **/
-    @Column public Long name;
+    @Column(name=INK_ID_COLUMN) public Long ink_id;
 }//CLASS::END

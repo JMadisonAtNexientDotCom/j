@@ -60,13 +60,13 @@ public class InkPurse {
     public static final String GROUP_ID_COLUMN   = VarNameReg.GROUP_ID;
     
     /** The position of this record within the group_id it belongs to. **/
-    @Column public Long locus;
+    @Column(name = LOCUS_COLUMN) public Long locus;
     
     /** The actual [rhyme/quip/answer] for this record of the group. **/
-    @Column public Long rhyme_id;
+    @Column(name = RHYME_ID_COLUMN) public Long rhyme_id;
     
     /** The group of [rhymes/quips/answers] that this record belongs to. **/
-    @Column public Long group_id;
+    @Column(name = GROUP_ID_COLUMN) public Long group_id;
     
     
 }//CLASS::END
