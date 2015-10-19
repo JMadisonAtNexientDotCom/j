@@ -10,7 +10,7 @@ import test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.riddl
  * Handles transactions involving CueCard objects.
  * @author jmadison :2015.09.18_0739PM
  ----------------------------------------------------------------------------**/
-public class CueCardTransUtil {
+public class CuecardPojoUtil {
     
     
     /**-------------------------------------------------------------------------

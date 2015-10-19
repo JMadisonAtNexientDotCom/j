@@ -16,7 +16,7 @@ import test.transactions.util.TransUtil;
  * 
  * @author jmadison: 2015.09.18_0710PM
  ----------------------------------------------------------------------------**/
-public class DeckTransUtil {
+public class DeckPojoUtil {
     
     /**-------------------------------------------------------------------------
      * Creates a random deck of CueCards 
@@ -51,7 +51,7 @@ public class DeckTransUtil {
         int len = cardCount;
         for(int i = 0; i < len; i++){
             numTru = getRandRange(truMIN, truMAX);
-            card = CueCardTransUtil.makeRandomCueCard(numQuips, numTru);
+            card = CuecardPojoUtil.makeRandomCueCard(numQuips, numTru);
             dek.cards.add(card);
         }//NEXT i
         
@@ -82,7 +82,7 @@ public class DeckTransUtil {
     -------------------------------------------------------------------------**/
     private static void err(String msg){
         String err = "ERROR INSIDE:";
-        Class clazz = DeckTransUtil.class;
+        Class clazz = DeckPojoUtil.class;
         err += clazz.getSimpleName();
         err += msg;
         throw MyError.make(clazz, err);

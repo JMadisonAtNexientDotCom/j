@@ -10,11 +10,31 @@ import test.transactions.util.forNoClearTableOwner.riddleRhyme.RiddleRhymeTransU
 import test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.riddle.RiddleTransUtil;
 
 /**
+ * 
+ * UPDATE:2015.10.19:START://///////////////////////////////////////////////////
+ * I am have the strong feeling I'am not using hibernate framework correctly.
+ * HOWEVER, this is the first time I've ever done database programming. And
+ * I'd like to get this application working. I am going to leave learning
+ * hibernate for AFTER I understand the basics of database design.
+ * And true understanding comes from doing.
+ * 
+ * The design plan:
+ * My entities are used as DATA-OBJECTS/STRUCTS.
+ * Then I have POJO/OBJECT representations of those structs.
+ * Splitting each object into 2 classes probably DEFIES how you are supposed
+ * to use hibernate. As I am going to write my own persistence methods for
+ * all of the pojo classes.
+ * 
+ * UPDATE:2015.10.19:END:///////////////////////////////////////////////////////
+ * 
+ * PRE:2015.10.19: START:///////////////////////////////////////////////////////
  * A transaction utility that is responsible for managing transactions involving
  * our Slate.java objects. A slate is basically an "answer card" that the
  * ninja fills out for a single [riddle/question] that is asked by the Jester.
+ * PRE:2015.10.19: END://///////////////////////////////////////////////////////
+ * 
  * @author jmadison                                                          **/
-public class SlateTransUtil {
+public class SlatePojoUtil {
     
     /** Creates a filled out slate (answer card) for a given riddleID.
      *  How slate is filled out depends on what constant is given to 
@@ -145,7 +165,7 @@ public class SlateTransUtil {
     -------------------------------------------------------------------------**/
     private static void doError(String msg){
         String err = "ERROR INSIDE:";
-        Class clazz = SlateTransUtil.class;
+        Class clazz = SlatePojoUtil.class;
         err += clazz.getSimpleName();
         err += msg;
         throw MyError.make(clazz, err);

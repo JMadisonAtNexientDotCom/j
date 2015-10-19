@@ -21,7 +21,7 @@ import test.transactions.util.forBundleEntities.TriviaBundleTransUtil;
  * 
  * @author jmadison: 2015.09.18_0710PM
  ----------------------------------------------------------------------------**/
-public class QuarTransUtil {
+public class QuarPojoUtil {
     
     
     /**-------------------------------------------------------------------------
@@ -84,7 +84,7 @@ public class QuarTransUtil {
     -------------------------------------------------------------------------**/
     private static void doError(String msg){
         String err = "ERROR INSIDE:";
-        Class clazz = QuarTransUtil.class;
+        Class clazz = QuarPojoUtil.class;
         err += clazz.getSimpleName();
         err += msg;
         throw MyError.make(clazz, err);

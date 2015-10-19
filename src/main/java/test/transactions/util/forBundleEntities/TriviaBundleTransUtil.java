@@ -5,8 +5,8 @@ import test.MyError;
 import test.dbDataAbstractions.bundleTypes.TriviaBundle;
 import test.dbDataAbstractions.entities.composites.CueCard;
 import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
-import test.transactions.util.forCompositeEntities.DeckTransUtil;
-import test.transactions.util.forCompositeEntities.QuarTransUtil;
+import test.transactions.util.forCompositeEntities.DeckPojoUtil;
+import test.transactions.util.forCompositeEntities.QuarPojoUtil;
 
 /**-----------------------------------------------------------------------------
  * A transaction utility for trivia bundles.
@@ -37,9 +37,9 @@ public class TriviaBundleTransUtil {
         
         //Populate our triva bundle:
         bund.synopsis = Synopsis.makeDefault();
-        bund.deck  = DeckTransUtil.getRandomDeckOfCueCards
+        bund.deck  = DeckPojoUtil.getRandomDeckOfCueCards
                                (cardCount, numQuips, truMIN, truMAX);
-        bund.quar = QuarTransUtil.makeBlankSlatesForDeck(bund.deck);
+        bund.quar = QuarPojoUtil.makeBlankSlatesForDeck(bund.deck);
         
         //Do some basic integrity checking on the bundle:
         validateBundle(bund, cardCount);

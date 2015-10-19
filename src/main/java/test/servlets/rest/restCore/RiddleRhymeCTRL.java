@@ -24,7 +24,7 @@ import test.debug.debugUtils.tempDataStore.TempServiceDataUtil;
 import test.servlets.rest.restCore.BaseCTRL;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forBundleEntities.TriviaBundleTransUtil;
-import test.transactions.util.forCompositeEntities.SlateTransUtil;
+import test.transactions.util.forCompositeEntities.SlatePojoUtil;
 import test.transactions.util.forNoClearTableOwner.riddleRhyme.RiddleRhymeTransUtil;
 import test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.riddle.RiddleTransUtil;
 import utils.JSONUtil;
@@ -139,7 +139,7 @@ public class RiddleRhymeCTRL extends BaseCTRL {
         Slate s;
         boolean riddleExists = RiddleTransUtil.doesRiddleExist(riddleID);
         if(riddleExists || (riddleID<0) ){
-            s = SlateTransUtil.makeFilledOutTestSlate_COMMON
+            s = SlatePojoUtil.makeFilledOutTestSlate_COMMON
                                                      (riddleID, slateDebugType);
         }else{
             s = Slate.makeErrorSlate(riddleID);
