@@ -4,7 +4,7 @@ import test.dbDataAbstractions.entities.composites.CueCard;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forNoClearTableOwner.riddleRhyme.RiddleRhymeTransUtil;
-import test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.riddle.RiddleTransUtil;
+import test.transactions.util.tables.riddle.RiddleTransUtil;
 
 /**-----------------------------------------------------------------------------
  * Handles transactions involving CueCard objects.

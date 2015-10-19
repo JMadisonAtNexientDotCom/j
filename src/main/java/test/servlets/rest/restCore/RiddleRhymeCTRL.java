@@ -26,7 +26,7 @@ import test.transactions.util.TransUtil;
 import test.transactions.util.forBundleEntities.TriviaBundlePojoUtil;
 import test.transactions.util.forCompositeEntities.SlatePojoUtil;
 import test.transactions.util.forNoClearTableOwner.riddleRhyme.RiddleRhymeTransUtil;
-import test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.riddle.RiddleTransUtil;
+import test.transactions.util.tables.riddle.RiddleTransUtil;
 import utils.JSONUtil;
 import utils.MapperUtil;
 

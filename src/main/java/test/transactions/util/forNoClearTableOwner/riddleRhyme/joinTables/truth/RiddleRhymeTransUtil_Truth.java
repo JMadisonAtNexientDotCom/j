@@ -12,7 +12,7 @@ import test.dbDataAbstractions.entities.tables.RiddleRhymeTruthTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forNoClearTableOwner.riddleRhyme.joinTables.RiddleRhymeJoinTablesTransUtil;
-import test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.rhyme.RhymeTransUtil;
+import test.transactions.util.tables.rhyme.RhymeTransUtil;
 
 /**
  * CLASS SUMMARY:

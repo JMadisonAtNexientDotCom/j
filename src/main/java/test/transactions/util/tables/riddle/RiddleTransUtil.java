@@ -1,4 +1,4 @@
-package test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.riddle;
+package test.transactions.util.tables.riddle;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;

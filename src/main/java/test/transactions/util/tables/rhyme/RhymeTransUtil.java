@@ -1,4 +1,4 @@
-package test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.rhyme;
+package test.transactions.util.tables.rhyme;
 
 import java.util.ArrayList;
 import java.util.List;

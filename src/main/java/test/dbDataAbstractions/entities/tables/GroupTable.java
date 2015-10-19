@@ -25,5 +25,5 @@ public class GroupTable extends BaseEntity{
     /** The name of the group. By convention, this should be the table
      *  the group is from. However, it might just end up being used for
      *  debugging. **/
-    @Column public Long name;
+    @Column public String name;
 }//CLASS::END

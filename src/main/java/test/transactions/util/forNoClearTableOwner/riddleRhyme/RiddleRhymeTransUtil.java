@@ -10,8 +10,8 @@ import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forNoClearTableOwner.riddleRhyme.joinTables.truth.RiddleRhymeTransUtil_Truth;
 import test.transactions.util.forNoClearTableOwner.riddleRhyme.joinTables.wrong.RiddleRhymeTransUtil_Wrong;
-import test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.rhyme.RhymeTransUtil;
-import test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.riddle.RiddleTransUtil;
+import test.transactions.util.tables.rhyme.RhymeTransUtil;
+import test.transactions.util.tables.riddle.RiddleTransUtil;
 
 /**-----------------------------------------------------------------------------
  * Utility that is responsible for transactions that involve both the
