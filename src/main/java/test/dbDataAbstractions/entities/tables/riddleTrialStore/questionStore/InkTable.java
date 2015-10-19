@@ -3,8 +3,11 @@ package test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore;
 ////////////////////////////////////////////////////////////////////////////////
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 
 //TABLE: Each entry is a meaningful datapoint.                                //
 //PURSE: A table where entries are only meaningful as a cluster               //
@@ -50,7 +53,9 @@ import test.config.constants.identifiers.VarNameReg;
  * 
  * @author jmadison :2015.10.19:
  */
-public class InkTable {
+@Entity
+@Table(name= InkTable.TABLE_NAME)
+public class InkTable extends BaseEntity{
     /** Name of table this entity refers to, for easy refactoring. **/
     public static final String TABLE_NAME = TableNameReg.INK_TABLE;
     /** Column name stored as string constant for easy refactoring. **/

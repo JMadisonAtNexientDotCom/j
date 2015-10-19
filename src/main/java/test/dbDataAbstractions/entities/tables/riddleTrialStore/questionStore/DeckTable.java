@@ -1,6 +1,8 @@
 package test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
@@ -46,6 +48,8 @@ import test.dbDataAbstractions.entities.bases.BaseEntity;
  *       (Objects with no functionality,)
  *       (and with their internal structure exposed)
  */
+@Entity
+@Table(name= DeckTable.TABLE_NAME)  
 public class DeckTable extends BaseEntity{
     
     /** Name of table this entity refers to, for easy refactoring. **/

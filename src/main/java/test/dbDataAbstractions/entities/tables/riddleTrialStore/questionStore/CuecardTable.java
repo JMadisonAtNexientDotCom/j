@@ -1,8 +1,11 @@
 package test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 
 /**
 ////////////////////////////////////////////////////////////////////////////////
@@ -43,7 +46,9 @@ import test.config.constants.identifiers.VarNameReg;
 * 
 * @author jmadison :2015.10.19
 **/
-public class CuecardTable {
+@Entity
+@Table(name= CuecardTable.TABLE_NAME) 
+public class CuecardTable extends BaseEntity{
     /** Name of table this entity refers to, for easy refactoring. **/
     public static final String TABLE_NAME        = TableNameReg.CUECARD_TABLE;
     /** Column name stored as string constant for easy refactoring. **/
