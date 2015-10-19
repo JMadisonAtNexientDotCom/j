@@ -1,4 +1,4 @@
-package test.transactions.util.forOwnedMainlyByOneTable.trial;
+package test.transactions.util.tables.trial;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,8 @@ import test.dbDataAbstractions.entities.tables.TrialTable;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.Coffer;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.Ticket;
 import test.transactions.util.TransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.session.SessionTransUtil;
+import test.transactions.util.tables.ninja.NinjaTransUtil;
+import test.transactions.util.tables.session.SessionTransUtil;
 
 /**
  * A utility concerned primarily with transactions involving the trial table.

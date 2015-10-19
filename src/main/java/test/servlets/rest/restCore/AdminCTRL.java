@@ -15,8 +15,8 @@ import test.servlets.rest.restCore.BaseCTRL;
 
 
 import test.transactions.util.TransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.admin.AdminTransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.session.SessionTransUtil;
+import test.transactions.util.tables.admin.AdminTransUtil;
+import test.transactions.util.tables.session.SessionTransUtil;
 import utils.JSONUtil;
 
 

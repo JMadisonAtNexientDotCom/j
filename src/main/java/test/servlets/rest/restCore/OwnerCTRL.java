@@ -14,9 +14,9 @@ import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forNoClearTableOwner.OwnerTokenTransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.admin.AdminTransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.owner.OwnerTransUtil;
+import test.transactions.util.tables.admin.AdminTransUtil;
+import test.transactions.util.tables.ninja.NinjaTransUtil;
+import test.transactions.util.tables.owner.OwnerTransUtil;
 import utils.JSONUtil;
 
 //345678901234567890123456789012345678901234567890123456789012345678901234567890

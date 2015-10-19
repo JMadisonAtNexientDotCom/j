@@ -1,4 +1,4 @@
-package test.transactions.util.forOwnedMainlyByOneTable.token;
+package test.transactions.util.tables.token;
 
 import java.util.ArrayList;
 import java.util.List;

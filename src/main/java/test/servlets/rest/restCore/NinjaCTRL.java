@@ -34,7 +34,7 @@ import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.composites.Clan;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
-import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
+import test.transactions.util.tables.ninja.NinjaTransUtil;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.transactions.cargoSystem.dataTypes.EntityCage;

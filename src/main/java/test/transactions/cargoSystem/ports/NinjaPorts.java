@@ -10,7 +10,7 @@ import test.transactions.cargoSystem.dataTypes.GalleonBarge;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
 import test.transactions.cargoSystem.ports.config.MasterPortList;
 import test.transactions.util.TransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
+import test.transactions.util.tables.ninja.NinjaTransUtil;
 
 /**
  * Didactic functions that take a barge+order. Used to load the barge 

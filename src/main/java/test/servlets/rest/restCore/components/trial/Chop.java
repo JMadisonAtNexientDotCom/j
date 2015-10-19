@@ -9,7 +9,7 @@ import test.config.debug.DebugConfig;
 import test.config.debug.DebugConfigLogger;
 import test.dbDataAbstractions.entities.EntityUtil;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postRequest.Edict;
-import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
+import test.transactions.util.tables.ninja.NinjaTransUtil;
 import utils.ListUtil;
 
 /**-----------------------------------------------------------------------------

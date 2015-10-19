@@ -1,10 +1,11 @@
-package test.transactions.util.forCompositeEntities;
+package test.transactions.util.tables.deck;
 
 import java.util.ArrayList;
 import test.MyError;
 import test.dbDataAbstractions.entities.composites.CueCard;
 import test.dbDataAbstractions.entities.composites.Deck;
 import test.transactions.util.TransUtil;
+import test.transactions.util.forCompositeEntities.CuecardPojoUtil;
 
 /**-----------------------------------------------------------------------------
  * 

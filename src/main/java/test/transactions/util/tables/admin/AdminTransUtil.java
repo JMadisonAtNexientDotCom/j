@@ -1,4 +1,4 @@
-package test.transactions.util.forOwnedMainlyByOneTable.admin;
+package test.transactions.util.tables.admin;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;

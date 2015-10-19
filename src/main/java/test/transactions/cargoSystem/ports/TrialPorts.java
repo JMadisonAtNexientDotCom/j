@@ -9,8 +9,8 @@ import test.dbDataAbstractions.entities.tables.TrialTable;
 import test.transactions.cargoSystem.dataTypes.GalleonBarge;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
 import test.transactions.cargoSystem.ports.config.MasterPortList;
-import test.transactions.util.forOwnedMainlyByOneTable.token.TokenTransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.trial.TrialTransUtil;
+import test.transactions.util.tables.token.TokenTransUtil;
+import test.transactions.util.tables.trial.TrialTransUtil;
 
 /**
  *

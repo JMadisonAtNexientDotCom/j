@@ -1,4 +1,4 @@
-package test.transactions.util.forOwnedMainlyByOneTable.owner;
+package test.transactions.util.tables.owner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +21,9 @@ import test.transactions.util.TransUtil;
 import test.transactions.util.TransValidateUtil;
 import test.transactions.util.forNoClearTableOwner.AdminTokenTransUtil;
 import test.transactions.util.forNoClearTableOwner.OwnerTokenTransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.admin.AdminTransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.ninja.NinjaTransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.token.TokenTransUtil;
+import test.transactions.util.tables.admin.AdminTransUtil;
+import test.transactions.util.tables.ninja.NinjaTransUtil;
+import test.transactions.util.tables.token.TokenTransUtil;
 
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 /**##########################CLASS HEADER FILE##################################

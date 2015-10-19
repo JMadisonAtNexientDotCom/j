@@ -6,9 +6,9 @@ import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.debug.debugUtils.primitiveTypes.BadValueChecker;
 import test.transactions.util.TransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.owner.OwnerTransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.session.SessionTransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.token.TokenTransUtil;
+import test.transactions.util.tables.owner.OwnerTransUtil;
+import test.transactions.util.tables.session.SessionTransUtil;
+import test.transactions.util.tables.token.TokenTransUtil;
 
 /**-----------------------------------------------------------------------------
  * Handles transactions involving BOTH admin_table and token_table.

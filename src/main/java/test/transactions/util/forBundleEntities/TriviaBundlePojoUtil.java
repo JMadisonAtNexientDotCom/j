@@ -5,7 +5,7 @@ import test.MyError;
 import test.dbDataAbstractions.bundleTypes.TriviaBundle;
 import test.dbDataAbstractions.entities.composites.CueCard;
 import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
-import test.transactions.util.forCompositeEntities.DeckPojoUtil;
+import test.transactions.util.tables.deck.DeckPojoUtil;
 import test.transactions.util.forCompositeEntities.QuarPojoUtil;
 
 /**-----------------------------------------------------------------------------
@@ -14,7 +14,7 @@ import test.transactions.util.forCompositeEntities.QuarPojoUtil;
  * @author jmadison :2015.09.18 at some time during the night.
  * @author jmadison :2015.09.19_0258PM Now ready for live test.
  ----------------------------------------------------------------------------**/
-public class TriviaBundleTransUtil {
+public class TriviaBundlePojoUtil {
     /**-------------------------------------------------------------------------
      *  Creates a TrivaBundle on the fly. The UI people can pull this down,-----
      *  and fill out the QUAR (collection of answer slates) and then
@@ -120,7 +120,7 @@ public class TriviaBundleTransUtil {
     -------------------------------------------------------------------------**/
     private static void doError(String msg){
         String err = "ERROR INSIDE:";
-        Class clazz = TriviaBundleTransUtil.class;
+        Class clazz = TriviaBundlePojoUtil.class;
         err += clazz.getSimpleName();
         err += msg;
         throw MyError.make(clazz, err);

@@ -1,4 +1,4 @@
-package test.transactions.util.forOwnedMainlyByOneTable.ninja;
+package test.transactions.util.tables.ninja;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +12,8 @@ import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.transactions.util.forNoClearTableOwner.OwnerTokenTransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.owner.OwnerTransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.token.TokenTransUtil;
+import test.transactions.util.tables.owner.OwnerTransUtil;
+import test.transactions.util.tables.token.TokenTransUtil;
 import utils.ListUtil;
 /**
  * Handles [transactions/operations] involving the ninja table.

@@ -1,4 +1,4 @@
-package test.transactions.util.forOwnedMainlyByOneTable.session;
+package test.transactions.util.tables.session;
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 
 import java.util.List;
@@ -14,10 +14,10 @@ import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.dbDataAbstractions.entities.tables.SessionTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.transactions.util.TransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.admin.AdminTransUtil;
+import test.transactions.util.tables.admin.AdminTransUtil;
 import test.transactions.util.forNoClearTableOwner.AdminTokenTransUtil;
 import test.transactions.util.forNoClearTableOwner.OwnerTokenTransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.owner.OwnerTransUtil;
+import test.transactions.util.tables.owner.OwnerTransUtil;
 
 /**##########################CLASS HEADER FILE##################################
 //WHAT THIS CLASS DOES:

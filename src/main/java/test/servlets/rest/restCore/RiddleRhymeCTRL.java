@@ -23,7 +23,7 @@ import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.S
 import test.debug.debugUtils.tempDataStore.TempServiceDataUtil;
 import test.servlets.rest.restCore.BaseCTRL;
 import test.transactions.util.TransUtil;
-import test.transactions.util.forBundleEntities.TriviaBundleTransUtil;
+import test.transactions.util.forBundleEntities.TriviaBundlePojoUtil;
 import test.transactions.util.forCompositeEntities.SlatePojoUtil;
 import test.transactions.util.forNoClearTableOwner.riddleRhyme.RiddleRhymeTransUtil;
 import test.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.riddle.RiddleTransUtil;
@@ -278,7 +278,7 @@ public class RiddleRhymeCTRL extends BaseCTRL {
         Session ses = TransUtil.enterTransaction();
         
         //Core Logic:
-        TriviaBundle bund = TriviaBundleTransUtil.getRandomTrivaBundle
+        TriviaBundle bund = TriviaBundlePojoUtil.getRandomTrivaBundle
                                           (card_count, num_quips, tru_min, tru_max);
         
         //Create our output response:

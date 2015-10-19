@@ -13,8 +13,8 @@ import test.dbDataAbstractions.entities.entityHelpers.WhoOwnsToken;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.transactions.util.TransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.owner.OwnerTransUtil;
-import test.transactions.util.forOwnedMainlyByOneTable.token.TokenTransUtil;
+import test.transactions.util.tables.owner.OwnerTransUtil;
+import test.transactions.util.tables.token.TokenTransUtil;
 
 /**
  * 
