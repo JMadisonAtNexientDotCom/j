@@ -79,6 +79,24 @@ public class VarNameReg {
     //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
     //TTTTTTTTTTTTTTT----------START------------------------TTTTTTTTTTTTTTTTTTTT
     //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+    
+    //For grouping control:
+    public static final String CHECKSUM  = "checksum"; //how many items are in group?
+    public static final String GROUP_ID  = "group_id"; //references group_id directly from GROUP_TABLE
+    public static final String LOCUS     = "locus";    //the unique position of a record belonging to a given group.
+    
+    //For creating contents of riddle-trial:
+    public static final String DECK_GI   = "deck_gi"; //deck group id, foriegn key.
+    public static final String CUECARD_ID= "cuecard_id"; //The unique id for a cuecard in database.
+    public static final String INK_ID    = "ink_id";  //Unique ID for a group of quips on a cuecard. Written in INK on the cuecard.
+    public static final String INK_GI    = "ink_gi";  //Group_id referenceing the "group_id" column of the ink_purse table.
+    
+    //For creating complete response to an entire riddle-trial:
+    public static final String QUAR_GI   = "quar_gi"; //quar group id, foriegn key.
+    public static final String SLATE_ID  = "slate_id";//Unique id for slate in database.
+    public static final String CHALK_ID  = "chalk_id";//Unique id for group of chalk-lines/answers on a slate.
+    public static final String CHALK_GI  = "chalk_gi";//group_id reference the group_id column of the chalk_purse table.
+    
     public static final String TOKEN_ID  = "token_id";
     public static final String TOKEN_HASH= "token_hash"; //string representation of token.
     public static final String ADMIN_ID  = "admin_id";
