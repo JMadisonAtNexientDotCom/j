@@ -1,6 +1,8 @@
 package test.dbDataAbstractions.entities.tables;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
@@ -10,6 +12,8 @@ import test.dbDataAbstractions.entities.bases.BaseEntity;
  * Used so that we can group items within the database together.
  * @author jmadison :2015.10.19
  */
+@Entity
+@Table(name= NinjaTable.TABLE_NAME)  //<--can we replace this with TABLE_NAME ?
 public class GroupTable extends BaseEntity{
     
     /** Name of table this entity refers to, for easy refactoring. **/
@@ -22,7 +26,7 @@ public class GroupTable extends BaseEntity{
     public static final String NAME_COLUMN          = VarNameReg.NAME;
     
     /** A checksum for how many entries should belong to this group. **/
-    @Column(name=TABLE_NAME) public Long checksum;
+    @Column(name=CHECKSUM_COLUMN) public Long checksum;
     
     /** The name of the group. By convention, this should be the table
      *  the group is from. However, it might just end up being used for
