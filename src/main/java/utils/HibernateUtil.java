@@ -22,6 +22,11 @@ import test.dbDataAbstractions.entities.tables.TestTable01;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.dbDataAbstractions.entities.tables.TransTable;
 import test.dbDataAbstractions.entities.tables.TrialTable;
+import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.CuecardTable;
+import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.DeckPurse;
+import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.DeckTable;
+import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.InkPurse;
+import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.InkTable;
 import test.debug.debugUtils.entity.EntityColumnDebugUtil;
 import test.debug.debugUtils.entity.EntityTableNameDebugUtil;
 
@@ -236,6 +241,15 @@ public class HibernateUtil {
      *              AnnotationConfiguration object in previous
      *              versions of hibernate. ----------------------------------**/
     private static void addAnnotations(MetadataSources mds){
+        
+        //Tables for storing a riddle-trial:
+        addAnnoEntity(mds, DeckTable   .class);
+        addAnnoEntity(mds, DeckPurse   .class);
+        addAnnoEntity(mds, CuecardTable.class);
+        addAnnoEntity(mds, InkTable    .class);
+        addAnnoEntity(mds, InkPurse    .class);
+        
+        //Other table entities:
         addAnnoEntity(mds, TestTable01 .class );
         addAnnoEntity(mds, TokenTable  .class );
         addAnnoEntity(mds, NinjaTable  .class );
