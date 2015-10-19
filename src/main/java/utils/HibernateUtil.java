@@ -11,6 +11,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import org.hibernate.boot.Metadata;
 import test.dbDataAbstractions.entities.tables.AdminTable;
+import test.dbDataAbstractions.entities.tables.GroupTable;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.dbDataAbstractions.entities.tables.RhymeTable;
@@ -243,6 +244,7 @@ public class HibernateUtil {
     private static void addAnnotations(MetadataSources mds){
         
         //Tables for storing a riddle-trial:
+        addAnnoEntity(mds, GroupTable  .class);
         addAnnoEntity(mds, DeckTable   .class);
         addAnnoEntity(mds, DeckPurse   .class);
         addAnnoEntity(mds, CuecardTable.class);
