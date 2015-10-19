@@ -18,14 +18,16 @@ public class GroupTable extends BaseEntity{
     public static final String ID_COLUMN            = VarNameReg.ID;
     /** Column name stored as string constant for easy refactoring. **/
     public static final String CHECKSUM_COLUMN      = VarNameReg.CHECKSUM;
+    /** Column name stored as string constant for easy refactoring. **/
+    public static final String NAME_COLUMN          = VarNameReg.NAME;
     
     /** A checksum for how many entries should belong to this group. **/
-    @Column public Long checksum;
+    @Column(name=TABLE_NAME) public Long checksum;
     
     /** The name of the group. By convention, this should be the table
      *  the group is from. However, it might just end up being used for
      *  debugging. **/
-    @Column public String name;
+    @Column(name=NAME_COLUMN) public String name;
     
     
     /**Makes a new entity configured as an error response.
