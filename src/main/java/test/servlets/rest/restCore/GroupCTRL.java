@@ -2,10 +2,12 @@ package test.servlets.rest.restCore;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
+import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.tables.GroupTable;
 import test.transactions.util.TransUtil;
 import utils.JSONUtil;
@@ -23,16 +25,16 @@ public class GroupCTRL extends BaseCTRL{
      * The group table manages ALL GROUP IDS amongst all of the
      * tables. Two group IDS of the same value should NOT exist.
      * Even across separate tables.
-     * @param groupName :The name of the group. Should be the name of the
+     * @param name :The name of the group. Should be the name of the
      *                   table that the group exists in.
      * @param checksum  :A checksum telling us how many records exist in
      *                   this group.
-     * @return :A serialized representation of the GroupTable entity.
-     */
-    
+     * @return :A serialized representation of the GroupTable entity. **/
     @GET
     @Path(FuncNameReg.MAKE_NEW_GROUP)
-    public Response makeNewGroup(String name, String checksum){
+    public Response makeNewGroup(
+            @QueryParam(VarNameReg.NAME)     String name, 
+            @QueryParam(VarNameReg.CHECKSUM) String checksum){
         
         //Make sure checksum can be represented as long:
         boolean canParse = StringUtil.canBeParsedAsWholeNumber(checksum);
