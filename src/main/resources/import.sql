@@ -52,6 +52,30 @@ DROP TABLE IF EXISTS owner_table; -- JOINS: { token_table(id), ninja_table(id), 
 -- Max length == 80 (one line) for our answers (rhymes).              --
 -- -----------------------------------| [B][B][B][B][B] BASE ENTITY FIELDS [B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B][B]-------|
 CREATE TABLE trial_table              (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_coutn INT UNSIGNED, token_id INT UNSIGNED, kind INT UNSIGNED, status INT UNSIGNED, began_on BIGINT UNSIGNED NOT NULL, ended_on BIGINT UNSIGNED NOT NULL, allotted INT UNSIGNED NOT NULL);
+
+-- tables that store the raw data for a single riddle-trial --------------------
+-- NOTE: If it has a group_id, it MIGHT need a locus to tell you what ORDER it--
+-- Should appear within the group                                             --
+CREATE TABLE deck_table     (deck_gi    INT UNSIGNED,                                              id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+CREATE TABLE deck_purse     (cuecard_id INT UNSIGNED, group_id  INT UNSIGNED, locus INT UNSIGNED,  id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+CREATE TABLE cuecard_table  (riddle_id  INT UNSIGNED, ink_id    INT UNSIGNED,                      id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+CREATE TABLE ink_table      (ink_gi     INT UNSIGNED,                                              id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+CREATE TABLE ink_purse      (rhyme_id   INT UNSIGNED, group_id  INT UNSIGNED, locus INT UNSIGNED,  id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+
+-- tables that store the raw data for the ANSWERS to a single riddle-trial -----
+-- Note that for these groups of answer slates, we DONT CARE ABOUT ORDER.  -----
+-- Giving answer : "A,B,C" is the same as "C,B,A".  However with QUESTIONS -----
+-- We do care about the order in which they are presented.                 -----
+-- We probably should not have TWO cue-cards with the same questions but in ----
+-- Different orders though. Will complicate collision detection. And make it----
+-- Harder to data-mine.  -------------------------------------------------------
+CREATE TABLE quar_table     (quar_gi  INT UNSIGNED,                                                id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+CREATE TABLE quar_purse     (slate_id INT UNSIGNED, group_id INT UNSIGNED,                         id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+CREATE TABLE slate_table    (status   INT UNSIGNED, chalk_id INT UNSIGNED, cuecard_id INT UNSIGNED,id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+CREATE TABLE chalk_table    (chalk_gi INT UNSIGNED,                                                id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+CREATE TABLE chalk_purse    (rhyme_id INT UNSIGNED, group_id INT UNSIGNED,                         id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+
+
 CREATE TABLE token_table              (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, token_hash varchar(80));
 CREATE TABLE ninja_table              (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, name varchar(80), phone INT UNSIGNED, email varchar(80), portfolio_url varchar(80) );
 CREATE TABLE riddle_table             (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, id serial PRIMARY KEY, text varchar(800) );
