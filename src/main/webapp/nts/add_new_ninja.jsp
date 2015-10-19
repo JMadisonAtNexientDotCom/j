@@ -127,7 +127,7 @@
 //<input type="text" ng-model="firstName"><br>
 
 var app = angular.module('myApp', ['angularSpinners']);
-app.controller('myCtrl', function($scope, $http, spinnerService) {
+app.controller('myCtrl', function($scope, $http, $window, spinnerService) {
     
 
     //set function reference:
@@ -178,6 +178,9 @@ app.controller('myCtrl', function($scope, $http, spinnerService) {
     
     $scope.goto_home = function(){
       msg_for_user     = "Redirecting...";
+      
+      //http://stackoverflow.com/questions/4709037/
+      //                                    window-location-versus-just-location
       $window.location = "admin_home.jsp";
     };//FUNC::END
 

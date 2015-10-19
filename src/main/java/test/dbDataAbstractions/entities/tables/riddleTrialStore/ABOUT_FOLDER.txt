@@ -1,0 +1,9 @@
+This folder stores all the data necessary for saving
+riddle-trials into the database.
+
+The "questionStore" has all of the tables used to store riddle-trials.
+The "answerStore" has all of the tables used to store the ninja's answers
+to a given riddle-trial.
+
+Anything in THIS folder should be used to join-table the
+sub-folders together.
