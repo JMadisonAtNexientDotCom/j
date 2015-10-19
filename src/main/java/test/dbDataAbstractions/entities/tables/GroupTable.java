@@ -13,7 +13,7 @@ import test.dbDataAbstractions.entities.bases.BaseEntity;
  * @author jmadison :2015.10.19
  */
 @Entity
-@Table(name= NinjaTable.TABLE_NAME)  //<--can we replace this with TABLE_NAME ?
+@Table(name= GroupTable.TABLE_NAME)  //<--can we replace this with TABLE_NAME ?
 public class GroupTable extends BaseEntity{
     
     /** Name of table this entity refers to, for easy refactoring. **/
