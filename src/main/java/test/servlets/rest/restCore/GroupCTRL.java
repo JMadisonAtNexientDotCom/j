@@ -30,7 +30,7 @@ public class GroupCTRL {
     
     @GET
     @Path(FuncNameReg.MAKE_NEW_GROUP)
-    public Response makeNewGroup(String groupName, String checksum){
+    public Response makeNewGroup(String name, String checksum){
         
         //Make sure checksum can be represented as long:
         boolean canParse = StringUtil.canBeParsedAsWholeNumber(checksum);
@@ -41,7 +41,7 @@ public class GroupCTRL {
         }//
         
         //Make sure valid name supplied:
-        if(null==groupName || groupName.equals("")){
+        if(null==name || name.equals("")){
             GroupTable alsoError = GroupTable.makeErrorTable();
             alsoError.setComment("[bad group name supplied]");
             return JSONUtil.entityToJSONResponse(alsoError);
@@ -54,7 +54,7 @@ public class GroupCTRL {
       
         //LOGIC:
         GroupTable gt = new GroupTable();
-        gt.name = groupName;
+        gt.name = name;
         gt.checksum = checksumAsLong;
         ses.save(gt);
         
