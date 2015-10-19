@@ -39,8 +39,8 @@ SET @last_rhyme_id = 0;
 DROP TABLE IF EXISTS token_table;
 DROP TABLE IF EXISTS admin_table;
 DROP TABLE IF EXISTS ninja_table
-DROP TABLE IF EXISTS riddle_table;
-DROP TABLE IF EXISTS rhyme_table;
+--DROP TABLE IF EXISTS riddle_table; Causing table to not exist for some reason.
+--DROP TABLE IF EXISTS rhyme_table;  Causing table to not exist for some reason.
 DROP TABLE IF EXISTS riddle_rhyme_truth_table;
 DROP TABLE IF EXISTS riddle_rhyme_wrong_table;
 DROP TABLE IF EXISTS session_table;
