@@ -23,6 +23,9 @@ public class FuncNameReg {
     //DEBUG:
     //public static final String DEBUGGER_STUB_FUNCTION="debugger_stub_function";
     
+    //GROUP SERVICE:
+    public static final String MAKE_NEW_GROUP="make_new_group";
+    
     //TRIAL SERVICE:
     public static final String DISPATCH_TOKENS="dispatch_tokens";
     public static final String DISPATCH_TOKENS_DEBUG="dispatch_tokens_debug";

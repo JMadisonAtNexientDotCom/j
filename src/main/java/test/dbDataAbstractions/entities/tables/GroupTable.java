@@ -26,4 +26,16 @@ public class GroupTable extends BaseEntity{
      *  the group is from. However, it might just end up being used for
      *  debugging. **/
     @Column public String name;
+    
+    
+    /**Makes a new entity configured as an error response.
+     * @return :See above. **/
+    public static GroupTable makeErrorTable(){
+        GroupTable op = new GroupTable();
+        op.checksum = new Long(-777);
+        op.name     = "[GROUPTABLE::ERROR_GROUP::]";
+        op.setComment("[Touched by GroupTable.makeErrorTable]");
+        return op;
+    }//FUNC::END
+    
 }//CLASS::END
