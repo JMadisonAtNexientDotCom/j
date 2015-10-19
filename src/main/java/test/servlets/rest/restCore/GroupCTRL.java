@@ -4,6 +4,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
+import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
 import test.dbDataAbstractions.entities.tables.GroupTable;
 import test.transactions.util.TransUtil;
@@ -14,7 +15,8 @@ import utils.StringUtil;
  *
  * @author jmadison :2015.10.19
  */
-public class GroupCTRL {
+@Path(ServletClassNames.GroupCTRL_MAPPING) 
+public class GroupCTRL extends BaseCTRL{
     
     /**
      * Makes a new group in the group table.

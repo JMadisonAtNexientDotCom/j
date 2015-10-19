@@ -12,6 +12,7 @@ import test.servlets.rest.restCore.TrialCTRL;
 import test.servlets.rest.other.debug.TransDebugCTRL;
 import test.servlets.rest.restCore.RiddleRhymeCTRL;
 import test.servlets.rest.other.utilityServlets.FileContentFetcher;
+import test.servlets.rest.restCore.GroupCTRL;
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 /**##########################CLASS HEADER FILE##################################
 //WHAT THIS CLASS DOES:
@@ -46,6 +47,11 @@ import test.servlets.rest.other.utilityServlets.FileContentFetcher;
 public class ServletClassNames {
     
     //There must be a better way!
+    
+    //GROUP SERVICE:
+    public static final String GroupCTRL_CLASSNAME = "GroupCTRL";
+    public static final String GroupCTRL_MAPPING   = "GroupCTRL/";
+    
     //TOKEN SERVICE:
     public static final String TokenCTRL_CLASSNAME = "TokenCTRL";
     public static final String TokenCTRL_MAPPING   = "TokenCTRL/";
@@ -204,6 +210,10 @@ public class ServletClassNames {
          *  to make sure they match! ----------------------------------------**/
         String clazName;
         
+        clazName =         GroupCTRL.class.getSimpleName();
+        if(         vcm_cn(GroupCTRL_CLASSNAME, clazName))
+        {   doMappingError(GroupCTRL_CLASSNAME); }
+        
         clazName =         TokenCTRL.class.getSimpleName();
         if(         vcm_cn(TokenCTRL_CLASSNAME, clazName))
         {   doMappingError(TokenCTRL_CLASSNAME); }
@@ -239,6 +249,9 @@ public class ServletClassNames {
     }//FUNC::END
     
     private static void verifyCorrectMapping_MAPPING(){
+        checkMapping(GroupCTRL_CLASSNAME,
+                     GroupCTRL_MAPPING);
+        
         checkMapping(TokenCTRL_CLASSNAME,
                      TokenCTRL_MAPPING);
         
