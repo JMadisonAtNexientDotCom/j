@@ -58,11 +58,13 @@ public class DeckPurse extends PurseEntity {
     /** Column name stored as string constant for easy refactoring. **/
     public static final String CUECARD_ID_COLUMN = VarNameReg.CUECARD_ID;
     
+    //NOW INHERITED. Can delete if you want.
     /** Reference a group_id within the master group_table **/
-    @Column(name = GROUP_ID_COLUMN) public Long group_id;
+    //@Column(name = GROUP_ID_COLUMN) public Long group_id;
     
+    //This is no longer wanted. We don't care. DELETE.
     /** The unique position of this record within the group it belongs to. **/
-    @Column(name = LOCUS_COLUMN) public Long locus;
+    //@Column(name = LOCUS_COLUMN) public Long locus;
     
     /** The contents of a single card within the deck. **/
     @Column(name = CUECARD_ID_COLUMN) public Long cuecard_id;

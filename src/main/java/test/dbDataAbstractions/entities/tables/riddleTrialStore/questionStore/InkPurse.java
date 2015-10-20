@@ -65,14 +65,15 @@ public class InkPurse extends PurseEntity {
     /** Column name stored as string constant for easy refactoring. **/
     public static final String GROUP_ID_COLUMN   = VarNameReg.GROUP_ID;
     
+    //DELETE: not wanted.
     /** The position of this record within the group_id it belongs to. **/
-    @Column(name = LOCUS_COLUMN) public Long locus;
+    //@Column(name = LOCUS_COLUMN) public Long locus;
+    
+    //DELETE: now inherited.
+    /** The group of [rhymes/quips/answers] that this record belongs to. **/
+    //@Column(name = GROUP_ID_COLUMN) public Long group_id;
     
     /** The actual [rhyme/quip/answer] for this record of the group. **/
     @Column(name = RHYME_ID_COLUMN) public Long rhyme_id;
-    
-    /** The group of [rhymes/quips/answers] that this record belongs to. **/
-    @Column(name = GROUP_ID_COLUMN) public Long group_id;
-    
     
 }//CLASS::END

@@ -56,11 +56,11 @@ CREATE TABLE trial_table              (id serial PRIMARY KEY, dele BOOLEAN, comm
 -- tables that store the raw data for a single riddle-trial --------------------
 -- NOTE: If it has a group_id, it MIGHT need a locus to tell you what ORDER it--
 -- Should appear within the group                                             --
-CREATE TABLE deck_table     (deck_gi    INT UNSIGNED,                                              id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
-CREATE TABLE deck_purse     (cuecard_id INT UNSIGNED, group_id  INT UNSIGNED, locus INT UNSIGNED,  id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
-CREATE TABLE cuecard_table  (riddle_id  INT UNSIGNED, ink_id    INT UNSIGNED,                      id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
-CREATE TABLE ink_table      (ink_gi     INT UNSIGNED,                                              id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
-CREATE TABLE ink_purse      (rhyme_id   INT UNSIGNED, group_id  INT UNSIGNED, locus INT UNSIGNED,  id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+CREATE TABLE deck_table     (deck_gi    INT UNSIGNED,                           id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+CREATE TABLE deck_purse     (cuecard_id INT UNSIGNED, group_id  INT UNSIGNED,   id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+CREATE TABLE cuecard_table  (riddle_id  INT UNSIGNED, ink_id    INT UNSIGNED,   id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+CREATE TABLE ink_table      (ink_gi     INT UNSIGNED,                           id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+CREATE TABLE ink_purse      (rhyme_id   INT UNSIGNED, group_id  INT UNSIGNED,   id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
 
 -- tables that store the raw data for the ANSWERS to a single riddle-trial -----
 -- Note that for these groups of answer slates, we DONT CARE ABOUT ORDER.  -----
