@@ -81,6 +81,12 @@ public class InkPersistUtil {
                 curInk = (InkPurse)genericEnt;
                 
                 if(null == curInk){doError("[cast resulted in null object]");}
+                if(curInk.group_id <= 0){
+                    String msg = "";
+                    msg += ("[InvalidGroupID!!]");
+                    msg += "[SaveOrUpdate() might save you.]";
+                    doError(msg);
+                }//error?
                 //if(null == curInk.group_id){doError("[group_id is null!]");}
                 long group_id = curInk.group_id;
                 currentCheckSum = GroupTable.getChecksumOfID(group_id);
