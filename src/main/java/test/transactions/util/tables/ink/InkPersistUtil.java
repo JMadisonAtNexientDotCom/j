@@ -81,7 +81,7 @@ public class InkPersistUtil {
                 curInk = (InkPurse)genericEnt;
                 
                 if(null == curInk){doError("[cast resulted in null object]");}
-                if(null == curInk.group_id){doError("[group_id is null!]");}
+                //if(null == curInk.group_id){doError("[group_id is null!]");}
                 long group_id = curInk.group_id;
                 currentCheckSum = GroupTable.getChecksumOfID(group_id);
                 if(currentCheckSum == numQuips){
