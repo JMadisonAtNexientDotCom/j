@@ -11,6 +11,7 @@ import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.tables.RhymeTable;
+import test.transactions.util.TransUtil;
 import test.transactions.util.tables.ink.InkPersistUtil;
 import utils.JSONUtil;
 
@@ -78,8 +79,17 @@ public class InkCTRL extends BaseCTRL{
     
     //Shared function amongs by persistence tests//
     public Response convertAndRespond(List<Long> ids){
+        
+        //Enter transaction + error check:
+        TransUtil.outsideTransactionCheck();
+        TransUtil.enterTransaction();
+        
+        //Core Logic:
         List<RhymeTable> rhymes = convertToRhymes(ids);
         LongBool lb = InkPersistUtil.persistQuips(rhymes);
+        
+        //Exit transaction,and return response:
+        TransUtil.enterTransaction();
         return JSONUtil.whateverToJsonResponse(lb);
     }//FUNC::END
     
