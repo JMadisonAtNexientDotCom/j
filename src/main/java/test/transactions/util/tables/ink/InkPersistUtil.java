@@ -81,18 +81,18 @@ public class InkPersistUtil {
                 curInk = (InkPurse)genericEnt;
                 
                 if(null == curInk){doError("[cast resulted in null object]");}
-                
-                currentCheckSum = GroupTable.getChecksumOfID(curInk.group_id);
+                long group_id = curInk.group_id;
+                currentCheckSum = GroupTable.getChecksumOfID(group_id);
                 if(currentCheckSum == numQuips){
                     checkSumCandidates.add(curInk);
-                    if(groupRollCall.containsKey(curInk.group_id)){
+                    if(groupRollCall.containsKey(group_id)){
                         //incriment number of times found:
-                        Long val = groupRollCall.get(curInk.group_id);
+                        Long val = groupRollCall.get(group_id);
                         val++;
-                        groupRollCall.put(curInk.group_id, val);
+                        groupRollCall.put(group_id, val);
                     }else{
                         //Put in a 1, since first item of group_id found:
-                        groupRollCall.put(curInk.group_id, new Long(1) );
+                        groupRollCall.put(group_id, new Long(1) );
                     }//
                     
                 }//check sum checks out.
