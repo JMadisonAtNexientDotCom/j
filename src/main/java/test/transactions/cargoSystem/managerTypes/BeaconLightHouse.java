@@ -182,7 +182,7 @@ public class BeaconLightHouse {
         Class      table  = order.supplier;      
         String     column = BaseEntity.ID;
         List<Long> values = order.primaryKey_ids;
-        List<BaseEntity> ents = TransUtil.getEntitiesUsingListOfLong
+        List<BaseEntity> ents = TransUtil.getOneEntityPerLong
                                                         (table, column, values);
         
         //Load entities into barge:

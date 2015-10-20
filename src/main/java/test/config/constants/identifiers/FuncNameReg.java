@@ -23,6 +23,12 @@ public class FuncNameReg {
     //DEBUG:
     //public static final String DEBUGGER_STUB_FUNCTION="debugger_stub_function";
     
+    //INK SERVICE:
+    public static final String PERSIST_GROUP_OF_1_QUIP_TEST = "persist_group_of_1_quip_test";
+    public static final String PERSIST_GROUP_OF_2_QUIP_TEST = "persist_group_of_2_quip_test";
+    public static final String PERSIST_GROUP_OF_3_QUIP_TEST = "persist_group_of_3_quip_test";
+    public static final String PERSIST_GROUP_OF_4_QUIP_TEST = "persist_group_of_4_quip_test";
+    
     //GROUP SERVICE:
     public static final String MAKE_NEW_GROUP="make_new_group";
     

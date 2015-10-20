@@ -146,6 +146,7 @@ public class ServiceUrlsInitializer {
         //
         
         //Create fully-qualified api endpoints: //UUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
+        U.INK    = mkURL(ServletClassNames.InkCTRL_MAPPING);
         U.GROUP  = mkURL(ServletClassNames.GroupCTRL_MAPPING);
         U.TRIAL  = mkURL(ServletClassNames.TrialCTRL_MAPPING);
         U.ADMIN  = mkURL(ServletClassNames.AdminCTRL_MAPPING);

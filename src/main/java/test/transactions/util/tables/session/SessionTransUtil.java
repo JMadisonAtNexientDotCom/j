@@ -236,7 +236,7 @@ public class SessionTransUtil {
         //Total number of records killed:
         int killCount = 0;
         
-        List<BaseEntity> sesRecords = TransUtil.getEntitiesUsingListOfLong
+        List<BaseEntity> sesRecords = TransUtil.getOneEntityPerLong
                    (SessionTable.class, SessionTable.TOKEN_ID_COLUMN, tokenIDS);
         
         if(errorIfNoSessionsFound){

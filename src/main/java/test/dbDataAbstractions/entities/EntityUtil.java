@@ -5,17 +5,30 @@
  */
 package test.dbDataAbstractions.entities;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import test.MyError;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
+import test.transactions.HibernateReflectionUtil;
 
 /**
  *
- * @author jmadison
+ * @author jmadison :Pre:2015.10.20(Oct20th,Year2015)
  */
 public class EntityUtil {
    
+    
+    //Wrapper for function I could not find.
+    //I looked here first. So put a wrapper here because I was very close
+    //to re-writing this function because I did not know it existed.
+    //For more info on it, look into the wrapped function.
+    public static void setField
+                              (BaseEntity ent, String columnName, Object value){
+        HibernateReflectionUtil.setEntityColumnValue(ent, columnName, value);
+    }//FUCN::END
+    
+    
     /** Creates a list where all entities have been downcasted to base entity**/
     public static List<BaseEntity> downCastEntities
                                               (List<? extends BaseEntity> ents){
@@ -56,6 +69,7 @@ public class EntityUtil {
         return op;                        
                                 
     }//FUNC::END
+        
     
     /** I swear I have made something like this before. Not happy that I am
      *  duplicating code possibly.
@@ -63,8 +77,11 @@ public class EntityUtil {
      *  A list of IDS from the entities. Preserves the original order.
      *  Considered error if passed null or empty list.
      * @return: See above.
+     * 
+     * UPDATE:2015.10.20: Changed signature from List<BaseEntity> to 
+     *        List<? extends BaseEntity> so we don't have to cast.
      */
-    public static List<Long> StripPrimaryIDS(List<BaseEntity> entities){
+    public static List<Long> StripPrimaryIDS(List<? extends BaseEntity> entities){
         
         if(null == entities || entities.isEmpty()){
             doError("Not allowed!");
@@ -117,6 +134,27 @@ public class EntityUtil {
             }//
         }//next i.
         
+    }//FUNC::END
+                             
+    /**
+     * 
+     * @param <T> :The type of entity we want to create a new instance of.
+     * @param entClass :The actual reference to the type using class ref.
+     * @return    :A new instance of the entity.
+     * 
+     * Design note: This was the FIRST place I looked for this function when
+     * I thought "I think I already made this function before".
+     * HibernateReflectionUtil was the 2ND place. Rather than ~accidentially~
+     * duplicate code as this code base grows, I would rather just make
+     * wrapper functions for where I expect functions to be.
+     * 
+     * Not elegant. But less-bad than code duplication.
+     * In a perfect world, we would just know where everything is.
+     * 
+     */
+    public static <T extends BaseEntity> BaseEntity makeEntityFromClass
+                                                            (Class<T> entClass){
+        return HibernateReflectionUtil.makeEntityFromClass(entClass);
     }//FUNC::END
     
     /**-------------------------------------------------------------------------

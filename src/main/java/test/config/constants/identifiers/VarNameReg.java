@@ -158,6 +158,14 @@ public class VarNameReg {
     public static final String NINJA_ID_LIST        = "ninja_id_list";
     public static final String TRIAL_KIND           = "trial_kind";
     public static final String DURATION_IN_MINUTES  = "duration_in_minutes";
+    
+    //Specifically the InkCTRL:
+    public static final String Q1_ID = "q1_id";
+    public static final String Q2_ID = "q2_id";
+    public static final String Q3_ID = "q3_id";
+    public static final String Q4_ID = "q4_id";
+    
+    
     //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
     //RRRRRRR--------------END------------------------------RRRRRRRRRRRRRRRRRRRR
     //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR

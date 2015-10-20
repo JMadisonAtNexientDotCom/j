@@ -8,6 +8,7 @@ import javax.persistence.Table;
 import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
+import test.dbDataAbstractions.entities.bases.PurseEntity;
 
 //PURSE: A table where entries are only meaningful as a cluster               //
 //       of records with same group id. Thinking of it as a jumbled           //
@@ -51,7 +52,7 @@ import test.dbDataAbstractions.entities.bases.BaseEntity;
  */
 @Entity
 @Table(name= InkPurse.TABLE_NAME)  //<--can we replace this with TABLE_NAME ?
-public class InkPurse extends BaseEntity {
+public class InkPurse extends PurseEntity {
     
     /** Name of table this entity refers to, for easy refactoring. **/
     public static final String TABLE_NAME        = TableNameReg.INK_PURSE;

@@ -13,6 +13,7 @@ import test.servlets.rest.other.debug.TransDebugCTRL;
 import test.servlets.rest.restCore.RiddleRhymeCTRL;
 import test.servlets.rest.other.utilityServlets.FileContentFetcher;
 import test.servlets.rest.restCore.GroupCTRL;
+import test.servlets.rest.restCore.InkCTRL;
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 /**##########################CLASS HEADER FILE##################################
 //WHAT THIS CLASS DOES:
@@ -47,6 +48,10 @@ import test.servlets.rest.restCore.GroupCTRL;
 public class ServletClassNames {
     
     //There must be a better way!
+    
+    //INK SERVICE:
+    public static final String InkCTRL_CLASSNAME = "InkCTRL";
+    public static final String InkCTRL_MAPPING   = "InkCTRL/";
     
     //GROUP SERVICE:
     public static final String GroupCTRL_CLASSNAME = "GroupCTRL";
@@ -210,6 +215,10 @@ public class ServletClassNames {
          *  to make sure they match! ----------------------------------------**/
         String clazName;
         
+        clazName =         InkCTRL.class.getSimpleName();
+        if(         vcm_cn(InkCTRL_CLASSNAME, clazName))
+        {   doMappingError(InkCTRL_CLASSNAME); }
+        
         clazName =         GroupCTRL.class.getSimpleName();
         if(         vcm_cn(GroupCTRL_CLASSNAME, clazName))
         {   doMappingError(GroupCTRL_CLASSNAME); }
@@ -249,6 +258,9 @@ public class ServletClassNames {
     }//FUNC::END
     
     private static void verifyCorrectMapping_MAPPING(){
+        checkMapping(InkCTRL_CLASSNAME,
+                     InkCTRL_MAPPING);
+        
         checkMapping(GroupCTRL_CLASSNAME,
                      GroupCTRL_MAPPING);
         

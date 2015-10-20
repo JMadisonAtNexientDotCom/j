@@ -3,6 +3,7 @@ package test.transactions.util;
 import java.util.List;
 import org.hibernate.Session;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
+import test.dbDataAbstractions.entities.bases.PurseEntity;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 
 /**
@@ -170,6 +171,11 @@ public class TransUtil {
                         (      tableClass,        columnName,      columnValue);
     }//WRAPPER::END
                         
+    public static BaseEntityContainer getEntityByID
+                                             (Class tableClass, long entity_id){
+        return i().getEntityByID(tableClass,entity_id);
+    }//WRAPPER::END
+                        
     public static BaseEntityContainer getRandomRecord(Class tableClass){
         return i().getRandomRecord(tableClass);
     }//WRAPPER::END   
@@ -203,9 +209,9 @@ public class TransUtil {
                       (      tableClass,        columnName,      columnValue);                   
     }//WRAPPER::END
                       
-    public static List<BaseEntity> getEntitiesUsingListOfLong
+    public static List<BaseEntity> getOneEntityPerLong
                    (Class tableClass, String columnName, List<Long> colValList){
-        return i().getEntitiesUsingListOfLong
+        return i().getOneEntityPerLong
                    (      tableClass,        columnName,            colValList);
     }//WRAPPER::END
                    
@@ -230,6 +236,13 @@ public class TransUtil {
                             List<BaseEntity> into, 
                             String         column){
         i().join(from,into,column);
+    }//WRAPPER::END
+    
+    //TODO: MakeGroupUsingEntities
+    public static <T extends PurseEntity> void makeGroup
+        (Class<T> purseTable, long groupID, 
+                               String foreignIDColumnName, List<Long> idValues){
+        i().makeGroup(purseTable,groupID,foreignIDColumnName, idValues);
     }//WRAPPER::END
                          
 }//END::CLASS

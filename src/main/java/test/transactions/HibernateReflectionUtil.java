@@ -8,7 +8,7 @@ import test.dbDataAbstractions.entities.bases.BaseEntity;
 
 /**
  * A reflection utility SPECIFICALLY for hibernate framework.
- * @author jmadison
+ * @author jmadison :Pre:2015.10.20. Maybe a few days ago?
  */
 public class HibernateReflectionUtil {
     
@@ -24,7 +24,7 @@ public class HibernateReflectionUtil {
      * @param columnName:The name of the column.
      * @param value     :The value to set into column/entity property
      */
-    private static void setEntityColumnValue
+    public static void setEntityColumnValue
                                (BaseEntity to, String columnName, Object value){
         Field f = getDeclaredFieldUsingInstance(to,columnName);
         f.setAccessible(true); //<--so we can mess with PRIVATE variables.
@@ -71,6 +71,27 @@ public class HibernateReflectionUtil {
             Logger.getLogger(HibernateReflectionUtil.class.getName()).log
                                                        (Level.SEVERE, null, ex);
         }
+    }//FUNC::END
+                                            
+    public static <T extends BaseEntity> BaseEntity makeEntityFromClass
+                                                            (Class<T> entClass){
+        T obj = null;
+        
+        //Boiler plate BS try-catch:
+        try {
+            obj = (T)(entClass.newInstance());
+        } catch (InstantiationException ex) {
+            Logger.getLogger(HibernateReflectionUtil.class.getName()).log
+                                                       (Level.SEVERE, null, ex);
+            doError("[Address this now. Find the source of error. 3242332]");
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(HibernateReflectionUtil.class.getName()).
+                                                    log(Level.SEVERE, null, ex);
+            doError("[Address this now. Find the source of error. 7434546]");
+        }//meow
+        
+        if(null == obj){doError("[How did this happen??42342]");}
+        return obj;
     }//FUNC::END
                                            
     /**-------------------------------------------------------------------------

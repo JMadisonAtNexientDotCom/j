@@ -12,7 +12,9 @@ import test.MyError;
 import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.config.debug.DebugConfig;
+import test.dbDataAbstractions.entities.EntityUtil;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
+import test.dbDataAbstractions.entities.bases.PurseEntity;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.TransTable;
 import test.globalState.SynchronizedConversationCounter;
@@ -614,7 +616,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
      ------------------------------------------------------------------------**/
     public BaseEntityContainer getEntityFromTableUsingPrimaryKey
                         (Class tableClass, String columnName, long columnValue){
-         //Error check:
+        //Error check:
         throwErrorIfClassIsNotBaseEntity(tableClass);
           
         //Core Logic:
@@ -623,7 +625,19 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         
         //Our output var:
         BaseEntityContainer op = null;
+        op = listCriteriaAndReturnContainerIfResultsNoneOrOne(cri);
         
+        //Return the container that may or may not have
+        //an entity inside of it.
+        if(null==op){ doError("[should never return null. 983723jjjkj32342]"); }
+        return op;         
+    }//FUNC::END
+                        
+    private static BaseEntityContainer 
+                            listCriteriaAndReturnContainerIfResultsNoneOrOne(Criteria cri){
+        //Our output var:
+        BaseEntityContainer op = null;                        
+                                
         //Retrieval and error checking:
         List<BaseEntity> queryResultList = cri.list();
         int listLen = queryResultList.size();
@@ -634,7 +648,9 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
             BaseEntity uniqueResult = queryResultList.get(0);
             op = BaseEntityContainer.make( uniqueResult );
         }else{//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            String msg = "[ERROR from: getEntityFromTableUsingPrimaryKey]";
+            String msg = "";
+            msg +="[ERROR from:]";
+            msg +="[listCriteriaAndReturnContainerIfResultsNoneOrOne]";
             msg += "while attempting to get an entity using a primary key";
             msg += "we ended up with multiple entries. Meaning the";
             msg += "primary key column is NOT being used as such.";
@@ -645,11 +661,39 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
             doError(msg);
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         
+        return op;
+    }//FUNC::END
+          
+    //
+    /**
+     * Since I have enforced that all entities have an ID, 
+     * This function would be a good idea. Since it will simplify
+     * calls. Which is:
+     * 1. Easier to read.
+     * 2. Less prone to typos and errors with smaller signature.
+     * @param tableClass :The class derived from base entity that has
+     *                    the ID you want.
+     * @param entity_id  :The id of the entity you want.
+     * @return :Returns the entity in the container, if entity by that
+     *          id from this table exists.
+     */
+    public BaseEntityContainer getEntityByID(Class tableClass, Long entity_id){
+         //Error check:
+        throwErrorIfClassIsNotBaseEntity(tableClass);
+          
+        //Core Logic:
+        Criteria cri = makeGloballyFilteredCriteria(tableClass);
+        cri.add(Restrictions.eq(BaseEntity.ID, entity_id));
+        
+        //Our output var:
+        BaseEntityContainer op = null;
+        op = listCriteriaAndReturnContainerIfResultsNoneOrOne(cri);
+        
         //Return the container that may or may not have
         //an entity inside of it.
         if(null==op){ doError("[should never return null. 4242345423fsdvs]"); }
         return op;         
-    }//FUNC::END
+    }//WRAPPER::END
                         
     /**
      * Meant for retrieving ONE OR MORE entities.
@@ -697,8 +741,14 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
      * @param columnName :The column name to query.
      * @param colValList :The list of column values.
      * @return 
+     * 
+     * DESIGN NOTE: Originally called, "get entities using list of long".
+     *              But then I needed it for something again and realized it
+     *              is designed to return no more than 1 entity per value.
+     *              So I renamed it to "getOneEntityPerLong" JMADISON:2015.10.20
+     * 
      */                 
-    public List<BaseEntity> getEntitiesUsingListOfLong
+    public List<BaseEntity> getOneEntityPerLong
                    (Class tableClass, String columnName, List<Long> colValList){
         List<BaseEntity> op = new ArrayList<BaseEntity>();
         long columnValue;
@@ -968,7 +1018,54 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
             HibernateReflectionUtil.doJoin(entFrom, entInto, column);
         }//next i
         
-    }//WRAPPER::END                     
+    }//FUNC::END 
+    
+    /**
+     
+    
+    
+    /**Creates a cluster of entities in the Purse-Table of choice.
+     * @param purseTable :The table we want to put entries in.
+     * @param groupID    :The shared groupID of all entries.
+     * @param foreignIDColumnName :The ID column used to set the value of
+     *                             the grouped item.
+     * @param idValues 
+     * @param <T> :The type for inputting.
+     * @param <B> :The type we need to downcast to do use utility function.
+     * 
+     * DESIGN NOTE: This could be simplified. If you find your purse objects
+     *              only ever have one foreign key column, you could make
+     *              and abstract setter method on PurseEntity class.
+     *              For now, will not do. Could be ~convienient~, but could
+     *              ~overcomplexify~ things if I try to implement it NOW and
+     *              have trouble getting it working. **/
+    public <T extends PurseEntity, B extends BaseEntity> void makeGroup
+        (Class<T> purseTable, long groupID, 
+                               String foreignIDColumnName, List<Long> idValues){
+            
+        //Error check and get transaction session:
+        TransUtil.insideTransactionCheck();
+        Session ses = TransUtil.getActiveTransactionSession();
+            
+        int numEntitiesToMake = idValues.size();
+        
+        //DownCast the class:
+        Class<B> purseTableClassAsBaseEntityClass = (Class<B>)purseTable;
+        
+        long curID;
+        B curEnt;
+        for(int i = 0; i < numEntitiesToMake; i++){
+            curID  = idValues.get(i);
+            curEnt = (B)EntityUtil.makeEntityFromClass
+                                             (purseTableClassAsBaseEntityClass);
+            //Use reflection to set the correct value:
+            EntityUtil.setField(curEnt, foreignIDColumnName, curID);
+            
+            //Save the entity before moving on:
+            ses.save(curEnt);
+            
+        }//Next i.
+    }//FUNC::END
     
     /**-------------------------------------------------------------------------
      * Marks STRING/VARCHAR records as DELE (marked for deletion)

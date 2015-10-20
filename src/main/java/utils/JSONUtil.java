@@ -122,6 +122,19 @@ public class JSONUtil {
         return Response.ok(jsonText, MediaType.APPLICATION_JSON).build();
     }//FUNC::END
     
+    /**
+     * I think it is a bit of an anti-pattern to make a new serialize
+     * function for everything you want to serialize, just for the sake
+     * of type safety. I am going to use this function for testing.
+     * As sometimes I will want to serialize ~miscellanious~ objects
+     * that I can't justify making a specific function for.
+     * @param obj :The object to serialize.
+     * @return    :A 200/ok with serialized object in body.
+     */
+    public static Response whateverToJsonResponse(Object obj){
+        return genericObjectToJSONResponse(obj);
+    }//FUNC::END
+    
     /** Wrapper for core serialization code that will throw error
      *  if you give it a null object. If you are NOT expecting null,
      *  you should be using the NoNULL version that will check for mistakes.

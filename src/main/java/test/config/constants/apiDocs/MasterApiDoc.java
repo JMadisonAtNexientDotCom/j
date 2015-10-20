@@ -15,6 +15,10 @@ import test.config.constants.signatures.sig.Name_Phone_Email_PortfolioUrl_EndPoi
 import test.config.constants.signatures.sig.NinjaIdList_TrialKind_DurationInMinutes_EndPoint;
 import test.config.constants.signatures.sig.PageIndex_NumResultsPerPage;
 import test.config.constants.signatures.sig.PageIndex_NumResultsPerPage_EndPoint;
+import test.config.constants.signatures.sig.Quip1_EndPoint;
+import test.config.constants.signatures.sig.Quip2_EndPoint;
+import test.config.constants.signatures.sig.Quip3_EndPoint;
+import test.config.constants.signatures.sig.Quip4_EndPoint;
 import test.config.constants.signatures.sig.RiddleId_EndPoint;
 import test.config.constants.signatures.sig.RiddleId_NumberOfChoices_NumberOfTruths_EndPoint;
 import test.config.constants.signatures.sig.RiddleId_RhymeId_EndPoint;
@@ -25,6 +29,7 @@ import test.config.constants.signatures.sig.TokenId_NinjaId_EndPoint;
 import test.config.constants.signatures.sig.UserName_PassWord_EndPoint;
 import test.config.constants.signatures.sig.Void_EndPoint;
 import test.servlets.rest.restCore.AdminCTRL;
+import test.servlets.rest.restCore.InkCTRL;
 import test.servlets.rest.restCore.NinjaCTRL;
 import test.servlets.rest.restCore.OwnerCTRL;
 import test.servlets.rest.restCore.TokenCTRL;
@@ -78,6 +83,19 @@ public class MasterApiDoc {
     
     private static ServiceURLRegistry R = ServiceUrlsInitializer.
                                                         getServiceURLRegistry();
+    
+    //INK SERVICE:
+    @Verbatim(name=FuncNameReg.PERSIST_GROUP_OF_1_QUIP_TEST, nameMod=Verbatim.UPPER_CASE)
+    public Quip1_EndPoint PERSIST_GROUP_OF_1_QUIP_TEST = new Quip1_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.PERSIST_GROUP_OF_1_QUIP_TEST, nameMod=Verbatim.UPPER_CASE)
+    public Quip2_EndPoint PERSIST_GROUP_OF_2_QUIP_TEST = new Quip2_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.PERSIST_GROUP_OF_1_QUIP_TEST, nameMod=Verbatim.UPPER_CASE)
+    public Quip3_EndPoint PERSIST_GROUP_OF_3_QUIP_TEST = new Quip3_EndPoint();
+    
+    @Verbatim(name=FuncNameReg.PERSIST_GROUP_OF_1_QUIP_TEST, nameMod=Verbatim.UPPER_CASE)
+    public Quip4_EndPoint PERSIST_GROUP_OF_4_QUIP_TEST = new Quip4_EndPoint();
     
     //TRIAL SERVICE:
     @Verbatim(name=FuncNameReg.DISPATCH_TOKENS, nameMod=Verbatim.UPPER_CASE) 
@@ -188,6 +206,17 @@ public class MasterApiDoc {
         String endPT;
         String cName;
         Class  clazz;
+        
+        //INK REST SERVICE CONFIG:
+        endPT = R.INK;
+        cName = ServletClassNames.InkCTRL_CLASSNAME;
+        clazz = InkCTRL.class;
+        enter_CFG(endPT,cName,clazz);
+        add(PERSIST_GROUP_OF_1_QUIP_TEST, FuncNameReg.PERSIST_GROUP_OF_1_QUIP_TEST);
+        add(PERSIST_GROUP_OF_2_QUIP_TEST, FuncNameReg.PERSIST_GROUP_OF_2_QUIP_TEST);
+        add(PERSIST_GROUP_OF_3_QUIP_TEST, FuncNameReg.PERSIST_GROUP_OF_3_QUIP_TEST);
+        add(PERSIST_GROUP_OF_4_QUIP_TEST, FuncNameReg.PERSIST_GROUP_OF_4_QUIP_TEST);
+        exit_CFG();
         
         //TRIAL REST SERVICE CONFIG:
         endPT = R.TRIAL;

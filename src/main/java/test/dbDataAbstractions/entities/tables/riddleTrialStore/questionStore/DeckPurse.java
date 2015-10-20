@@ -6,6 +6,7 @@ import javax.persistence.Table;
 import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
+import test.dbDataAbstractions.entities.bases.PurseEntity;
 
 /**
 ////////////////////////////////////////////////////////////////////////////////
@@ -45,7 +46,7 @@ import test.dbDataAbstractions.entities.bases.BaseEntity;
  */
 @Entity
 @Table(name= DeckPurse.TABLE_NAME) 
-public class DeckPurse extends BaseEntity {
+public class DeckPurse extends PurseEntity {
     /** Name of table this entity refers to, for easy refactoring. **/
     public static final String TABLE_NAME        = TableNameReg.DECK_PURSE;
     /** Column name stored as string constant for easy refactoring. **/
