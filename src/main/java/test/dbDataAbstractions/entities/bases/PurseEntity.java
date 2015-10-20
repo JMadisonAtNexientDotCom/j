@@ -1,6 +1,8 @@
 package test.dbDataAbstractions.entities.bases;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.MappedSuperclass;
 import test.config.constants.identifiers.VarNameReg;
 
@@ -35,6 +37,10 @@ public class PurseEntity extends BaseEntity{
     //"Instance variable for a persistent attribute must not be public"
     //The compiler is lying to you. JPA2 standards allow for this.
     //And hibernate supports it.
-    @Column(name = GROUP_ID_COLUMN) public Long group_id;
+    // http://stackoverflow.com/questions/5602908/
+    //                    jpa-which-should-i-use-basicoptional-or-columnnullable
+    @Basic(fetch=FetchType.EAGER) //<--attempt to make group_id not null 
+    @Column(name = GROUP_ID_COLUMN)  //when getting it from database.
+    public Long group_id;
     
 }//CLASS::END

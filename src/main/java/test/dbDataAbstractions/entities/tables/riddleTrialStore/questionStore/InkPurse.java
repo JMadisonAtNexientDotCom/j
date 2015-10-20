@@ -2,6 +2,7 @@ package test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore;
 ////////////////////////////////////////////////////////////////////////////////
 //TABLE: Each entry is a meaningful datapoint.                                //
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,6 +10,7 @@ import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.bases.PurseEntity;
+import javax.persistence.FetchType;  
 
 //PURSE: A table where entries are only meaningful as a cluster               //
 //       of records with same group id. Thinking of it as a jumbled           //
@@ -73,7 +75,10 @@ public class InkPurse extends PurseEntity {
     /** The group of [rhymes/quips/answers] that this record belongs to. **/
     //@Column(name = GROUP_ID_COLUMN) public Long group_id;
     
+    // http://stackoverflow.com/questions/5602908/
+    //                    jpa-which-should-i-use-basicoptional-or-columnnullable
     /** The actual [rhyme/quip/answer] for this record of the group. **/
+    @Basic(fetch=FetchType.EAGER)
     @Column(name = RHYME_ID_COLUMN) public Long rhyme_id;
     
 }//CLASS::END
