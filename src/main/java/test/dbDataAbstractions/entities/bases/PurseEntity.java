@@ -40,7 +40,7 @@ public class PurseEntity extends BaseEntity{
     // http://stackoverflow.com/questions/5602908/
     //                    jpa-which-should-i-use-basicoptional-or-columnnullable
     @Basic(fetch=FetchType.EAGER) //<--attempt to make group_id not null 
-    @Column(name = GROUP_ID_COLUMN , nullable = false)  //when getting it from database.
+    @Column(name = GROUP_ID_COLUMN)  //when getting it from database.
     public long group_id; //<--change to value-type to enforce nullable==false?
     
 }//CLASS::END
