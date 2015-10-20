@@ -6,6 +6,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import org.hibernate.Session;
 import primitives.LongBool;
 import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
@@ -82,14 +83,14 @@ public class InkCTRL extends BaseCTRL{
         
         //Enter transaction + error check:
         TransUtil.outsideTransactionCheck();
-        TransUtil.enterTransaction();
+        Session ses = TransUtil.enterTransaction();
         
         //Core Logic:
         List<RhymeTable> rhymes = convertToRhymes(ids);
         LongBool lb = InkPersistUtil.persistQuips(rhymes);
         
         //Exit transaction,and return response:
-        TransUtil.enterTransaction();
+        TransUtil.exitTransaction(ses);
         return JSONUtil.whateverToJsonResponse(lb);
     }//FUNC::END
     
