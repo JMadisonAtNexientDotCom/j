@@ -33,7 +33,7 @@ public class PurseEntity extends BaseEntity{
     
     public static final String GROUP_ID_COLUMN = VarNameReg.GROUP_ID;
     
-    //If you see compiler warning:
+    ///If you see compiler warning:
     //"Instance variable for a persistent attribute must not be public"
     //The compiler is lying to you. JPA2 standards allow for this.
     //And hibernate supports it.
