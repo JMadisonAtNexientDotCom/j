@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.hibernate.Session;
 import primitives.LongBool;
 import test.MyError;
 import test.config.debug.DebugConfig;
@@ -32,6 +33,9 @@ public class InkPersistUtil {
      *          and the boolean component is set to TRUE to let us know.
      */
     public static LongBool persistQuips(List<RhymeTable> quips){
+        
+        TransUtil.insideTransactionCheck();
+        Session ses = TransUtil.getActiveTransactionSession();
         
         //Make sure all entries in input are UNIQUE, if they are not,
         //that will screw up our alogrithm. Also, while we are at it,
@@ -79,6 +83,7 @@ public class InkPersistUtil {
                 }//
                 
                 curInk = (InkPurse)genericEnt;
+                ses.saveOrUpdate(curInk); //<--force fetch.
                 
                 if(null == curInk){doError("[cast resulted in null object]");}
                 if(curInk.group_id <= 0){
