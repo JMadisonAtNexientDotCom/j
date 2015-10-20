@@ -2,11 +2,13 @@ package test.servlets.rest.restCore;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import primitives.LongBool;
 import test.config.constants.ServletClassNames;
+import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.tables.RhymeTable;
 import test.transactions.util.tables.ink.InkPersistUtil;
@@ -22,7 +24,8 @@ import utils.JSONUtil;
 public class InkCTRL extends BaseCTRL{
     
     
-    
+    @GET
+    @Path(FuncNameReg.PERSIST_GROUP_OF_1_QUIP_TEST)
     public Response persist_group_of_1_quip_test(
              @QueryParam(VarNameReg.Q1_ID)long q1_id){
         
@@ -31,6 +34,8 @@ public class InkCTRL extends BaseCTRL{
         return convertAndRespond(ids);
     }//FUNC::END
     
+    @GET
+    @Path(FuncNameReg.PERSIST_GROUP_OF_2_QUIP_TEST)
     public Response persist_group_of_2_quip_test(
             @QueryParam(VarNameReg.Q1_ID)long q1_id,
             @QueryParam(VarNameReg.Q2_ID)long q2_id){
@@ -41,6 +46,8 @@ public class InkCTRL extends BaseCTRL{
         return convertAndRespond(ids);
     }//FUNC::END
     
+    @GET
+    @Path(FuncNameReg.PERSIST_GROUP_OF_3_QUIP_TEST)
     public Response persist_group_of_3_quip_test(
             @QueryParam(VarNameReg.Q1_ID)long q1_id,
             @QueryParam(VarNameReg.Q2_ID)long q2_id,
@@ -53,6 +60,8 @@ public class InkCTRL extends BaseCTRL{
         return convertAndRespond(ids);
     }//FUNC::END
     
+    @GET
+    @Path(FuncNameReg.PERSIST_GROUP_OF_4_QUIP_TEST)
     public Response persist_group_of_4_quip_test(
             @QueryParam(VarNameReg.Q1_ID)long q1_id,
             @QueryParam(VarNameReg.Q2_ID)long q2_id,
