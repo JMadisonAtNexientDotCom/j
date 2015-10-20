@@ -88,13 +88,13 @@ public class MasterApiDoc {
     @Verbatim(name=FuncNameReg.PERSIST_GROUP_OF_1_QUIP_TEST, nameMod=Verbatim.UPPER_CASE)
     public Quip1_EndPoint PERSIST_GROUP_OF_1_QUIP_TEST = new Quip1_EndPoint();
     
-    @Verbatim(name=FuncNameReg.PERSIST_GROUP_OF_1_QUIP_TEST, nameMod=Verbatim.UPPER_CASE)
+    @Verbatim(name=FuncNameReg.PERSIST_GROUP_OF_2_QUIP_TEST, nameMod=Verbatim.UPPER_CASE)
     public Quip2_EndPoint PERSIST_GROUP_OF_2_QUIP_TEST = new Quip2_EndPoint();
     
-    @Verbatim(name=FuncNameReg.PERSIST_GROUP_OF_1_QUIP_TEST, nameMod=Verbatim.UPPER_CASE)
+    @Verbatim(name=FuncNameReg.PERSIST_GROUP_OF_3_QUIP_TEST, nameMod=Verbatim.UPPER_CASE)
     public Quip3_EndPoint PERSIST_GROUP_OF_3_QUIP_TEST = new Quip3_EndPoint();
     
-    @Verbatim(name=FuncNameReg.PERSIST_GROUP_OF_1_QUIP_TEST, nameMod=Verbatim.UPPER_CASE)
+    @Verbatim(name=FuncNameReg.PERSIST_GROUP_OF_4_QUIP_TEST, nameMod=Verbatim.UPPER_CASE)
     public Quip4_EndPoint PERSIST_GROUP_OF_4_QUIP_TEST = new Quip4_EndPoint();
     
     //TRIAL SERVICE:
