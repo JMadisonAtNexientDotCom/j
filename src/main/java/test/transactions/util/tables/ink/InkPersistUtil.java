@@ -74,7 +74,14 @@ public class InkPersistUtil {
             ents = TransUtil.getEntitiesUsingLong
                            (InkPurse.class, InkPurse.RHYME_ID_COLUMN, rhyme_id);
             for(BaseEntity genericEnt : ents){
+                if(null == genericEnt){
+                    doError("[Why is transUtil returning null entry??]");
+                }//
+                
                 curInk = (InkPurse)genericEnt;
+                
+                if(null == curInk){doError("[cast resulted in null object]");}
+                
                 currentCheckSum = GroupTable.getChecksumOfID(curInk.group_id);
                 if(currentCheckSum == numQuips){
                     checkSumCandidates.add(curInk);
