@@ -2,6 +2,7 @@ package test.transactions.util;
 
 import java.util.List;
 import org.hibernate.Session;
+import test.MyError;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.bases.PurseEntity;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
@@ -146,6 +147,12 @@ public class TransUtil {
         i().markEntityForSaveOnExit(ent);
     }//WRAPPER::END
     
+    public static void saveToGroup
+                               (List<? extends PurseEntity> ents, long group_id){
+        doError("Never tested. Take out this error now and test.");
+        i().saveToGroup(ents,group_id);
+    }//WRAPPER::END
+    
     //Don't delete anything. Just overwrite data that already exists.
     //public static void markEntitiesForDeletionOnExit(List<BaseEntity> entList){
     //     i().markEntitiesForDeletionOnExit(entList);
@@ -174,7 +181,7 @@ public class TransUtil {
     public static BaseEntityContainer getEntityByID
                                              (Class tableClass, long entity_id){
         return i().getEntityByID(tableClass,entity_id);
-    }//WRAPPER::END
+    }//WRAPPER::END                                       
                         
     public static BaseEntityContainer getRandomRecord(Class tableClass){
         return i().getRandomRecord(tableClass);
@@ -244,5 +251,18 @@ public class TransUtil {
                                String foreignIDColumnName, List<Long> idValues){
         i().makeGroup(purseTable,groupID,foreignIDColumnName, idValues);
     }//WRAPPER::END
+        
+        
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = TransUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw MyError.make(clazz, err);
+    }//FUNC::END
                          
 }//END::CLASS

@@ -126,6 +126,22 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         }
     }//FUNC::END
     
+    //Iterates though all of the entities, set's their group_id, and
+    //then saves them to the session.
+    public void saveToGroup
+                              (List<? extends PurseEntity> ents, long group_id){
+        insideTransactionCheck();                          
+                                  
+        PurseEntity cur;
+        int len = ents.size();
+        for(int i = 0; i < len; i ++){
+            cur = ents.get(i);
+            if(null==cur){doError("[cannot save null entity ref]");}
+            cur.group_id = group_id;
+            activeTransactionSession.save(cur);
+        }//next i.
+    }//FUNC::END
+    
     //---Decided NOT to do this. Rather than delete. We will overwrite.      ---
     //---This will de-complexify making new entries into the table a bit when---
     //---Concurrent transactions happen.                                     ---
@@ -1060,6 +1076,13 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
                                              (purseTableClassAsBaseEntityClass);
             //Use reflection to set the correct value:
             EntityUtil.setField(curEnt, foreignIDColumnName, curID);
+            
+            //Setting groupID of entity does NOT require reflection, since
+            //that part is standardized amongst all purse entities via
+            //inheritence from PurseEntity base class:
+            //We will however, have to... re-cast.. if that is possible?
+            PurseEntity curEntAsPurse = (T)curEnt;
+            curEntAsPurse.group_id = groupID;
             
             //Save the entity before moving on:
             ses.save(curEnt);

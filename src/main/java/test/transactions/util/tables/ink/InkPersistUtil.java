@@ -167,6 +167,8 @@ public class InkPersistUtil {
             TransUtil.makeGroup
                (InkPurse.class, newGroupID, InkPurse.RHYME_ID_COLUMN, rhymeIDs);
             
+            //TransUtil.saveToGroup(quips,newGroupID);
+            
         }else
         if(lenOfMatches==1){
             //No new entity made:
