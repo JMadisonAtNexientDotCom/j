@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <title>nts welcome</title>
     
+    <!-- require js -->
+    	<script data-main="include_loader" src="https://requirejs.org/docs/release/2.1.20/comments/require.js"></script>
+				
     <%= I.INCLUDE_JS() %>
     <%= I.INCLUDE_CSS() %>
     
@@ -15,7 +18,12 @@
 <!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
   <body>
     
+    <!--
     <img src="../jsLib/graphics/NexLogoCenteredFaded.svg" >
+    -->
+    
+    <canvas id="myCanvas" width="150" height="100" style="border:1px solid #d3d3d3;">
+		    Your browser does not support the HTML5 canvas tag.</canvas>
     
     <div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="VI();" >
       <!-- Vertically + horizontally centered dialog -->
@@ -48,6 +56,7 @@
       //variable initialization:
       $scope.VI = function(){
         $scope.appInitialized = true;
+        
       };//FUNC::END
       
       $scope.ninjaLogin = function(){
@@ -59,7 +68,39 @@
         
       };//FUNC::END
       
+      //Require-Js section of app:
+      //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR//
+      //$scope.doIt = function(){
+      //  console.log("pressed");
+      //$scope.loaderToggle();
+      //};//
       
+					 console.log("REQUIRE JS!");
+					
+					 var rjs_app = null;
+					 var has_rjs_app = false;
+					
+				 	var myCallback = function(arg_app){
+					  
+					   console.log("called back");
+						  console.log("arg_app==" + arg_app);
+						  arg_app.resume();
+						  rjs_app = arg_app;
+						  has_rjs_app = true;
+					 };//
+					
+					 var myErrback = function(arg_app){
+					   console.log("errored back");
+				 	};//
+					
+      //Path to app must be relative location from this HTML file:
+      var rel_path = "../jsLib/requirejs_code/madison_app/NexFracLoader";
+      require([rel_path], myCallback, myErrback);
+
+      $scope.loaderToggle = function(){
+        rjs_app.toggle();
+      };//
+      //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR//
       
     });
     </script>

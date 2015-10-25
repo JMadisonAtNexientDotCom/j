@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- for now, the only way that works for me. -->
+				
+			  
+				<script data-main="include_loader" src="https://requirejs.org/docs/release/2.1.20/comments/require.js"></script>
+				
+				
+				<!--
+				<script data-main="madison_lib/app/NexFracLoader.js" src="https://requirejs.org/docs/release/2.1.20/comments/require.js"></script>
+				-->
+			
+				
+				<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+				
+    </head>
+    <body>
+        <h1>Hello World</h1>
+				
+	
+	        
+	
+				
+				
+    <div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="VI();" >
+		
+		
+		<!-- 60x40 good for small icon. -->
+				 <canvas id="myCanvas" width="150" height="100" style="border:0px solid #d3d3d3;">
+		    Your browser does not support the HTML5 canvas tag.</canvas>
+		
+		    <button data-ng-click="doIt();">Click Me!</button>
+
+		</div>
+			 
+				
+				<script>
+				var app = angular.module('myApp', []);
+				app.controller('myCtrl', function($scope, $http) {
+
+					//variable initialization:
+					$scope.VI = function(){
+							$scope.msg_for_user = "Insert Token:";
+					};
+					
+					$scope.doIt = function(){
+					  console.log("pressed");
+						$scope.loaderToggle();
+					};//
+					
+					
+					////////
+					 console.log("WTF?");
+					
+					var rjs_app = null;
+					var has_rjs_app = false;
+					
+					var myCallback = function(arg_app){
+					  
+					  console.log("called back");
+						console.log("arg_app==" + arg_app);
+						arg_app.pause();
+						rjs_app = arg_app;
+						has_rjs_app = true;
+					};//
+					
+					var myErrback = function(arg_app){
+					  console.log("errored back");
+					};//
+					
+					//Path to app must be relative location from this HTML file:
+					var rel_path = "../jsLib/requirejs_code/madison_app/NexFracLoader";
+					require([rel_path], myCallback, myErrback);
+					
+					$scope.loaderToggle = function(){
+					  rjs_app.toggle();
+					};//
+					////////
+					
+					
+					
+					
+				});//CONTROLLER::END
+				</script>
+				
+				
+				
+				<script>
+				//NOT WORKING:
+				 
+					
+        </script>
+        
+				
+    </body>
+</html>
