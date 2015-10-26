@@ -36,8 +36,8 @@ public class RandomSetUtil {
             doError("min should be less than or equal to max");
         }//Error?
                                      
-        long deltaRange = (rangeMax-rangeMin)+1;
-        if(deltaRange > numEntries){
+        long deltaInclusiveRangeAvailable = (rangeMax-rangeMin)+1;
+        if(deltaInclusiveRangeAvailable < numEntries){
             //There pool of values is too small to make it possible
             //to return a set of all unique values of the length you asked for.
             String msg = "";
