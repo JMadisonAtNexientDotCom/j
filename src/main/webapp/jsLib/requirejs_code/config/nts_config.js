@@ -1,5 +1,8 @@
 
 //JMADISON NOTE:2015.10.26:
+//
+//Use this config file for html and jsp pages in "nts" folder.
+//
 //The relative folder paths need to be configured as if this file lives
 //with the HTML file calling it. When this config file is imported via a
 //script file, it is NOT aware of where it has been imported from.
