@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- for now, the only way that works for me. -->
+       
 				
 			  
-				<script data-main="include_loader" src="https://requirejs.org/docs/release/2.1.20/comments/require.js"></script>
+				<!-- put REQUIRE.JS BEFORE CONFIG! -->
+				<script src="https://requirejs.org/docs/release/2.1.20/comments/require.js"></script>
+				<script src="Config02.js"></script>
 				
-				
-				<!--
-				<script data-main="madison_lib/app/NexFracLoader.js" src="https://requirejs.org/docs/release/2.1.20/comments/require.js"></script>
-				-->
 			
-				
 				<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 				
     </head>
@@ -71,8 +68,13 @@
 					
 
 					//Path to app must be relative location from this HTML file:
-					var rel_path = "../jsLib/requirejs_code/madison_app/NexFracLoader";
-					requirejs([rel_path], myCallback, myErrback);
+					//var rel_path = "../jsLib/requirejs_code/madison_app/NexFracLoader";
+					//requirejs([rel_path], myCallback, myErrback);
+					
+					//Done without data-main attribute.
+					//Note that, using path defined in config file here, rather than
+					//the absolute path like in commented out code:
+					requirejs(['app_rel_path/NexFracLoader'], myCallback, myErrback)
 					
 					$scope.loaderToggle = function(){
 					  rjs_app.toggle();

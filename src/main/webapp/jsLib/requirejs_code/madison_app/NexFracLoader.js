@@ -200,6 +200,4 @@ define(function (require) {
 		
 		return new NexFracLoader();
 		
-		
-			
 });//DEFINE END:
