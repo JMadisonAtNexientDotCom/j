@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <title>nts welcome</title>
     
-    <!-- require js -->
-    	<script data-main="include_loader" src="https://requirejs.org/docs/release/2.1.20/comments/require.js"></script>
+    <!--Require.js. Cannot externally link to it... Just... won't work. -->
+    	<script data-main="include_loader" src="../jsLib/requirejs_code/require.js"></script>
 				
     <%= I.INCLUDE_JS() %>
     <%= I.INCLUDE_CSS() %>
