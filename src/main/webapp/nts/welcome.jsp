@@ -18,12 +18,6 @@
 <!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
   <body>
     
-    <!--
-    <img src="../jsLib/graphics/NexLogoCenteredFaded.svg" >
-    -->
-    
-   
-    
     <div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="VI();" >
       <!-- Vertically + horizontally centered dialog -->
       <div class="horcen_parent" > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
@@ -31,23 +25,30 @@
       <div class="vertcen_parent"> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
       <div class="vertcen_child" > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
         
-        
-        <canvas id="myCanvas" 
-        width="150" height="100" style="border:1px solid #d3d3d3;">
-          Your browser does not support the HTML5 canvas tag.
-        </canvas>
-        
-        <div id="roundeddivs_wireframe" style="width:200px;">
-            
-          <div id="roundeddivs_headertab" align="center">
-            
-            <h2 style="color:#fff">Welcome!</h2>
-           
+        <div id="vertical_center_hack"
+        style="margin-left:-100px;">
+          <div id="div_for_canvas" 
+          style="position:absolute; 
+          z-index:1; margin-left:-50px; margin-top:-25px;">
+            <canvas id="myCanvas"
+            width="300" height="200" 
+            style="border:0px solid #d3d3d3;">
+            Your browser does not support the HTML5 canvas tag.
+            </canvas>
           </div>
-            <p></p>
-            <button data-ng-click="ninjaLogin();" style="width:100%;">Ninja Login Page</button>
-            <button data-ng-click="adminLogin();" style="width:100%;">Admin Login Page</button>
-            
+
+          <div id="roundeddivs_wireframe" 
+          style="width:200px; z-index:2; position:relative;">
+
+            <div id="roundeddivs_headertab" align="center">
+
+              <h2 style="color:#fff">Welcome!</h2>
+
+            </div>
+              <p></p>
+              <button data-ng-click="ninjaLogin();" style="width:100%;"><%= I.DN().NINJA%> Login Page</button>
+              <button data-ng-click="adminLogin();" style="width:100%;"><%= I.DN().ADMIN%> Login Page</button> 
+          </div>
         </div>
         
       </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
@@ -77,11 +78,6 @@
       
       //Require-Js section of app:
       //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR//
-      //$scope.doIt = function(){
-      //  console.log("pressed");
-      //$scope.loaderToggle();
-      //};//
-      
 					 console.log("REQUIRE JS!");
 					
 					 var rjs_app = null;
@@ -92,6 +88,7 @@
 					  
 					   console.log("called back");
 						  console.log("arg_app==" + arg_app);
+        arg_app.setMaxFramesPerPlay(15);
 						  arg_app.resume();
 						  rjs_app = arg_app;
 						  has_rjs_app = true;
