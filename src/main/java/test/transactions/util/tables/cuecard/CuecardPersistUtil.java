@@ -10,15 +10,29 @@ import test.transactions.util.tables.riddle.RiddlePersistUtil;
 
 /**
  * Utility used to persist cuecard pojo objects into cuecardTable structs.
- * @author jmadison
+ * @author jmadison :Original date unknown.
+ * @author jmadison :2015.10.26(Oct26th,Year2015,Monday)
+ *                   Finishing persist function, then testing.
  */
 public class CuecardPersistUtil {
     
     /** Makes sure card is represented in database. **/
     public static LongBool persist(CueCard card){
+        
+        //Persist all of the individual components of the CueCard object.
         LongBool riddle_id = RiddlePersistUtil.persist( card.jest );
         LongBool ink_id    = InkPersistUtil.persistQuips(card.quips );
         
+        //C == Individual Component Check:
+        //CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC//
+        //If any of the persist calls on individual components of the cuecard
+        //resulted in LongBool.b==TRUE being sent back to us, this indicates
+        //the component did not previously exist in the database. In this case
+        //we know for certain that a new cue-card must be persisted.
+        //Otherwise, we don't know for sure. Though the individual elements
+        //already existed in the database, the unique COMPOSITION of elements
+        //making up the cue card may NOT yet exist in the database.
+        //CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC//
         boolean mustMakeNewID = false;
         long cuecard_id = (-7);//arbitrary neg number to find errors.
         boolean isOneOfTheEntitiesNew = (riddle_id.b || ink_id.b);
@@ -28,7 +42,7 @@ public class CuecardPersistUtil {
             CuecardTable cc = new CuecardTable();
             cc.riddle_id = riddle_id.l;
             cc.ink_id    = ink_id.l;
-            long foundID = CuecardTransUtil.findCuecard(cc);
+            long foundID = CuecardTransUtil.findCuecardBySignature(cc);
             if(foundID <=(-1))
             {
                 mustMakeNewID =true;
@@ -36,7 +50,10 @@ public class CuecardPersistUtil {
                 cuecard_id = foundID;
             }//
         }//
+        //CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC//
         
+        //Make New CueCard:
+        //MNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMN//
         if(mustMakeNewID){
             CuecardTable cctab;
             cctab = CuecardTransUtil.makeCueCard(riddle_id.l, ink_id.l);
@@ -46,12 +63,15 @@ public class CuecardPersistUtil {
         if(cuecard_id <= 0){
             doError("[Something went wrong while making cuecard id]");
         }//
+        //MNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMNMN//
         
-        //Pack up the output:
+        //Pack up and return the output:
+        //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR//
         LongBool results = new LongBool();
         results.b = mustMakeNewID; //was new entry made into database?
         results.l = cuecard_id;
         return results;
+        //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR//
         
     }//FUNC::END
     

@@ -911,7 +911,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
      *  ignored.
      * @return :A criteria object made from the active transaction session.
      */
-    private Criteria makeGloballyFilteredCriteria(Class tableClass){
+    public Criteria makeGloballyFilteredCriteria(Class tableClass){
         
         //Error check:
         insideTransactionCheck();

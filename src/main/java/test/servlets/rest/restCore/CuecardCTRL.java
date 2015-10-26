@@ -13,6 +13,7 @@ import test.dbDataAbstractions.entities.bases.CompositeEntityBase;
 import test.dbDataAbstractions.entities.composites.CueCard;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forNoClearTableOwner.riddleRhyme.RiddleRhymeTransUtil;
+import test.transactions.util.tables.cuecard.CuecardPersistUtil;
 import test.transactions.util.tables.cuecard.CuecardTransUtil;
 import test.transactions.util.tables.riddle.RiddleTransUtil;
 import utils.JSONUtil;
@@ -33,8 +34,18 @@ public class CuecardCTRL extends BaseCTRL{
                 @QueryParam(VarNameReg.RIDDLE_ID)         long riddle_id, 
                 @QueryParam(VarNameReg.NUMBER_OF_CHOICES) int number_of_choices,
                 @QueryParam(VarNameReg.NUMBER_OF_TRUTHS)  int number_of_truths){
-        doError("TODO!....");
-        return null; //todo.
+        
+        CueCard c = PRIVATE_make_filled_out_cue_card
+                               (riddle_id, number_of_choices, number_of_truths);
+        
+        //Persist the cue-card:
+        CuecardPersistUtil.persist(c);
+        
+        //No matter what happens, return the cue card:
+        //Create our response:
+        CompositeEntityBase ceb = (CompositeEntityBase)c;
+        return JSONUtil.compositeEntityToJSONResponse(ceb);
+      
     }//FUNC::END
     
     @GET

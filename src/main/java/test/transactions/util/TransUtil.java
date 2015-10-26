@@ -1,6 +1,7 @@
 package test.transactions.util;
 
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import test.MyError;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
@@ -145,6 +146,10 @@ public class TransUtil {
     
     public static void markEntityForSaveOnExit(BaseEntity ent){
         i().markEntityForSaveOnExit(ent);
+    }//WRAPPER::END
+    
+    public static Criteria makeGloballyFilteredCriteria(Class tableClass){
+        return i().makeGloballyFilteredCriteria(tableClass);
     }//WRAPPER::END
     
     public static void saveToGroup
