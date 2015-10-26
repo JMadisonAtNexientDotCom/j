@@ -146,6 +146,7 @@ public class ServiceUrlsInitializer {
         //
         
         //Create fully-qualified api endpoints: //UUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
+        U.CUECARD= mkURL(ServletClassNames.CuecardCTRL_MAPPING);
         U.INK    = mkURL(ServletClassNames.InkCTRL_MAPPING);
         U.GROUP  = mkURL(ServletClassNames.GroupCTRL_MAPPING);
         U.TRIAL  = mkURL(ServletClassNames.TrialCTRL_MAPPING);
@@ -240,8 +241,21 @@ public class ServiceUrlsInitializer {
         return url;
     }//FUNC::END
     
+    //Set error message into all servlet url paths so that it increases the
+    //chance that you will see it somewhere, or that application will crash.
+    //Yes, increase chances of things crashing when we are aware something
+    //went wrong. Find the bugs quickly and fix them. Don't write try-catches
+    //trying to circumvent errors. That just leads to running in an unstable
+    //environment.
     private static void setAllVarsToErrorMessage(String extraMSG){
         String cname = ServiceUrlsInitializer.class.getCanonicalName();
+        
+        U.CUECARD= "INITIALIZATION_ERROR IN:" + cname + extraMSG;
+        U.INK    = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
+        U.GROUP  = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
+        U.TRIAL  = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
+        U.ADMIN  = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
+        
         U.OWNER       = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
         U.TOKEN       = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
         U.FILE        = "INITIALIZATION_ERROR IN:" + cname + extraMSG;

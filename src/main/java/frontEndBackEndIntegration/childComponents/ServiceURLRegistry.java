@@ -61,6 +61,7 @@ public class ServiceURLRegistry {
     
     //----SERVICE VARIABLE----------|--Path inited to "NOT_INITIALIZED" to ----|
     //----For HTTP REST CALLS-------|--Help hunt down mapping errors       ----|
+    public String CUECARD     = "CUECARD:ServiceUrl_NOT_INITIALIZED";
     public String INK         = "INK:ServiceUrl_NOT_INITIALIZED";
     public String GROUP       = "GROUP:ServiceUrl_NOT_INITIALIZED";
     public String TRIAL       = "TRIAL:ServiceUrl_NOT_INITIALIZED";

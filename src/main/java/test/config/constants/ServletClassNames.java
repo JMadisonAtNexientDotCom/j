@@ -12,6 +12,7 @@ import test.servlets.rest.restCore.TrialCTRL;
 import test.servlets.rest.other.debug.TransDebugCTRL;
 import test.servlets.rest.restCore.RiddleRhymeCTRL;
 import test.servlets.rest.other.utilityServlets.FileContentFetcher;
+import test.servlets.rest.restCore.CuecardCTRL;
 import test.servlets.rest.restCore.GroupCTRL;
 import test.servlets.rest.restCore.InkCTRL;
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -48,6 +49,10 @@ import test.servlets.rest.restCore.InkCTRL;
 public class ServletClassNames {
     
     //There must be a better way!
+    
+    //CUECARD SERVICE:
+    public static final String CuecardCTRL_CLASSNAME = "CuecardCTRL";
+    public static final String CuecardCTRL_MAPPING   = "CuecardCTRL/";
     
     //INK SERVICE:
     public static final String InkCTRL_CLASSNAME = "InkCTRL";
@@ -215,6 +220,10 @@ public class ServletClassNames {
          *  to make sure they match! ----------------------------------------**/
         String clazName;
         
+        clazName =         CuecardCTRL.class.getSimpleName();
+        if(         vcm_cn(CuecardCTRL_CLASSNAME, clazName))
+        {   doMappingError(CuecardCTRL_CLASSNAME); }
+        
         clazName =         InkCTRL.class.getSimpleName();
         if(         vcm_cn(InkCTRL_CLASSNAME, clazName))
         {   doMappingError(InkCTRL_CLASSNAME); }
@@ -258,6 +267,9 @@ public class ServletClassNames {
     }//FUNC::END
     
     private static void verifyCorrectMapping_MAPPING(){
+        checkMapping(CuecardCTRL_CLASSNAME,
+                     CuecardCTRL_MAPPING);
+        
         checkMapping(InkCTRL_CLASSNAME,
                      InkCTRL_MAPPING);
         
