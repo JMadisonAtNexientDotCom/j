@@ -32,9 +32,26 @@ define(function (require) {
 		//SINGLETONS:
 				SINGLETON_01 = require('LOOPAPP'); //<<semicolon on last item. 
 		
-		var NexFracLoader = function(){
-			//http://www.ericfeminella.com/blog/2012/05/17/organizing-require-js-dependencies/
-			//PRIMITIVE CLASSES:
+		  var NexFracLoader = function(){
+			//http://www.ericfeminella.com/blog/2012/05/17/
+			//                                     organizing-require-js-dependencies/
+			//PUBLIC CONFIG::
+			
+			//HOW DEEP? :
+			this.num_levels_deep = 3; //how many levels deep to construct?
+			//value of this.num_levels_deep during last init call:
+			var inited_num_levels_deep = null; 
+			
+			//PRIVATE MISC vars:
+			
+			//Used to prevent permutation animation for accelerating by accidentially
+			//stacking together multiple chains of callbacks to the permute drawing
+			//function that controls the animation.
+			//var _is_callback_chain_is_active = false;
+			
+			//dont allow animations to run while initializing.
+			var _is_initializing = false;
+			var _on_enter_frame_loop_running = false;
 			
 		  //PRIVATE: Animation config options:
 			var _frames_to_play_for = 0;
@@ -71,6 +88,7 @@ define(function (require) {
 					
 			//attempt to slowly throw stuff into here:
 		  this.init = function(){
+				_is_initializing = true;
 				canvas_container = document.getElementById('myCanvas');
 				
 				//create a parallelogram with the two triangles:--------+
@@ -100,7 +118,7 @@ define(function (require) {
 				//      to implement.                                      |
 				//Build LEFT tri-quad: ------------------------------+     |
 				builder.tri_temp = tri0;     //<---Use tri0          |     |
-				builder.num_levels_deep = 3; //                      |     |
+				builder.num_levels_deep = this.num_levels_deep;//    |     |
 				builder.use_sub0 =  true;    //                      |     |
 				builder.use_sub1 =  true;    //                      |     |
 				builder.use_sub2 =  true;    //                      |     |
@@ -109,13 +127,15 @@ define(function (require) {
 																		 //                      |     |
 				//Build RIGHT tri-quad:      //                      |     |
 				builder.tri_temp = tri1;     //<---Use tri1          |     |
-				builder.num_levels_deep = 3; //                      |     |
+				builder.num_levels_deep = this.num_levels_deep;//    |     |
 				builder.use_sub0 =  true;    //                      |     |
 				builder.use_sub1 =  true;    //                      |     |
 				builder.use_sub2 =  true;    //                      |     |
 				builder.use_sub3 =  true;    //                      |     |
 				quad1 = builder.build();     //<---Assign to quad1   |     |
 				//---------------------------------------------------+     |
+				//Store settings used during init:                         |
+				inited_num_levels_deep = this.num_levels_deep; //          |
 				//                                                         |
 				//---------------------------------------------------------+
 				
@@ -143,13 +163,23 @@ define(function (require) {
 				_is_paused = false;
 				
 				_has_been_initialized = true;
-				
+				_is_initializing      = false;
 			};//FUNC::END
 			//this.init();
 			
 			var doPermuteDraw = function(){
 				
-				if(_is_paused){return;}
+				//EXIT IF drawing if paused:
+				if(_is_paused){
+					return;
+				}
+				
+				//EXIT IF currently re-initializing:
+				if(_is_initializing){
+					return;
+				}
+				
+				
 				
 				//Make it so animation can play for a certain number
 				//of frames before stopping:
@@ -173,9 +203,33 @@ define(function (require) {
 				permu_ren0.draw_next_permutation(quad0);
 				permu_ren1.draw_next_permutation(quad1);
 
-				
 				//Give some time, then do again.
-				setTimeout(doPermuteDraw,60); //240
+				//setTimeout(doPermuteDraw,60); //240
+				
+				
+			};//FUNC::END
+			
+			//Make an on enter frame loop that will manage animation speed
+			//Only onEnterFrameLoop and onEnterFrame (itself) should be allowed
+			//to call onEnterFrame
+			var onEnterFrame = function(){
+				doPermuteDraw();
+				setTimeout(onEnterFrame,60); //<--LOWERCASE "O" on "Timeout"
+			};//
+			
+			//Entry point for on enter frame:
+			var enterOnEnterFrameLoop = function(){
+				if(_on_enter_frame_loop_running){
+				  return;
+				}
+				
+				_on_enter_frame_loop_running = true;
+				onEnterFrame();
+			};
+			
+			//see if app is paused:
+			this.getIsPaused = function(){
+				return _is_paused;
 			};//FUNC::END
 			
 			this.pause = function(){
@@ -184,18 +238,30 @@ define(function (require) {
 			
 			//starts/resumes:
 			this.resume = function(){
-				_is_paused = false;
-				
-				resetFrameCounter();
 				
 				//If class not already initialized, 
 				//will initialize now:
 				if(true !== _has_been_initialized){
 					this.init();
+				}else{
+					checkForReInitialization(this);
 				}//
 				
-				doPermuteDraw();
+				_is_paused = false;
+				resetFrameCounter();
+				
+				//Make sure on enter frame loop is running:
+				enterOnEnterFrameLoop();
+				
 			};//FUNC::END
+			
+			//If builder settings have been changed, re-initialize the app:
+			//Used when re-starting:
+			var checkForReInitialization = function(_this){
+				if(_this.num_levels_deep !== inited_num_levels_deep){
+					_this.init();
+				}
+			}
 			
 			var resetFrameCounter = function(){
 				frames_played = 0;

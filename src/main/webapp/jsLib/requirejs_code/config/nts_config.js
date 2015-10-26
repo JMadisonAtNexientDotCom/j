@@ -1,3 +1,13 @@
+
+//JMADISON NOTE:2015.10.26:
+//The relative folder paths need to be configured as if this file lives
+//with the HTML file calling it. When this config file is imported via a
+//script file, it is NOT aware of where it has been imported from.
+//
+//This fact gave me a huge headache when trying to figure out how to 
+//Effectively use config.js files in the require.js framework.
+
+
 // For any third party dependencies, like jQuery, place them in the lib folder.
 
 // Configure loading modules from the lib directory,

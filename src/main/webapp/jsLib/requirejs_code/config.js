@@ -4,7 +4,7 @@
 // except for 'app' ones, which are in a sibling
 // directory.
 requirejs.config({
-    baseUrl: '../jsLib/requirejs_code/madison_lib',
+    baseUrl: '/madison_lib',
 		
 		//paths not needed:
     paths: {

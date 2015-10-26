@@ -4,7 +4,8 @@
         <!-- for now, the only way that works for me. -->
 				
 			  
-				<script data-main="include_loader" src="https://requirejs.org/docs/release/2.1.20/comments/require.js"></script>
+				<script src="https://requirejs.org/docs/release/2.1.20/comments/require.js"></script>
+    <script src="../jsLib/requirejs_code/config/nts_config.js"></script>
 				
 				
 				<!--
@@ -27,10 +28,16 @@
 		
 		
 		<!-- 60x40 good for small icon. -->
-				 <canvas id="myCanvas" width="150" height="100" style="border:0px solid #d3d3d3;">
+				 <canvas id="myCanvas" width="600" height="400" style="border:0px solid #d3d3d3;">
 		    Your browser does not support the HTML5 canvas tag.</canvas>
 		
-		    <button data-ng-click="doIt();">Click Me!</button>
+		    <button data-ng-click="doIt();">{{button_label}}</button>
+      
+     
+      <input ng-model="num_levs_deep" 
+      type="number" min="2"max="6"
+      data-ng-click="re_init();">
+     
 
 		</div>
 			 
@@ -39,60 +46,69 @@
 				var app = angular.module('myApp', []);
 				app.controller('myCtrl', function($scope, $http) {
 
-					//variable initialization:
-					$scope.VI = function(){
-							$scope.msg_for_user = "Insert Token:";
-					};
+    //variable initialization:
+    $scope.VI = function(){
+      $scope.msg_for_user = "Insert Token:";
+      $scope.num_levs_deep = 3;
+      $scope.button_label  = "START!";
+      init_require_js_stuff();
+    };
+
+    $scope.doIt = function(){
+      console.log("pressed");
+      console.log("num levs deep==" + $scope.num_levs_deep);
+      rjs_app.num_levels_deep = $scope.num_levs_deep;
+      $scope.loaderToggle();
+      
+      if(rjs_app.getIsPaused() ){
+        $scope.button_label = "RESTART!";
+      }else{
+        $scope.button_label = "STOP!";
+      }//
+    };//
+
+    $scope.re_init = function(){
+      console.log("re initializing");
+      rjs_app.num_levels_deep = $scope.num_levs_deep;
+      
+      //Pause+Resume will force re-init:
+      rjs_app.pause();
+      rjs_app.resume();
+    };//
 					
-					$scope.doIt = function(){
-					  console.log("pressed");
-						$scope.loaderToggle();
-					};//
-					
-					
-					////////
-					 console.log("WTF?");
-					
-					var rjs_app = null;
-					var has_rjs_app = false;
-					
-					var myCallback = function(arg_app){
-					  
-					  console.log("called back");
-						console.log("arg_app==" + arg_app);
-						arg_app.pause();
-						rjs_app = arg_app;
-						has_rjs_app = true;
-					};//
-					
-					var myErrback = function(arg_app){
-					  console.log("errored back");
-					};//
+				//Require JS code section:
+				//RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR//
+    var rjs_app = null;
+    var has_rjs_app = false;
+    var init_require_js_stuff = function(){
+      var myCallback = function(arg_app){
+       console.log("called back");
+       arg_app.num_levels_deep = $scope.num_levs_deep;
+       console.log("num_levs_deep==" + $scope.num_levs_deep);
+       console.log("arg_app.num_levels_deep" + arg_app.num_levels_deep);
+       arg_app.pause();
+       rjs_app = arg_app;
+       has_rjs_app = true;
+      };//
+
+      var myErrback = function(arg_app){
+        console.log("errored back");
+      };//
+
+      //Path to app must be relative location from this HTML file:
+      var rel_path = "app_rel_path/NexFracLoader";
+      requirejs([rel_path], myCallback, myErrback);
+
+      $scope.loaderToggle = function(){
+        rjs_app.toggle();
+      };//
+    };//INIT
+				//RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR//
 					
 
-					//Path to app must be relative location from this HTML file:
-					var rel_path = "../jsLib/requirejs_code/madison_app/NexFracLoader";
-					requirejs([rel_path], myCallback, myErrback);
-					
-					$scope.loaderToggle = function(){
-					  rjs_app.toggle();
-					};//
-					////////
-					
-					
-					
-					
 				});//CONTROLLER::END
 				</script>
-				
-				
-				
-				<script>
-				//NOT WORKING:
-				 
-					
-        </script>
-        
-				
+
+ 
     </body>
 </html>
