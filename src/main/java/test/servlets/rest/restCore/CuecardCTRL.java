@@ -5,6 +5,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
+import test.MyError;
 import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.identifiers.VarNameReg;
@@ -27,8 +28,32 @@ import utils.JSONUtil;
 public class CuecardCTRL extends BaseCTRL{
     
     @GET
+    @Path(FuncNameReg.MAKE_FILLED_OUT_CUE_CARD_AND_PERSIST_IT)
+    public Response make_filled_out_cue_card_and_persist_it(
+                @QueryParam(VarNameReg.RIDDLE_ID)         long riddle_id, 
+                @QueryParam(VarNameReg.NUMBER_OF_CHOICES) int number_of_choices,
+                @QueryParam(VarNameReg.NUMBER_OF_TRUTHS)  int number_of_truths){
+        doError("TODO!....");
+        return null; //todo.
+    }//FUNC::END
+    
+    @GET
     @Path(FuncNameReg.MAKE_FILLED_OUT_CUE_CARD)
     public Response make_filled_out_cue_card(
+                @QueryParam(VarNameReg.RIDDLE_ID)         long riddle_id, 
+                @QueryParam(VarNameReg.NUMBER_OF_CHOICES) int number_of_choices,
+                @QueryParam(VarNameReg.NUMBER_OF_TRUTHS)  int number_of_truths){
+        
+        CueCard c = PRIVATE_make_filled_out_cue_card
+                               (riddle_id, number_of_choices, number_of_truths);
+        
+        //Create our response:
+        CompositeEntityBase ceb = (CompositeEntityBase)c;
+        return JSONUtil.compositeEntityToJSONResponse(ceb);
+    
+    }//FUNC::END
+    
+    private CueCard PRIVATE_make_filled_out_cue_card(
                 @QueryParam(VarNameReg.RIDDLE_ID)         long riddle_id, 
                 @QueryParam(VarNameReg.NUMBER_OF_CHOICES) int number_of_choices,
                 @QueryParam(VarNameReg.NUMBER_OF_TRUTHS)  int number_of_truths){
@@ -68,10 +93,20 @@ public class CuecardCTRL extends BaseCTRL{
         //EXIT TRANSACTION!!!
         TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
         
-        //Create our response:
-        CompositeEntityBase ceb = (CompositeEntityBase)c;
-        return JSONUtil.compositeEntityToJSONResponse(ceb);
+        //return the cuecard:
+        return c;
+    }//FUNC::END
     
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = CuecardCTRL.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw MyError.make(clazz, err);
     }//FUNC::END
     
 }//CLASS::END

@@ -1,7 +1,5 @@
 package test.config.constants.identifiers;
 
-import test.MyError;
-import utils.generalDebugUtils.ConstNameRegDebugUtil;
 
 /** 
  *  TODO: Validate that all constants are upper-case 
@@ -12,7 +10,8 @@ import utils.generalDebugUtils.ConstNameRegDebugUtil;
  *  For mapping service call names in a way where Front-End + back-end
  *  can agree on the names.
  * 
- * @author jmadison
+ * @author jmadison :Original date unknown.
+ * @author jmadison :Last touched: 2015.10.26(Oct26th,Year2015,Monday)
  */
 public class FuncNameReg {
     
@@ -22,6 +21,10 @@ public class FuncNameReg {
     
     //DEBUG:
     //public static final String DEBUGGER_STUB_FUNCTION="debugger_stub_function";
+    
+    //CUECARD SERVICE:
+    public static final String MAKE_FILLED_OUT_CUE_CARD_AND_PERSIST_IT = "make_filled_out_cue_card_and_persist_it";
+    public static final String MAKE_FILLED_OUT_CUE_CARD = "make_filled_out_cue_card";
     
     //INK SERVICE:
     public static final String PERSIST_GROUP_OF_1_QUIP_TEST = "persist_group_of_1_quip_test";
@@ -66,7 +69,6 @@ public class FuncNameReg {
     public static final String GET_FILLED_OUT_TEST_SLATE_WRONG = "get_filled_out_test_slate_wrong";
     public static final String GET_ONE_BLANK_SLATE      = "get_one_blank_slate";
     public static final String GET_ONE_RANDOM_RIDDLE    = "get_one_random_riddle";
-    public static final String MAKE_FILLED_OUT_CUE_CARD = "make_filled_out_cue_card";
     public static final String GET_RANDOM_TRIVIA_BUNDLE = "get_random_trivia_bundle";
     public static final String POST_QUAR_FOR_GRADING    = "post_quar_for_grading";
     public static final String GET_LAST_POSTED_QUAR     = "get_last_posted_quar";
