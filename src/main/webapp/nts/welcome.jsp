@@ -56,7 +56,7 @@
       //variable initialization:
       $scope.VI = function(){
         $scope.appInitialized = true;
-        
+        tryToLoad();
       };//FUNC::END
       
       $scope.ninjaLogin = function(){
@@ -79,6 +79,7 @@
 					
 					 var rjs_app = null;
 					 var has_rjs_app = false;
+      var attempts = 0;
 					
 				 	var myCallback = function(arg_app){
 					  
@@ -91,11 +92,20 @@
 					
 					 var myErrback = function(arg_app){
 					   console.log("errored back");
+        attempts++;
+        console.log("attemp#" + attempts + " failed");
+        
+        //try again:
+        if(attempt < 5){
+          tryToLoad();
+        }//
 				 	};//
 					
-      //Path to app must be relative location from this HTML file:
-      var rel_path = "../jsLib/requirejs_code/madison_app/NexFracLoader";
-      require([rel_path], myCallback, myErrback);
+      var tryToLoad = function(){
+        //Path to app must be relative location from this HTML file:
+        var rel_path = "../jsLib/requirejs_code/madison_app/NexFracLoader";
+        require([rel_path], myCallback, myErrback);
+      };//
 
       $scope.loaderToggle = function(){
         rjs_app.toggle();
