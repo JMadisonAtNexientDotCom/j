@@ -218,53 +218,7 @@ public class RiddleRhymeCTRL extends BaseCTRL {
         
     }//FUNC::END
     
-    @GET
-    @Path(FuncNameReg.MAKE_FILLED_OUT_CUE_CARD)
-    public Response make_filled_out_cue_card(
-                @QueryParam(VarNameReg.RIDDLE_ID)        long riddle_id, 
-                @QueryParam(VarNameReg.NUMBER_OF_CHOICES) int number_of_choices,
-                @QueryParam(VarNameReg.NUMBER_OF_TRUTHS)  int number_of_truths){
-        //Enter transaction state:
-        Session ses = TransUtil.enterTransaction();
-        
-        //Use utility to get what you want:
-        CueCard c;
-        
-        //Handle Error checking more gracefully on REST servlet by returning
-        //An "Error Cue Card" Still respond with 200/OK. But the information
-        //Sent back will indicate an error on the non-server side.
-        if(number_of_choices < 1){
-            String msg = "[makeFilledOutCueCard needs at least one choice!]";
-            c = CueCard.makeErrorCueCard(msg, number_of_choices);
-        }else
-        if(number_of_truths < 0){
-            String msg = "[CAN have zero truths, but NEVER negative!!]";
-            c = CueCard.makeErrorCueCard(msg, number_of_choices);
-        }else
-        if(false == RiddleTransUtil.doesRiddleExist(riddle_id)){
-            String msg = "[riddle of that id does not exist in database]:";
-            msg+= "id==" + riddle_id +"]";
-            if(riddle_id < 0){ msg+= "[(riddle ID is NEGATIVE)]";}
-            c = CueCard.makeErrorCueCard(msg, number_of_choices);
-        }else
-        if(number_of_truths > number_of_choices)
-        {
-            String msg = "[numberOfTruths>numberOfChoices]";
-            c = CueCard.makeErrorCueCard(msg, number_of_choices);
-        }else{
-            //Our non-error case. Note that ZERO number of truths is allowed.
-            c = RiddleRhymeTransUtil.makeFilledOutCueCard
-                                    (riddle_id, number_of_choices, number_of_truths);
-        }//BLOCK::END
-        
-        //EXIT TRANSACTION!!!
-        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
-        
-        //Create our response:
-        CompositeEntityBase ceb = (CompositeEntityBase)c;
-        return JSONUtil.compositeEntityToJSONResponse(ceb);
     
-    }//FUNC::END
     
     @GET
     @Path(FuncNameReg.GET_RANDOM_TRIVIA_BUNDLE)
