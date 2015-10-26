@@ -79,7 +79,7 @@
 					
 					 var rjs_app = null;
 					 var has_rjs_app = false;
-      var attempts = 0;
+      var attempt = 0;
 					
 				 	var myCallback = function(arg_app){
 					  
@@ -92,8 +92,8 @@
 					
 					 var myErrback = function(arg_app){
 					   console.log("errored back");
-        attempts++;
-        console.log("attemp#" + attempts + " failed");
+        attempt++;
+        console.log("attempt#" + attempt + " failed");
         
         //try again:
         if(attempt < 5){
