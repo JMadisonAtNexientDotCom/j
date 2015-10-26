@@ -5,7 +5,7 @@
     <title>nts welcome</title>
     
     <script src="../jsLib/requirejs_code/require.js"></script>
-				<script src="Config02.js"></script>
+				<script src="../jsLib/requirejs_code/config/nts_config.js"></script>
 				
     <%= I.INCLUDE_JS() %>
     <%= I.INCLUDE_CSS() %>
