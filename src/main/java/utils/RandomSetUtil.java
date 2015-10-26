@@ -40,7 +40,12 @@ public class RandomSetUtil {
         if(deltaRange > numEntries){
             //There pool of values is too small to make it possible
             //to return a set of all unique values of the length you asked for.
-            doError("You pigeon holed yourself. Set too small.");
+            String msg = "";
+            msg += "[You pigeon holed yourself. Set too small.]";
+            msg += "numEntries==[" + Integer.toString(numEntries) + "]";
+            msg += "rangeMin==[" + Long.toString(rangeMin) + "]";
+            msg += "rangeMax==[" + Long.toString(rangeMax) + "]";
+            doError(msg);
         }//Error?
         //EIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEIEI//
         

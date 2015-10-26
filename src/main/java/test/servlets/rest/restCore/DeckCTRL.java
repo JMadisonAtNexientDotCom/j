@@ -22,9 +22,23 @@ import utils.JSONUtil;
  */
 @Path(ServletClassNames.DeckCTRL_MAPPING)
 public class DeckCTRL extends BaseCTRL{
-    //should be able to ping now.
     
     
+    /**
+     * 
+     * @param card_count :How many cuecards are in this deck?
+     *                    You may get LESS in your deck than asked for
+     *                    if there is NOT enough data to make that many
+     *                    unique questions.
+     * @param number_of_choices :How many choices (quips) should 
+     *                           be on each cuecard?
+     * @param tru_min :The minimum number of true answers to target.
+     *                 ZERO is allowed.
+     * @param tru_max :The maximum number of true answers to target.
+     *                 ZERO is allowed.
+     * @return :Returns a deck object that contains a collection of cuecards.
+     *          Cuecards being what Jester uses to quiz the Ninja.
+     */
     @GET
     @Path(FuncNameReg.GENERATE_DECK)
     public Response generate_deck(
