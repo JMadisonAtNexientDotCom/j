@@ -56,7 +56,7 @@
       //variable initialization:
       $scope.VI = function(){
         $scope.appInitialized = true;
-        tryToLoad();
+        hack_waitThenTryToLoad();
       };//FUNC::END
       
       $scope.ninjaLogin = function(){
@@ -106,6 +106,11 @@
         var rel_path = "../jsLib/requirejs_code/madison_app/NexFracLoader";
         require([rel_path], myCallback, myErrback);
       };//
+      
+      var hack_waitThenTryToLoad = function(){
+        console.log("Loading hack initialized");
+        setTimeOut( tryToLoad(), 13000 ); //13 seconds.
+      };
 
       $scope.loaderToggle = function(){
         rjs_app.toggle();
