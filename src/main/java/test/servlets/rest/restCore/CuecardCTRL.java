@@ -11,8 +11,8 @@ import test.config.constants.ServletClassNames;
  * @author jmadison :2015.10.26
  */
 @Path(ServletClassNames.InkCTRL_MAPPING)
-public class CuecardCTRL {
+public class CuecardCTRL extends BaseCTRL{
     
-    
+    //should be able to ping it now.
     
 }//CLASS::END
