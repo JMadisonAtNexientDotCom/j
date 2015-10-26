@@ -35,6 +35,9 @@ public class CuecardCTRL extends BaseCTRL{
                 @QueryParam(VarNameReg.NUMBER_OF_CHOICES) int number_of_choices,
                 @QueryParam(VarNameReg.NUMBER_OF_TRUTHS)  int number_of_truths){
         
+        //Enter transaction state:
+        Session ses = TransUtil.enterTransaction();
+        
         CueCard c = PRIVATE_make_filled_out_cue_card
                                (riddle_id, number_of_choices, number_of_truths);
         
@@ -44,6 +47,10 @@ public class CuecardCTRL extends BaseCTRL{
         //No matter what happens, return the cue card:
         //Create our response:
         CompositeEntityBase ceb = (CompositeEntityBase)c;
+        
+        //Exit Transaction state before returning:
+        TransUtil.exitTransaction(ses);
+        
         return JSONUtil.compositeEntityToJSONResponse(ceb);
       
     }//FUNC::END
@@ -55,11 +62,18 @@ public class CuecardCTRL extends BaseCTRL{
                 @QueryParam(VarNameReg.NUMBER_OF_CHOICES) int number_of_choices,
                 @QueryParam(VarNameReg.NUMBER_OF_TRUTHS)  int number_of_truths){
         
+        //Enter transaction state:
+        Session ses = TransUtil.enterTransaction();
+        
         CueCard c = PRIVATE_make_filled_out_cue_card
                                (riddle_id, number_of_choices, number_of_truths);
         
         //Create our response:
         CompositeEntityBase ceb = (CompositeEntityBase)c;
+        
+        //Exit Transaction state before returning:
+        TransUtil.exitTransaction(ses);
+        
         return JSONUtil.compositeEntityToJSONResponse(ceb);
     
     }//FUNC::END
@@ -68,8 +82,9 @@ public class CuecardCTRL extends BaseCTRL{
                 @QueryParam(VarNameReg.RIDDLE_ID)         long riddle_id, 
                 @QueryParam(VarNameReg.NUMBER_OF_CHOICES) int number_of_choices,
                 @QueryParam(VarNameReg.NUMBER_OF_TRUTHS)  int number_of_truths){
-        //Enter transaction state:
-        Session ses = TransUtil.enterTransaction();
+        
+        //Make sure you are inside transaction state:
+        TransUtil.insideTransactionCheck();
         
         //Use utility to get what you want:
         CueCard c;
@@ -100,9 +115,6 @@ public class CuecardCTRL extends BaseCTRL{
             c = CuecardTransUtil.makeFilledOutCueCard
                                     (riddle_id, number_of_choices, number_of_truths);
         }//BLOCK::END
-        
-        //EXIT TRANSACTION!!!
-        TransUtil.exitTransaction(ses, TransUtil.EXIT_NO_SAVING);
         
         //return the cuecard:
         return c;
