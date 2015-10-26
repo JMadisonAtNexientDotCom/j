@@ -4,6 +4,7 @@ import primitives.LongBool;
 import test.MyError;
 import test.dbDataAbstractions.entities.composites.CueCard;
 import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.CuecardTable;
+import test.transactions.util.TransUtil;
 import test.transactions.util.tables.ink.InkPersistUtil;
 import test.transactions.util.tables.rhyme.RhymePersistUtil;
 import test.transactions.util.tables.riddle.RiddlePersistUtil;
@@ -18,6 +19,9 @@ public class CuecardPersistUtil {
     
     /** Makes sure card is represented in database. **/
     public static LongBool persist(CueCard card){
+        
+        //Error check, make sure inside transaction:
+        TransUtil.insideTransactionCheck();
         
         //Persist all of the individual components of the CueCard object.
         LongBool riddle_id = RiddlePersistUtil.persist( card.jest );
