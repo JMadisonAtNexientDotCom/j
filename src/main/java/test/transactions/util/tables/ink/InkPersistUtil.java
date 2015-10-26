@@ -13,6 +13,7 @@ import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.tables.GroupTable;
 import test.dbDataAbstractions.entities.tables.RhymeTable;
 import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.InkPurse;
+import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.InkTable;
 import test.transactions.util.PersistUtil;
 import test.transactions.util.TransUtil;
 import test.transactions.util.tables.group.GroupTransUtil;
@@ -28,9 +29,8 @@ public class InkPersistUtil {
     /**
      * Makes sure group of rhymes is persisted into database.
      * @param quips :The rhyme options on the cuecard.
-     * @return :Returns the GROUP_ID used to identify this group of quips.
-     *          If the set of quips was UNIQUE. The data is persisted
-     *          and the boolean component is set to TRUE to let us know.
+     * @return :The id of the InkTable entry holding a reference
+     *          the group of persisted quips in the InkPurse
      */
     public static LongBool persistQuips(List<RhymeTable> quips){
         
@@ -150,31 +150,45 @@ public class InkPersistUtil {
         if(lenOfMatches==0){
             //CREATE NEW ENTRY.
             long newGroupID = GroupTransUtil.makeNewGroup
-                                               ("[FromAPersistUtil]", numQuips);
-            op = new LongBool();
-            op.b = PersistUtil.NEW_ENTITY_MADE; //<--true for NEWLY CREATED.
-            op.l = newGroupID;
+                                               ("[FromAPersistUtil]", numQuips);          
             
-            //We are NOT going to link to this entry from the outer container,
-            //that is the job of whatever is calling this.
-            //AKA: We are not going to link this PURSE entities groupID
-            //     to it's corrosponding TABLE entity.
-            
-            //We do however, need to create all of the entries into
-            //the table!
-            
+            //create all of the entries into the table!
             List<Long> rhymeIDs = EntityUtil.StripPrimaryIDS(quips);
             TransUtil.makeGroup
                (InkPurse.class, newGroupID, InkPurse.RHYME_ID_COLUMN, rhymeIDs);
             
-            //TransUtil.saveToGroup(quips,newGroupID);
+            //Make an ink-table entry that will link to this
+            //group in the ink purse:
+            InkTable itab = new InkTable();
+            itab.ink_gi = newGroupID;
+            ses.save(itab);
+            
+            //check that save went alright:
+            long ink_table_primary_key = itab.getId();
+            if(ink_table_primary_key <= 0){
+                doError("save did not go well");
+            }//
+            
+            op = new LongBool();
+            op.b = PersistUtil.NEW_ENTITY_MADE; //<--true for NEWLY CREATED.
+            op.l = ink_table_primary_key;
             
         }else
         if(lenOfMatches==1){
             //No new entity made:
+            
+            long ink_gi = possibleMatchingGroupIDs.get(0);
+            InkTable itab = InkTransUtil.getExistingTableByGroupID(ink_gi);
+            long ink_table_primary_key = itab.getId();
+            
+            if(ink_table_primary_key <= 0){
+                doError("We asked for primary key, we got a bad value.");
+            }//
+            
             op = new LongBool();
             op.b = PersistUtil.NO_ENT_MADE_ALREADY_EXISTS;
-            op.l = possibleMatchingGroupIDs.get(0);
+            op.l = ink_table_primary_key;
+            
         }else{
             String msg = "";
             msg += "[Problem with your algorithm. Multiple matches.]";
