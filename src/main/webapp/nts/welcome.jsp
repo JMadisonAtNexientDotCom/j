@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <title>nts welcome</title>
     
-    <!--Require.js. Cannot externally link to it... Just... won't work. -->
-    	<script data-main="include_loader" src="../jsLib/requirejs_code/require.js"></script>
+    <script src="../jsLib/requirejs_code/require.js"></script>
+				<script src="Config02.js"></script>
 				
     <%= I.INCLUDE_JS() %>
     <%= I.INCLUDE_CSS() %>
@@ -103,8 +103,12 @@
 					
       var tryToLoad = function(){
         //Path to app must be relative location from this HTML file:
-        var rel_path = "../jsLib/requirejs_code/madison_app/NexFracLoader";
-        require([rel_path], myCallback, myErrback);
+        //var rel_path = "../jsLib/requirejs_code/madison_app/NexFracLoader";
+        //require([rel_path], myCallback, myErrback);
+        
+        requirejs(['app_rel_path/NexFracLoader'], myCallback, myErrback);
+        
+        
       };//
       
       var hack_waitThenTryToLoad = function(){
