@@ -10,28 +10,20 @@
 				
     </head>
     <body>
-        <h1>Hello World</h1>
-				
-	
-	        
-	
-				
-				
-    <div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="VI();" >
-		
-		
-		<!-- 60x40 good for small icon. -->
-				 <canvas id="myCanvas" width="600" height="400" style="border:0px solid #d3d3d3;">
-		    Your browser does not support the HTML5 canvas tag.</canvas>
-		
-		    <button data-ng-click="doIt();">{{button_label}}</button>
-      
-     
-      <input ng-model="num_levs_deep" 
-      type="number" min="2"max="6"
-      data-ng-click="re_init();">
-     
 
+    <div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="VI();" >
+		    <div id="controls_div">
+        <button data-ng-click="doIt();">{{button_label}}</button>
+        <input ng-model="num_levs_deep" 
+        type="number" min="2"max="6"
+        data-ng-click="re_init();">
+      </div>
+      <div id="canvas_div">
+        <!-- put canvas under buttons so buttons are easier to find. -->
+        <!-- 60x40 good for small icon. -->
+        <canvas id="myCanvas" width="600" height="400" style="border:0px solid #d3d3d3;">
+        Your browser does not support the HTML5 canvas tag.</canvas>
+      </div>
 		</div>
 			 
 				
