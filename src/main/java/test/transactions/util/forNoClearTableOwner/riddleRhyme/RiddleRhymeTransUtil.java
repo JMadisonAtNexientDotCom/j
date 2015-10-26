@@ -86,53 +86,7 @@ public class RiddleRhymeTransUtil {
         
     }//FUNC::END
     
-    /**-------------------------------------------------------------------------
-     * Creates a CueCard (question with answers) that 
-     * represents a question on the game show (test being taken).
-     * @param riddleID        :The ID of the riddle.
-     * @param numberOfChoices :How many choices you want this riddle to have?
-     * @param numberOfTruths  :How many of those choices are true?
-     *                         Will TRY to hit the target you specify, however,
-     *                         it has to work with the data that exists.
-     *                         If the Riddle has no possible solution, then
-     *                         the actual numberOfTruths will be ZERO regardless
-     *                         of what was supplied.
-     * @return : A CueCard that is filled out to spec.
-     ------------------------------------------------------------------------**/
-    public static CueCard makeFilledOutCueCard
-                       (long riddleID, int numberOfChoices, int numberOfTruths){
-                           
-        //make sure we are in a transaction state, since we must fetch data:
-        TransUtil.insideTransactionCheck();
-        
-        //get the riddle entry using the id:
-        RiddleTable rt = null;
-        BaseEntityContainer rtCon = RiddleTransUtil.getRiddleByID(riddleID);
-        if(false == rtCon.exists){
-            doError("riddle of this id does not exist");
-        }else{
-            if(null==rtCon.entity){doError("rtCon.entity is null");}
-            rt = (RiddleTable)(rtCon.entity);
-        }////
-        
-        //if RT is null, that is an error!
-        if(null == rt){doError("rt is null");}
-        
-        
-        //Make our cue card!         
-        CueCard op = CueCard.makeCueCard_WithJest_And_EmptyQuips(rt);
-        
-        //create a choice list:
-        List<RhymeTable> rhymeList = RhymeTransUtil.makeChoicesToChooseFrom
-                                    (riddleID, numberOfChoices, numberOfTruths);
-        
-        //Pack the rhymeList (possible answers) into our output container:
-        op.quips = rhymeList;
-        
-        //return output:
-        return op;
-        
-    }//FUNC::END
+    
               
    /**--------------------------------------------------------------------------
     * Combines getRhymesThatAre_TRUTH and getRhymesThatAre_WRONG into

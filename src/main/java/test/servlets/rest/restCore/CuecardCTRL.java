@@ -12,6 +12,7 @@ import test.dbDataAbstractions.entities.bases.CompositeEntityBase;
 import test.dbDataAbstractions.entities.composites.CueCard;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forNoClearTableOwner.riddleRhyme.RiddleRhymeTransUtil;
+import test.transactions.util.tables.cuecard.CuecardTransUtil;
 import test.transactions.util.tables.riddle.RiddleTransUtil;
 import utils.JSONUtil;
 
@@ -60,7 +61,7 @@ public class CuecardCTRL extends BaseCTRL{
             c = CueCard.makeErrorCueCard(msg, number_of_choices);
         }else{
             //Our non-error case. Note that ZERO number of truths is allowed.
-            c = RiddleRhymeTransUtil.makeFilledOutCueCard
+            c = CuecardTransUtil.makeFilledOutCueCard
                                     (riddle_id, number_of_choices, number_of_truths);
         }//BLOCK::END
         

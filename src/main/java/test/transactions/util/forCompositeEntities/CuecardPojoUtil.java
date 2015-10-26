@@ -4,6 +4,7 @@ import test.dbDataAbstractions.entities.composites.CueCard;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forNoClearTableOwner.riddleRhyme.RiddleRhymeTransUtil;
+import test.transactions.util.tables.cuecard.CuecardTransUtil;
 import test.transactions.util.tables.riddle.RiddleTransUtil;
 
 /**-----------------------------------------------------------------------------
@@ -34,7 +35,7 @@ public class CuecardPojoUtil {
         /** rid_tab   == "riddle table" **/
         RiddleTable rid_tab = RiddleTransUtil.getOneRandomRiddle();
         long riddleID = rid_tab.getId();
-        op = RiddleRhymeTransUtil.makeFilledOutCueCard
+        op = CuecardTransUtil.makeFilledOutCueCard
                                         (riddleID, numChoicesOnCard, targ_true);
 
         //return output:
