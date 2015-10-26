@@ -96,8 +96,8 @@
         console.log("attempt#" + attempt + " failed");
         
         //try again:
-        if(attempt < 5){
-          tryToLoad();
+        if(attempt < 13){
+          setTimeout( tryToLoad(), 3000); //try again in 3 seconds.
         }//
 				 	};//
 					
