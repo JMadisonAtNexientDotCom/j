@@ -22,6 +22,9 @@ public class FuncNameReg {
     //DEBUG:
     //public static final String DEBUGGER_STUB_FUNCTION="debugger_stub_function";
     
+    //DECK SERVICE:
+    public static final String GENERATE_DECK = "generate_deck";
+    
     //CUECARD SERVICE:
     public static final String MAKE_FILLED_OUT_CUE_CARD_AND_PERSIST_IT = "make_filled_out_cue_card_and_persist_it";
     public static final String MAKE_FILLED_OUT_CUE_CARD = "make_filled_out_cue_card";
