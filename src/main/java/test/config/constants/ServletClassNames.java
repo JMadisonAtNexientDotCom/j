@@ -12,9 +12,13 @@ import test.servlets.rest.restCore.TrialCTRL;
 import test.servlets.rest.other.debug.TransDebugCTRL;
 import test.servlets.rest.restCore.RiddleRhymeCTRL;
 import test.servlets.rest.other.utilityServlets.FileContentFetcher;
+import test.servlets.rest.restCore.ChalkCTRL;
 import test.servlets.rest.restCore.CuecardCTRL;
+import test.servlets.rest.restCore.DeckCTRL;
 import test.servlets.rest.restCore.GroupCTRL;
 import test.servlets.rest.restCore.InkCTRL;
+import test.servlets.rest.restCore.QuarCTRL;
+import test.servlets.rest.restCore.SlateCTRL;
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 /**##########################CLASS HEADER FILE##################################
 //WHAT THIS CLASS DOES:
@@ -50,13 +54,38 @@ public class ServletClassNames {
     
     //There must be a better way!
     
+    
+    //Quar,Slate,Chalk tables are what is necessary to persist
+    //the structure of a complete response to a Riddle-Trial (test):
+    //-------------------------------------------------------------------------+
+    //QUAR SERVICE:
+    public static final String QuarCTRL_CLASSNAME = "QuarCTRL";
+    public static final String QuarCTRL_MAPPING   = "QuarCTRL/";
+    
+    //SLATE SERVICE:Deck
+    public static final String SlateCTRL_CLASSNAME = "SlateCTRL";
+    public static final String SlateCTRL_MAPPING   = "SlateCTRL/";
+    
+    //CHALK SERVICE:Deck
+    public static final String ChalkCTRL_CLASSNAME = "ChalkCTRL";
+    public static final String ChalkCTRL_MAPPING   = "ChalkCTRL/";
+    //-------------------------------------------------------------------------+
+    
+    //Deck,Cuecard,Ink tables are what is necessary to persist
+    //the structure of a generated Riddle-Trial (test):
+    //-------------------------------------------------------------------------+
+    //DECK SERVICE:
+    public static final String DeckCTRL_CLASSNAME    = "DeckCTRL";
+    public static final String DeckCTRL_MAPPING      = "DeckCTRL/";
+    
     //CUECARD SERVICE:
     public static final String CuecardCTRL_CLASSNAME = "CuecardCTRL";
     public static final String CuecardCTRL_MAPPING   = "CuecardCTRL/";
     
     //INK SERVICE:
-    public static final String InkCTRL_CLASSNAME = "InkCTRL";
-    public static final String InkCTRL_MAPPING   = "InkCTRL/";
+    public static final String InkCTRL_CLASSNAME     = "InkCTRL";
+    public static final String InkCTRL_MAPPING       = "InkCTRL/";
+    //-------------------------------------------------------------------------+
     
     //GROUP SERVICE:
     public static final String GroupCTRL_CLASSNAME = "GroupCTRL";
@@ -220,6 +249,22 @@ public class ServletClassNames {
          *  to make sure they match! ----------------------------------------**/
         String clazName;
         
+        clazName =         QuarCTRL.class.getSimpleName();
+        if(         vcm_cn(QuarCTRL_CLASSNAME, clazName))
+        {   doMappingError(QuarCTRL_CLASSNAME); }
+        
+        clazName =         SlateCTRL.class.getSimpleName();
+        if(         vcm_cn(SlateCTRL_CLASSNAME, clazName))
+        {   doMappingError(SlateCTRL_CLASSNAME); }
+        
+        clazName =         ChalkCTRL.class.getSimpleName();
+        if(         vcm_cn(ChalkCTRL_CLASSNAME, clazName))
+        {   doMappingError(ChalkCTRL_CLASSNAME); }
+        
+        clazName =         DeckCTRL.class.getSimpleName();
+        if(         vcm_cn(DeckCTRL_CLASSNAME, clazName))
+        {   doMappingError(DeckCTRL_CLASSNAME); }
+        
         clazName =         CuecardCTRL.class.getSimpleName();
         if(         vcm_cn(CuecardCTRL_CLASSNAME, clazName))
         {   doMappingError(CuecardCTRL_CLASSNAME); }
@@ -267,6 +312,19 @@ public class ServletClassNames {
     }//FUNC::END
     
     private static void verifyCorrectMapping_MAPPING(){
+        
+        checkMapping(QuarCTRL_CLASSNAME,
+                     QuarCTRL_MAPPING);
+        
+        checkMapping(SlateCTRL_CLASSNAME,
+                     SlateCTRL_MAPPING);
+        
+        checkMapping(ChalkCTRL_CLASSNAME,
+                     ChalkCTRL_MAPPING);
+        
+        checkMapping(DeckCTRL_CLASSNAME,
+                     DeckCTRL_MAPPING);
+        
         checkMapping(CuecardCTRL_CLASSNAME,
                      CuecardCTRL_MAPPING);
         

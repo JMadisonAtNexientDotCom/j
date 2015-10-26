@@ -146,8 +146,14 @@ public class ServiceUrlsInitializer {
         //
         
         //Create fully-qualified api endpoints: //UUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
+        U.QUAR   = mkURL(ServletClassNames.QuarCTRL_MAPPING);
+        U.SLATE  = mkURL(ServletClassNames.SlateCTRL_MAPPING);
+        U.CHALK  = mkURL(ServletClassNames.ChalkCTRL_MAPPING);
+        
+        U.DECK   = mkURL(ServletClassNames.DeckCTRL_MAPPING);
         U.CUECARD= mkURL(ServletClassNames.CuecardCTRL_MAPPING);
         U.INK    = mkURL(ServletClassNames.InkCTRL_MAPPING);
+        
         U.GROUP  = mkURL(ServletClassNames.GroupCTRL_MAPPING);
         U.TRIAL  = mkURL(ServletClassNames.TrialCTRL_MAPPING);
         U.ADMIN  = mkURL(ServletClassNames.AdminCTRL_MAPPING);
@@ -250,8 +256,18 @@ public class ServiceUrlsInitializer {
     private static void setAllVarsToErrorMessage(String extraMSG){
         String cname = ServiceUrlsInitializer.class.getCanonicalName();
         
+        //Servlets representing tables that persist a complete response
+        //to a generated riddle-trial (test):
+        U.QUAR   = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
+        U.SLATE  = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
+        U.CHALK  = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
+        
+        //Servlets representing tables that persist a generated riddle-trial
+        //test:
+        U.DECK   = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
         U.CUECARD= "INITIALIZATION_ERROR IN:" + cname + extraMSG;
         U.INK    = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
+        
         U.GROUP  = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
         U.TRIAL  = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
         U.ADMIN  = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
