@@ -109,7 +109,7 @@
       
       var hack_waitThenTryToLoad = function(){
         console.log("Loading hack initialized");
-        setTimeOut( tryToLoad(), 13000 ); //13 seconds.
+        setTimeout( tryToLoad(), 13000 ); //13 seconds.
       };
 
       $scope.loaderToggle = function(){
