@@ -22,8 +22,7 @@
     <img src="../jsLib/graphics/NexLogoCenteredFaded.svg" >
     -->
     
-    <canvas id="myCanvas" width="150" height="100" style="border:1px solid #d3d3d3;">
-		    Your browser does not support the HTML5 canvas tag.</canvas>
+   
     
     <div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="VI();" >
       <!-- Vertically + horizontally centered dialog -->
@@ -31,6 +30,13 @@
       <div class="horcen_child"  > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
       <div class="vertcen_parent"> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
       <div class="vertcen_child" > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+        
+        
+        <canvas id="myCanvas" 
+        width="150" height="100" style="border:1px solid #d3d3d3;">
+          Your browser does not support the HTML5 canvas tag.
+        </canvas>
+        
         <div id="roundeddivs_wireframe" style="width:200px;">
             
           <div id="roundeddivs_headertab" align="center">
@@ -43,6 +49,7 @@
             <button data-ng-click="adminLogin();" style="width:100%;">Admin Login Page</button>
             
         </div>
+        
       </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
       </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
       </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->

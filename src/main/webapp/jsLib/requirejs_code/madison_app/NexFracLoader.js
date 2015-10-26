@@ -36,7 +36,9 @@ define(function (require) {
 			//http://www.ericfeminella.com/blog/2012/05/17/organizing-require-js-dependencies/
 			//PRIMITIVE CLASSES:
 			
-		
+		  //PRIVATE: Animation config options:
+			var _frames_to_play_for = 0;
+			var _frames_played = 0;
 					
 		  //This will eventually become guts of NEXIENT_LOADER class,
 			//so mock up our constructor:
@@ -149,6 +151,16 @@ define(function (require) {
 				
 				if(_is_paused){return;}
 				
+				//Make it so animation can play for a certain number
+				//of frames before stopping:
+				if(_frames_to_play_for > 0){
+					_frames_played++;
+					if(_frames_played > _frames_to_play_for){
+						 _is_paused = true;
+						 return;
+					}
+				}
+				
 				//permu_ren.clear_linked_canvas();
 				
 				//draw polygon:
@@ -174,6 +186,8 @@ define(function (require) {
 			this.resume = function(){
 				_is_paused = false;
 				
+				resetFrameCounter();
+				
 				//If class not already initialized, 
 				//will initialize now:
 				if(true !== _has_been_initialized){
@@ -182,6 +196,16 @@ define(function (require) {
 				
 				doPermuteDraw();
 			};//FUNC::END
+			
+			var resetFrameCounter = function(){
+				frames_played = 0;
+			};//
+			
+			//Makes it so animation automatically pauses after
+			//playing max number of frames.
+			this.setMaxFramesPerPlay = function(arg_max){
+				_frames_to_play_for = arg_max;
+			};//
 			
 			
 			this.toggle = function(){
