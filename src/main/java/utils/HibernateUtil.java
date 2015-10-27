@@ -11,14 +11,20 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import org.hibernate.boot.Metadata;
 import test.dbDataAbstractions.entities.tables.AdminTable;
+import test.dbDataAbstractions.entities.tables.ChalkPurse;
+import test.dbDataAbstractions.entities.tables.ChalkTable;
 import test.dbDataAbstractions.entities.tables.GroupTable;
+import test.dbDataAbstractions.entities.tables.KindaTable;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
+import test.dbDataAbstractions.entities.tables.QuarPurse;
+import test.dbDataAbstractions.entities.tables.QuarTable;
 import test.dbDataAbstractions.entities.tables.RhymeTable;
 import test.dbDataAbstractions.entities.tables.RiddleRhymeTruthTable;
 import test.dbDataAbstractions.entities.tables.RiddleRhymeWrongTable;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.dbDataAbstractions.entities.tables.SessionTable;
+import test.dbDataAbstractions.entities.tables.SlateTable;
 import test.dbDataAbstractions.entities.tables.TestTable01;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.dbDataAbstractions.entities.tables.TransTable;
@@ -243,8 +249,17 @@ public class HibernateUtil {
      *              versions of hibernate. ----------------------------------**/
     private static void addAnnotations(MetadataSources mds){
         
-        //Tables for storing a riddle-trial:
+        addAnnoEntity(mds, KindaTable  .class);
         addAnnoEntity(mds, GroupTable  .class);
+        
+        //Tables for storing a riddle-trial: (RESPONSES)
+        addAnnoEntity(mds, QuarTable  .class);
+        addAnnoEntity(mds, QuarPurse  .class);
+        addAnnoEntity(mds, SlateTable .class);
+        addAnnoEntity(mds, ChalkTable .class);
+        addAnnoEntity(mds, ChalkPurse .class);
+        
+        //Tables for storing a riddle-trial: (QUESTIONS)
         addAnnoEntity(mds, DeckTable   .class);
         addAnnoEntity(mds, DeckPurse   .class);
         addAnnoEntity(mds, CuecardTable.class);
