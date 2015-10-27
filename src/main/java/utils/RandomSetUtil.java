@@ -48,11 +48,11 @@ public class RandomSetUtil {
         unitTest();
     }//FUNC::END
     
-    private static int LEAN_LEFT = (-1);
-    private static int LEAN_RIGHT= (1);
+    private static int LEAN_LEFT = (-1); //KEEP AS (-1);
+    private static int LEAN_RIGHT=  (1); //KEEP AS (1);
     
-    private static int TAKE_LEFT_FIRST = (-1);
-    private static int TAKE_RIGHT_FIRST= (1);
+    private static int TAKE_LEFT_FIRST = (-1); //KEEP AS (-1);
+    private static int TAKE_RIGHT_FIRST=  (1); //KEEP AS (1);
     
     /** Creates a randomized set of unique values.
      *  Original usage: Creating randomized cuecards for deck.
@@ -226,7 +226,7 @@ public class RandomSetUtil {
     //subdivides range and puts right-most value into list we are building.
     private static long[] takeRGT
                              (long[] inRange, List<Long> values, int maxLen){
-                                 
+                        
         //bail if set is fully populated:
         if(values.size() >= maxLen){return inRange;}    
         values.add(inRange[1]);
@@ -262,6 +262,10 @@ public class RandomSetUtil {
      * 
      */
     private static long getCenter(long[] inRange, int lean){
+        
+        //Grasping at straws now:
+        if(LEAN_LEFT  != -1){doError("const not initialized LEAN_LEFT" );}
+        if(LEAN_RIGHT !=  1){doError("const not initialized LEAN_RIGHT");}
         
         long min = inRange[0];
         long max = inRange[1];
