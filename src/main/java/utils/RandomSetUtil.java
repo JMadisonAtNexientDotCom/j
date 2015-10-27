@@ -292,15 +292,23 @@ public class RandomSetUtil {
            }//BLOCK::END
         }else{
             //No exact center. Take to the left of center:
-            double center = (min+max)/2;
+            double minFlt = min;
+            double maxFlt = max;
+            double twoFlt = 2;
+            //double center = (min+max)/2;
+            double center = (minFlt+maxFlt)/twoFlt;
+            double shifted = 0;
             if(lean == LEAN_LEFT){
-                op = (long)Math.floor(center);
+                shifted = Math.floor(center);
             }else
             if(lean == LEAN_RIGHT){
-                op = (long)Math.ceil(center);
+                shifted = Math.ceil(center);
             }else{
                 doError("unknown lean value");
             }//BLOCK::END
+            
+            op = (int)shifted;
+            
         }//
         
         return op;
@@ -373,7 +381,7 @@ public class RandomSetUtil {
         long cen_rgt = getCenter(vals, LEAN_RIGHT);
         
         if(cen_lft != 4){doError("unit test fail. cen_lft!=4");}
-        if(cen_rgt != 5){doError("unit test fail. cen_lft!=5");}
+        if(cen_rgt != 5){doError("unit test fail. cen_rgt!=5");}
         
         
         
