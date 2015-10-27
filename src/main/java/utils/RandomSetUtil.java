@@ -30,7 +30,8 @@ import test.config.debug.DebugConfig;
 
 /**
  *
- * 
+ * Weird error: TakeCenter is NOT working here, But when I copy and paste
+ * the code into https://coderpad.io/ZQNKNDPG , it works fine.
  * 
  * 
  * @author jmadison :2015.10.26 (Oct26th,Year2015,Monday)
