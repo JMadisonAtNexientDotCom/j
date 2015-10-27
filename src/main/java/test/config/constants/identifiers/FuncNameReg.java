@@ -22,6 +22,9 @@ public class FuncNameReg {
     //DEBUG:
     //public static final String DEBUGGER_STUB_FUNCTION="debugger_stub_function";
     
+    //KINDA SERVICE:
+    public static final String MAKE_NEXT_KINDA = "make_next_kinda";
+    
     //DECK SERVICE:
     public static final String GENERATE_DECK = "generate_deck";
     public static final String GENERATE_DECK_AND_PERSIST_IT = "generate_deck_and_persist_it";

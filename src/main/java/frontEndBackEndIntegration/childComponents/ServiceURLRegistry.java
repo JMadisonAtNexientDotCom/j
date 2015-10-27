@@ -61,11 +61,13 @@ public class ServiceURLRegistry {
     
     //----SERVICE VARIABLE----------|--Path inited to "NOT_INITIALIZED" to ----|
     //----For HTTP REST CALLS-------|--Help hunt down mapping errors       ----|
-    public String QUAR        = "CUECARD:ServiceUrl_NOT_INITIALIZED";
-    public String SLATE       = "CUECARD:ServiceUrl_NOT_INITIALIZED";
-    public String CHALK       = "CUECARD:ServiceUrl_NOT_INITIALIZED";
+    public String KINDA       = "KINDA:ServiceUrl_NOT_INITIALIZED";
     
-    public String DECK        = "CUECARD:ServiceUrl_NOT_INITIALIZED";
+    public String QUAR        = "QUAR:ServiceUrl_NOT_INITIALIZED";
+    public String SLATE       = "SLATE:ServiceUrl_NOT_INITIALIZED";
+    public String CHALK       = "CHALK:ServiceUrl_NOT_INITIALIZED";
+    
+    public String DECK        = "DECK:ServiceUrl_NOT_INITIALIZED";
     public String CUECARD     = "CUECARD:ServiceUrl_NOT_INITIALIZED";
     public String INK         = "INK:ServiceUrl_NOT_INITIALIZED";
     

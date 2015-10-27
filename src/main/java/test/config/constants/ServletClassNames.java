@@ -17,6 +17,7 @@ import test.servlets.rest.restCore.CuecardCTRL;
 import test.servlets.rest.restCore.DeckCTRL;
 import test.servlets.rest.restCore.GroupCTRL;
 import test.servlets.rest.restCore.InkCTRL;
+import test.servlets.rest.restCore.KindaCTRL;
 import test.servlets.rest.restCore.QuarCTRL;
 import test.servlets.rest.restCore.SlateCTRL;
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -54,6 +55,9 @@ public class ServletClassNames {
     
     //There must be a better way!
     
+    //KINDA SERVICE: Joins tests+responses into graded package.
+    public static final String KindaCTRL_CLASSNAME = "KindaCTRL";
+    public static final String KindaCTRL_MAPPING   = "KindaCTRL/";
     
     //Quar,Slate,Chalk tables are what is necessary to persist
     //the structure of a complete response to a Riddle-Trial (test):
@@ -249,6 +253,10 @@ public class ServletClassNames {
          *  to make sure they match! ----------------------------------------**/
         String clazName;
         
+        clazName =         KindaCTRL.class.getSimpleName();
+        if(         vcm_cn(KindaCTRL_CLASSNAME, clazName))
+        {   doMappingError(KindaCTRL_CLASSNAME); }
+        
         clazName =         QuarCTRL.class.getSimpleName();
         if(         vcm_cn(QuarCTRL_CLASSNAME, clazName))
         {   doMappingError(QuarCTRL_CLASSNAME); }
@@ -312,6 +320,9 @@ public class ServletClassNames {
     }//FUNC::END
     
     private static void verifyCorrectMapping_MAPPING(){
+        
+        checkMapping(KindaCTRL_CLASSNAME,
+                     KindaCTRL_MAPPING);
         
         checkMapping(QuarCTRL_CLASSNAME,
                      QuarCTRL_MAPPING);

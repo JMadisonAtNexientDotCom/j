@@ -156,6 +156,25 @@ public class EntityUtil {
                                                             (Class<T> entClass){
         return HibernateReflectionUtil.makeEntityFromClass(entClass);
     }//FUNC::END
+             
+    /**
+     * Like makeEntityFromClass, but returns a [batch/set/list] of them.
+     * @param <T>         :Type of entity.
+     * @param entClass    :Reference to the entity class to instantiate.
+     * @param amountToMake:How many entities do you want?
+     * @return :The entities requested. Does NOT persist them. **/
+    public static <T extends BaseEntity> List<T> makeEntitiesFromClass
+                                          (Class<T> entClass, int amountToMake){
+        List<T> op = new ArrayList<T>();
+        BaseEntity new_ent;
+    
+        for(int i = 0; i < amountToMake; i++){
+            new_ent = makeEntityFromClass(entClass);
+            op.add((T)new_ent); //Why did I have to cast?
+        }//FUNC::END
+        
+        return op;
+    }//FUNC::END
     
     /**-------------------------------------------------------------------------
     -*- Wrapper function to throw errors from this class.   --------------------

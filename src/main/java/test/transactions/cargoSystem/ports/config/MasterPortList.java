@@ -6,6 +6,8 @@ import java.util.List;
 import test.MyError;
 import test.transactions.cargoSystem.dataTypes.GalleonBarge;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
+import test.transactions.cargoSystem.ports.DeckPorts;
+import test.transactions.cargoSystem.ports.KindaPorts;
 import test.transactions.cargoSystem.ports.NinjaPorts;
 import test.transactions.cargoSystem.ports.OwnerPorts;
 import test.transactions.cargoSystem.ports.TokenPorts;
@@ -19,13 +21,13 @@ public class MasterPortList {
     
     //TOKEN PORTS:
     @UniqueStaticValue
-    public static final short CREATE_NEW_TOKEN     = 1;
+    public static final short CREATE_NEW_TOKEN          = 1;
     @UniqueStaticValue
-    public static final short MAKE_BATCH_OF_TOKENS = 2;
+    public static final short MAKE_BATCH_OF_TOKENS      = 2;
     
     //NINJA PORTS:
     @UniqueStaticValue
-    public static final short GET_ONE_NINJA_BY_ID  = 3;
+    public static final short GET_ONE_NINJA_BY_ID       = 3;
     //delete//@UniqueStaticValue
     //delete//public static final short FIND_BATCH_OF_NINJAS = 4;
             
@@ -36,11 +38,19 @@ public class MasterPortList {
     //OWNER PORTS:
     @UniqueStaticValue
     public static final short MAKE_BATCH_OF_OWNER_STUBS = 5;
+    
+    //DECK PORTS:
+    @UniqueStaticValue
+    public static final short GENERATE_AND_PERSIST_DECKS= 6;
+    
+    //KINDA PORTS:
+    @UniqueStaticValue
+    public static final short MAKE_BATCH_OF_KINDA_STUBS = 7;
    
     
     /** Check sum so I can validate my _masterIndexValidatorTable extraction
      *  is working properly. **/
-    public static final long  LONG_CHECK_SUM = 5;
+    public static final long  LONG_CHECK_SUM = 7;
     
     
     /** All of the values within this enum class are cached into here
@@ -125,6 +135,13 @@ public class MasterPortList {
         case           MAKE_BATCH_OF_OWNER_STUBS:
             OwnerPorts.make_batch_of_owner_stubs(barge, order);
             bc++; break;
+        case          GENERATE_AND_PERSIST_DECKS:
+            DeckPorts.generate_and_persist_decks(barge, order);
+            bc++; break;
+        case           MAKE_BATCH_OF_KINDA_STUBS:
+            KindaPorts.make_batch_of_kinda_stubs(barge, order);
+            bc++; break;
+   
         default:
             //Default should never trigger, because "validatePortID()" validates
             //that we are using a valid portID. If default triggers, it means
@@ -136,6 +153,8 @@ public class MasterPortList {
         //hackish way to make sure we don't accidentially fall-through
         //from forgetting to use break keyword:
         if(bc != 1){
+            //this could also happen if break was forgotten and
+            //we had a duplicate case.
             doError("[Missing a break in switch statement likely.]");
         }//break count != 1 ?
         

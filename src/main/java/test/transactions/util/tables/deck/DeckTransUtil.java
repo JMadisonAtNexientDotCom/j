@@ -13,7 +13,9 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
+import primitives.LongBool;
 import test.MyError;
+import test.config.constants.identifiers.VarNameReg;
 import test.config.debug.DebugConfig;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.bases.PurseEntity;
@@ -21,6 +23,8 @@ import test.dbDataAbstractions.entities.composites.CueCard;
 import test.dbDataAbstractions.entities.composites.Deck;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.DeckPurse;
+import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.DeckTable;
+import test.transactions.cargoSystem.dataTypes.SpecialInstructionsStickyNote;
 import test.transactions.util.TransUtil;
 import test.transactions.util.tables.cuecard.CuecardTransUtil;
 import test.transactions.util.tables.group.GroupTransUtil;
@@ -33,6 +37,52 @@ import utils.RandomSetUtil;
  */
 public class DeckTransUtil {
     
+    /**
+     * Makes a batch of DeckTable entities that correspond to persisted
+     * Deck(Pojo) objects that have been generated.
+     * @param specs :arguments object for the request.
+     * @return 
+     */
+    public static List<DeckTable> generateAndPersistDecks
+                                          (SpecialInstructionsStickyNote specs){
+                                              
+        //Unpack the arguments that should be there:
+        Class INT = int.class;
+        int num_decks = specs.getVal(VarNameReg.NUM_DECKS , INT);
+        int card_count= specs.getVal(VarNameReg.CARD_COUNT, INT);
+        int num_quips = specs.getVal(VarNameReg.NUM_QUIPS , INT);
+        int tru_min   = specs.getVal(VarNameReg.TRU_MIN   , INT);
+        int tru_max   = specs.getVal(VarNameReg.TRU_MAX   , INT);
+        
+        //Generate deck pojos:
+        Deck curDeckPojo;
+        List<Deck> pojos = new ArrayList<Deck>();
+        for(int i = 0; i < num_decks; i++){
+            curDeckPojo = generateDeck(card_count, num_quips, tru_min, tru_max);
+            pojos.add(i, curDeckPojo); //<--preserve order!
+        }//next i.
+        
+        //Persist decks into database:
+        LongBool persistResults;
+        DeckTable curDeckEntity;
+        List<DeckTable> structs = new ArrayList<DeckTable>();
+        for(int p = 0; p < num_decks; p++){
+            curDeckPojo = pojos.get(p);
+            persistResults = DeckPersistUtil.persist(curDeckPojo);
+            curDeckEntity = new DeckTable();
+            curDeckEntity.setId(persistResults.l);
+            
+            //We don't have this data. So use invalid value so that error is
+            //thrown if we try to access and make use of it.
+            curDeckEntity.deck_gi = new Long(-92313);
+            
+            //Put the deck entity into collection:
+            structs.add(p, curDeckEntity);//<--preserve order!
+        }//next p
+        
+        return structs;
+        
+    }//FUNC::END
    
     /**
      * Generates a deck of cuecards. Does NOT persist it.

@@ -146,6 +146,8 @@ public class ServiceUrlsInitializer {
         //
         
         //Create fully-qualified api endpoints: //UUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
+        U.KINDA  = mkURL(ServletClassNames.KindaCTRL_MAPPING);
+        
         U.QUAR   = mkURL(ServletClassNames.QuarCTRL_MAPPING);
         U.SLATE  = mkURL(ServletClassNames.SlateCTRL_MAPPING);
         U.CHALK  = mkURL(ServletClassNames.ChalkCTRL_MAPPING);
@@ -255,6 +257,8 @@ public class ServiceUrlsInitializer {
     //environment.
     private static void setAllVarsToErrorMessage(String extraMSG){
         String cname = ServiceUrlsInitializer.class.getCanonicalName();
+        
+        U.KINDA = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
         
         //Servlets representing tables that persist a complete response
         //to a generated riddle-trial (test):

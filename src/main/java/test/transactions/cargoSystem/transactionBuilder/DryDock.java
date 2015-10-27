@@ -4,10 +4,12 @@ import java.util.List;
 import test.MyError;
 import test.config.constants.identifiers.VarNameReg;
 import test.config.constants.signatures.paramVals.TRIAL_KIND_ENUMS;
+import test.dbDataAbstractions.entities.tables.KindaTable;
 import test.dbDataAbstractions.entities.tables.NinjaTable;
 import test.dbDataAbstractions.entities.tables.OwnerTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.dbDataAbstractions.entities.tables.TrialTable;
+import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.DeckTable;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postRequest.Edict;
 import test.transactions.cargoSystem.dataTypes.GalleonBarge;
 import test.transactions.cargoSystem.dataTypes.JobTicket;
@@ -16,6 +18,8 @@ import test.transactions.cargoSystem.dataTypes.OrderArg;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
 import test.transactions.cargoSystem.dataTypes.jobConsts.JoinOrderVars;
 import test.transactions.cargoSystem.dataTypes.jobConsts.WeldJobVars;
+import test.transactions.cargoSystem.ports.DeckPorts;
+import test.transactions.cargoSystem.ports.KindaPorts;
 import test.transactions.cargoSystem.ports.NinjaPorts;
 import test.transactions.cargoSystem.ports.OwnerPorts;
 import test.transactions.cargoSystem.ports.TokenPorts;
@@ -103,7 +107,8 @@ public class DryDock {
         int numTokens = numNinjas; //one token per ninja.
         int numTrials = numNinjas; //one trial per ninja.
         int numOwners = numNinjas; //one owner per ninja.
-        int numKindas = numNinjas; //one kinda per ninja. <--kind table.
+        int numKindas = numNinjas; //one kinda per ninja.
+        int numDecks  = numNinjas; //one deck (guts of test) per ninja.
         
         GalleonBarge barge = GalleonBarge.make();
         
@@ -121,6 +126,22 @@ public class DryDock {
         tok_order.supplier = TokenTable.class;
         tok_order.specs.add(VarNameReg.NUM_TOKENS, numTokens);
         barge.agenda.addOrder(tok_order);
+        
+        //Order for "kindas" the records that link tokens+tests+responses+grades
+        //all-together in a nice package.
+        OrderSlip knd_order;
+        knd_order = OrderSlip.makeUsingPortID(KindaPorts.MAKE_BATCH_OF_KINDA_STUBS);
+        knd_order.supplier = KindaTable.class;
+        knd_order.specs.add(VarNameReg.NUM_KINDAS, numKindas);
+        barge.agenda.addOrder(knd_order);
+        
+        //Order for decks. Decks are filled with cuecards. They are the
+        //core of a riddle-trial.
+        OrderSlip dek_order;
+        dek_order = OrderSlip.makeUsingPortID(DeckPorts.GENERATE_AND_PERSIST_DECKS);
+        dek_order.supplier = DeckTable.class;
+        dek_order.specs.add(VarNameReg.NUM_DECKS, numDecks);
+        barge.agenda.addOrder(dek_order);
         
         //Create Trials, one per ninja:
         //No dependencies!
@@ -150,11 +171,17 @@ public class DryDock {
         JobTicket tok_own; //insert token_id(s) into owner_table
         JobTicket nin_own; //insert ninja_id(s) into owner_table
         JobTicket tok_tri; //insert token_id(s) into trial_table
+        JobTicket tok_knd; //insert token_id(s) into kinda_table
+        JobTicket dek_knd; //insert deck_id (s) into kinda_table
         
         //Allocate the Welder Job Tickets:
-        tok_own = barge.bulletin.addEmptyJobTicket();
-        nin_own = barge.bulletin.addEmptyJobTicket();
-        tok_tri = barge.bulletin.addEmptyJobTicket();
+        //naming: Structure: 
+        //EX: fromTable_toTable = barge.bulletin.addEmptyJobTicket();
+        tok_own = barge.bulletin.addEmptyJobTicket(); //token_id into owner.
+        nin_own = barge.bulletin.addEmptyJobTicket(); //ninja_id into owner.
+        tok_tri = barge.bulletin.addEmptyJobTicket(); //token_id into trial.
+        tok_knd = barge.bulletin.addEmptyJobTicket(); //token_id into kinda.
+        dek_knd = barge.bulletin.addEmptyJobTicket(); //deck_id  into kinda.
         
         //Create joins in owner table:
         //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
@@ -177,7 +204,24 @@ public class DryDock {
         tok_tri.specs.add(JoinOrderVars.DEST_COLUMN,TrialTable.TOKEN_ID_COLUMN);
         //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
         
-     
+        //Create joins in the kinda table:
+        //KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+        //token_id --> kinda_table
+        tok_knd.jobType = JobTicketTypes.JOIN_ORDER;
+        tok_knd.specs.add(JoinOrderVars.FROM_ORDER, tok_order);
+        tok_knd.specs.add(JoinOrderVars.INTO_ORDER, knd_order);
+        tok_knd.specs.add(JoinOrderVars.DEST_COLUMN,KindaTable.TOKEN_ID_COLUMN);
+        //deck_id --> kinda_table
+        //NOTE: deck_id is known as challenge_id when in the kinda table.
+        //      This foreign key breaks convention because it's value may
+        //      refer to different tables depending on what kind of test
+        //      is stored in the record.
+        String deckDestColumn = KindaTable.CHALLENGE_ID_COLUMN;
+        dek_knd.jobType = JobTicketTypes.JOIN_ORDER;
+        dek_knd.specs.add(JoinOrderVars.FROM_ORDER, dek_order);
+        dek_knd.specs.add(JoinOrderVars.INTO_ORDER, knd_order);
+        dek_knd.specs.add(JoinOrderVars.DEST_COLUMN,deckDestColumn);
+        //KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
         
        
         return barge;
