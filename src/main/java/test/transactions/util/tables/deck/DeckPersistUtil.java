@@ -112,15 +112,26 @@ public class DeckPersistUtil {
         ////////////////////////////   ////////////////////////////
         
         long groupIDToUse = 0;
+        
+        List<Long> card_ids = LongBool.stripOutLongs(perCards);
+        
+        //Just because all of the cuecards in the deck ALREADY EXIST in the
+        //database does NOT mean that we don't need a new group for a new deck.
+        //It could be a different configuration of pre-existing cards.
+        //Like when someone takes from a pool of magic or pokemon cards and
+        //builds a new specialized deck:
         if(false == newGroupIdNeeded){
-           List<Long> card_ids = LongBool.stripOutLongs(perCards);
            groupIDToUse = DeckTransUtil.getGroupID(card_ids);
            if(groupIDToUse <= (-1)){ newGroupIdNeeded = true;}
         }//
         
+        //Get a group id to use, then make the entries in the DECK PURSE:
         if(newGroupIdNeeded){
             groupIDToUse = GroupTransUtil.makeNewGroup
-                                                ("Testing123", perCards.size());
+                   ("[Made By: DeckPersistUtil.persistPurse]", perCards.size());
+            
+            makeGroupInDeckPurse(groupIDToUse, card_ids);
+            
         }//
         
         LongBool results = new LongBool();
@@ -128,6 +139,27 @@ public class DeckPersistUtil {
         results.l = groupIDToUse;
         return results;
 
+    }//FUNC::END
+    
+    /**
+     * Create a group of cards in the Deck Purse:
+     * @param groupIDToUse :The group ID of all records we are making.
+     * @param cuecardIDS   :The unique cuecardIDS of all of the cards
+     *                      we are grouping together. **/
+    private static void makeGroupInDeckPurse
+                                     (long groupIDToUse, List<Long> cuecardIDS){
+                                         
+        Session ses = TransUtil.getActiveTransactionSession();
+        
+        DeckPurse cur_entry;
+        for(Long id : cuecardIDS){
+            cur_entry = new DeckPurse();
+            cur_entry.cuecard_id = id;
+            cur_entry.group_id   = groupIDToUse;
+            
+            //persist entry so that it's primary key will be set:
+            ses.save(cur_entry);
+        }//next id
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
