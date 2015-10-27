@@ -384,13 +384,16 @@ public class RandomSetUtil {
         boolean overlaps = false;
         if(lft[0] >= rgt[0]){overlaps = true;}
         if(lft[1] >= rgt[0]){overlaps = true;}
-        String msg = "";
-        msg += "[sets overlap!]";
-        msg += "lft[0,1]==[" + Long.toString(lft[0]) + ","
-                             + Long.toString(lft[1]) + "]";
-        msg += "rgt[0,1]==[" + Long.toString(rgt[0]) + ","
-                             + Long.toString(rgt[1]) + "]";
-        doError(msg);
+        
+        if(overlaps){
+            String msg = "";
+            msg += "[sets overlap!]";
+            msg += "lft[0,1]==[" + Long.toString(lft[0]) + ","
+                                 + Long.toString(lft[1]) + "]";
+            msg += "rgt[0,1]==[" + Long.toString(rgt[0]) + ","
+                                 + Long.toString(rgt[1]) + "]";
+            doError(msg);
+        }//overlap error?
         
         if(lft[1] != (rgt[0]-1) ){
             doError("expected the right and left sets to be tangental");
