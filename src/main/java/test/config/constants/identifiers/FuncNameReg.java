@@ -24,6 +24,7 @@ public class FuncNameReg {
     
     //DECK SERVICE:
     public static final String GENERATE_DECK = "generate_deck";
+    public static final String GENERATE_DECK_AND_PERSIST_IT = "generate_deck_and_persist_it";
     
     //CUECARD SERVICE:
     public static final String MAKE_FILLED_OUT_CUE_CARD_AND_PERSIST_IT = "make_filled_out_cue_card_and_persist_it";

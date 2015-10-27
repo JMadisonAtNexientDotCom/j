@@ -9,7 +9,9 @@ import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.composites.Deck;
+import test.dbDataAbstractions.requestAndResponseTypes.PossibleErrorResponse;
 import test.transactions.util.TransUtil;
+import test.transactions.util.tables.deck.DeckPersistUtil;
 import test.transactions.util.tables.deck.DeckTransUtil;
 import utils.JSONUtil;
 
@@ -22,6 +24,41 @@ import utils.JSONUtil;
 @Path(ServletClassNames.DeckCTRL_MAPPING)
 public class DeckCTRL extends BaseCTRL{
     
+    /**
+     * Exactly same behavior and signature as "GENERATE_DECK", however
+     * this test will also PERSIST the deck into the database.
+     * @param card_count        :See GENERATE_DECK
+     * @param number_of_choices :See GENERATE_DECK
+     * @param tru_min           :See GENERATE_DECK
+     * @param tru_max           :See GENERATE_DECK
+     * @return                  :See GENERATE_DECK **/
+    @GET
+    @Path(FuncNameReg.GENERATE_DECK_AND_PERSIST_IT)
+    public Response generate_deck_and_persist_it(
+                @QueryParam(VarNameReg.CARD_COUNT)        int card_count, 
+                @QueryParam(VarNameReg.NUMBER_OF_CHOICES) int number_of_choices,
+                @QueryParam(VarNameReg.TRU_MIN)           int tru_min,
+                @QueryParam(VarNameReg.TRU_MAX)           int tru_max){
+        
+        //Handle Error Inputs:
+        PossibleErrorResponse pos = INPUTCHECK_generate_deck
+                              (card_count, number_of_choices, tru_min, tru_max);
+        if(pos.exists){return pos.error;}
+        
+        //Enter transaction, do logic, exit transaction:
+        Session ses = TransUtil.enterTransaction();
+        Deck trial_guts;
+        trial_guts = DeckTransUtil.generateDeck
+                              (card_count, number_of_choices, tru_min, tru_max);
+        TransUtil.exitTransaction(ses);
+        
+        //BEFORE WE EXIT, PERSIST THE DECK:
+        DeckPersistUtil.persist(trial_guts);
+        
+        //return the deck as JSON response:
+        return JSONUtil.compositeEntityToJSONResponse(trial_guts);
+        
+    }//FUNC::END
     
     /**
      * 
@@ -46,6 +83,30 @@ public class DeckCTRL extends BaseCTRL{
                 @QueryParam(VarNameReg.TRU_MIN)           int tru_min,
                 @QueryParam(VarNameReg.TRU_MAX)           int tru_max){
         
+        //Handle Error inputs:
+        PossibleErrorResponse pos = INPUTCHECK_generate_deck
+                              (card_count, number_of_choices, tru_min, tru_max);
+        if(pos.exists){return pos.error;}
+        
+        //Enter transaction, do logic, exit transaction:
+        Session ses = TransUtil.enterTransaction();
+        Deck trial_guts;
+        trial_guts = DeckTransUtil.generateDeck
+                              (card_count, number_of_choices, tru_min, tru_max);
+        TransUtil.exitTransaction(ses);
+        
+        //return the deck as JSON response:
+        return JSONUtil.compositeEntityToJSONResponse(trial_guts);
+                
+    }//FUNC::END
+    
+    //Checks inputs from generate_deck functions and returns an error response
+    //If we find there is a problem.
+    private PossibleErrorResponse INPUTCHECK_generate_deck(
+                @QueryParam(VarNameReg.CARD_COUNT)        int card_count, 
+                @QueryParam(VarNameReg.NUMBER_OF_CHOICES) int number_of_choices,
+                @QueryParam(VarNameReg.TRU_MIN)           int tru_min,
+                @QueryParam(VarNameReg.TRU_MAX)           int tru_max){
         String err_msg = "";
         boolean has_err = false;
         if(tru_min > tru_max){
@@ -61,23 +122,17 @@ public class DeckCTRL extends BaseCTRL{
             err_msg+="[Improper fraction inevitable. tru_max]";
         }//
         
+        PossibleErrorResponse op = new PossibleErrorResponse();
         if(has_err){
             Deck err_deck = Deck.makeErrorDeck(err_msg);
-            return JSONUtil.compositeEntityToJSONResponse(err_deck);
+            Response err = JSONUtil.compositeEntityToJSONResponse(err_deck);
+            op.error  = err;
+            op.exists = true;
         }//
         
-        Session ses = TransUtil.enterTransaction();
+        return op;
         
-        Deck trial_guts;
-        trial_guts = DeckTransUtil.generateDeck
-                              (card_count, number_of_choices, tru_min, tru_max);
-        
-        TransUtil.exitTransaction(ses);
-        
-        //return the deck as JSON response:
-        return JSONUtil.compositeEntityToJSONResponse(trial_guts);
-                
     }//FUNC::END
-    
+ 
     
 }//CLASS::END
