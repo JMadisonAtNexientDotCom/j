@@ -30,7 +30,7 @@ import static test.dbDataAbstractions.entities.tables.NinjaTable.NAME_COLUMN;
 public class KindaTable extends BaseEntity {
     
     /** Name of table this entity refers to, for easy refactoring. **/
-    public static final String TABLE_NAME          = TableNameReg.KIND_TABLE;
+    public static final String TABLE_NAME          = TableNameReg.KINDA_TABLE;
     /** Column name stored as string constant for easy refactoring. **/
     public static final String ID_COLUMN           = VarNameReg.ID;
     /** Column name stored as string constant for easy refactoring. **/

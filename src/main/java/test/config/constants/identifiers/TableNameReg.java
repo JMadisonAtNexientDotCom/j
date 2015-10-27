@@ -86,7 +86,7 @@ public static final String CHALK_PURSE   = "chalk_purse";
     public static final String SESSION_TABLE = "session_table";
     public static final String OWNER_TABLE   = "owner_table";
     public static final String TRIAL_TABLE   = "trial_table";
-    public static final String KIND_TABLE    = "kind_table";
+    public static final String KINDA_TABLE   = "kinda_table";
     
     /**
      * ORIGINAL USEAGE: Checking for string transposition errors where
