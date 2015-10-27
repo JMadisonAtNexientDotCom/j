@@ -7,8 +7,7 @@ import test.config.constants.identifiers.utils.StringConstantFinderUtil;
 
 /**
  * Master registry for all of the table names.
- * @author jmadison :2015.09.30
- */
+ * @author jmadison :2015.09.30(Sept,30th,Year2015) **/
 public class TableNameReg {
     
 //Tables who's job it is to store the contents of a riddle-trial.
@@ -17,11 +16,11 @@ public class TableNameReg {
 // Wraps the CONTENTS of the deck into  |id|deck_gi|                          //
 // one id reference.                    +--------+-+                          //
 //                                               |                            //
-// DECK_PURSE:                          +--------V-------------------+        //
-// The jumbled contents of a deck.      |id|group_id|locus|cuecard_id|        //
-// One unique deck within table is      +-----------------------|----+        //
-// identified by the group_id.                                  |             //
-//                                       + - - - - - - - - - - -+             //
+// DECK_PURSE:                          +--------V-------------+              //
+// The jumbled contents of a deck.      |id|group_id|cuecard_id|              //
+// One unique deck within table is      +------------------|---+              //
+// identified by the group_id.                             |                  //
+//                                       + - - - - - - - - +                  //
 //                                       |                                    //
 // CUECARD_TABLE:                       +V------------------+                 //
 // Represents a single interview        |id|riddle_id|ink_id|                 //
@@ -33,9 +32,9 @@ public class TableNameReg {
 // Represents [QUIPS/RHYMES/ANSWERS]    |id|ink_gi|                           //
 // Ninja can select.                    +-----|---+                           //
 //                                            |                               //
-// INK_PURSE:                           +-----V--------------------+          //
-// Each cue card may have n# lines of   |id|group_id|locus|rhyme_id|          //
-// "ink" on it.                         +--------------------------+          //
+// INK_PURSE:                           +-----V--------------+                //
+// Each cue card may have n# lines of   |id|group_id|rhyme_id|                //
+// "ink" on it.                         +--------------------+                //
 ////////////////////////////////////////////////////////////////////////////////
     public static final String DECK_TABLE    = "deck_table";
     public static final String DECK_PURSE    = "deck_purse";
@@ -87,6 +86,7 @@ public static final String CHALK_PURSE   = "chalk_purse";
     public static final String SESSION_TABLE = "session_table";
     public static final String OWNER_TABLE   = "owner_table";
     public static final String TRIAL_TABLE   = "trial_table";
+    public static final String KIND_TABLE    = "kind_table";
     
     /**
      * ORIGINAL USEAGE: Checking for string transposition errors where

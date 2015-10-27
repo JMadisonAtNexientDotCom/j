@@ -131,6 +131,13 @@ public class VarNameReg {
     public static final String ENDED_ON = "ended_on";
     public static final String ALLOTTED = "allotted";
     
+    //Columns originally made for the kind_table:
+    public static final String CHALLENGE_ID  = "challenge_id";
+    public static final String HAS_CHALLENGE = "has_challenge";
+    public static final String EFFORT_ID     = "effort_id";
+    public static final String HAS_EFFORT    = "has_effort";
+    public static final String IS_GRADED     = "is_graded";
+    public static final String GRADE_10K     = "grade_10k";
     
     //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
     //TTTTTTTTTTTTTTT----------END--------------------------TTTTTTTTTTTTTTTTTTTT
