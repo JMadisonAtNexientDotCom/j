@@ -37,6 +37,16 @@ import test.config.debug.DebugConfig;
  */
 public class RandomSetUtil {
     
+    static{////////////
+        doStaticInit();
+    }//////////////////
+    
+    private static void doStaticInit(){
+        //Unit test forced to start the first time
+        //the utility is used.
+        unitTest();
+    }//FUNC::END
+    
     private static int LEAN_LEFT = (-1);
     private static int LEAN_RIGHT= (1);
     
@@ -353,7 +363,21 @@ public class RandomSetUtil {
         }//
         
     }//FUNC::END
-               
+      
+    //Unit test segment for this function:
+    public static void unitTest(){
+        long[] vals = new long[2];
+        vals[0] = 1;
+        vals[1] = 8;
+        long cen_lft = getCenter(vals, LEAN_LEFT);
+        long cen_rgt = getCenter(vals, LEAN_RIGHT);
+        
+        if(cen_lft != 4){doError("unit test fail. cen_lft!=4");}
+        if(cen_rgt != 5){doError("unit test fail. cen_lft!=5");}
+        
+        
+        
+    }//FUNC::END
     
     /**-------------------------------------------------------------------------
     -*- Wrapper function to throw errors from this class.   --------------------
