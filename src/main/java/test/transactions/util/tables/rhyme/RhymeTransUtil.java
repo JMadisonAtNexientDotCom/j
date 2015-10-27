@@ -82,9 +82,13 @@ public class RhymeTransUtil {
         //handle. We should consider numberOfChoices < numberOfTruths to be
         //an ERROR:
         if(numberOfChoices < numberOfTruthsDesired){////////////////////////////
+            String msg = "";
+            msg += "[ERROR:You are asking for an improper fraction.]";
+            msg += "choices==[" + Integer.toString(numberOfChoices) + "]";
+            msg += "truths ==[" + Integer.toString(numberOfTruthsDesired) + "]";
             //Example illustrating why this is an error:
             //Imagine a question where 10 out of 5 questions are correct.
-            doError("ERROR:You are asking for an improper fraction.");
+            doError(msg);
         }///////////////////////////////////////////////////////////////////////
                          
         //Attempt to get the number of Rhymes (answers) that are true
