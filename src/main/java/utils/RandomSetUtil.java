@@ -48,11 +48,13 @@ public class RandomSetUtil {
         unitTest();
     }//FUNC::END
     
-    private static int LEAN_LEFT = (-1); //KEEP AS (-1);
-    private static int LEAN_RIGHT=  (1); //KEEP AS (1);
+    //Made FINAL so that they will initialize BEFORE the unitTest invocation
+    //that happens during static initialization.
+    private static final int LEAN_LEFT = (-1); //KEEP AS (-1);
+    private static final int LEAN_RIGHT=  (1); //KEEP AS (1);
     
-    private static int TAKE_LEFT_FIRST = (-1); //KEEP AS (-1);
-    private static int TAKE_RIGHT_FIRST=  (1); //KEEP AS (1);
+    private static final int TAKE_LEFT_FIRST = (-1); //KEEP AS (-1);
+    private static final int TAKE_RIGHT_FIRST=  (1); //KEEP AS (1);
     
     /** Creates a randomized set of unique values.
      *  Original usage: Creating randomized cuecards for deck.
