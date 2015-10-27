@@ -6,8 +6,33 @@ import java.util.List;
 import test.MyError;
 import test.config.debug.DebugConfig;
 
+//-----------------------------------------------------------------------------+
+////Basic premise: Subdivides the range of values to choose from               |
+////using recursion. Recursion stops when we have collected enough values.     |
+////When no pivot element, like first iteration, easy to know what goes on     |
+////left side and what goes on right.                                          |
+////When there is a pivot element, the LEFT side claims ownership of it.       |
+////The right side must shift it's selection over one.                         |
+////We do this so there is no collision amongst sub-divided sets.              |
+//                                                                             |
+//     +--#2L------+--#2R--+       +--#2L------+--#2R--+                       |
+//     |           |       |   |   |           |       |                       |
+// +---|-ITERATION#1:LEFT--|---+---|-ITERATION#1:RIGHT-|---+                   |
+// |   |           |       |   |   |           |       |   |                   |
+// 1/-\2/-\	/-\	/-\2/-\	/-\2/-\1/-\2/-\	/-\	/-\2/-\	/-\2/-\1                   |
+//  |0|	|1|	|2|	|3|	|4|	|5|	|6|	|7|	|8|	|9|	|A|	|B|	|C|	|D|                    |
+//  \-/	\-/	\-/	\-/	\-/	\-/	\-/	\-/	\-/	\-/	\-/	\-/	\-/	\-/                    |
+//                                                       ^                     |
+//																									  	                           14th                  |
+//-----------------------------------------------------------------------------+
+
+
+
 /**
  *
+ * 
+ * 
+ * 
  * @author jmadison :2015.10.26 (Oct26th,Year2015,Monday)
  */
 public class RandomSetUtil {
@@ -95,6 +120,10 @@ public class RandomSetUtil {
             long[] rangeRGT = takeRGT(inRange, values, maxLen);
             if(values.size() >= maxLen){return;}
             
+            if(DebugConfig.isDebugBuild){
+                assertNoSetCollision(rangeLFT,rangeRGT);
+            }//DEBUG>
+            
             //RECURSIVE ENTRY POINT, taking LEFT branch first.
             //Next iteration swap and take RIGHT first.
             takeSides(rangeLFT, values, maxLen, TAKE_RIGHT_FIRST); //<--rng LFT
@@ -106,6 +135,10 @@ public class RandomSetUtil {
             
             long[] rangeLFT = takeLFT(inRange, values, maxLen);
             if(values.size() >= maxLen){return;}
+            
+            if(DebugConfig.isDebugBuild){
+                assertNoSetCollision(rangeLFT,rangeRGT);
+            }//DEBUG>
         
             //RECURSIVE ENTRY POINT, taking RIGHT branch first.
             //Next iteration swap and take LEFT first.
@@ -201,7 +234,7 @@ public class RandomSetUtil {
            //if leaning RIGHT, we push over to the next.
            //This is so sub-divided regions will NOT overlap:
            if(lean== LEAN_LEFT){
-               op = perfect_center;
+               op = perfect_center; //left gets bigger half.
            }else
            if(lean==LEAN_RIGHT){
                op = (perfect_center +1 );
@@ -257,6 +290,23 @@ public class RandomSetUtil {
             }//
             map.put(key, true);
         }//next i
+    }//FUNC::END
+    
+    /**
+     * Will throw error if the two ranges overlap.
+     * @param lft: The range of min-max to the LEFT of search space.
+     * @param rgt: The range of min-max to the RIGHT of search space.
+     */
+    private static void assertNoSetCollision(long[] lft, long[] rgt){
+        boolean overlaps = false;
+        if(lft[0] >= rgt[0]){overlaps = true;}
+        if(lft[1] >= rgt[0]){overlaps = true;}
+        doError("[sets overlap!]");
+        
+        if(lft[1] != (rgt[0]-1) ){
+            doError("expected the right and left sets to be tangental");
+        }//
+        
     }//FUNC::END
                
     
