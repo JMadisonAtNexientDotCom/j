@@ -121,12 +121,6 @@ public class DeckTransUtil {
      */
     public static long getGroupID(List<Long> cuecard_ids){
         
-        //When this error executes, remove this error,
-        //then do whatever you did previously to invoke this code.
-        //So that we can see it is working in production.
-        //Also... We need to make a test for this.
-        doError("[This has never been tested before]");
-        
         //This check is too heavy to justify 
         //running ouside of debug mode:
         if(DebugConfig.isDebugBuild){
