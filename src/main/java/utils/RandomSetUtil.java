@@ -276,6 +276,7 @@ public class RandomSetUtil {
         
         
         if(isOdd){//<--- There IS an exact center.
+            //doError("temp hack. remove");
            long perfect_center = (min+max)/2;
            double center_floored = Math.floor(perfect_center);
            if(perfect_center != center_floored){doError("didnt find center");}
@@ -303,7 +304,8 @@ public class RandomSetUtil {
                 shifted = Math.floor(center);
             }else
             if(lean == LEAN_RIGHT){
-                shifted = Math.ceil(center);
+                //shifted = Math.ceil(center);
+                shifted = ceilHack(center);
             }else{
                 doError("unknown lean value");
             }//BLOCK::END
@@ -313,6 +315,20 @@ public class RandomSetUtil {
         }//
         
         return op;
+    }//FUNC::END
+    
+    /** Because math.floor is not working for me.
+     *  IT works on https://coderpad.io/ however...
+     * @param val :The value to ceil.
+     * @return 
+     */
+    public static double ceilHack(double val){
+        double vfloored = (int)val; //hack off decimals.
+        if(vfloored != val){
+            //if value changed, it has decimals. Increment it by 1.
+            return (val + 1);
+        }
+        return val;
     }//FUNC::END
     
     //Get a random integer within the provided inclusive range:
@@ -380,6 +396,8 @@ public class RandomSetUtil {
         vals[1] = 8;
         long cen_lft = getCenter(vals, LEAN_LEFT);
         long cen_rgt = getCenter(vals, LEAN_RIGHT);
+        
+        
         
         if(cen_lft != 4){doError("unit test fail. cen_lft!=4");}
         
