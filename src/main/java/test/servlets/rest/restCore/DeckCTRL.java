@@ -55,7 +55,11 @@ public class DeckCTRL extends BaseCTRL{
         }//
         if(number_of_choices < tru_min){
             has_err = true;
-            err_msg+="[this would make improper fraction inevitable]";
+            err_msg+="[Improper fraction inevitable. tru_min]";
+        }//
+        if(number_of_choices < tru_max){
+            has_err = true;
+            err_msg+="[Improper fraction inevitable. tru_max]";
         }//
         
         if(has_err){
