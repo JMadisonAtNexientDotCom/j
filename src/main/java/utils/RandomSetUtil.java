@@ -293,12 +293,12 @@ public class RandomSetUtil {
            }//BLOCK::END
         }else{
             //No exact center. Take to the left of center:
-            double minFlt = min;
-            double maxFlt = max;
-            double twoFlt = 2;
+            double minFlt = (double)min + 0.0; //hack.
+            double maxFlt = (double)max + 0.0; //hack
+            double twoFlt = 2.0; //hack.
             //double center = (min+max)/2;
             double center = (minFlt+maxFlt)/twoFlt;
-            double shifted = 0;
+            double shifted = 0.0;
             if(lean == LEAN_LEFT){
                 shifted = Math.floor(center);
             }else
@@ -382,8 +382,13 @@ public class RandomSetUtil {
         long cen_rgt = getCenter(vals, LEAN_RIGHT);
         
         if(cen_lft != 4){doError("unit test fail. cen_lft!=4");}
-        if(cen_rgt != 5){doError("unit test fail. cen_rgt!=5");}
         
+        if(cen_rgt != 5){
+            String msg = "";
+            msg += "cen_rgt==[" + Long.toString(cen_rgt) + "]";
+            msg += "wanted:[5]";
+            doError(msg);
+        }
         
         
     }//FUNC::END
