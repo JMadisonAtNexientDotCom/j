@@ -32,6 +32,35 @@ public class ListUtil {
     }//FUNC::END
     
     /**
+     * Returns true if all entries in your list of are unique:
+     * @param inList :The list to sift through.
+     * @return :See above. **/
+    public static boolean areAllEntriesUnique(List<Long> inList){
+        List<Long> op = new ArrayList<Long>();
+        
+        Long cur;
+        int len = inList.size();
+        for(int i = 0; i < len; i++){
+            cur = inList.get(i);
+            if(op.indexOf(cur) <=(-1)){
+                op.add(cur);
+            }else{
+                //found a non-unique entry.
+                return false;
+            }
+        }//NEXT i
+        
+        return true; //no collisions found.
+    }//FUNC::END
+    
+    public static void assertAllEntriesUnique(List<Long> inList){
+        boolean results = areAllEntriesUnique(inList);
+        if(false==results){
+            doError("[Not all entries in list are unique]");
+        }//
+    }//FUNC::END
+    
+    /**
      * Returns TRUE if list has at least one null entry.
      * @param <T>   :The type of list. We don't care. So maybe use generic <?>
      * @param inList:The list to scan for null slots.

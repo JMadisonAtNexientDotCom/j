@@ -6,13 +6,24 @@
 package test.transactions.util.tables.deck;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.SimpleExpression;
 import test.MyError;
+import test.config.debug.DebugConfig;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
+import test.dbDataAbstractions.entities.bases.PurseEntity;
 import test.dbDataAbstractions.entities.composites.CueCard;
 import test.dbDataAbstractions.entities.composites.Deck;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
+import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.DeckPurse;
 import test.transactions.util.TransUtil;
 import test.transactions.util.tables.cuecard.CuecardTransUtil;
+import utils.ListUtil;
 import utils.RandomSetUtil;
 
 /**
@@ -94,6 +105,11 @@ public class DeckTransUtil {
     }//FUNC::END
     
     /**
+     * 
+     * TODO: We really need to figure out how to make this method generic.
+     *       Because it is complex, and I don't want to have to write this
+     *       stuff again.
+     * 
      * Looks at the group of cuecard_ids and returns a valid
      * group_id if that list of cuecard_ids exist.
      * Right now:
@@ -103,8 +119,105 @@ public class DeckTransUtil {
      * @return :Returns >=1 if found, returns (-1) if not found.
      */
     public static long getGroupID(List<Long> cuecard_ids){
-        doError("[TODO: getGroupID]");
-        return (-1);
+        
+        //When this error executes, remove this error,
+        //then do whatever you did previously to invoke this code.
+        //So that we can see it is working in production.
+        //Also... We need to make a test for this.
+        doError("[This has never been tested before]");
+        
+        //This check is too heavy to justify 
+        //running ouside of debug mode:
+        if(DebugConfig.isDebugBuild){
+            ListUtil.assertAllEntriesUnique(cuecard_ids);
+        }//Debug?
+        
+        //Create a criteria search that looks only for cuecards in the
+        //purse with the cuecard id's in the set:
+        String column = DeckPurse.CUECARD_ID_COLUMN;
+        SimpleExpression eq;         
+        Disjunction ors = Restrictions.disjunction();
+        for(Long id : cuecard_ids){
+            eq = Restrictions.eq(column, id);
+            ors.add(eq);
+        }//
+        
+        //Add the disjunction to search criteria for the deck purse:
+        Criteria c = TransUtil.makeGloballyFilteredCriteria(DeckPurse.class);
+        c.add(ors);
+        List<PurseEntity> pel = c.list();
+        
+        //Now we have all the records from different groups that could possibly
+        //match the list we inputted. If any one group is 100% represented
+        //and has a length exactly that of cuecard_ids.size(), then we have a
+        //match. Else return (-1) for not found.
+        
+        //Get a unique list of all of the group ids:
+        List<Long> group_ids = new ArrayList<Long>();
+        for(PurseEntity p : pel){
+            group_ids.add(p.group_id);
+        }//
+        List<Long> unique_group_ids;
+        unique_group_ids = ListUtil.makeUnique(group_ids);
+        
+        //Siphon again, this time only letting groups with the correct
+        //checksum into new collection:
+        long target_checksum = cuecard_ids.size();
+        List<Long> group_ids_with_valid_checksum = new ArrayList<Long>();
+        for(Long gid : unique_group_ids){
+            long cur_checksum = GroupTransUtil.getChecksumOfGroup(gid);
+            if(cur_checksum == target_checksum){
+                group_ids_with_valid_checksum.add(gid);
+            }
+        }//
+        
+        //We now have all of the group ids with matching checksums.
+        //If one of these groups is present 100%, then we have a matching
+        //Deck that is already in the database.
+        HashMap<Long,Integer> attendance = new HashMap<Long,Integer>();
+        
+        //go back through original list of entities that had matching
+        //cuecard ids, but this time, tally the ids:
+        for(PurseEntity p : pel){
+            long cur_group_id = p.group_id;
+            boolean isValidGroup = 
+                       (group_ids_with_valid_checksum.indexOf(cur_group_id)>=0);
+            if(isValidGroup){
+                if(attendance.containsKey(cur_group_id)){
+                    int count = attendance.get(cur_group_id);
+                    count++;
+                    attendance.put(cur_group_id, count);
+                }else{
+                    attendance.put(cur_group_id, 1); //first entry.
+                }
+            }//
+        }//
+        
+        //now that we have taken attendance of groups with valid checksum,
+        //is one of those groups present it it's entirity? First do debug
+        //checks.
+        boolean matchFound = false;
+        long matchFound_group_id = (-77);
+        for (Map.Entry<Long, Integer> entry : attendance.entrySet()) {
+            Long    group_id        = entry.getKey();
+            Integer entries_present = entry.getValue();
+            if(entries_present == target_checksum){
+                if(true==matchFound){
+                    doError("[Duplicates in database.]");
+                }else{
+                   matchFound=true; 
+                   matchFound_group_id = group_id;
+                }//should we error?
+            }else 
+            if(entries_present > target_checksum){
+                doError("[Members/Matches exceeds group checksum.]");
+            }//   
+        }//next entry.
+        
+        //If match is found, return it:
+        if(matchFound){ return matchFound_group_id;}
+        return (-1); //<<return -1 for not found.
+            
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
