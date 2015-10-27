@@ -47,6 +47,22 @@ public class DeckCTRL extends BaseCTRL{
                 @QueryParam(VarNameReg.TRU_MIN)           int tru_min,
                 @QueryParam(VarNameReg.TRU_MAX)           int tru_max){
         
+        String err_msg = "";
+        boolean has_err = false;
+        if(tru_min > tru_max){
+            has_err =true;
+            err_msg+="[tru_min > tru_max]";
+        }//
+        if(number_of_choices < tru_min){
+            has_err = true;
+            err_msg+="[this would make improper fraction inevitable]";
+        }//
+        
+        if(has_err){
+            Deck err_deck = Deck.makeErrorDeck(err_msg);
+            return JSONUtil.compositeEntityToJSONResponse(err_deck);
+        }//
+        
         Session ses = TransUtil.enterTransaction();
         
         Deck trial_guts;

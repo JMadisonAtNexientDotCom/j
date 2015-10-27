@@ -1,7 +1,9 @@
 package test.dbDataAbstractions.entities.composites;
 
+import java.util.ArrayList;
 import test.dbDataAbstractions.entities.bases.CompositeEntityBase;
 import java.util.List;
+import test.config.constants.EntityErrorCodes;
 
 /** A deck is a collection of CueCards. It represents a barrage of questions
  *  that the jester is about to ask the ninja. 
@@ -19,5 +21,19 @@ public class Deck extends CompositeEntityBase {
     //      Think of it like a "magic the gathering deck"
     //      Where you can build different types of decks.
     //public Object DeckStats;
+    
+    /**
+     * Make Deck configured as error message:
+     * @param msg : The error message to populate with.
+     * @return    : A deck configured as error. **/
+    public static Deck makeErrorDeck(String msg){
+        Deck op = new Deck();
+        op.cards = new ArrayList<CueCard>();
+        CueCard card = CueCard.makeErrorCueCard(msg, 4);
+        op.setIsError(true);
+        op.setErrorCode(EntityErrorCodes.GENERIC_ERROR);
+        op.cards.add(card);
+        return op;
+    }//FUNC::END
     
 }//FUNC::END
