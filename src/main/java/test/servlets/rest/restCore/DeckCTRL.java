@@ -50,10 +50,9 @@ public class DeckCTRL extends BaseCTRL{
         Deck trial_guts;
         trial_guts = DeckTransUtil.generateDeck
                               (card_count, number_of_choices, tru_min, tru_max);
-        TransUtil.exitTransaction(ses);
-        
-        //BEFORE WE EXIT, PERSIST THE DECK:
+        //Persist deck. Must be done inside transaction state:
         DeckPersistUtil.persist(trial_guts);
+        TransUtil.exitTransaction(ses);
         
         //return the deck as JSON response:
         return JSONUtil.compositeEntityToJSONResponse(trial_guts);

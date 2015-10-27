@@ -33,6 +33,8 @@ public class DeckPersistUtil {
      */
     public static LongBool persist(Deck pojo){
         
+        TransUtil.insideTransactionCheck();
+        
         LongBool finalResults = new LongBool();
         
         LongBool groupPersistResults;
@@ -72,6 +74,8 @@ public class DeckPersistUtil {
     }//FUNC::END
     
     private static LongBool persistPurse(List<CueCard> cards){
+        
+        TransUtil.insideTransactionCheck();
         
         //Persist each an every cue card:
         List<LongBool> perCards = new ArrayList<LongBool>();
