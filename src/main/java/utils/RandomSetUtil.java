@@ -264,6 +264,7 @@ public class RandomSetUtil {
     private static long getCenter(long[] inRange, int lean){
         
         //Grasping at straws now:
+        //And it was the answer.
         if(LEAN_LEFT  != -1){doError("const not initialized LEAN_LEFT" );}
         if(LEAN_RIGHT !=  1){doError("const not initialized LEAN_RIGHT");}
         
@@ -398,6 +399,19 @@ public class RandomSetUtil {
     //Unit test segment for this function:
     public static void unitTest(){
         
+        if(LEAN_LEFT  != -1){
+            String msg = "";
+            msg += "const not initialized LEAN_LEFT";
+            msg += "LEAN_LEFT==[" + Integer.toString(LEAN_LEFT) + "]";
+            doError(msg);
+        }//error.
+        if(LEAN_RIGHT !=  1){
+            String msg = "";
+            msg += "const not initialize LEAN_RIGHT";
+            msg += "LEAN_RIGHT==[" + Integer.toString(LEAN_RIGHT) + "]";
+            doError(msg);
+        }//error
+        
         //Test ceil hack with 4.5 because (1+8)/2 == 4.5
         double ch1 = ceilHack(4.5);
         if(ch1 != 5){ doError("ch1 failed");}
@@ -407,6 +421,16 @@ public class RandomSetUtil {
         
         double ch3 = ceilHack(4.999);
         if(ch3 != 5){ doError("ch3 failed");}
+        
+        //Test actual ceiling with same values, does actual ceiling fail?
+        double ac1 = Math.ceil(4.5);
+        if(ac1 != 5){ doError("ac1 failed");}
+        
+        double ac2 = Math.ceil(4.111);
+        if(ac2 != 5){ doError("ac2 failed");}
+        
+        double ac3 = Math.ceil(4.999);
+        if(ac3 != 5){ doError("ac3 failed");}
         
         
         long[] vals = new long[2];
