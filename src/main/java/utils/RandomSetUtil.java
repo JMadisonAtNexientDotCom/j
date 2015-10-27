@@ -219,7 +219,11 @@ public class RandomSetUtil {
         
         for(long key : values){
             if(map.containsKey(key)){
-                doError("not all values were unique");
+                String msg = "";
+                msg += "[not all values were unique::START]";
+                msg += ListUtil.printLongs(values);
+                msg += "[not all values were unique::START]";
+                doError(msg);
             }//
             map.put(key, true);
         }//next i
