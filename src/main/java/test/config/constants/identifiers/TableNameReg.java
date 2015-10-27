@@ -93,8 +93,7 @@ public static final String CHALK_PURSE   = "chalk_purse";
      * string argument to function has been swapped with table name.
      * 
      * @param value :The const value we are checking for.
-     * @return :returns true if the constant exists.
-     */
+     * @return :returns true if the constant exists. **/
     public static boolean contains(String value){
         return StringConstantFinderUtil.contains(TableNameReg.class, value);
     }//FUNC::END
