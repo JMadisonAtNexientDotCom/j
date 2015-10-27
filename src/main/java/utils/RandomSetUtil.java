@@ -180,16 +180,46 @@ public class RandomSetUtil {
      * 
      */
     private static long getCenter(long[] inRange, int lean){
-        double center = (inRange[0] + inRange[1]) / 2;
+        
+        long min = inRange[0];
+        long max = inRange[1];
+        if(min>max){doError("out of order!");}
+        long range_inclusive = max-min+1;
+        
+        boolean isOdd = ((range_inclusive % 2) > 0);
+        
+        //output:
         long op = 0;
-        if(lean == LEAN_LEFT){
-            op = (long)Math.floor(center);
-        }else
-        if(lean == LEAN_RIGHT){
-            op = (long)Math.ceil(center);
+        
+        
+        if(isOdd){//<--- There IS an exact center.
+           long perfect_center = (min+max)/2;
+           double center_floored = Math.floor(perfect_center);
+           if(perfect_center != center_floored){doError("didnt find center");}
+           
+           //if leaning LEFT, we take the exact center.
+           //if leaning RIGHT, we push over to the next.
+           //This is so sub-divided regions will NOT overlap:
+           if(lean== LEAN_LEFT){
+               op = perfect_center;
+           }else
+           if(lean==LEAN_RIGHT){
+               op = (perfect_center +1 );
+           }else{
+               doError("[unknown lean. In isOdd block]");
+           }//BLOCK::END
         }else{
-            doError("unknown lean value");
-        }//BLOCK::END
+            //No exact center. Take to the left of center:
+            double center = (min+max)/2;
+            if(lean == LEAN_LEFT){
+                op = (long)Math.floor(center);
+            }else
+            if(lean == LEAN_RIGHT){
+                op = (long)Math.ceil(center);
+            }else{
+                doError("unknown lean value");
+            }//BLOCK::END
+        }//
         
         return op;
     }//FUNC::END
