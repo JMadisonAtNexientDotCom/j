@@ -90,7 +90,7 @@ CREATE TABLE owner_table              (id serial PRIMARY KEY, dele BOOLEAN, comm
 -- The challenge_id and effort_id are foriegn keys to the respective tables   --
 -- holding Test-Guts + Response-Guts                                          --
 --          |<==== UNIQUE TO THIS TABLE ==== UNIQUE TO THIS TABLE ==== UNIQUE TO THIS TABLE ==== UNIQUE TO THIS TABLE ==== UNIQUE TO THIS TABLE =======================>|    |<---INHERITED STUFF iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii--->|
-CREATE TABLE kind_table (kind varchar(80), token_id INT UNSIGNED, challenge_id INT UNSIGNED, has_challenge BOOLEAN NOT NULL, effort_id INT UNSIGNED, has_effort BOOLEAN NOT NULL, is_graded BOOLEAN NOT NULL, grade_10k INT UNSIGNED,    id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+CREATE TABLE kinda_table (kind varchar(80), token_id INT UNSIGNED, challenge_id INT UNSIGNED, has_challenge BOOLEAN NOT NULL, effort_id INT UNSIGNED, has_effort BOOLEAN NOT NULL, is_graded BOOLEAN NOT NULL, grade_10k INT UNSIGNED,    id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
 
 -- trans_table is a KERNEL entity, not a base entity. So it lacks some of the --
 -- fields that are included on all of the others.  -----------------------------

@@ -103,6 +103,7 @@ public class DryDock {
         int numTokens = numNinjas; //one token per ninja.
         int numTrials = numNinjas; //one trial per ninja.
         int numOwners = numNinjas; //one owner per ninja.
+        int numKindas = numNinjas; //one kinda per ninja. <--kind table.
         
         GalleonBarge barge = GalleonBarge.make();
         

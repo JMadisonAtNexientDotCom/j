@@ -26,8 +26,8 @@ import static test.dbDataAbstractions.entities.tables.NinjaTable.NAME_COLUMN;
  *
  * @author jmadison:2015.10.27(Oct27th,Year2015,Tuesday) --------------------**/
 @Entity
-@Table(name= KindTable.TABLE_NAME)  //<--can we replace this with TABLE_NAME ?
-public class KindTable extends BaseEntity {
+@Table(name= KindaTable.TABLE_NAME)  //<--can we replace this with TABLE_NAME ?
+public class KindaTable extends BaseEntity {
     
     /** Name of table this entity refers to, for easy refactoring. **/
     public static final String TABLE_NAME           = TableNameReg.KIND_TABLE;
