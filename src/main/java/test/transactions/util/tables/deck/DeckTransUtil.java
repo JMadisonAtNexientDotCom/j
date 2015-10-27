@@ -23,6 +23,7 @@ import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.DeckPurse;
 import test.transactions.util.TransUtil;
 import test.transactions.util.tables.cuecard.CuecardTransUtil;
+import test.transactions.util.tables.group.GroupTransUtil;
 import utils.ListUtil;
 import utils.RandomSetUtil;
 
