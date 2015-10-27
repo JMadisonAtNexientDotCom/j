@@ -297,7 +297,6 @@ public class RandomSetUtil {
             double minFlt = (double)min + 0.0; //hack.
             double maxFlt = (double)max + 0.0; //hack
             double twoFlt = 2.0; //hack.
-            //double center = (min+max)/2;
             double center = (minFlt+maxFlt)/twoFlt;
             double shifted = 0.0;
             if(lean == LEAN_LEFT){
@@ -391,20 +390,30 @@ public class RandomSetUtil {
       
     //Unit test segment for this function:
     public static void unitTest(){
+        
+        //Test ceil hack with 4.5 because (1+8)/2 == 4.5
+        double ch1 = ceilHack(4.5);
+        if(ch1 != 5){ doError("ch1 failed");}
+        
+        double ch2 = ceilHack(4.111);
+        if(ch2 != 5){ doError("ch2 failed");}
+        
+        double ch3 = ceilHack(4.999);
+        if(ch3 != 5){ doError("ch3 failed");}
+        
+        
         long[] vals = new long[2];
         vals[0] = 1;
         vals[1] = 8;
         long cen_lft = getCenter(vals, LEAN_LEFT);
         long cen_rgt = getCenter(vals, LEAN_RIGHT);
         
-        
-        
         if(cen_lft != 4){doError("unit test fail. cen_lft!=4");}
         
         if(cen_rgt != 5){
             String msg = "";
-            msg += "cen_rgt==[" + Long.toString(cen_rgt) + "]";
-            msg += "wanted:[5]";
+            msg += "[cen_rgt==[" + Long.toString(cen_rgt) + "]]";
+            msg += "[wanted:[5]]";
             doError(msg);
         }
         
