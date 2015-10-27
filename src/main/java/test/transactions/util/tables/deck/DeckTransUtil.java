@@ -125,7 +125,7 @@ public class DeckTransUtil {
         //running ouside of debug mode:
         if(DebugConfig.isDebugBuild){
             ListUtil.assertAllEntriesUnique(cuecard_ids);
-        }//Debug?
+        }//Debug
         
         //Create a criteria search that looks only for cuecards in the
         //purse with the cuecard id's in the set:
