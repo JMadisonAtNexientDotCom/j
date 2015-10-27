@@ -86,6 +86,12 @@ CREATE TABLE admin_table              (id serial PRIMARY KEY, dele BOOLEAN, comm
 CREATE TABLE session_table            (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, token_id INT UNSIGNED NOT NULL, opened_on BIGINT UNSIGNED NOT NULL, duration INT UNSIGNED NOT NULL, is_active BOOLEAN NOT NULL);
 CREATE TABLE owner_table              (id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED, token_id INT UNSIGNED, ninja_id INT UNSIGNED, admin_id INT UNSIGNED);
 
+-- kind table keeps track of trials of different types/kinds.                 --
+-- The challenge_id and effort_id are foriegn keys to the respective tables   --
+-- holding Test-Guts + Response-Guts                                          --
+--          |<==== UNIQUE TO THIS TABLE ==== UNIQUE TO THIS TABLE ==== UNIQUE TO THIS TABLE ==== UNIQUE TO THIS TABLE ==== UNIQUE TO THIS TABLE =======================>|    |<---INHERITED STUFF iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii--->|
+CREATE TABLE kind_table (kind varchar(80), token_id INT UNSIGNED, challenge_id INT UNSIGNED, effort_id INT UNSIGNED, is_graded BOOLEAN NOT NULL, grade_10k INT UNSIGNED,    id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+
 -- trans_table is a KERNEL entity, not a base entity. So it lacks some of the --
 -- fields that are included on all of the others.  -----------------------------
 CREATE TABLE trans_table              (id serial PRIMARY KEY, convo_open_id INT UNSIGNED, convo_close_id INT UNSIGNED, log_id INT UNSIGNED, foreign_table_name varchar(80), foreign_record_id INT UNSIGNED(80), foreign_record_comment varchar(80) );
