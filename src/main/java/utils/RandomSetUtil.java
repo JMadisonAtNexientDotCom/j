@@ -276,6 +276,8 @@ public class RandomSetUtil {
         
         
         if(isOdd){//<--- There IS an exact center.
+            
+            /*
             //doError("temp hack. remove");
            long perfect_center = (min+max)/2;
            double center_floored = Math.floor(perfect_center);
@@ -292,6 +294,8 @@ public class RandomSetUtil {
            }else{
                doError("[unknown lean. In isOdd block]");
            }//BLOCK::END
+             */
+            return (-88);
         }else{
             //No exact center. Take to the left of center:
             double minFlt = (double)min + 0.0; //hack.
