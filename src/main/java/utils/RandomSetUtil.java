@@ -316,16 +316,15 @@ public class RandomSetUtil {
         return op;
     }//FUNC::END
     
-    /** Because math.floor is not working for me.
+     /** Because math.floor is not working for me.
      *  IT works on https://coderpad.io/ however...
      * @param val :The value to ceil.
-     * @return 
-     */
+     * @return :Floored value as double. **/
     public static double ceilHack(double val){
         double vfloored = (int)val; //hack off decimals.
         if(vfloored != val){
             //if value changed, it has decimals. Increment it by 1.
-            return (val + 1);
+            return (vfloored + 1);
         }
         return val;
     }//FUNC::END
