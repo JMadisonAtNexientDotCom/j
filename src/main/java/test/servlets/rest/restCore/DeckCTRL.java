@@ -18,8 +18,7 @@ import utils.JSONUtil;
  * of a single riddle-trial (test). It contains all of the cuecards that the
  * Jester will use to quiz the ninja on the game show.
  * 
- * @author jmadison :2015.10.26 (Oct26th, Year 2015, Monday)
- */
+ * @author jmadison :2015.10.26 (Oct26th, Year 2015, Monday) **/
 @Path(ServletClassNames.DeckCTRL_MAPPING)
 public class DeckCTRL extends BaseCTRL{
     
