@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 import primitives.LongBool;
+import test.MyError;
 import test.dbDataAbstractions.entities.EntityUtil;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.composites.CueCard;
 import test.dbDataAbstractions.entities.composites.Deck;
 import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.DeckPurse;
@@ -30,17 +32,43 @@ public class DeckPersistUtil {
      *          database or if it previously existed.
      */
     public static LongBool persist(Deck pojo){
-        LongBool results;
-        results = persistPurse(pojo.cards);
-        boolean needToMakeNewEntry = results.b;
-        if(needToMakeNewEntry){
-            DeckTable dt = new DeckTable();
-            dt.deck_gi = results.l;
-            Session ses = TransUtil.getActiveTransactionSession();
-            ses.save(dt);
-        }//
         
-        return results;
+        LongBool finalResults = new LongBool();
+        
+        LongBool groupPersistResults;
+        groupPersistResults = persistPurse(pojo.cards);
+        boolean needToMakeNewEntry = groupPersistResults.b;
+        if(needToMakeNewEntry){
+            
+            //Create new deck table and put the group ID
+            //from the previous persist call into the 
+            //group index (gi) column:
+            DeckTable dt = new DeckTable();
+            dt.deck_gi = groupPersistResults.l;
+            Session ses = TransUtil.getActiveTransactionSession();
+            ses.save(dt); //<--save to give us an id!
+            
+            //populate final results:
+            finalResults.b = true; //<--new data was put into database.
+            finalResults.l = dt.getId();
+        }else{
+            //If the deck already has an exact match in the database,
+            //we need to find that entry in the database so we can return
+            //the ID of that record:
+            Class  table   = DeckTable.class;
+            String column  = DeckTable.DECK_GI_COLUMN;
+            long   group_id= groupPersistResults.l;
+            List<BaseEntity> bel;
+            bel = TransUtil.getEntitiesUsingLong(table,column,group_id);
+            if(bel.size()!=1){
+                doError("[only one entity with that group id should exist!]");
+            }//
+            
+            finalResults.b = false; //<--new data was NOT put into database.
+            finalResults.l = bel.get(0).getId();
+        }//FUNC::END
+        
+        return finalResults;
     }//FUNC::END
     
     private static LongBool persistPurse(List<CueCard> cards){
@@ -96,6 +124,18 @@ public class DeckPersistUtil {
         results.l = groupIDToUse;
         return results;
 
+    }//FUNC::END
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = DeckPersistUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw MyError.make(clazz, err);
     }//FUNC::END
     
 }//CLASS::END
