@@ -112,6 +112,16 @@ public class RandomSetUtil {
      * @param takeFirst :Take the RIGHT or LEFT partition first? **/
     private static void takeSides
                  (long[] inRange, List<Long> values, int maxLen, int takeFirst){
+                     
+        //check inputted range. Special scenario for small ranges:
+        //When there are only 3, the left gets the center, and the right
+        //is pushed over onto an already taken value, and causes bug.
+        //so when we get to 3 or less in our range, just linearly dump them.
+        long delta = inRange[1] - inRange[0] + 1;
+        if(delta <= 3){
+            linearDump(inRange,values,maxLen);
+            return;
+        }//linear dump?
         
         if(takeFirst==TAKE_LEFT_FIRST){
             long[] rangeLFT = takeLFT(inRange, values, maxLen);
@@ -148,6 +158,28 @@ public class RandomSetUtil {
             doError("unknown take value");
         }
     }//FUNC::END
+              
+    /**
+     * Dumps range of values into list. No scrambling or any trickery.
+     * Just simple linear dump of values.
+     * @param inRange :The min+max inclusive range to dump.
+     * @param values  :The list of values we are building.
+     * @param maxLen  :The max length (target length) 
+     *                 of the list we are building.
+     */
+    private static void linearDump
+                                (long[] inRange, List<Long> values, int maxLen){
+        long d0 = inRange[0];
+        long d1 = inRange[1];
+        for(long i = d0; i <= d1; i++){
+            if(values.size() <= maxLen){
+                values.add(i);
+            }else{
+                //List is already filled up. Exit.
+                return;
+            }
+        }//next i.  
+    }//FUNC::END
                            
     //subdivides range and puts left-most value into list we are building.
     private static long[] takeLFT
@@ -156,6 +188,9 @@ public class RandomSetUtil {
         //bail if set is fully populated:
         if(values.size() >= maxLen){return inRange;}
         values.add(inRange[0]);
+        
+        //Cannot sub-divide any further:
+        if(inRange[0]==inRange[1]){return inRange;}
                                  
         long min = inRange[0] + 1; //move min values UP towards center.
         long max = getCenter(inRange,LEAN_LEFT);
@@ -184,6 +219,9 @@ public class RandomSetUtil {
         //bail if set is fully populated:
         if(values.size() >= maxLen){return inRange;}    
         values.add(inRange[1]);
+        
+        //Cannot sub-divide any further:
+        if(inRange[0]==inRange[1]){return inRange;}
                                  
         long max= inRange[1] - 1; //move max value DOWN towards center.
         long min= getCenter(inRange,LEAN_RIGHT);
@@ -217,6 +255,7 @@ public class RandomSetUtil {
         long min = inRange[0];
         long max = inRange[1];
         if(min>max){doError("out of order!");}
+        if(min==max){doError("no center, are same");}
         long range_inclusive = max-min+1;
         
         boolean isOdd = ((range_inclusive % 2) > 0);
