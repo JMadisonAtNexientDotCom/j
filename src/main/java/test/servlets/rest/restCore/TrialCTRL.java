@@ -71,7 +71,7 @@ public class TrialCTRL extends BaseCTRL {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path(FuncNameReg.DISPATCH_TOKENS)
     public Response dispatch_tokens(String jsonRequest){ 
-        //doError("Will this show up?");  <--shows up when refreshes page.
+        //doError("Will this show up?");  <--shows up when refreshes page
         return Shop.dispatch_tokens(jsonRequest);
     }//FUNC::END
     
