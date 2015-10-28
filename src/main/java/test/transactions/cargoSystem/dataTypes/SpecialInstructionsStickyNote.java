@@ -122,13 +122,33 @@ public class SpecialInstructionsStickyNote {
         if(unTyped.getClass() == varType){
             return (T)unTyped;
         }else{
-            doError("[Type Mismatch!]");
-        }
+            doTypeMismatchError(varName, varType, unTyped);
+        }//
         
         //returning null is error, and should be caught earlier.
         return null;
         
-    }//class end.
+    }//FUNC::END
+    
+    /**
+     * Throws error when we ask for a variable that exists, but we assume it
+     * is a type other than what it actually is.
+     * 
+     * @param varName         :The name of the argument we tried to retrieve.
+     * @param varTypeAskedFor :The type we tried to cast the retrieved
+     *                         variable to.
+     * @param varGotten :The actual variable we got, which is not of the
+     *                   proper type.  ---------------------------------------*/
+    private static void doTypeMismatchError
+                      (String varName, Class varTypeAskedFor, Object varGotten){
+        String msg = "";
+        msg += "[TYPE MISMATCH START:]";
+        msg += "[varName==[" + varName + "]]";
+        msg += "[TypeAskedFor==[" + varTypeAskedFor.getSimpleName() + "]]";
+        msg += "[TypeGot==[" + varGotten.getClass().getSimpleName() + "]]";
+        msg += "[:TYPE MISMATCH END]";
+        doError(msg);
+    }//FUNC::END
     
      /**
      * Get value explicitly as a long value. 
