@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import primitives.RealAndFakeIDs;
 import test.MyError;
 import test.config.constants.signatures.paramVals.TRIAL_STATUS_ENUMS;
+import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.TrialTable;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.Coffer;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.Ticket;
@@ -100,7 +101,7 @@ public class TrialTransUtil {
      * @return :See above.
      */
     public static List<TrialTable> makeBatchOfTrialStubs
-        (int num_trials, long kind, long allotted){
+        (int num_trials, String kind, long allotted){
         TransUtil.insideTransactionCheck();
         
         Session ses = TransUtil.getActiveTransactionSession();
@@ -132,6 +133,18 @@ public class TrialTransUtil {
         //return the list of trials.
         return trials;
         
+    }//FUNC::END
+        
+    //Stub for now so we can work on UI.
+    public static BaseEntityContainer getTrialUsingTokenID(long token_id){
+        doError("TODO: getTrialUsingTokenID");
+        
+        //NOTE: Seems like: "makeBatchOfTrialStubs" is not being used
+        //      by the drydock that is dispatching tokens. Fix this.
+        //      You need trial+kinda tables linked together and
+        //      sharing a common token_id.
+        
+        return new BaseEntityContainer();
     }//FUNC::END
     
     

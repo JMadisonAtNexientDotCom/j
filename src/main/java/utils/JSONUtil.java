@@ -14,6 +14,7 @@ import primitives.TypeWithCommentBase;
 import test.MyError;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.bases.BundleEntityBase;
+import test.dbDataAbstractions.entities.bases.ChallengeGuts;
 import test.dbDataAbstractions.entities.bases.CompositeEntityBase;
 import test.dbDataAbstractions.fracturedTypes.FracturedTypeBase;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.PostResponseType;
@@ -94,6 +95,18 @@ public class JSONUtil {
         }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE                                                  
                                                                                                        
         return genericObjectToJSONResponse(be);
+    }//FUNC::END
+    
+    /**
+     * Converts challenge guts into a JSON response.
+     * @param cg :The object to serialize.
+     * @return   :See above. **/
+    public static Response challengeGutsToJSONResponse(ChallengeGuts cg){
+        if(null==cg){
+            doError("[challenge guts provided is null]");
+        }//
+        
+        return genericObjectToJSONResponse(cg);
     }//FUNC::END
     
     /** Converts a composite entity 

@@ -14,6 +14,7 @@ import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.config.constants.signatures.paramVals.TRIAL_KIND_ENUMS;
+import test.dbDataAbstractions.entities.bases.ChallengeGuts;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.KindaTable;
 import test.dbDataAbstractions.entities.tables.TokenTable;
@@ -29,6 +30,7 @@ import test.servlets.rest.restCore.components.trial.Chop; //Halve object. good/b
 import test.servlets.rest.restCore.components.trial.Fill; //Fill the orders.
 import test.servlets.rest.restCore.components.trial.Join; //Join the orders.
 import test.servlets.rest.restCore.components.trial.Shop;
+import test.transactions.util.tables.kinda.KindaTransUtil;
 import test.transactions.util.tables.token.TokenTransUtil;
 import test.transactions.util.tables.trial.TrialTransUtil;
 
@@ -61,7 +63,7 @@ public class TrialCTRL extends BaseCTRL {
         
         //Make sure inside transaction state:
         Session ses = TransUtil.enterTransaction();
-        
+       
         BaseEntityContainer bec;
         bec = TokenTransUtil.getTokenEntityUsingTokenString(token_hash);
         if(false==bec.exists){
@@ -75,17 +77,38 @@ public class TrialCTRL extends BaseCTRL {
         
         //use the token_id to fetch correct record from the trial table.
         TrialTable tri;
-        tri = TrialTransUtil.getTrialEntityUsingTokenID(token_id);
+        BaseEntityContainer tri_con;
+        tri_con = TrialTransUtil.getTrialUsingTokenID(token_id);
+        if(false==tri_con.exists){
+            String err_msg = "[Token exists, but trial does not]";
+            return JSONUtil.makeGenericErrorResponse(err_msg);//<--user error.
+        }
+        tri = (TrialTable)tri_con.entity;
         long trial_id = tri.getId();
         
         //use trial table to find correct kinda table:
         KindaTable knd;
-        knd = TrialTransUtil.getKindaEntityUsingTrialID(trial_id);
+        BaseEntityContainer knd_con;
+        knd_con = KindaTransUtil.getKindaUsingTokenID(trial_id);
+        if(false==knd_con.exists){
+            String err_msg = "[If trial exists, kinda should exist]";
+            doError(err_msg); //<--more serious error. Data integrity problem.
+        }//
+        knd = (KindaTable)knd_con.entity;
         
+        //Now that we have the KindaTable, we need to use it to get the
+        //guts we want:
+        ChallengeGuts guts;
+        guts = KindaTransUtil.getChallengeGutsUsingKindaTable(knd);
+        
+        //Serialize data into 200/OK response:
+        Response op = JSONUtil.challengeGutsToJSONResponse(guts);
         
         //Exit Transaction:
         TransUtil.exitTransaction(ses);
         
+        //Return the response we made earlier:
+        return op;
         
     }//FUNC::END
     

@@ -3,7 +3,10 @@ package test.transactions.util.tables.kinda;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
+import test.MyError;
 import test.dbDataAbstractions.entities.EntityUtil;
+import test.dbDataAbstractions.entities.bases.ChallengeGuts;
+import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.KindaTable;
 import test.transactions.util.TransUtil;
 
@@ -45,5 +48,39 @@ public class KindaTransUtil {
         return op;
         
     }//FUNC::END
+    
+    /**
+     * Gets the guts of trial/test 's challenge questions so that you may use
+     * the information to populate a front-end UI.
+     * @param kt :The KindaTable entity used to find the ChallengeGuts.
+     * @return   :A ChallengeGuts pojo representing the information 
+     *            persisted in the database. **/
+    public static ChallengeGuts getChallengeGutsUsingKindaTable(KindaTable kt){
+        
+        //Stubbing methods for now. Because I want to work on UI stuff.
+        doError("TODO: Make getChallengeGutsUsingKindaTable");
+        return new ChallengeGuts();
+        
+    }//FUNC::END
+    
+    public static BaseEntityContainer getKindaUsingTokenID(long token_id){
+        
+        //Stubbing methods for now. Because I want to work on UI stuff.
+        doError("TODO: getKindaUsingTokenID ");
+        return new BaseEntityContainer();
+    }//FUNC::END
 
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = KindaTransUtil.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw MyError.make(clazz, err);
+    }//FUNC::END
+    
+    
 }//CLASS::END

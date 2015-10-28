@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import test.dbDataAbstractions.entities.bases.CompositeEntityBase;
 import java.util.List;
 import test.config.constants.EntityErrorCodes;
+import test.dbDataAbstractions.entities.bases.ChallengeGuts;
 
 /** A deck is a collection of CueCards. It represents a barrage of questions
  *  that the jester is about to ask the ninja. 
@@ -11,7 +12,7 @@ import test.config.constants.EntityErrorCodes;
  *  Think of a jester with a deck of cards.
  *  But instead of playing cards, they are CueCards with riddles on them.
  * @author jmadison                                                          **/
-public class Deck extends CompositeEntityBase {
+public class Deck extends ChallengeGuts {
     
     /** The cards in the deck that are about to 
      *  barrage(attack, mentally) the ninja. **/

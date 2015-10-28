@@ -1,4 +1,13 @@
 
+
+UPDATE:2015.10.28:
+//UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU//
+"composites" might be better labeled as "pojos".
+As I have been working on this, and everything has been
+coming together. I've noticed that these "composite" objects tend
+to be the [object/pojo] versions of my [table-entities/database-record-structs]
+//UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU//
+
 REFACTOR NOTE / TODO:
 //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
 Composite would be better named "COLLECTION TYPE ENTITIES" or something.
