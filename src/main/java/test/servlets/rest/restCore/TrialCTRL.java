@@ -8,6 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
+import test.MyError;
 import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.signatures.paramVals.TRIAL_KIND_ENUMS;
@@ -70,6 +71,7 @@ public class TrialCTRL extends BaseCTRL {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path(FuncNameReg.DISPATCH_TOKENS)
     public Response dispatch_tokens(String jsonRequest){ 
+        doError("Will this show up?");
         return Shop.dispatch_tokens(jsonRequest);
     }//FUNC::END
     
@@ -160,6 +162,18 @@ public class TrialCTRL extends BaseCTRL {
         return JSONUtil.postResponseToJSONResponse(tickets);
     }//FUNC::END
     */
+    
+    /**-------------------------------------------------------------------------
+    -*- Wrapper function to throw errors from this class.   --------------------
+    -*- @param msg :Specific error message.                 --------------------
+    -------------------------------------------------------------------------**/
+    private static void doError(String msg){
+        String err = "ERROR INSIDE:";
+        Class clazz = TrialCTRL.class;
+        err += clazz.getSimpleName();
+        err += msg;
+        throw MyError.make(clazz, err);
+    }//FUNC::END
     
 }//CLASS::END
 
