@@ -115,13 +115,35 @@ public class SpecialInstructionsStickyNote {
      */
     public <T> T getVal(String varName, Class varType){
         if(varType == Class.class){
-            doError("To avoid accidents, make separate func for this case");
+            doError("[To avoid accidents, make separate func for this case]");
         }//
         
         Object unTyped = getValue(varName);
-        if(unTyped.getClass() == varType){
+        Class gotType = unTyped.getClass();
+        if(gotType == varType){
             return (T)unTyped;
         }else{
+            //Cant figure out how to put this code into its own function and
+            //return the correct type. So inlining it here:
+            //IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+            //If the type mis-match is due to auto-boxing, we should forgive it.
+            Class varTypeAskedFor = varType;
+            if(varTypeAskedFor == int.class){
+                if(gotType == Integer.class){
+                    return (T)unTyped;
+                }
+            }else
+            if(varTypeAskedFor == long.class){
+                if(gotType == Long.class){
+                    return (T)unTyped;
+                }
+            }else
+            if(varTypeAskedFor == short.class){
+                if(gotType == Short.class){
+                    return (T)unTyped;
+                }
+            }//BLOCK::END
+            //IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
             doTypeMismatchError(varName, varType, unTyped);
         }//
         
