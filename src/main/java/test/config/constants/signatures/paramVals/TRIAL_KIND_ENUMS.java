@@ -11,6 +11,10 @@ import test.config.constants.apiDocs.MasterApiDoc;
 import test.config.constants.identifiers.VarNameReg;
 
 /**
+ * NOTE: Decided to use STRINGS as enums. Because more human readable.
+ *       And we don't need to worry about optimizations.
+ * 
+ * 
  * Valid arguments values for TRIAL_KIND parameter.
  * Should be of type long since used as keys in database.
  * @author jmadison :2015.10.14: (October 14th, Year 2015, Wednesday)
@@ -29,6 +33,16 @@ public class TRIAL_KIND_ENUMS {
         //validate might need to be done OUTSIDE of class.
     }//
     
+    /** Returns true if the string represents a valid enum. **/
+    public static boolean isEnumValid(String enumString){
+        
+        if(TRIAL_KIND_ENUMS.RIDDLE_TRIAL_.equals(enumString)){
+            return true;
+        }//End cases.
+        
+        return false;
+    }//FUNC::END
+    
     public static void validateClass(){
         
         //To help avoid infinite recursion:
@@ -39,11 +53,11 @@ public class TRIAL_KIND_ENUMS {
         
         //Possible infinite recursion:
         Class[] clazz = new Class[2];
-        clazz[0] = Long.class;
-        clazz[1] = long.class;
-        List<Long> insts = UniqueValueValidator.validateInstanceTypes
+        clazz[0] = String.class;
+        //clazz[1] = long.class;
+        List<String> insts = UniqueValueValidator.validateInstanceTypes
                                         (TRIAL_KIND_ENUMS.class, clazz);
-        List<Long> stats = UniqueValueValidator.validateStaticTypes
+        List<String> stats = UniqueValueValidator.validateStaticTypes
                                         (TRIAL_KIND_ENUMS.class, clazz);
         
         if(insts.isEmpty() || stats.isEmpty()){
@@ -67,18 +81,31 @@ public class TRIAL_KIND_ENUMS {
     }//FUNC::END
     
     /** Checksum telling us how many enums should be in this class. **/
-    private static final long ENUM_CHECKSUM = 2;
+    private static final long ENUM_CHECKSUM = 3;
+    
+    
+    //These enums are NOT considered valid.
+    //Only used in error objects and non-initialized data:
+    ////////////////////////////////////////////////////////////////////////////
+    @UniqueStaticValue
+    public final static String INIT_FAILURE_ = 
+                              "init_failure";
     
     @UniqueStaticValue
-    public final static long INIT_FAILURE_ = 0;
+    public final static String DO_NOT_PERSIST_ = 
+                              "do_not_persist";
+    ////////////////////////////////////////////////////////////////////////////
     
     @UniqueStaticValue
-    public final static long RIDDLE_TRIAL_ = 1;
+    public final static String RIDDLE_TRIAL_ = 
+                              "riddle_trial";
     
     @UniqueInstanceValue
-    public final long INIT_FAILURE = INIT_FAILURE_;
+    public final String INIT_FAILURE   = INIT_FAILURE_;
     @UniqueInstanceValue
-    public final long RIDDLE_TRIAL = RIDDLE_TRIAL_; //<--Only supported trial type for now.
+    public final String DO_NOT_PERSIST = DO_NOT_PERSIST_;
+    @UniqueInstanceValue
+    public final String RIDDLE_TRIAL   = RIDDLE_TRIAL_; //<--Only supported trial type for now.
   
     
     /**-------------------------------------------------------------------------

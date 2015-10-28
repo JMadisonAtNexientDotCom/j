@@ -5,6 +5,7 @@ import annotations.Verbatim;
 import primitives.RealAndFakeIDs;
 import test.MyError;
 import test.config.constants.identifiers.FuncNameReg;
+import test.config.constants.signatures.paramVals.TRIAL_KIND_ENUMS;
 import test.config.debug.DebugConfig;
 import test.config.debug.DebugConfigLogger;
 import test.dbDataAbstractions.entities.EntityUtil;
@@ -66,7 +67,7 @@ public class Chop {
             ed.comment += "[Bad duration]";
         }//
         
-        if(ed.trial_kind <= 0){
+        if(false==TRIAL_KIND_ENUMS.isEnumValid(ed.trial_kind)){
             ed.isError = true;
             ed.comment += "[bad trial kind]";
         }//

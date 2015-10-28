@@ -171,6 +171,23 @@ public class SpecialInstructionsStickyNote {
         msg += "[:TYPE MISMATCH END]";
         doError(msg);
     }//FUNC::END
+                 
+    /**
+     * Retrieve a variable that you presume to be a string.
+     * @param varName :The name of the variable. Case sensitive.
+     * @return :The string value of the variable.
+     *          Throws error if does not exist.
+     */
+    public String getValStr(String varName){
+        Object val = getValue(varName);
+        if(val instanceof String){
+            return (String)val;
+        }
+        
+        doError("[Was not able to cast value to string]");
+        return "You_should_never_reach_this_line"; //dead code.
+        
+    }//FUNC::END
     
      /**
      * Get value explicitly as a long value. 
@@ -189,9 +206,9 @@ public class SpecialInstructionsStickyNote {
             doError("[no clue how to handle this scenario]");
         }//long
         
-        if(DebugConfig.isDebugBuild){
-            doError("[Was not able to cast value to Integer.]");
-        }//
+        
+        doError("[Was not able to cast value to Integer.]");
+        
         
         return (-1);
        

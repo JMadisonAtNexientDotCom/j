@@ -45,7 +45,7 @@ public class Edict extends PostRequestType {
     
     /** The enum representing the kind of test to be taken. **/
     @Verbatim(name=VarNameReg.TRIAL_KIND)
-    public long   trial_kind      = (-1); //MUST BE LONG
+    public String   trial_kind      = TRIAL_KIND_ENUMS.INIT_FAILURE_;
     
     /** The time alloted for our Ninjas (Candidates) to complete the 
      *  test once it has began. **/
@@ -72,7 +72,7 @@ public class Edict extends PostRequestType {
                        { stat.value = false; stat.comment = "[duration <= 0]"; }
             if(ed.ninja_id_list.size()<= 0)
                        { stat.value = false; stat.comment = "[list.size()<=0]";}
-            if(ed.trial_kind <= TRIAL_KIND_ENUMS.INIT_FAILURE_)
+            if(TRIAL_KIND_ENUMS.isEnumValid(ed.trial_kind))
                       {stat.value = false; stat.comment="[invalid trial kind]";}
         }else{
            doError("This line should be dead code");
@@ -103,7 +103,7 @@ public class Edict extends PostRequestType {
         op.errorCode           = EntityErrorCodes.GENERIC_ERROR;
         op.ninja_id_list       = new ArrayList<Long>();
         op.duration_in_minutes = (-12);
-        op.trial_kind          = (-13);
+        op.trial_kind          = TRIAL_KIND_ENUMS.DO_NOT_PERSIST_;
         return op;
     }//FUNC::END
     

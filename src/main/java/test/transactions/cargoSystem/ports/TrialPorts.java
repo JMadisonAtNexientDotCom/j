@@ -25,9 +25,9 @@ public class TrialPorts {
                                           (GalleonBarge barge, OrderSlip order){
         
          //Core logic:
-        int  numTrials         = order.specs.getValInt (VarNameReg.NUM_TRIALS);
-        long kindOfTrial       = order.specs.getValLong(VarNameReg.KIND);
-        long allottedMillisecs = order.specs.getValLong(VarNameReg.ALLOTTED);
+        int    numTrials         = order.specs.getValInt (VarNameReg.NUM_TRIALS);
+        String kindOfTrial       = order.specs.getValStr(VarNameReg.KIND);
+        long   allottedMillisecs = order.specs.getValLong(VarNameReg.ALLOTTED);
         List<TrialTable> trials;
         trials = TrialTransUtil.makeBatchOfTrialStubs
                                     (numTrials, kindOfTrial, allottedMillisecs);
