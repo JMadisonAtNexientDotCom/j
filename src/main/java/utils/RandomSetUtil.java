@@ -104,7 +104,14 @@ public class RandomSetUtil {
         }//DEBUG::END
         
         if(values.size() != numEntries){
-            doError("resulting output is not correct length");
+            int numMade = values.size();
+            String msg = "";
+            msg +="[resulting output is not correct length]";
+            msg +="[input:numEntries==[" + Integer.toString(numEntries) + "]]";
+            msg +="[input:rangeMin==[" + Long.toString(rangeMin) + "]]";
+            msg +="[input:rangeMax==[" + Long.toString(rangeMax) + "]]";
+            msg +="[output:numMade[" + Integer.toString(numMade) + "]]";
+            doError(msg);
         }//error?
 
         //return the values.
