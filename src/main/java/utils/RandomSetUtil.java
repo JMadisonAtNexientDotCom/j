@@ -192,7 +192,7 @@ public class RandomSetUtil {
         long d0 = inRange[0];
         long d1 = inRange[1];
         for(long i = d0; i <= d1; i++){
-            if(values.size() <= maxLen){
+            if(values.size() < maxLen){ //BUGFIX: "<", not "<="
                 values.add(i);
             }else{
                 //List is already filled up. Exit.
