@@ -95,12 +95,31 @@ public class EntityUtil {
         for(int i = 0; i < len; i++){
             curEnt = entities.get(i);
             curID = curEnt.getId();
-            if(curID <= 0){doError("possible lazy fetch error");}
+            if(curID <= 0){//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                doEntityLazyFetchError(curEnt);
+            }//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            
+            
             op.add(curID);
         }//next i
         
         return op;
         
+    }//FUNC::END
+    
+    /**
+     * Added this error to help me trace root of problem:
+     * @param <T> :Type that is BaseEntity or higher.
+     * @param curEnt :Actual entity to output as having error. **/
+    public static <T extends BaseEntity> void doEntityLazyFetchError(T curEnt){
+        long id = curEnt.getId();
+        Class clazz = curEnt.getClass();
+        String entity_name = clazz.getCanonicalName();
+        String msg = "";
+        msg+= "[EntityUtil Detects Possible Lazy Fetch Error: START]";
+        msg+= "[ID==[" + Long.toString(id) + "]]";
+        msg+= "[ENTITY CLASS:[" + entity_name + "]]";
+        doError(msg);
     }//FUNC::END
     
     /** Makes sure the data is correctly paired. We want the original primary
