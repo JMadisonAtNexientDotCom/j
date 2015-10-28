@@ -45,6 +45,7 @@ public class FuncNameReg {
     //TRIAL SERVICE:
     public static final String DISPATCH_TOKENS="dispatch_tokens";
     public static final String DISPATCH_TOKENS_DEBUG="dispatch_tokens_debug";
+    public static final String GET_TRIAL_CHALLENGE_GUTS_USING_TOKEN_HASH="get_trial_challenge_guts_using_token_hash";
     
     //ADMIN SERVICE:
     public static final String LOGIN_VALIDATE = "login_validate";

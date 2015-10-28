@@ -227,6 +227,14 @@ public class JSONUtil {
         obj.isError = isAnError;
         return genericObjectToJSONResponse(obj);
     }//FUNC::END
+                         
+    /** For cases when we can't return a data structure populated as error,
+     *  return a generic error response.
+     * @msg    :An error message you would like to put in comment area.
+     * @return :A boolean with comment object flagged as error. **/
+    public static Response makeGenericErrorResponse(String msg){
+        return booleanToJSONResponse(false,msg,true);
+    }//FUNC::END
     
     /**-------------------------------------------------------------------------
      * Converts a string to a JSON response.

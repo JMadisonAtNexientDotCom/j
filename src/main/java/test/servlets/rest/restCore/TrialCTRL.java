@@ -5,13 +5,19 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import test.MyError;
 import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
+import test.config.constants.identifiers.VarNameReg;
 import test.config.constants.signatures.paramVals.TRIAL_KIND_ENUMS;
+import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
+import test.dbDataAbstractions.entities.tables.KindaTable;
+import test.dbDataAbstractions.entities.tables.TokenTable;
+import test.dbDataAbstractions.entities.tables.TrialTable;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postRequest.Edict;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.Coffer;
 import test.transactions.util.TransUtil;
@@ -23,6 +29,8 @@ import test.servlets.rest.restCore.components.trial.Chop; //Halve object. good/b
 import test.servlets.rest.restCore.components.trial.Fill; //Fill the orders.
 import test.servlets.rest.restCore.components.trial.Join; //Join the orders.
 import test.servlets.rest.restCore.components.trial.Shop;
+import test.transactions.util.tables.token.TokenTransUtil;
+import test.transactions.util.tables.trial.TrialTransUtil;
 
 
 /**
@@ -32,6 +40,54 @@ import test.servlets.rest.restCore.components.trial.Shop;
  */
 @Path( ServletClassNames.TrialCTRL_MAPPING )
 public class TrialCTRL extends BaseCTRL {
+    
+    /**
+     * Gets the "Guts" of a trial challenge. The challenge part of a trial
+     * is the complete set of questions that makes up the trial.
+     * In the case of a Riddle-Trial, we are returning a "Deck" object.
+     * However, for different tests, different structures may be returned.
+     * Hence why this function is NOT called "GET_DECK_USING_TOKEN_HASH".
+     * @param token_hash :The token hash used to find the trial.
+     * @return           :Returns a serialized representation of the trial
+     *                    guts.
+     * 
+     *                    DOES NOT RETURN ANY META-DATA like:
+     *                    1. Test Kind (type of test)
+     *                    2. Whatever.                                       **/
+    @GET
+    @Path(FuncNameReg.GET_TRIAL_CHALLENGE_GUTS_USING_TOKEN_HASH)
+    public Response get_trial_challenge_guts_using_token_hash(
+            @QueryParam(VarNameReg.TOKEN_HASH) String token_hash){
+        
+        //Make sure inside transaction state:
+        Session ses = TransUtil.enterTransaction();
+        
+        BaseEntityContainer bec;
+        bec = TokenTransUtil.getTokenEntityUsingTokenString(token_hash);
+        if(false==bec.exists){
+            String err_msg = "[Token Has Does Not Exist]";
+            return JSONUtil.makeGenericErrorResponse(err_msg);
+        }//Error?
+        
+        //get the token_id:
+        TokenTable tok = (TokenTable)bec.entity;
+        long token_id  = tok.getId();
+        
+        //use the token_id to fetch correct record from the trial table.
+        TrialTable tri;
+        tri = TrialTransUtil.getTrialEntityUsingTokenID(token_id);
+        long trial_id = tri.getId();
+        
+        //use trial table to find correct kinda table:
+        KindaTable knd;
+        knd = TrialTransUtil.getKindaEntityUsingTrialID(trial_id);
+        
+        
+        //Exit Transaction:
+        TransUtil.exitTransaction(ses);
+        
+        
+    }//FUNC::END
     
     /** A wrapper that calls the @POST method dispatch_tokens
      *  so I can more easily debug what is going wrong.
