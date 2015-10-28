@@ -15,19 +15,20 @@ public class KindaTransUtil {
     
     /**
      * Create a batch of KindaTable record stubs.
-     * This class does NOT persist these objects.
-     * That is the job of whatever is calling it.
-     * We gather all the entities we need first. 
-     * Then if a train wreck happens, we wont have
-     * junk data persisted into our database.
+     * 
+     * THIS CLASS DOES PERSIST THE OBJECTS MADE!
+     * I didn't want to, because that means if something goes wrong, we will
+     * have junk data in the database. But we need to work with the primary 
+     * keys, so they must be persisted.
+     * 
      * @param numToMake :How many do you want?
      * @return :The entities requested. */
     public static List<KindaTable> makeBatchOfKindaStubs(int numToMake){
         
         TransUtil.insideTransactionCheck();
-        
         List<KindaTable> op;
-        op = EntityUtil.makeEntitiesFromClass(KindaTable.class, numToMake);
+        op = EntityUtil.makeEntitiesFromClass_PersistIDS
+                                                  (KindaTable.class, numToMake);
         return op;
     }//FUNC::END
     

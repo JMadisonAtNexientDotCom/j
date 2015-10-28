@@ -8,9 +8,11 @@ package test.dbDataAbstractions.entities;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Session;
 import test.MyError;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.transactions.HibernateReflectionUtil;
+import test.transactions.util.TransUtil;
 
 /**
  *
@@ -193,6 +195,35 @@ public class EntityUtil {
         }//FUNC::END
         
         return op;
+    }//FUNC::END
+          
+    /**
+     * Exact same behavior as makeEntitiesFromClass, however it also persists
+     * the entities into database so that you can make practical use of the
+     * primary key value of the entity.
+     * @param <T>         :See makeEntitiesFromClass
+     * @param entClass    :See makeEntitiesFromClass
+     * @param amountToMake:See makeEntitiesFromClass
+     * @return            :See makeEntitiesFromClass **/                
+    public static <T extends BaseEntity> List<T> 
+                                                makeEntitiesFromClass_PersistIDS
+                                          (Class<T> entClass, int amountToMake){
+        //Make sure we are inside transaction state,
+        //then get session object so we can persist entity.
+        TransUtil.insideTransactionCheck();
+        Session ses = TransUtil.getActiveTransactionSession();
+                  
+        //Make batch of entities, then persist them all in
+        //the same order that they were made.
+        List<T> lst = makeEntitiesFromClass(entClass, amountToMake); 
+        T cur_ent;
+        for(int i = 0; i < amountToMake; i++){
+            cur_ent = lst.get(i);
+            ses.save(cur_ent); //<--persist so it can have primary key.
+        }//next i.
+        
+        //return the list of persisted entities:
+        return lst;
     }//FUNC::END
     
     /**-------------------------------------------------------------------------
