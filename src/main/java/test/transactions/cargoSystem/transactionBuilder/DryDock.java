@@ -137,10 +137,17 @@ public class DryDock {
         
         //Order for decks. Decks are filled with cuecards. They are the
         //core of a riddle-trial.
+        //Eventually we might want the test creation settings to NOT be hard
+        //coded. Either have some standard test settings, or put the
+        //config options in the edict. Not sure.
         OrderSlip dek_order;
         dek_order = OrderSlip.makeUsingPortID(DeckPorts.GENERATE_AND_PERSIST_DECKS);
         dek_order.supplier = DeckTable.class;
         dek_order.specs.add(VarNameReg.NUM_DECKS, numDecks);
+        dek_order.specs.add(VarNameReg.CARD_COUNT,6); //<--TODO: from edict.
+        dek_order.specs.add(VarNameReg.NUM_QUIPS ,4); //<--TODO: from edict.
+        dek_order.specs.add(VarNameReg.TRU_MIN   ,0); //<--TODO: from edict.
+        dek_order.specs.add(VarNameReg.TRU_MAX   ,4); //<--TODO: from edict.
         barge.agenda.addOrder(dek_order);
         
         //Create Trials, one per ninja:

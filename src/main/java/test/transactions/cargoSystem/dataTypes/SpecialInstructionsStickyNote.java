@@ -220,6 +220,7 @@ public class SpecialInstructionsStickyNote {
         if(false == wasFound){
             String msg = "";
             msg += "[Variable was not found!]";
+            msg += "[Name of missing var:[" + varName + "]]";
             msg += printAllArgs();
             throw new Error(msg);
         }//NOT FOUND!
