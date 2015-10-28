@@ -52,9 +52,9 @@ public class TRIAL_KIND_ENUMS {
         VerbatimValidatorUtil.validateAnnotatedFields(TRIAL_KIND_ENUMS.class);
         
         //Possible infinite recursion:
-        Class[] clazz = new Class[2];
+        Class[] clazz = new Class[1];
         clazz[0] = String.class;
-        //clazz[1] = long.class;
+   
         List<String> insts = UniqueValueValidator.validateInstanceTypes
                                         (TRIAL_KIND_ENUMS.class, clazz);
         List<String> stats = UniqueValueValidator.validateStaticTypes
