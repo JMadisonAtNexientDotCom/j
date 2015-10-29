@@ -227,23 +227,19 @@ public class EntityColumnDebugUtil {
             
     /**
      * Makes sure that column fields ending with "_id" and "_gi"
-     * are Long values because they refer to primary key values. 
-     * @param f 
-     */
+     * are Long or long values because they refer to primary key values. 
+     * @param f :Field to check. **/
     private static void checkIDTypes(Field f){
         Class type = f.getType();
         String name = f.getName();
         if(StringUtil.endsWith(name,"_id") ||
            StringUtil.endsWith(name,"_gi") ){
             
-            if(type != Long.class){
+            if(type != Long.class &&
+               type != long.class){
                 _hasErrors = true;
-                _log += "[Field:[" + name + "]must be type Long.]";
-                
-                if(type == long.class){
-                    _log += "[You had lowercase long, you were close]";
-                }//
-                
+                _log += "[Field:[" + name + "]must be type Long or long.]";
+               
                 if(type == Integer.class ||
                    type == int.class){
                   _log += "[Had num type. But you specifically need Long]";
