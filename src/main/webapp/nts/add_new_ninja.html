@@ -2,15 +2,74 @@
 <!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
 <html lang="en-US">
     <head>
+        
       
-        <!-- So we can get awesome patterns into the background. -->
-        <script src="../jsLib/requirejs_code/require.js"></script>
-				    <script src="../jsLib/requirejs_code/config/nts_config.js"></script>
-      
-        <%-- Inject JavaScript and CSS Libraries --%>
-        <%= I.INCLUDE_JS()  %>
-        <%= I.INCLUDE_CSS() %>		
-        <title><%=I.DN().NINJA%> Sign Up Form</title>
+    <!-- So we can get awesome patterns into the background. -->
+    <script src="../jsLib/requirejs_code/require.js"></script>
+				<script src="../jsLib/requirejs_code/config/nts_config.js"></script>
+        
+<!-- ANGULAR -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+
+<!-- VIVUS: For loading animations on SVG -->
+<!-- <script src="../jsLib/git_repo_3rd_party/vivus/dist/vivus.js"></script> -->
+
+<!-- for angularJS cookies. SRC: https://code.angularjs.org/ -->
+<!-- VERSION MUST BE IDENTICAL TO ANGULAR VERSION YOU ARE USING!!! -->
+<script src="https://code.angularjs.org/1.4.7/angular-cookies.min.js"></script>
+				
+<!-- for async spinners. THEY WORK! -->
+<script src="../jsLib/node_modules/angular-spinners/src/spinner-service.js"></script>
+<script src="../jsLib/node_modules/angular-spinners/src/spinner-directive.js"></script>
+<script src="../jsLib/node_modules/angular-spinners/dist/angular-spinners.js"></script>
+
+<!-- host jquery so $ make sense? I think. -->
+<!-- we probably don't need this version of Jquery since we are using another.
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+-->
+
+<!-- BEFORE BOOTSTRAP INCLUDE: Bootstrap requiers JQuery Library.        -->
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!-- Bootstrap: .js and .css respectively.                               -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Angular Materials Project. Makes UI asthetically pleasing. -->
+<!-- MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM -->
+<!-- Angular Material Dependencies -->
+<!-- include: angular.min.js -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+
+<!-- Angular Material Javascript now available via Google CDN; version 0.10 used here -->
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script>
+
+<!-- Get some scroll bar action up in here! -->
+<script src="../jsLib/git_repo_3rd_party/ng_scrollable/ng-scrollable.min.js"></script>
+
+        <!-- spinner animation for waiting after pressing button that -->
+<!-- results in an asynchronous call. AKA: Wait for something to load and -->
+<!-- let user know the UI is still responsive. -->
+<LINK REL=StyleSheet HREF="../jsLib/css/components/loading_spinner.css" TYPE="text/css">
+
+<!-- Angular Material CSS now available via Google CDN; version 0.10 used here -->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css">
+<!-- MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM -->
+
+<!-- style stuff for scrollbars! -->
+<link rel="stylesheet" href="../jsLib/git_repo_3rd_party/ng_scrollable/ng-scrollable.min.css">
+
+<!-- enable centering. -->
+ <link href="../jsLib/css/layout/vertcen.css" rel="stylesheet">
+ <link href="../jsLib/css/layout/horcen.css" rel="stylesheet">
+ <link href="../jsLib/css/layout/bs_docs_example.css" rel="stylesheet">
+ <link href="../jsLib/css/aesthetics/roundeddivs.css" rel="stylesheet">
+ 
+ <!-- College ruled paper effects -->
+ <link href="../jsLib/css/aesthetics/collegerulepaper.css" rel="stylesheet">
+ 
+		
+        <title>Ninja Sign Up Form</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">						
     </head>
@@ -147,10 +206,10 @@ app.controller('myCtrl', function($scope, $http, $window, spinnerService) {
       $scope.has_a_ninja_been_made=false;
       $scope.apiCallUsed='ONE';
       $scope.prev_ninja = {};
-      $scope.prev_ninja.<%=I.OT().NINJA.NAME%> = "MASTER SPLINTER";
-      $scope.prev_ninja.<%=I.OT().NINJA.EMAIL%>= "NINJA@EMAIL.COM";
-      $scope.prev_ninja.<%=I.OT().NINJA.PHONE%>= "555-555-555";
-      $scope.prev_ninja.<%=I.OT().NINJA.PORTFOLIO_URL%> = "ENTER_THE_NINJA.COM";
+      $scope.prev_ninja.name = "MASTER SPLINTER";
+      $scope.prev_ninja.email= "NINJA@EMAIL.COM";
+      $scope.prev_ninja.phone= "555-555-555";
+      $scope.prev_ninja.portfolio_url = "ENTER_THE_NINJA.COM";
       tryToLoadScripts();
     };//FUNC::END
 
@@ -162,13 +221,13 @@ app.controller('myCtrl', function($scope, $http, $window, spinnerService) {
         //                             how-to-build-query-string-with-javascript
         qs = "";
         qs = $.param({ 
-        <%=I.API().MAKE_NINJA_RECORD.ARG.NAME         %>:$scope.nName, 
-        <%=I.API().MAKE_NINJA_RECORD.ARG.PHONE        %>:$scope.nPhone,
-        <%=I.API().MAKE_NINJA_RECORD.ARG.EMAIL        %>:$scope.nEmail,
-        <%=I.API().MAKE_NINJA_RECORD.ARG.PORTFOLIO_URL%>:$scope.nPortfolio });
+        name:$scope.nName, 
+        phone:$scope.nPhone,
+        email:$scope.nEmail,
+        portfolio_url:$scope.nPortfolio });
 
         //url of rest-api responsible for making new ninja records using arguments:
-        apiURL= "<%=I.API().MAKE_NINJA_RECORD.URL%>" + "?" + qs;
+        apiURL= "https://j1clone01-madnamespace.rhcloud.com/api/NinjaCTRL/make_ninja_record" + "?" + qs;
         
         //for debugging:
         $scope.apiCallUsed = apiURL;
@@ -181,10 +240,10 @@ app.controller('myCtrl', function($scope, $http, $window, spinnerService) {
       spinnerService.hide('html5spinner');
       
       $scope.has_a_ninja_been_made    = true;
-      $scope.prev_ninja.<%=I.OT().NINJA.NAME%>          = response.<%=I.OT().NINJA.NAME%>;
-      $scope.prev_ninja.<%=I.OT().NINJA.EMAIL%>         = response.<%=I.OT().NINJA.EMAIL%> ;
-      $scope.prev_ninja.<%=I.OT().NINJA.PHONE%>         = response.<%=I.OT().NINJA.PHONE%> ;
-      $scope.prev_ninja.<%=I.OT().NINJA.PORTFOLIO_URL%> = response.<%=I.OT().NINJA.PORTFOLIO_URL%> ;
+      $scope.prev_ninja.name          = response.name;
+      $scope.prev_ninja.email         = response.email ;
+      $scope.prev_ninja.phone         = response.phone ;
+      $scope.prev_ninja.portfolio_url = response.portfolio_url ;
     }
     
     $scope.goto_home = function(){
@@ -230,6 +289,5 @@ app.controller('myCtrl', function($scope, $http, $window, spinnerService) {
 </body>
 </html>
 
-<%-- This .JSP page should basically be a normal .JSP page except for this  --%>
-<%-- ONE AND ONLY IMPORT and the references to it.                          --%>
-<%@ page import="frontEndBackEndIntegration.I" %>
+
+
