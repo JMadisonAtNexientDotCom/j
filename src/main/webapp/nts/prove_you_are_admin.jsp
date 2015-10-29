@@ -38,7 +38,7 @@
 
         <div id="roundeddivs_headertab" align="center">
 
-          <h2 style="color:#fff">Admin Login:</h2>
+          <h2 style="color:#fff"><%=I.DN().ADMIN%> Login:</h2>
 
         </div>
           <p></p>

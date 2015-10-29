@@ -37,13 +37,13 @@
 
         <!-- The table with title at head of container. -->
         <div id="roundeddivs_headertab" align="center">
-          <h2 style="color:#fff">Add Ninja:</h2>
+          <h2 style="color:#fff">Add <%=I.DN().NINJA%>:</h2>
         </div>
 
         <!-- F is for FORM FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
         <!-- FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
         <form name="myForm">
-        <p>New Ninja Registration:</p>
+        <p>New <%=I.DN().NINJA%> Registration:</p>
         <p>
           Name : <input type="text" name="iName"  ng-model="nName" 
                         placeholder="Enter name here" style="width:100%;" >
@@ -72,7 +72,7 @@
 
         <p>Website / Portfolio / Resume URL: </p>
         <p><input type="text" name="iPortfolio" ng-model="nPortfolio" placeholder="www.Zombo.com" style="width:100%;" ></p>
-        <button data-ng-click="onButtonClicked()" style="width:100%;" >REGISTER NINJA</button>
+        <button data-ng-click="onButtonClicked()" style="width:100%;" >REGISTER <%=I.DN().NINJA.toUpperCase()%></button>
 
         <!--  <textarea readonly>{{apiCallUsed}}</textarea> -->
         </form>

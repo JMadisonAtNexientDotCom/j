@@ -4,7 +4,7 @@
     <!-- BASE: https://docs.angularjs.org/error/$location/nobase -->
     <base href="/nts/"> 
     <meta charset="utf-8">
-    <title>Admin Home -NTS</title>
+    <title><%=I.DN().ADMIN%> Home -NTS</title>
     
     <!-- So we can get awesome patterns into the background. -->
     <script src="../jsLib/requirejs_code/require.js"></script>
@@ -38,7 +38,7 @@
 
         <div id="roundeddivs_headertab" align="center">
 
-          <h2 style="color:#fff">Admin Home:</h2>
+          <h2 style="color:#fff"><%=I.DN().ADMIN%> Home:</h2>
 
         </div>
           <p></p>
