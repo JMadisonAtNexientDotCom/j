@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- BASE: https://docs.angularjs.org/error/$location/nobase -->
+    <base href="/nts/"> 
+    <meta charset="utf-8">
+    <title>Admin Login</title>
+    
+    <!-- So we can get awesome patterns into the background. -->
+    <script src="../jsLib/requirejs_code/require.js"></script>
+				<script src="../jsLib/requirejs_code/config/nts_config.js"></script>
+    
+<!-- ANGULAR -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+
+<!-- VIVUS: For loading animations on SVG -->
+<!-- <script src="../jsLib/git_repo_3rd_party/vivus/dist/vivus.js"></script> -->
+
+<!-- for angularJS cookies. SRC: https://code.angularjs.org/ -->
+<!-- VERSION MUST BE IDENTICAL TO ANGULAR VERSION YOU ARE USING!!! -->
+<script src="https://code.angularjs.org/1.4.7/angular-cookies.min.js"></script>
+				
+<!-- for async spinners. THEY WORK! -->
+<script src="../jsLib/node_modules/angular-spinners/src/spinner-service.js"></script>
+<script src="../jsLib/node_modules/angular-spinners/src/spinner-directive.js"></script>
+<script src="../jsLib/node_modules/angular-spinners/dist/angular-spinners.js"></script>
+
+<!-- host jquery so $ make sense? I think. -->
+<!-- we probably don't need this version of Jquery since we are using another.
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+-->
+
+<!-- BEFORE BOOTSTRAP INCLUDE: Bootstrap requiers JQuery Library.        -->
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!-- Bootstrap: .js and .css respectively.                               -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Angular Materials Project. Makes UI asthetically pleasing. -->
+<!-- MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM -->
+<!-- Angular Material Dependencies -->
+<!-- include: angular.min.js -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+
+<!-- Angular Material Javascript now available via Google CDN; version 0.10 used here -->
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script>
+
+<!-- Get some scroll bar action up in here! -->
+<script src="../jsLib/git_repo_3rd_party/ng_scrollable/ng-scrollable.min.js"></script>
+
+    <!-- spinner animation for waiting after pressing button that -->
+<!-- results in an asynchronous call. AKA: Wait for something to load and -->
+<!-- let user know the UI is still responsive. -->
+<LINK REL=StyleSheet HREF="../jsLib/css/components/loading_spinner.css" TYPE="text/css">
+
+<!-- Angular Material CSS now available via Google CDN; version 0.10 used here -->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css">
+<!-- MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM -->
+
+<!-- style stuff for scrollbars! -->
+<link rel="stylesheet" href="../jsLib/git_repo_3rd_party/ng_scrollable/ng-scrollable.min.css">
+
+<!-- enable centering. -->
+ <link href="../jsLib/css/layout/vertcen.css" rel="stylesheet">
+ <link href="../jsLib/css/layout/horcen.css" rel="stylesheet">
+ <link href="../jsLib/css/layout/bs_docs_example.css" rel="stylesheet">
+ <link href="../jsLib/css/aesthetics/roundeddivs.css" rel="stylesheet">
+ 
+ <!-- College ruled paper effects -->
+ <link href="../jsLib/css/aesthetics/collegerulepaper.css" rel="stylesheet">
+ 
+
+  </head>
+<!-- AUTHOR: JMadison.  ON:20##.##.##_####AMPM                               -->
+<!-- TABSIZE: 2 Spaces.                                                      -->
+<!-- This header belongs BELOW the <head></head> declaration.                -->
+<!--   10|       20|       30|       40|       50|       60|       70|       -->
+<!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
+
+<body>
+  
+ 
+    
+  <canvas id="myCanvas"  style="position:relative; 
+          margin-top:-150px; top:50%; 
+          margin-left:-250px; left:50%;"
+            width="500" height="300">
+            Your browser does not support the HTML5 canvas tag.
+  </canvas>  
+
+  
+  <div data-ng-app="myApp" 
+       data-ng-controller="myCtrl" 
+       data-ng-init="VI();" 
+       style="z-index:2; position:static;">
+    <!-- Vertically + horizontally centered dialog -->
+    <div class="horcen_parent" > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+    <div class="horcen_child"  > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+    <div class="vertcen_parent"> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+    <div class="vertcen_child" > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+      
+      
+      
+      <div id="roundeddivs_wireframe" 
+      style="width:200px; margin-left:-100px; z-index:2; position:relative;">
+
+        <div id="roundeddivs_headertab" align="center">
+
+          <h2 style="color:#fff">Admin Login:</h2>
+
+        </div>
+          <p></p>
+          <p> {{msg_for_user}} </p>
+          <input type="text" data-ng-model="user_name" style="width:100%;"><br>
+          <input type="text" data-ng-model="pass_word" style="width:100%;"><br>
+          <button data-ng-click="submit_my_creds();" style="width:100%;">SUBMIT</button>
+          
+          <!-- quick test to make sure we have relative .css URL correct. -->
+          <spinner name="html5spinner">  
+            <div class="overlay"></div>
+            <div class="spinner">
+                  <div class="double-bounce1"></div>
+                  <div class="double-bounce2"></div>
+            </div>
+            <div class="please-wait">Test of loading spinner...</div>
+          </spinner> 
+        
+        </div>
+    </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+    </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+    </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+    </div> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
+  </div>
+  
+  
+  
+  <script>
+  var app = angular.module('myApp', ['angularSpinners'])
+  .config(function($locationProvider) {
+  
+  //You CANNOT inject $locationProvider into the controller.
+  //You must do it with app.config:
+  //http://stackoverflow.com/questions/22892246/
+  //                        how-do-i-access-the-locationprovider-to-configure-it
+    $locationProvider.html5Mode(true);
+    $locationProvider.hashPrefix('!');
+  });//CONFIG::END
+  
+  app.controller('myCtrl', function($scope, $http, $window, $location, 
+                                                               spinnerService) {
+    //variable initialization:
+    $scope.VI = function(){
+      $scope.msg_for_user = "Credentials?:";
+      $scope.user_name    = "sensei";
+      $scope.pass_word    = "password_hashed";
+      tryToLoadScripts();
+    };
+
+    $scope.submit_my_creds = function(){
+      msg_for_user = "Please Wait...";
+      callService();
+    };
+
+    function callService()
+    {
+      serviceURL ="https://j1clone01-madnamespace.rhcloud.com/api/AdminCTRL/login_and_get_token_for_self";
+
+      qs = ""; //query string.
+      qs = $.param({ 
+      user_name:$scope.user_name,
+      pass_word:$scope.pass_word
+      });//QUERYSTRING::END
+
+      apiCallURL = serviceURL + "?" + qs;
+
+      spinnerService.show('html5spinner'); //<--where is ref to spinnerService?
+      $http.get(apiCallURL).success( onResponded );
+    };//FUNC::END
+    
+    function onResponded(response){
+	     $scope.instancedJSON_RESPONSE = response;
+	     spinnerService.hide('html5spinner');
+        
+      //Display error message, or session token value,
+      //depending on if login was success.
+      if(response.isError === true){
+          $scope.msg_for_user = response.errorCode;
+      }else{
+          $scope.msg_for_user = response.value;
+
+          //In order for this to work, you have to submit TWICE!
+          //$location.path("admin_home.jsp");
+          //$window.location.reload();//Force refresh.
+
+          $window.location = "admin_home.jsp"; //try this.
+
+      }//BLOCK::END
+    };//FUNC::END
+    
+    //Require-Js section of app:
+    //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR//
+    console.log("REQUIRE JS!");
+
+    var rjs_app = null;
+    var has_rjs_app = false;
+
+    var myCallback = function(arg_app){
+      console.log("RequireJS Scripts Loaded");
+      arg_app.setMaxFramesPerPlay(30);
+      arg_app.num_levels_deep = 4;
+      arg_app.resume();
+      rjs_app = arg_app;
+      has_rjs_app = true;
+    };//
+
+    var myErrback = function(arg_app){
+      console.log("errored back");
+    };//
+
+    var tryToLoadScripts = function(){
+      requirejs(['app_rel_path/NexFracLoader'], myCallback, myErrback);
+    };//
+    
+    $scope.loaderToggle = function(){
+      rjs_app.toggle();
+    };//
+    //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR//
+      
+  });//CONTROLLER::END
+  </script>
+</body>
+</html>
+<!--   10|       20|       30|       40|       50|       60|       70|       -->
+<!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
+        
+
+

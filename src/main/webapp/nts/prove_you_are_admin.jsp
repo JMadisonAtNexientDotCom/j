@@ -5,6 +5,11 @@
     <base href="/nts/"> 
     <meta charset="utf-8">
     <title>Admin Login</title>
+    
+    <!-- So we can get awesome patterns into the background. -->
+    <script src="../jsLib/requirejs_code/require.js"></script>
+				<script src="../jsLib/requirejs_code/config/nts_config.js"></script>
+    
     <%= I.INCLUDE_JS() %>
     <%= I.INCLUDE_CSS()%>
   </head>
@@ -16,7 +21,12 @@
 
 <body>
   
-  <img src="../jsLib/graphics/NexLogoCenteredFaded.svg" >
+  <canvas id="myCanvas"  style="position:relative; 
+          margin-top:-150px; top:50%; 
+          margin-left:-250px; left:50%;"
+            width="500" height="300">
+            Your browser does not support the HTML5 canvas tag.
+  </canvas>  
   
   <div data-ng-app="myApp" data-ng-controller="myCtrl" data-ng-init="VI();" >
     <!-- Vertically + horizontally centered dialog -->
@@ -74,6 +84,7 @@
         $scope.msg_for_user = "Credentials?:";
         $scope.user_name    = "sensei";
         $scope.pass_word    = "password_hashed";
+        tryToLoadScripts();
     };
 
     $scope.submit_my_creds = function(){
@@ -118,8 +129,37 @@
             
         
     };//FUNC::END
+    
+    //Require-Js section of app:
+    //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR//
+    console.log("REQUIRE JS!");
+
+    var rjs_app = null;
+    var has_rjs_app = false;
+
+    var myCallback = function(arg_app){
+      console.log("RequireJS Scripts Loaded");
+      arg_app.setMaxFramesPerPlay(30);
+      arg_app.num_levels_deep = 4;
+      arg_app.resume();
+      rjs_app = arg_app;
+      has_rjs_app = true;
+    };//
+
+    var myErrback = function(arg_app){
+      console.log("errored back");
+    };//
+
+    var tryToLoadScripts = function(){
+      requirejs(['app_rel_path/NexFracLoader'], myCallback, myErrback);
+    };//
+    
+    $scope.loaderToggle = function(){
+      rjs_app.toggle();
+    };//
+    //RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR//
       
-  });
+  });//CONTROLLER::END
   </script>
 </body>
 </html>
