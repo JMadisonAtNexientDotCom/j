@@ -37,7 +37,7 @@
 
         <!-- The table with title at head of container. -->
         <div id="roundeddivs_headertab" align="center">
-          <h2 style="color:#fff">Add <%=I.DN().NINJA%>:</h2>
+          <h2 style="color:#fff">Add:</h2>
         </div>
 
         <!-- F is for FORM FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
@@ -72,7 +72,7 @@
 
         <p>Website / Portfolio / Resume URL: </p>
         <p><input type="text" name="iPortfolio" ng-model="nPortfolio" placeholder="www.Zombo.com" style="width:100%;" ></p>
-        <button data-ng-click="onButtonClicked()" style="width:100%;" >REGISTER <%=I.DN().NINJA.toUpperCase()%></button>
+        <button data-ng-click="onButtonClicked()" style="width:100%;" >REGISTER</button>
 
         <!--  <textarea readonly>{{apiCallUsed}}</textarea> -->
         </form>
@@ -114,7 +114,7 @@
         <p><i>You can make more, or:</i></p>
         <button data-ng-click="goto_home()" 
         style="width:100%;" >
-          GOTO ADMIN HOME
+          GOTO <%=I.DN().ADMIN.toUpperCase()%> HOME
         </button>
 
         <!--  <textarea readonly>{{apiCallUsed}}</textarea> -->
