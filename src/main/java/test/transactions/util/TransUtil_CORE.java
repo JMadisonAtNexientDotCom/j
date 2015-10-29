@@ -1036,10 +1036,32 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         
     }//FUNC::END 
     
-    /**
+    /**-------------------------------------------------------------------------
+     * Performs a "link" between two tables.
+     * Like a join, but we don't have to TAKE from a PRIMARY KEY column.
+     * @param from   :Table entities supplying the primary keys.
+     * @param take_column: Column name in from to take entries from.
+     * @param into   :Table entities to INSERT primary keys as FOREIGN KEYS.
+     * @param dest_column:Column name in INTO to put entries into.
+     ------------------------------------------------------------------------**/
+    public static void link(List<BaseEntity> from, 
+                            String    take_column,
+                            List<BaseEntity> into, 
+                            String    dest_column){
+        TransUtil_DEBUG.link(from,take_column,into,dest_column);
+        TransUtil.insideTransactionCheck();
+        
+        //Core Logic:
+        int len = from.size();
+        for(int i = 0; i < len; i++){
+            BaseEntity entFrom = from.get(i);
+            BaseEntity entInto = into.get(i);
+            HibernateReflectionUtil.doLink(entFrom, take_column, 
+                                           entInto, dest_column);
+        }//next i
+        
+    }//FUNC::END
      
-    
-    
     /**Creates a cluster of entities in the Purse-Table of choice.
      * @param purseTable :The table we want to put entries in.
      * @param groupID    :The shared groupID of all entries.

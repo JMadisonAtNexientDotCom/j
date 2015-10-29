@@ -17,6 +17,7 @@ import test.transactions.cargoSystem.dataTypes.JobTicketTypes;
 import test.transactions.cargoSystem.dataTypes.OrderArg;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
 import test.transactions.cargoSystem.dataTypes.jobConsts.JoinOrderVars;
+import test.transactions.cargoSystem.dataTypes.jobConsts.LinkOrderVars;
 import test.transactions.cargoSystem.dataTypes.jobConsts.WeldJobVars;
 import test.transactions.cargoSystem.ports.DeckPorts;
 import test.transactions.cargoSystem.ports.KindaPorts;
@@ -180,6 +181,7 @@ public class DryDock {
         JobTicket tok_tri; //insert token_id(s) into trial_table
         JobTicket tok_knd; //insert token_id(s) into kinda_table
         JobTicket dek_knd; //insert deck_id (s) into kinda_table
+        JobTicket tri_knd; //non-id join from trial_table-->kinda_table
         
         //Allocate the Welder Job Tickets:
         //naming: Structure: 
@@ -189,6 +191,7 @@ public class DryDock {
         tok_tri = barge.bulletin.addEmptyJobTicket(); //token_id into trial.
         tok_knd = barge.bulletin.addEmptyJobTicket(); //token_id into kinda.
         dek_knd = barge.bulletin.addEmptyJobTicket(); //deck_id  into kinda.
+        tri_knd = barge.bulletin.addEmptyJobTicket(); //ANY-COL  into kinda.
         
         //Create joins in owner table:
         //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
@@ -228,6 +231,16 @@ public class DryDock {
         dek_knd.specs.add(JoinOrderVars.FROM_ORDER, dek_order);
         dek_knd.specs.add(JoinOrderVars.INTO_ORDER, knd_order);
         dek_knd.specs.add(JoinOrderVars.DEST_COLUMN,deckDestColumn);
+        //
+        //Make sure KindaTable has the same "kind" enum as the trial it is
+        //attached to:
+        String tri_take_column = TrialTable.KIND_COLUMN;
+        String knd_dest_column = KindaTable.KIND_COLUMN;
+        tri_knd.jobType = JobTicketTypes.LINK_ORDER;
+        tri_knd.specs.add(LinkOrderVars.FROM_ORDER, dek_order);
+        tri_knd.specs.add(LinkOrderVars.INTO_ORDER, knd_order);
+        tri_knd.specs.add(LinkOrderVars.TAKE_COLUMN,tri_take_column);
+        tri_knd.specs.add(LinkOrderVars.DEST_COLUMN,knd_dest_column);
         //KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
         
        

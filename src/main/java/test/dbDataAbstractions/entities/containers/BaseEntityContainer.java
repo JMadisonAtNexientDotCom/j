@@ -47,6 +47,14 @@ public class BaseEntityContainer {
         
     }//END::FUNC
     
+    /**
+     * Used to make an empty container. Added to make code in other
+     * classes more readable.
+     * @return :An empty container that is properly configured to be empty. */
+    public static BaseEntityContainer makeEmpty(){
+        return BaseEntityContainer.make_NullAllowed(null);
+    }//FUNC::END
+    
     /** This function is used so that functions do NOT have to return null.
      *  Use this function when the BaseEntity is ALLOWED to be null. If the
      *  base entity is NOT allowed to be null, 

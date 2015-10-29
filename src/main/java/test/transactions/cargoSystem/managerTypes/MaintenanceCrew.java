@@ -9,6 +9,7 @@ import test.transactions.cargoSystem.dataTypes.JobTicket;
 import test.transactions.cargoSystem.dataTypes.JobTicketTypes;
 import test.transactions.cargoSystem.dataTypes.OrderSlip;
 import test.transactions.cargoSystem.dataTypes.jobConsts.JoinOrderVars;
+import test.transactions.cargoSystem.dataTypes.jobConsts.LinkOrderVars;
 import test.transactions.cargoSystem.dataTypes.jobConsts.WeldJobVars;
 import test.transactions.util.TransUtil;
 
@@ -100,6 +101,36 @@ public class MaintenanceCrew {
         
         //Perform Join:
         TransUtil.join(records_from, records_into, column);
+        
+    }//FUNC::END
+    
+    /**
+     * Like a join order, but can take from an arbitrary column
+     * rather than only from the primary id column.
+     * @param j 
+     */
+    private void doLinkOrder(JobTicket j){
+        
+        //Extract arguments:
+        OrderSlip fromVar= j.specs.getVal(LinkOrderVars.FROM_ORDER, 
+                                          LinkOrderVars.FROM_ORDER_TYPE);
+        OrderSlip intoVar= j.specs.getVal(LinkOrderVars.INTO_ORDER, 
+                                          LinkOrderVars.INTO_ORDER_TYPE);
+        String  take     = j.specs.getVal(LinkOrderVars.TAKE_COLUMN, 
+                                          LinkOrderVars.TAKE_COLUMN_TYPE);
+        String  dest     = j.specs.getVal(LinkOrderVars.DEST_COLUMN, 
+                                          LinkOrderVars.DEST_COLUMN_TYPE);
+        
+        //Retrieve cages using orders:
+        EntityCage cage_from = barge.hold.getCageUsingReceipt(fromVar);
+        EntityCage cage_into = barge.hold.getCageUsingReceipt(intoVar);
+        
+        //Get entity lists from cages:
+        List<BaseEntity> from = cage_from.getMerchandise();
+        List<BaseEntity> into = cage_into.getMerchandise();
+        
+        //Perform Link:
+        TransUtil.link(from, take, into, dest);
         
     }//FUNC::END
     

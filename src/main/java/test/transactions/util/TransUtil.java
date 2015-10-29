@@ -250,6 +250,13 @@ public class TransUtil {
         i().join(from,into,column);
     }//WRAPPER::END
     
+    public static void link(List<BaseEntity> from, 
+                            String    take_column,
+                            List<BaseEntity> into, 
+                            String    dest_column){
+        i().link(from, take_column, into, dest_column);
+    }//WRAPPER::END
+    
     //TODO: MakeGroupUsingEntities
     public static <T extends PurseEntity> void makeGroup
         (Class<T> purseTable, long groupID, 

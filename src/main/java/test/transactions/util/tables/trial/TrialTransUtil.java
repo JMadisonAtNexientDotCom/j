@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import primitives.RealAndFakeIDs;
 import test.MyError;
 import test.config.constants.signatures.paramVals.TRIAL_STATUS_ENUMS;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.TrialTable;
 import test.dbDataAbstractions.requestAndResponseTypes.postTypes.postResponse.Coffer;
@@ -137,7 +138,26 @@ public class TrialTransUtil {
         
     //Stub for now so we can work on UI.
     public static BaseEntityContainer getTrialUsingTokenID(long token_id){
-        doError("TODO: getTrialUsingTokenID");
+        
+        TransUtil.insideTransactionCheck();
+        
+        List<BaseEntity> bel;
+        bel = TransUtil.getEntitiesUsingLong
+                       (TrialTable.class, TrialTable.TOKEN_ID_COLUMN, token_id);
+        
+        int len = bel.size();
+        if(len > 1){
+            doError("Data integrity error. One trial per token id.");
+        }//
+        BaseEntityContainer op;
+        if(0==len){ //no entities.
+            op = BaseEntityContainer.makeEmpty();
+        }else
+        if(1==len){ //1 entity
+            op = BaseEntityContainer.make(bel.get(0)); 
+        }else{
+            doError("This should have been caught earlier.");
+        }//BLOCK::END
         
         //NOTE: Seems like: "makeBatchOfTrialStubs" is not being used
         //      by the drydock that is dispatching tokens. Fix this.

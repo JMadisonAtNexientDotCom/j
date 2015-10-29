@@ -21,7 +21,14 @@ public class JobTicketTypes {
     /**
      * Does join-table operation, using two orders as inputs rather
      * than the table names. Is an abstract wrapper for standard join
-     * table operation WELD_JOB.
-     */
+     * table operation WELD_JOB. **/
     public static final String JOIN_ORDER = "join_order";
+    
+    /**
+     * Identical to JOIN_ORDER, EXCEPT:
+     * Must specify a column name to TAKE from because this
+     * order links arbitrary columns. Where-as join-order works
+     * by putting primary id of one table into an arbitrary column
+     * of another table. **/
+    public static final String LINK_ORDER = "link_order";
 }//CLASS::END
