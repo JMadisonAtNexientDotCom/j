@@ -43,7 +43,7 @@
         <!-- F is for FORM FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
         <!-- FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF -->
         <form name="myForm">
-        <p>New <%=I.DN().NINJA%> Registration:</p>
+        <p><%=I.DN().NINJA%> Registration:</p>
         <p>
           Name : <input type="text" name="iName"  ng-model="nName" 
                         placeholder="Enter name here" style="width:100%;" >
