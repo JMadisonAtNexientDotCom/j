@@ -28,7 +28,7 @@ public class QuarTable extends BaseEntity {
     /** Identifies a group of slates within quar purse that make up
      *  the composition of a single QUAR object. **/
     @Column(name=QUAR_GI_COLUMN)
-    public String quar_gi; //<--NOTE:#1
+    public Long quar_gi; //<--Public Allowed
     @Transient @JsonIgnore
     public final String QUAR_GI = QUAR_GI_COLUMN; //for API access.
     

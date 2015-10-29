@@ -154,7 +154,7 @@ public class TrialTable extends BaseEntity {
      *  3. ENDED_CLOSED
      *  4. GRADED_FINALIZED **/
     @Column(name=STATUS_COLUMN)
-    private Long status; //<--"state" is reserved word in SQL. So used "status"
+    private String status; //<--"state" is reserved word in SQL. So used "status"
     
     /** 
      *  Time in milliseconds that [trial/test] was started.
@@ -188,8 +188,8 @@ public class TrialTable extends BaseEntity {
         return kind;
     }//FUNC::END
 
-    public long getStatus() {
-        return this.unBoxLong( status );
+    public String getStatus() {
+        return this.status;
     }//FUNC::END
 
     public long getBegan_on() {
@@ -214,8 +214,8 @@ public class TrialTable extends BaseEntity {
         this.kind = kind;
     }//FUNC::END
 
-    public void setStatus(long status) {
-        this.status = this.boxUpLong( status );
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public void setBegan_on(long began_on) {

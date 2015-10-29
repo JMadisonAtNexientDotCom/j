@@ -14,6 +14,7 @@ import test.debug.debugUtils.entity.helpers.ErrorEntry_CONSTVAL_CASE;
 import test.debug.debugUtils.entity.helpers.ErrorEntry_CONSTVAL_CHARS;
 import test.debug.debugUtils.entity.helpers.ErrorEntry_STATIC_COLUMN;
 import utils.ReflectionHelperUtil;
+import utils.StringUtil;
 
 /**-----------------------------------------------------------------------------
  * This is a utility used to enforce a convention of mine.
@@ -183,6 +184,10 @@ public class EntityColumnDebugUtil {
             //do error check to make sure @Column values are REFERENCE types.
             checkFieldType(curField);
             
+            //Will build errors if identifiers ending with "_id" or "_gi"
+            //are not type Long 
+            checkIDTypes(curField);
+            
             if(notEQ(fieldName,columnName)){
                 //throwColumnNamingError(fieldName,columnName);
                 addError(_currentClassBeingExamined, fieldName, columnName);
@@ -218,6 +223,33 @@ public class EntityColumnDebugUtil {
             }//ERROR#1: field name does not match @column name.
         }//instance of?
        
+    }//FUNC::END
+            
+    /**
+     * Makes sure that column fields ending with "_id" and "_gi"
+     * are Long values because they refer to primary key values. 
+     * @param f 
+     */
+    private static void checkIDTypes(Field f){
+        Class type = f.getType();
+        String name = f.getName();
+        if(StringUtil.endsWith(name,"_id") ||
+           StringUtil.endsWith(name,"_gi") ){
+            
+            if(type != Long.class){
+                _hasErrors = true;
+                _log += "[Field:[" + name + "]must be type Long.]";
+                
+                if(type == long.class){
+                    _log += "[You had lowercase long, you were close]";
+                }//
+                
+                if(type == Integer.class ||
+                   type == int.class){
+                  _log += "[Had num type. But you specifically need Long]";
+                }//
+            }//Bad type?
+        }//FUNC::END
     }//FUNC::END
         
     /**

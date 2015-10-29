@@ -29,7 +29,7 @@ public class QuarPurse extends PurseEntity {
     /** One of the ninja's answer slates. A collection of answer slates
      *  makes a QUAR. Which is an answer to a riddle-trial. **/
     @Column(name=SLATE_ID_COLUMN)
-    public String slate_id; //<--NOTE:#1
+    public Long slate_id; //<--Public allowed.
     @Transient @JsonIgnore
     public final String SLATE_ID = SLATE_ID_COLUMN; //for API access.
     

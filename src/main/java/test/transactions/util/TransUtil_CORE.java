@@ -1022,7 +1022,7 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
     public void join(List<BaseEntity> from, 
                      List<BaseEntity> into, 
                             String column){
-        
+        //DEBUG:
         TransUtil_DEBUG.join(from,into,column);
         TransUtil.insideTransactionCheck();
         
@@ -1044,10 +1044,11 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
      * @param into   :Table entities to INSERT primary keys as FOREIGN KEYS.
      * @param dest_column:Column name in INTO to put entries into.
      ------------------------------------------------------------------------**/
-    public static void link(List<BaseEntity> from, 
+    public void link(List<BaseEntity> from, 
                             String    take_column,
                             List<BaseEntity> into, 
                             String    dest_column){
+        //DEBUG:
         TransUtil_DEBUG.link(from,take_column,into,dest_column);
         TransUtil.insideTransactionCheck();
         

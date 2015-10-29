@@ -27,7 +27,7 @@ public class ChalkTable extends BaseEntity {
     
     /** The group of records that this record is referencing. **/
     @Column(name=CHALK_GI_COLUMN)
-    public String chalk_gi; //<--NOTE:#1
+    public Long chalk_gi; //<--Public allowed.
     @Transient @JsonIgnore
     public final String CHALK_GI = CHALK_GI_COLUMN; //for API access.
     

@@ -160,45 +160,45 @@ public class KindaTable extends BaseEntity {
      *  kind table. It is the token associated with this test. The ninja who
      *  owns this token can take this test. **/
     @Column(name=TOKEN_ID_COLUMN)
-    public String token_id;
+    public Long token_id;
     @Transient @JsonIgnore
     public final String TOKEN_ID = TOKEN_ID_COLUMN; //for API access.
     
     /** A foreign key pointing to the [guts/root] of the [test/trial] given. **/
     @Column(name=CHALLENGE_ID_COLUMN)
-    public String challenge_id;
+    public Long challenge_id;
     @Transient @JsonIgnore
     public final String CHALLENGE_ID = CHALLENGE_ID_COLUMN; //for API access.
     
     /** A boolean to let us know if CHALLENGE_ID should be a valid value. **/
     @Column(name=HAS_CHALLENGE_COLUMN)
-    public String has_challenge;
+    public Boolean has_challenge;
     @Transient @JsonIgnore
     public final String HAS_CHALLENGE = HAS_CHALLENGE_COLUMN; //for API access.
     
     /** A foreign key pointing to the [guts/root] of the [response/answers] 
      *  [given/submitted] by the ninja for the [test/trial] given. **/
     @Column(name=EFFORT_ID_COLUMN)
-    public String effort_id;
+    public Long effort_id;
     @Transient @JsonIgnore
     public final String EFFORT_ID = EFFORT_ID_COLUMN; //for API access.
     
     /** A boolean to let us know if EFFORT_ID should be a valid value. **/
     @Column(name=HAS_EFFORT_COLUMN)
-    public String has_effort;
+    public Boolean has_effort;
     @Transient @JsonIgnore
     public final String HAS_EFFORT = HAS_EFFORT_COLUMN; //for API access.
     
     /** Boolean to let us know if this test has been graded. **/
     @Column(name=IS_GRADED_COLUMN)
-    public String is_graded;
+    public Boolean is_graded;
     @Transient @JsonIgnore
     public final String IS_GRADED = IS_GRADED_COLUMN; //for API access.
     
     /** A normalized grade that is between 0 and 10,000.
      *  In percent, that is 0% to %100.00 with 2 significant digits. **/
     @Column(name=GRADE_10K_COLUMN)
-    public String grade_10k;
+    public Long grade_10k;
     @Transient @JsonIgnore
     public final String GRADE_10K = GRADE_10K_COLUMN; //for API access.
     

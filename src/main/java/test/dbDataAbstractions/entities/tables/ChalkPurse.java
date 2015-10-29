@@ -29,7 +29,7 @@ public class ChalkPurse extends PurseEntity {
     /**Think of this as a [rhyme/answer] scribbled in chalk.
      * There can be multiple answers written on a slate. **/
     @Column(name=RHYME_ID_COLUMN)
-    public String rhyme_id; //<--NOTE:#1
+    public Long rhyme_id; //<--Public is allowed.
     @Transient @JsonIgnore
     public final String RHYME_ID = RHYME_ID_COLUMN; //for API access.
     

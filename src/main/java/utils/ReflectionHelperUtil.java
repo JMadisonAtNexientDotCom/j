@@ -16,6 +16,12 @@ import test.MyError;
  */
 public class ReflectionHelperUtil {
     
+    //To help with readability of params:
+    private static boolean GET_STATIC = true;
+    private static boolean GET_INST   = true;
+    private static boolean NO_STATIC  = false;
+    private static boolean NO_INST    = false;
+    
     /**
      * Validates that class is an annotation. Helps prevent
      * us from ~accidentially~ transposing the annotation class with
@@ -28,6 +34,17 @@ public class ReflectionHelperUtil {
         }//
     }//FUNC::END
     
+    /** Gets INSTANCE fields containing annotation. **/
+    public static List<Field> getFieldsWithAnnotation_INST
+                                                       (Class clazz,Class anno){
+        return getFieldsWithAnnotation(clazz,anno,GET_STATIC,NO_INST);
+    }//FUNC::END
+        
+    /** Gets STATIC fields containing annotation. **/
+    public static List<Field> getFieldsWithAnnotation_STATIC
+                                                       (Class clazz,Class anno){
+        return getFieldsWithAnnotation(clazz,anno,NO_STATIC,GET_INST);
+    }//FUNC::END
     
     public static List<Field> getFieldsWithAnnotation
               (Class clazz, Class anno, boolean getStatic, boolean getInstance){
@@ -223,6 +240,14 @@ public class ReflectionHelperUtil {
         if(null == inst){doError("[Really? Null? How?]");}
         
         return inst;
+    }//FUNC::END
+    
+    public static Object getValueOfStaticField(Field f){
+        return getValueOfField(f, GET_STATIC, null);
+    }//FUNC::END
+    
+    public static Object getValueOfInstanceField(Field f, Object inst){
+        return getValueOfField(f, NO_STATIC, inst);
     }//FUNC::END
     
     /**-------------------------------------------------------------------------

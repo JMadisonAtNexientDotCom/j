@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import test.MyError;
 import test.dbDataAbstractions.entities.EntityUtil;
+import test.dbDataAbstractions.entities.bases.BaseEntity;
 import test.dbDataAbstractions.entities.bases.ChallengeGuts;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.KindaTable;
@@ -57,17 +58,59 @@ public class KindaTransUtil {
      *            persisted in the database. **/
     public static ChallengeGuts getChallengeGutsUsingKindaTable(KindaTable kt){
         
+        String kind_of_trial = kt.kind;
+        long challenge_id    = kt.challenge_id;
+        if(null==kind_of_trial || kind_of_trial.equals("")){
+            doError("invalid kind found");
+        }
+        if(challenge_id <= 0){doError("invalid challenge id. Lazy fetch?");}
+        
+        
+        doError("Make the class below that is commented out");
+        //ChallengeGutsReaderUtil.findAndRead(kind_of_trial, challenge_id);
+        
+        //STEP1: Get the correct challenge guts tableEntity:
+        
+        //STEP2: read from database using entity.
+        //       (read == inverse of persisting data)
+        //       (Kind of like de-serializing. But not completely analagous.)
+        
+        
         //Stubbing methods for now. Because I want to work on UI stuff.
         doError("TODO: Make getChallengeGutsUsingKindaTable");
         return new ChallengeGuts();
         
     }//FUNC::END
     
+    /**
+     * Returns a BaseEntityContainer that may or may not contain entity
+     * if the token_id exists in the table.
+     * @param token_id :Token_id foreign key to identify record with.
+     * @return :A single entity. Kinda table should only have one record
+     *          with that token_id. If more, that is an error.
+     */
     public static BaseEntityContainer getKindaUsingTokenID(long token_id){
         
-        //Stubbing methods for now. Because I want to work on UI stuff.
-        doError("TODO: getKindaUsingTokenID ");
-        return new BaseEntityContainer();
+        List<BaseEntity> bel = TransUtil.getEntitiesUsingLong
+                       (KindaTable.class, KindaTable.TOKEN_ID_COLUMN, token_id);
+        
+        int bel_size = bel.size();
+        if(bel_size > 1){
+            doError("[Only one kinda record per token_id allowed!]");
+        }else
+        if(1==bel_size){
+            return BaseEntityContainer.make(bel.get(0));
+        }else
+        if(0==bel_size){
+            return BaseEntityContainer.makeEmpty();
+        }else{
+            doError("[This should be dead code]");
+        }//FUNC::END
+        
+        //We should never get to this line of execution:
+        doError("[This should also be dead code]");
+        return null;
+
     }//FUNC::END
 
     /**-------------------------------------------------------------------------

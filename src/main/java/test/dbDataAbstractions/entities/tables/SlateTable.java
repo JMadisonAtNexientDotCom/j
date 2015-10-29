@@ -35,7 +35,7 @@ public class SlateTable extends BaseEntity {
      *  3. ANSWERED.
      *  CHALK_ID_COLUMN is only relevant if status is ANSWERED. **/
     @Column(name=STATUS_COLUMN)
-    public String status; //<--NOTE:#1
+    public String status; //<--Can be public
     @Transient @JsonIgnore
     public final String STATUS = STATUS_COLUMN; //for API access.
     
@@ -48,7 +48,7 @@ public class SlateTable extends BaseEntity {
      *  1. Know what this object is responding to.
      *  2. Be able to grade this response. **/
     @Column(name=CUECARD_ID_COLUMN)
-    public String cuecard_id; //<--NOTE:#1
+    public Long cuecard_id; //<--Can be public
     @Transient @JsonIgnore
     public final String CUECARD_ID = CUECARD_ID_COLUMN; //for API access.
     
@@ -58,7 +58,7 @@ public class SlateTable extends BaseEntity {
      * same responses. Thus this data should be persisted as well.
      * Could also be interesting for data mining. **/
     @Column(name=CHALK_ID_COLUMN)
-    public String chalk_id; //<--NOTE:#1
+    public Long chalk_id; //<--Can be public
     @Transient @JsonIgnore
     public final String CHALK_ID = CHALK_ID_COLUMN; //for API access.
     

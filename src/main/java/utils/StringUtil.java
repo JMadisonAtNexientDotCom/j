@@ -21,6 +21,93 @@ public class StringUtil {
         unitTest();
     }//FUNC::END
     
+    /**
+     * Returns true if the string ends with the substring provided.
+     * @param str :String to check for substring at end.
+     * @param sub :The substring we are looking for.
+     * @return :Returns true if substring found at exact end. **/
+    public static boolean endsWith(String str, String sub){
+        
+        int str_len = str.length();
+        int sub_len = sub.length();
+        
+        //Cant possibly exist is substring is larger than main string:
+        if(sub_len > str_len){return false;}
+        
+        int str_dex = str_len;
+        int sub_dex = sub_len;
+        while(true){
+            str_dex--; //first value used should be last index of str.
+            sub_dex--; //first value used should be last index of sub.
+            if(sub_dex < 0){break;} //<--entire substring compared.
+            if(str_dex < 0){doError("Should have been caught earlier.");}
+            
+            char c0 = str.charAt(str_dex);
+            char c1 = str.charAt(sub_dex);
+            if(c0!=c1){return false;}
+        }//INF LOOP
+        
+        //If no mismatch found, return true.
+        return true;
+        
+    }//FUNC::END
+    
+    /** Trims leading and trailing underscores. **/
+    public static String trimUnderscores(String str){
+        int p0 = getRunExclusionPoint_head(str,'_');
+        int p1 = getRunExclusionPoint_tail(str,'_');
+        return inclusiveSubString(str,p0,p1);
+    }//FUNC::END
+    
+    /**
+     * A sub-string method that INCLUDES the characters at defined start
+     * and end points. Differs from default implementation of substring in java.
+     * @param str:The string you want substring of.
+     * @param p0 :The start index.
+     * @param p1 :The end index.
+     * @return   :See above. **/
+    public static String inclusiveSubString(String str, int p0, int p1){
+        String op = "";
+        if(p0 > p1){doError("points out of order");}
+        for(int i = p0; i <= p1; i++){
+            op += Character.toString( str.charAt(i) );
+        }//next i
+        return op;
+    }//FUNC::END
+    
+    /** Returns the index of the first NON run character on HEAD. (Leading)
+     *  Example: if: str == "___HEY" and run = "_"
+     *  Will return 3, for position of "H".
+     * @param str :String with a run-length sequence on it.
+     * @param run :The character that defines the run.
+     * @return :The first character that is not part of the run. **/
+    private static int getRunExclusionPoint_head(String str, char run){
+        
+        int max_index = str.length()-1;
+        for(int i = 0; i <= max_index; i++){ //FORWARDS
+            if(str.charAt(i) != run){return i;}
+        }//next i
+        
+        doError("[String is 100% run.]");
+        return(-1); //<--this line should never execute.
+    }//FUNC::END
+    
+    /** Returns the index of the first NON run character on TAIL. (Trailing)
+     *  Example: if: str == "HEY___" and run = "_"
+     *  Will return 2, for position of "Y".
+     * @param str :String with a run-length sequence on it.
+     * @param run :The character that defines the run.
+     * @return :The first character that is not part of the run. **/
+    private static int getRunExclusionPoint_tail(String str, char run){
+        int max_index = str.length()-1;
+        for(int i = max_index; i >= 0; i--){ //BACKWARDS.
+            if(str.charAt(i) != run){return i;}
+        }//next i
+        
+        doError("[String is 100% run.]");
+        return (-1); //<--this line should never execute.
+    }//FUNC::END
+    
     
     public static boolean canBeParsedAsWholeNumber(String str){
         int len = str.length();

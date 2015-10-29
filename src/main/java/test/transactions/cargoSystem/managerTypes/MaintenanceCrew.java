@@ -68,13 +68,17 @@ public class MaintenanceCrew {
      * @param j :The job ticket to complete.
      */
     private void doJob(JobTicket j){
-        if(JobTicketTypes.WELD_JOB  == j.jobType){
+        String job = j.jobType;
+        if(job.equals(JobTicketTypes.WELD_JOB)){
             doWeldJob(j);
         }else
-        if(JobTicketTypes.JOIN_ORDER == j.jobType){
+        if(job.equals(JobTicketTypes.JOIN_ORDER)){
             doJoinOrder(j);
         }else
-        if(JobTicketTypes.NOT_SET == j.jobType){
+        if(job.equals(JobTicketTypes.LINK_ORDER)){
+            doLinkOrder(j);
+        }else
+        if(job.equals(JobTicketTypes.NOT_SET)){
             doError("[Job ticket was not filled out with job type]");
         }else{
             doError("[Unknown job type constant]");
