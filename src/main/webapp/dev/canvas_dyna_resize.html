@@ -15,12 +15,12 @@
 
 <!-- http://greensock.com/get-started-js -->
 
-  <body onload="init()" style="margin:0px; padding:0px;">
+  <body onload="initHeaderAndFooters()" style="margin:0px; padding:0px;">
 	
 	   
 			
 		  
-			<canvas id="myCanvas" class="cla_can" 
+			<canvas id="dynaHeaderCanvas" class="cla_can" 
 			width="200" height="100" 
 			style="position:relative; left:0px;
 			margin:0px; padding:0px; boarder:0px;">
@@ -30,12 +30,12 @@
   </body>
 	
 	<script>
-	  function init(){
+	  function initHeaderAndFooters(){
 		
-		  console.log("INIT!");
+		  console.log("initHeaderAndFooters!");
 
 			
-			var canvas_container = document.getElementById("myCanvas");
+			var canvas_container = document.getElementById("dynaHeaderCanvas");
 			drawCanvas(canvas_container);
 			
 			//TweenMax.to(".cla_can",6,{x:600});
@@ -46,7 +46,7 @@
 		}//
 		
 		function draw(){
-		  var canvas_container = document.getElementById("myCanvas");
+		  var canvas_container = document.getElementById("dynaHeaderCanvas");
 			canvas_container.width = 200;
 			canvas_container.height= 200;
 			drawCanvas(canvas_container);
@@ -97,8 +97,8 @@
 			 }
 			}
 			
-			can_ctx.fillStyle = "blue";
-      can_ctx.fillRect(0, 0, wid, hig);
+			//can_ctx.fillStyle = "blue";
+     // can_ctx.fillRect(0, 0, wid, hig);
 			
 			
 		}//FUNC::END

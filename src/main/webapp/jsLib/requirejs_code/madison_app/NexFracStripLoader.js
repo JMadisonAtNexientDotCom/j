@@ -228,6 +228,7 @@ define(function (require) {
 				//sub_ren.iteration_colors = ['#0088ff'];
 				sub_ren.iteration_colors = ['#002244'];
 				sub_ren.draw_tri_alpha = this.draw_tri_alpha;
+				sub_ren.canvas_name = this.canvas_id_name;
 		
 				//create a filter object to fade-back the triangles
 				//over time. Makes it look classy.
@@ -290,6 +291,10 @@ define(function (require) {
 				permu_ren0.draw_next_permutation(quad0);
 				permu_ren1.draw_next_permutation(quad1);
 
+				//Now the we have drawn to the canvas, do a draw callback if one exists:
+				if(_has_frame_draw_callback){
+					 _frame_draw_callback();
+				}//callback?
 				
 			};//FUNC::END
 			
@@ -367,7 +372,21 @@ define(function (require) {
 				}//
 			};
 			
+			//Callback to be called after frame is drawn:
+			var _has_frame_draw_callback = false;
+			var _frame_draw_callback = null;
+			this.setFrameDrawCallback = function(arg_func){
+				if(null == arg_func){doError("null arg func supplied");}
+				_has_frame_draw_callback = true;
+				_frame_draw_callback = arg_func;
+			};
+			
 			//this.resume();
+			
+			var doError = function(msg){
+				var err_msg = "Error In NexFracStripLoader:" + msg;
+				throw err_msg;
+			};//FUNC::END
 			
 			
 			return this; //return the [application container class / self]

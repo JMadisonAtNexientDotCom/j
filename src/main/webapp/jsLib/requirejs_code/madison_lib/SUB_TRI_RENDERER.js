@@ -4,6 +4,10 @@ var SUB_TRI_RENDERER = function(){
 		
 		//PUBLIC:
 		this.canvas_name = "myCanvas";
+		var _canvas_name_loaded = "";
+		var _canvas_container = null; //canvas container.
+		var _can_ctx = null; //canvas context.
+		
 		this.iteration_colors = ['#ff8800','#0055ff','#0088ff'];
 		//this.iteration_colors = ['#ff8800','#0055ff','#0088ff','#ff0000','#00ff00'];
 		this.iteration_index = 0;
@@ -15,36 +19,48 @@ var SUB_TRI_RENDERER = function(){
 		this.offset_x = 0;
 		this.offset_y = 0;
 		
+		this.setCanvasReferences = function(){
+		  _canvas_container = document.getElementById(this.canvas_name);
+			_can_ctx = _canvas_container.getContext("2d");
+			_canvas_name_loaded = this.canvas_name;
+		};//
+			
+		
 		//PUBLIC METHOD:
 		this.draw_tri = function(tri){
-			var c = document.getElementById(this.canvas_name);
-			var ctx = c.getContext("2d");
+			
+			if(_canvas_name_loaded != this.canvas_name){
+				this.setCanvasReferences();
+			}//
+			
+			//delete these 3 lines below:
+			//var c = document.getElementById(this.canvas_name);
+			//var ctx = c.getContext("2d");
 			//ctx .fillStyle = '#f0f';
 			
 			this.iteration_index ++;
 			var wrap_dex = this.iteration_index % this.iteration_colors.length;
 			
-			ctx.fillStyle = this.iteration_colors[wrap_dex];
-			ctx .beginPath();
-			ctx .moveTo(tri.p0.x + this.offset_x, tri.p0.y + this.offset_y);
-			ctx .lineTo(tri.p1.x + this.offset_x, tri.p1.y + this.offset_y);
-			ctx .lineTo(tri.p2.x + this.offset_x, tri.p2.y + this.offset_y);
-			ctx .closePath();
+			_can_ctx.fillStyle = this.iteration_colors[wrap_dex];
+			_can_ctx .beginPath();
+			_can_ctx .moveTo(tri.p0.x + this.offset_x, tri.p0.y + this.offset_y);
+			_can_ctx .lineTo(tri.p1.x + this.offset_x, tri.p1.y + this.offset_y);
+			_can_ctx .lineTo(tri.p2.x + this.offset_x, tri.p2.y + this.offset_y);
+			_can_ctx .closePath();
 			
 			//So you can draw transparent triangles to canvas without having
 			//to do stupid string concats that are not compatible with
 			//the way you did your iteration colors arrray.
 			if(this.draw_tri_alpha < 1){
-				ctx.save();
-				ctx.globalAlpha=this.draw_tri_alpha;
-				ctx .fill();
-				ctx.restore();
+				_can_ctx.save();
+				_can_ctx.globalAlpha=this.draw_tri_alpha;
+				_can_ctx .fill();
+				_can_ctx.restore();
 			}else{
-				ctx.fill();
+				_can_ctx.fill();
 		  }//way to fill, end.
-			
-			//ctx.stroke();
-		};
+	
+		};//FUNC::END
 
 		//PUBLIC METHOD:
 		this.clear_linked_canvas = function(){
