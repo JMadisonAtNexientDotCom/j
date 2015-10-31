@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>TITLExxxOFxxxTHISxxxPAGE</title>
+  </head>
+<!-- AUTHOR: JMadison.  ON:20##.##.##_####AMPM                               -->
+<!-- TABSIZE: 2 Spaces.                                                      -->
+<!-- This header belongs BELOW the <head></head> declaration.                -->
+<!--   10|       20|       30|       40|       50|       60|       70|       -->
+<!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
+  <body onload="main();">
+	
+	  <img id="doge" src="doge.jpeg">
+	
+	  <!-- this is the visible canvas -->
+		<canvas id="view_canvas" 
+		width="100" height="100">
+		Your browser does not support the HTML5 canvas tag.
+		</canvas> 
+		
+		<!-- this is the invisible canvas we scroll over. -->
+		<canvas id="back_canvas"
+		width="300" height="300">
+		Your browser does not support the HTML5 canvas tag.
+		</canvas> 
+		
+		<canvas id="view_canvas_clone" 
+		width="100" height="100">
+		Your browser does not support the HTML5 canvas tag.
+		</canvas> 
+		
+		
+		
+		<script>
+		  var sp;
+			var spx = 0;
+			var spy = 0;
+			function main(){
+				console.log("hello world");
+				
+				var view_pak = document.getElementById("view_canvas");
+				var back_pak = document.getElementById("back_canvas");
+				console.log("wid==" + view_pak.width);
+				
+				drawCircleOnCanvas(back_pak);
+				drawSquareOnCanvas(view_pak);
+				
+				var img=document.getElementById("doge");
+				var ctx=back_pak.getContext("2d");
+        ctx.drawImage(img,0,0);
+				
+				//try and get objects to share context:
+				var clone_pak = document.getElementById("view_canvas_clone");
+				var clone_ctx = clone_pak.getContext("2d");
+				var view_ctx = view_pak.getContext("2d");
+				var idata = clone_ctx.getImageData(0,0,clone_pak.width, clone_pak.height);
+				var ivdat = view_ctx.getImageData(0,0,view_pak.width, view_pak.height);
+				idata= ivdat;
+				drawCircleOnCanvas(clone_pak);
+				
+				sp = new ScrollPaster();
+				sp.init(view_pak, back_pak);
+				
+				sp.setScroll(0,0);
+				
+				onEnterFrame();
+				
+			}//FUNC::END
+			
+			var doDrawThisFrame = true;
+			function onEnterFrame(){
+			  //spx = spx-1;
+				//spy = spy-1;
+			  
+				//setTimeout(onEnterFrame,33);
+				
+				
+				
+				
+				doDrawThisFrame = (!doDrawThisFrame);
+				if(doDrawThisFrame){
+				  sp.draw();
+				}else{
+				  spx = spx-1;
+				  spy = spy-1;
+				  sp.setScroll(spx,spy);
+				}//
+				
+				
+				requestAnimationFrame(onEnterFrame);
+				
+			}//
+			
+			//Draw a circle on the canvas
+			function drawCircleOnCanvas(back_pak){
+				var ctx = back_pak.getContext("2d");
+				
+				ctx.fillStyle = "blue";
+        ctx.fillRect(0, 0, back_pak.width, back_pak.height);
+				
+				cen_x = back_pak.width / 2;
+				cen_y = back_pak.height / 2;
+				ctx.beginPath();
+				ctx.arc(cen_x,cen_y,40,0,2*Math.PI);
+				ctx.stroke();
+			}//FUNC::END
+			
+			function drawSquareOnCanvas(view_pak){
+			  var ctx = view_pak.getContext("2d");
+				
+				ctx.fillStyle = "red";
+        ctx.fillRect(0, 0, view_pak.width, view_pak.height);
+				
+				use_wid = view_pak.width - 10 + 1;
+				use_hig = view_pak.height - 10 + 1;
+				
+				ctx.beginPath();
+			  ctx.rect(5,5,use_wid,use_hig);
+        ctx.stroke(); 
+			}//FUNC::END
+			
+			/** Create a scroll-paster object **/
+			var ScrollPaster = function(){
+			
+			  //BASIC CONCEPT:
+				//By scrolling a viewport over a perfectly tiling image, we can make
+				//seamless scrolling grapics. Doing this with two buffers rather than
+				//cut+pasting SELF because the viewport model allows us to overcome
+				//size snapping restriction problems.
+				
+				//SIZE SNAPPING RESTRICTIONS:
+				//Some tessilating/wrapping graphics may need to be exactly certain
+				//dimensions in pixels. Especially when working with tessilating
+				//geometric primitives. So, if your screen is 250 pixels wide, but
+				//the tiling graphics can only be made on canvas sizes that are
+				//exactly divisible by 100... Then you would not be able to make
+				//a seamless graphic on the 250px wide canvas. However, using a 
+				//back buffer + viewport model, we can circumvent this problem.
+			
+			  //DESIGN NOTE: Canvas containers given postfix "pak" instead of "con"
+				//Because "con" is too similar to "ctx".
+			
+			  this.alpha_multiplier = 1; //didn't help... Keep at 1.
+			
+			  var is_inited = false; //is the scroll paster initialized?
+				
+				//The invisible buffer that we are sampling data from:
+				var back_pak = null; //The container. Named "pack" like "backpack"
+				var back_ctx = null; //context object.
+				var back_wid = null; //width in pixels.
+				var back_hig = null; //height in pixels.
+				
+				//The VISIBLE buffer that is our viewport. Must be SMALLER than the
+				//back buffer, or scrolling will not be able to work.
+				var view_pak = null; //The container. Named "pack" like "backpack"
+				var view_ctx = null; //context object.
+				var view_wid = null; //width in pixels.
+				var view_hig = null; //height in pixels.
+				
+				//Though canvas can scroll visually backwards and forwards,
+				//The internal offset amounts we work with are ALWAYS POSITIVE.
+				var osx = 0; //positive offset after modulus calculations.
+				var osy = 0; //positive offset after modulus calculations.
+				
+				//If the [osx,osy] point is greater than the containment point,
+				//it means the viewport has flowed over the back-buffer.
+				//Flowing over the back buffer means we will need to use other cutter
+				//rectangles besides the main.
+				var containment_point_x = 0;
+				var containment_point_y = 0;
+				
+				//To avoid complex dependencies, will use individual variables
+				//to define our rectangles:
+				//MAIN REC:
+				var m_x = 0; //main rec, X POSITION.
+				var m_y = 0; //main rec, Y POSITION.
+				var m_w = 0; //main rec, WIDTH.
+				var m_h = 0; //main rec, HEIGHT.
+				
+				//KITTTY CORNER REC:
+				var has_k = false; //has kitty corner rectangle.
+				var k_x = 0; //kitty-corner rec, X POSITION.
+				var k_y = 0; //kitty-corner rec, Y POSITION.
+				var k_w = 0; //kitty-corner rec, WIDTH.
+				var k_h = 0; //kitty-corner rec, HEIGHT.
+				
+				//X-RECTANGLE:
+				var has_x = false; //has x rectangle?
+				var x_x = 0; //X rec, X POSITION.
+				var x_y = 0; //X rec, Y POSITION.
+				var x_w = 0; //X rec, WIDTH.
+				var x_h = 0; //X rec, HEIGHT.
+				
+				//Y-RECTANGLE:
+				var has_y = false; //has y rectangle
+				var y_x = 0; //Y rec, X POSITION.
+				var y_y = 0; //Y rec, Y POSITION.
+				var y_w = 0; //Y rec, WIDTH.
+				var y_h = 0; //Y rec, HEIGHT.
+				
+				//Paste points:
+				var m_px = 0; //where to paste MAIN  rec onto viewport.
+				var m_py = 0; //where to paste MAIN  rec onto viewport.
+				//----------//
+				var k_px = 0; //where to paste KITTY rec onto viewport.
+				var k_py = 0; //where to paste KITTY rec onto viewport.
+				//----------//
+				var x_px = 0; //where to paste X/HOR rec onto viewport.
+				var x_py = 0; //where to paste X/HOR rec onto viewport.
+				//----------//
+				var y_px = 0; //where to paste Y/VER rec onto viewport.
+				var y_py = 0; //where to paste Y/VER rec onto viewport.
+				//----------//
+				
+				//Quadrants's image data, to avoid garbage collection while proccessing.
+				var m_data = null; //m/main
+				var x_data = null; //x/horizontal
+				var y_data = null; //y/vertical
+				var k_data = null; //k/kitty corner.
+				var back_data = null; //<--cached back buffer data.
+		
+			
+			  //Give it a canvas container it can animate:
+				//data_container: The canvas container that contains the pixels
+				//                the viewport moves over.
+				//view_container: The canvas container that is used as the viewport.
+			  this.init = function(view_container, back_container){
+				  if(null===back_container){doError("back_container null");}
+					if(null===view_container){doError("view_container null");}
+					
+	        //back container: (The hidden background you move over)
+					back_pak = back_container;
+					back_ctx = back_container.getContext("2d");
+					back_wid = back_container.width;
+					back_hig = back_container.height;
+					
+					//cache data of back buffer:
+					back_data = back_ctx.getImageData(0,0,back_wid,back_hig);
+					
+					//view container: Represents the viewport area.
+					//The viewport area MUST be larger than the back container for
+					//scrolling to work properly.
+					view_pak = view_container;
+					view_ctx = view_container.getContext("2d");
+					view_wid = view_container.width;
+					view_hig = view_container.height;
+					
+					//set blending:
+          //view_ctx.globalCompositeOperation = "overlay";
+					
+					//DEBUG: The back buffer needs to be larger than the viewport buffer:
+					if(back_wid < view_wid){doError("back buffer wid too small");}
+					if(back_hig < view_hig){doError("back buffer hig too small");}
+					
+					//calculate containment points:
+					//containment points are INCLUSIVE. Meaning you are not outside
+					//of the containment point until you EXCEED the value.
+					containment_point_x = back_wid - view_wid;
+					containment_point_y = back_hig - view_hig;
+					
+					//Mark class as initialized:
+					//Note: If canvas changes size, is_inited will still==true, but
+					//      we will still need to re-initialize for everything to work.
+					is_inited = true;
+					console.log("ScrollPaster initialized!");
+				}//FUNC::END
+				
+				//Because of algorithm, we must specify scroll X+Y in the same call.
+				this.setScroll = function(amt_x, amt_y){
+				  //we need to know canvas size before we can set scroll amount,
+				  if(false==is_inited){doError("Cannot set scrollX until initialized");}
+					
+					//Step1: normalize the scroll amounts.
+					normalizeScroll(amt_x, back_wid);
+					osx = norm_scroll_op;
+					
+					normalizeScroll(amt_y, back_hig);
+					osy = norm_scroll_op;
+					
+					//Step2: Create our 4 slices of the canvas:
+					//Main cutter always exists, what other cutters exist
+					//depends on IF&WHERE we have gone over the canvas;
+					has_x = (osx > containment_point_x);
+					has_y = (osy > containment_point_y);
+					has_k = (has_x && has_y);
+					
+					//Calculate main. Main always exists:
+					m_x = osx; //main is always co-incidental
+					m_y = osy; //with the offset.
+					m_w = (back_wid - osx); //lowest possible value == 0.
+					m_h = (back_hig - osy); //lowest possible value == 0.
+					if(m_w <= 0 || m_h <= 0){
+					  doError("m_w or m_h too small");
+					}
+					
+					//paste point for main cutter is always at [0,0] onto viewport:
+					m_px = 0;
+					m_py = 0;
+				
+					//has_x = false; //debug.
+					if(has_x){ //HORIZONTAL/X cutter.
+					  x_x = 0;   //x cutter is always snapped to left edge.
+						x_y = m_y; //x cutter is horizontally aligned to main cutter rec.
+						x_w = view_wid - m_w; //wid == whatever is missing from main rec.
+						x_h = m_h; //hig == identical to main, because aligned.
+						
+						//paste points:
+						x_px = m_w; //paste at width of main cutter. (tangent)
+						x_py = 0;   //horizontally aligned to main.
+					}//has_x?
+					
+					//has_y = false; //debug.
+					if(has_y){ //VERTICAL/Y cutter.
+					  y_x = m_x; //y cutter is vertically aligned to main cutter rec.
+						y_y = 0;   //y cutter is always snapped to TOP edge.
+						y_w = m_w; //wid == identical to main, because aligned.
+						y_h = view_hig - m_h; //hig == whatever is missing from main rec.
+						
+						//paste points:
+						y_px = 0;   //vertically aligned to main.
+						y_py = m_h; //paste at height of main cutter. (tangent)
+					}//has_y?
+					
+					//has_k = false;//debug.
+					if(has_k){ //KITTYCORNER/XY CUTTER
+					  k_x = 0; //kitty corner point always at [0,0] of back buffer.
+						k_y = 0; //kitty corner point always at [0,0] of back buffer.
+						k_w = x_w; //is identical to x-cutter's width.
+						k_h = y_h; //is identical to y-cutter's height.
+						
+						//paste points:
+						k_px = m_w; //tangent to edge of main cutter rec.
+						k_py = m_h; //tangent to edge of main cutter rec.
+
+					}//has_k?
+					
+					doBufferCuts();
+					
+				}//FUNC::END
+				
+				//Put draw method outside of setScroll so that we can render
+				//on a different frame than when scroll was calculated.
+				this.draw = function(){
+				  //Buffering problems. Collect all data you need BEFORE pasting
+					//in an attempt to get rid of jitters:
+					//view_ctx.save();
+					
+					doBufferPastes();
+					//view_ctx.restore();
+				};//FUNC::END
+				
+				function doBufferCuts(){
+				
+				  //main always exists:
+				  //mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+					//Do cut+pastes for main:
+					//CUT from back buffer:
+				  m_data = back_ctx.getImageData(m_x,   //org x
+						                             m_y,   //org y
+																			   m_w,   //width
+																			   m_h);  //height
+				  if(this.alpha_multiplier < 1){
+						knockBackImageData(m_data,this.alpha_multiplier);
+					}	
+					//mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+				
+				  if(has_x){
+					  //CUT from back buffer:
+						x_data = back_ctx.getImageData(x_x,   //org x
+						                               x_y,   //org y
+																					 x_w,   //width
+																					 x_h);  //height
+																					 
+						if(this.alpha_multiplier < 1){
+						  knockBackImageData(x_data,this.alpha_multiplier);
+						}
+					}//has x?
+				
+				  if(has_y){
+					  //CUT from back buffer:
+						y_data = back_ctx.getImageData(y_x,   //org x
+						                               y_y,   //org y
+																					 y_w,   //width
+																					 y_h);  //height
+																					 
+						if(this.alpha_multiplier < 1){
+						  knockBackImageData(y_data,this.alpha_multiplier);
+						}		
+					}//has y?
+				
+				  if(has_k){
+					  //CUT from back buffer:
+						k_data = back_ctx.getImageData(k_x,   //org x
+						                               k_y,   //org y
+																					 k_w,   //width
+																					 k_h);  //height
+						
+            if(this.alpha_multiplier < 1){
+						  knockBackImageData(k_data,this.alpha_multiplier);
+						}			
+					}//has k?
+				}//FUNC::END
+				
+				function doBufferPastes(){
+				
+				  //main always exists:
+				  //mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm													 
+					//PASTE to viewport buffer:														 
+					view_ctx.putImageData(m_data,  //data
+						                    m_px,    //paste point x.
+															  m_py);   //paste point y.
+		      //mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+				
+				  if(has_x){
+					  //PASTE to viewport buffer:														 
+					  view_ctx.putImageData(x_data,  //data
+						                      x_px,    //paste point x.
+																  x_py);   //paste point y.
+					}//has_x
+				
+				  if(has_y){
+					  //PASTE to viewport buffer:														 
+					  view_ctx.putImageData(y_data,  //data
+						                      y_px,  //paste point x.
+																  y_py); //paste point y.	
+					}//has y?
+				
+				  if(has_k){
+					  //PASTE to viewport buffer:														 
+					  view_ctx.putImageData(k_data,//data
+						                      k_px,  //paste point x.
+																  k_py); //paste point y.	
+					}//has k?
+				}//FUNC::END
+				
+				
+				//Takes a positive or negative scroll amount and normalizes it into
+				//a positive value in the range 0 to (widhig-1). Originally used in
+				//cases where widhig was the WIDTH or HEIGHT of a canvas. Hence, the
+				//output coordinate max value being (widhig-1), NOT simply widhig.
+				var modulated = 0; //avoid garbage collection.
+				var norm_scroll_op = 0; //output variable for function 
+				                            //to avoid garbage collect.
+				function normalizeScroll(amt, wid_hig){
+				  if(amt > 0){
+					  if(amt >= wid_hig){
+						  norm_scroll_op = amt % wid_hig;
+						}else{
+						  norm_scroll_op = amt;
+						}//
+					}else
+					if(amt < 0){
+					  modulated = (amt%(wid_hig));
+						if(0== modulated){
+						  norm_scroll_op = 0;
+					  }else{
+						  norm_scroll_op = (wid_hig) + modulated;
+						}//
+						//When wrapping negatives, we are counting "how far are you offset"
+						//from the last pixel on the right? The first offset of (-1) needs
+						//to land us on pixel #1. Special case for when modulus result==0.
+						//                    |<-- width == 5 --->|
+						//+---+---+---+---+---+---+---+---+---+---+
+						//| -5| -4| -3| -2| -1| 0 | 1 | 2 | 3 | 4 |
+					}else{
+					  if(amt != 0){doError("check your conditions above");}
+						norm_scroll_op = amt; //no change.
+					}//BLOCK::END
+				}//FUNC::END
+				
+				function knockBackImageData(image_data, percent){
+				  var idata = image_data.data;
+					
+					
+					
+					//iterate over all of the data:
+					//I believe data is packed like this:
+					//[0][1][2][3] |[4][5][6][7] |[8][9][A][B] |[C][D][E][F] |
+					// A  R  G  B  | A  R  G  B  | A  R  G  B  | A  R  G  B  |
+					for (var i = 0; i < idata.length; i += 4) 
+					{
+						//knock back the value of the alpha pixel:
+						idata[i+3] = (idata[i+3] * percent);
+					}
+
+				}//FUNC::END
+				
+				
+				//Private error throwing function:
+				var doError = function(in_msg){
+				  err_msg = "ERROR IN SCROLL PASTER:" + in_msg;
+					throw err_msg;
+				};//FUNC::END
+			
+			};//CLASS::END
+			
+			//Request animation frame polyfill:
+			//PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP//
+			http://creativejs.com/resources/requestanimationframe/
+			// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+			 
+			// requestAnimationFrame polyfill by Erik Möller
+			// fixes from Paul Irish and Tino Zijdel
+			 
+			(function() {
+					var lastTime = 0;
+					var vendors = ['ms', 'moz', 'webkit', 'o'];
+					for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+							window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+							window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
+																				 || window[vendors[x]+'CancelRequestAnimationFrame'];
+					}
+			 
+					if (!window.requestAnimationFrame)
+							window.requestAnimationFrame = function(callback, element) {
+									var currTime = new Date().getTime();
+									var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+									var id = window.setTimeout(function() { callback(currTime + timeToCall); },
+										timeToCall);
+									lastTime = currTime + timeToCall;
+									return id;
+							};
+			 
+					if (!window.cancelAnimationFrame)
+							window.cancelAnimationFrame = function(id) {
+									clearTimeout(id);
+							};
+			}());
+			//PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP//
+			
+			
+		</script>
+    
+  </body>
+</html>
+<!--   10|       20|       30|       40|       50|       60|       70|       -->
+<!--5678901234567890123456789012345678901234567890123456789012345678901234567-->
