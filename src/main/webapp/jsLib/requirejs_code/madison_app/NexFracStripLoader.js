@@ -79,6 +79,9 @@ define(function (require) {
 			//What container to use? Must specify before initialize:
 			this.canvas_id_name = "myCanvas";
 			
+			//Opacity to lay down each triangle with:
+			this.draw_tri_alpha = 0.5;
+			
 			//HOW DEEP? :
 			this.num_levels_deep = 3; //how many levels deep to construct?
 			//value of this.num_levels_deep during last init call:
@@ -224,6 +227,7 @@ define(function (require) {
 				//sub_ren.iteration_colors = ['#000000','#0088ff','#0088ff']; //too scattered.
 				//sub_ren.iteration_colors = ['#0088ff'];
 				sub_ren.iteration_colors = ['#002244'];
+				sub_ren.draw_tri_alpha = this.draw_tri_alpha;
 		
 				//create a filter object to fade-back the triangles
 				//over time. Makes it look classy.

@@ -8,6 +8,13 @@ var SUB_TRI_RENDERER = function(){
 		//this.iteration_colors = ['#ff8800','#0055ff','#0088ff','#ff0000','#00ff00'];
 		this.iteration_index = 0;
 		
+		this.draw_tri_alpha = 1;
+		
+		//Add offset so we can use
+		//renderer like a clone-stamper:
+		this.offset_x = 0;
+		this.offset_y = 0;
+		
 		//PUBLIC METHOD:
 		this.draw_tri = function(tri){
 			var c = document.getElementById(this.canvas_name);
@@ -19,11 +26,23 @@ var SUB_TRI_RENDERER = function(){
 			
 			ctx.fillStyle = this.iteration_colors[wrap_dex];
 			ctx .beginPath();
-			ctx .moveTo(tri.p0.x, tri.p0.y);
-			ctx .lineTo(tri.p1.x, tri.p1.y);
-			ctx .lineTo(tri.p2.x, tri.p2.y);
+			ctx .moveTo(tri.p0.x + this.offset_x, tri.p0.y + this.offset_y);
+			ctx .lineTo(tri.p1.x + this.offset_x, tri.p1.y + this.offset_y);
+			ctx .lineTo(tri.p2.x + this.offset_x, tri.p2.y + this.offset_y);
 			ctx .closePath();
-			ctx .fill();
+			
+			//So you can draw transparent triangles to canvas without having
+			//to do stupid string concats that are not compatible with
+			//the way you did your iteration colors arrray.
+			if(this.draw_tri_alpha < 1){
+				ctx.save();
+				ctx.globalAlpha=this.draw_tri_alpha;
+				ctx .fill();
+				ctx.restore();
+			}else{
+				ctx.fill();
+		  }//way to fill, end.
+			
 			//ctx.stroke();
 		};
 
