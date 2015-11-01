@@ -7,7 +7,8 @@ import frontEndBackEndIntegration.childComponents.ApiParamValuesRegistry;
 import test.config.constants.apiDocs.MasterApiDoc;
 import test.config.constants.identifiers.VarNameReg;
 import frontEndBackEndIntegration.childComponents.ServiceURLRegistry;
-import frontEndBackEndIntegration.childComponents.TextFileCacheRegistry;
+import frontEndBackEndIntegration.childComponents.textFileCache.ScriptBlockNames;
+import frontEndBackEndIntegration.childComponents.textFileCache.TextFileCacheRegistry;
 import test.MyError;
 import test.config.alias.DispAlias;
 import test.config.constants.ServiceUrlsInitializer;
@@ -32,11 +33,24 @@ import test.debug.GlobalErrorState;
  */
 public class I {
     
+    private static final ScriptBlockNames _scriptBlockNames =
+                                                         new ScriptBlockNames();
+    /** Shorthand version. **/
+    public static final ScriptBlockNames SBN(){
+        return _scriptBlockNames;
+    }
+    
+    /** Longhanded version. **/
+    public static final ScriptBlockNames SCRIPT_BLOCK_NAMES(){
+        return _scriptBlockNames;
+    }
+    
+    
     /** A registry that has a null-reference to each type that can be outputted
      *  from an API call. The idea is to WRAP the auto-completed path into
      *  a serialization call so that we can have auto-completing paths and
      *  easy to refactor UI code. **/
-    public static final ApiOutputTypesRegistry _apiOutputTypes =
+    private static final ApiOutputTypesRegistry _apiOutputTypes =
                                                    new ApiOutputTypesRegistry();
     
     /** OT for "output types. **/
@@ -128,6 +142,34 @@ public class I {
     public static String INCLUDE_CSS(){
         return TextFileCacheRegistry.INCLUDE_CSS;
     }//FUNC::END
+    
+    /** Allows you to inject hard coded script blocks, rather than copy
+     *  and past the contents into individual HTML pages all the time. 
+     * @param scriptName :Name used to identify the script.
+     * @return 
+     */
+    public static String INLINE_SCRIPT_BLOCK(String scriptName){
+       String sn = scriptName;
+       String scriptBlockText = "[SCRIPTBLOCK::ERROR_NOT_SET]";
+       if(sn.equals(ScriptBlockNames.ON_RESIZE_FUNC_FOR_ANGULAR_)){
+         scriptBlockText = TextFileCacheRegistry.
+                                        SCRIPT_BLOCK_ON_RESIZE_FUNC_FOR_ANGULAR;
+       }else{
+           String msg = "";
+           msg += "[Unknown Script Block Name:]";
+           msg += "[" + scriptName + "]";
+           doError(msg);
+       }//BLOCK::END
+       
+       String opBlock = "";
+       String newLine = System.lineSeparator();
+       opBlock += "<script>"      + newLine;
+       opBlock += scriptBlockText + newLine;
+       opBlock += "</script>"     + newLine;
+       
+       return opBlock;
+       
+    };//
     
     /** Call this in your JSP document where you want standard JavaScript (JS)
      *  header files to be injected. By standard, I mean the ones agreed 

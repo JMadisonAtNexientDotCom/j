@@ -1,7 +1,7 @@
 package test;
 
 import frontEndBackEndIntegration.I;
-import frontEndBackEndIntegration.childComponents.TextFileCacheRegistry;
+import frontEndBackEndIntegration.childComponents.textFileCache.TextFileCacheRegistry;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.ServletException; //-------------tomcat/lib/servlet-api.jar
@@ -74,11 +74,17 @@ public class ConfigServlet extends HttpServlet{
         String HTML_INJECT = ResourceRelativeFolderPaths.HTML_INJECT;
         String path_css = HTML_INJECT + "/" + "CSSLibs.html";
         String path_js  = HTML_INJECT + "/" + "JSLibs.html";
+        
 
         String css = FileToTextUtil.getUsingServletContext(path_css, ctx);
         String js  = FileToTextUtil.getUsingServletContext(path_js, ctx);
         TextFileCacheRegistry.INCLUDE_CSS = css;
         TextFileCacheRegistry.INCLUDE_JS  = js;
+        
+        //Store on-resize function script block:
+        String path_orf = HTML_INJECT + "/js/onResizeFuncForAngular.js";
+        String orf = FileToTextUtil.getUsingServletContext(path_orf, ctx);
+        TextFileCacheRegistry.SCRIPT_BLOCK_ON_RESIZE_FUNC_FOR_ANGULAR = orf;
         //IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
         
         //TODO HACK:

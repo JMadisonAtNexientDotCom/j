@@ -1,4 +1,4 @@
-package frontEndBackEndIntegration.childComponents;
+package frontEndBackEndIntegration.childComponents.textFileCache;
 
 /**
  * The config servlet will cache text from needed files here so that
@@ -17,5 +17,10 @@ public class TextFileCacheRegistry {
      *  JS files used in this application. **/
      public static String INCLUDE_JS = 
      "BACK_END_PROBLEM(NOT UI PEOPLE'S FAULT)::INCLUDE_JS_FAILED_TO_INITIALIZE";
+     
+     /** Function that gives us on-resize abilities. For when the UI window
+         is resized. **/
+     public static String SCRIPT_BLOCK_ON_RESIZE_FUNC_FOR_ANGULAR = 
+     "BACK_END_PROBLEM: Angular resize function script block failed to load";
     
 }//FUNC::END
