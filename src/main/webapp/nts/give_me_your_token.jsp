@@ -32,7 +32,7 @@
     <div class="horcen_child"  > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
     <div class="vertcen_parent"> <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
     <div class="vertcen_child" > <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->
-      <div id="roundeddivs_wireframe" style="width:200px;">
+      <div id="roundeddivs_wireframe" style="width:200px; margin-left:-100px;">
 
         <div id="roundeddivs_headertab" align="center">
 
