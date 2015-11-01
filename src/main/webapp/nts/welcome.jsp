@@ -6,6 +6,9 @@
     
     <script src="../jsLib/requirejs_code/require.js"></script>
 				<script src="../jsLib/requirejs_code/config/nts_config.js"></script>
+    
+    <!-- to allow for docking header + footer canvas that will resize -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
 				
     <%= I.INCLUDE_JS() %>
     <%= I.INCLUDE_CSS() %>
