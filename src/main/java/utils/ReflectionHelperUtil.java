@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import test.MyError;
+import app.MyError;
 
 /**
  * For COMMON functions between different utilities I have made using reflection.

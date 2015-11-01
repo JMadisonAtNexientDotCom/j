@@ -4,7 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.List;
 import javax.persistence.Column;
-import test.MyError;
+import app.MyError;
 import utils.ReflectionHelperUtil;
 
 /**

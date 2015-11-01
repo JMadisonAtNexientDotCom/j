@@ -3,7 +3,7 @@
     <!-- SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS -->
     <servlet>
         <servlet-name>theServletName</servlet-name>
-        <servlet-class>test.TestServlet</servlet-class>
+        <servlet-class>app.TestServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -14,7 +14,7 @@
     <!-- HHHHHHHHHHHHHHHHHHH Hard Coded Fetch TestHHHHHHHHHHHHHHHHHHHHH -->
     <servlet>
         <servlet-name>tokenHardCodedFetch_ServletName</servlet-name>
-        <servlet-class>test.servlets.testServlets.TokenHardCodedFetchTestServlet</servlet-class>
+        <servlet-class>appServlets.TokenHardCodedFetchTestServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>tokenHardCodedFetch_ServletName</servlet-name>
@@ -26,7 +26,7 @@
     <servlet>
         <!-- We want this servlet loaded before all others to do config stuff. -->
         <servlet-name>theConfigServletName</servlet-name>
-        <servlet-class>test.ConfigServlet</servlet-class>
+        <servlet-class>app.ConfigServlet</servlet-class>
         <load-on-startup>0</load-on-startup>
     </servlet>
     <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->

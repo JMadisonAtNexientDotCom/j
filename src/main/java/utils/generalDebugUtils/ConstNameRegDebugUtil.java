@@ -2,7 +2,7 @@ package utils.generalDebugUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import test.MyError;
+import app.MyError;
 
 /**
  * Used to debug registry classes that contain constants that

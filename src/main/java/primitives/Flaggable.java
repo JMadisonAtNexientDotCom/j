@@ -1,6 +1,6 @@
 package primitives;
 
-import test.config.constants.EntityErrorCodes;
+import app.config.constants.EntityErrorCodes;
 
 /**
  * So that my non-entity types can also have .isError and .errorCode properties.

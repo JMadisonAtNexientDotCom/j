@@ -3,7 +3,7 @@ package annotations;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.List;
-import test.MyError;
+import app.MyError;
 import utils.ReflectionHelperUtil;
 import utils.StringUtil;
 

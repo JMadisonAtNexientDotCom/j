@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import test.MyError;
+import app.MyError;
 
 /**
  * Pre:2015.09.29:

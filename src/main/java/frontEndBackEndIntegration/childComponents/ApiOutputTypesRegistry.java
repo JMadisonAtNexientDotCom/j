@@ -1,8 +1,8 @@
 package frontEndBackEndIntegration.childComponents;
 
-import test.dbDataAbstractions.entities.bases.BaseEntity;
-import test.dbDataAbstractions.entities.composites.Clan;
-import test.dbDataAbstractions.entities.tables.NinjaTable;
+import app.dbDataAbstractions.entities.bases.BaseEntity;
+import app.dbDataAbstractions.entities.composites.Clan;
+import app.dbDataAbstractions.entities.tables.NinjaTable;
 
 /**
  * A registry holding a null reference to every type that can be

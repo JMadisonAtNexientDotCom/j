@@ -1,6 +1,6 @@
 package primitives.endPoints;
 
-import test.MyError;
+import app.MyError;
 import utils.JSONUtil;
 import utils.ReflectionHelperUtil;
 import utils.StringUtil;

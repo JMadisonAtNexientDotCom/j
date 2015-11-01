@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import test.MyError;
+import app.MyError;
 import utils.ReflectionHelperUtil;
 
 /**
