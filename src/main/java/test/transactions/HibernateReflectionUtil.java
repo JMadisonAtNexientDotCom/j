@@ -80,7 +80,12 @@ public class HibernateReflectionUtil {
         } catch (NoSuchFieldException ex) {
             Logger.getLogger(HibernateReflectionUtil.class.getName()).log
                                                        (Level.SEVERE, null, ex);
-            doError("[NoSuchFieldException]");
+            String msg = "";
+            msg += "[NoSuchFieldException][START::]";
+            msg += "[instance==[" + instance.toString() + "]]";
+            msg += "[columnName==[" + columnName + "]]";
+            msg += "[::END NSFE]";
+            doError(msg);
         } catch (SecurityException ex) {
             doError("[SecurityException]");
             Logger.getLogger(HibernateReflectionUtil.class.getName()).log
