@@ -91,6 +91,7 @@ public class TrialCTRL extends BaseCTRL {
         }
         tri = (TrialTable)tri_con.entity;
         long trial_id = tri.getId();
+        RealNumberUtil.assertGreaterThanZeroNonNull(trial_id);
         
         //use trial table to find correct kinda table:
         KindaTable knd;
@@ -98,6 +99,7 @@ public class TrialCTRL extends BaseCTRL {
         knd_con = KindaTransUtil.getKindaUsingTokenID(trial_id);
         if(false==knd_con.exists){
             String err_msg = "[If trial exists, kinda should exist]";
+            err_msg += "[trial_id==[" + trial_id + "]]";
             doError(err_msg); //<--more serious error. Data integrity problem.
         }//
         knd = (KindaTable)knd_con.entity;
