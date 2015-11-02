@@ -47,6 +47,18 @@ DROP TABLE IF EXISTS session_table;
 DROP TABLE IF EXISTS owner_table; -- JOINS: { token_table(id), ninja_table(id), admin_table(id) }
 --DROP TABLE IF EXISTS trans_table; -- helps us debug concurrency by seeing linear transactions.
 
+-- Like group_table, but used for collections that have position data         --
+CREATE TABLE stack_table (INT UNSIGNED checksum,                                                 id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+
+-- twine_table explicitly bundles cuecards from a deck together.              --
+CREATE TABLE twine_table (INT UNSIGNED wild_id , INT UNSIGNED token_id  ,                        id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+
+-- These 3 tables are used to create wild-card bundles of information         --
+-- Originally used to create meta-data for dynamically building tests 5       --
+-- Questions at a time.                                                       --
+CREATE TABLE wild_table  (INT UNSIGNED wild_si ,                                                 id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+CREATE TABLE wild_stack  (INT UNSIGNED wild_gi , INT UNSIGNED stack_id  , INT UNSIGNED locus,    id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
+CREATE TABLE wild_purse  (INT UNSIGNED group_id, INT UNSIGNED foreign_id,                        id serial PRIMARY KEY, dele BOOLEAN, comment varchar(80), global_save_id INT UNSIGNED, record_local_save_count INT UNSIGNED);
 
 -- Max length == 800, as in: 10 lines max when each line is 80 chars. --
 -- Max length == 80 (one line) for our answers (rhymes).              --
