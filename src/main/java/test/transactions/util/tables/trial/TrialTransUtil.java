@@ -149,7 +149,7 @@ public class TrialTransUtil {
         if(len > 1){
             doError("Data integrity error. One trial per token id.");
         }//
-        BaseEntityContainer op;
+        BaseEntityContainer op = null;
         if(0==len){ //no entities.
             op = BaseEntityContainer.makeEmpty();
         }else
@@ -164,7 +164,8 @@ public class TrialTransUtil {
         //      You need trial+kinda tables linked together and
         //      sharing a common token_id.
         
-        return new BaseEntityContainer();
+        if(null == op){doError("[Trying to return null container]");}
+        return op;
     }//FUNC::END
     
     

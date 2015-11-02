@@ -33,6 +33,7 @@ import test.servlets.rest.restCore.components.trial.Shop;
 import test.transactions.util.tables.kinda.KindaTransUtil;
 import test.transactions.util.tables.token.TokenTransUtil;
 import test.transactions.util.tables.trial.TrialTransUtil;
+import utils.RealNumberUtil;
 
 
 /**
@@ -71,14 +72,19 @@ public class TrialCTRL extends BaseCTRL {
             return JSONUtil.makeGenericErrorResponse(err_msg);
         }//Error?
         
+        //Make sure not false positive:
+        if(null == bec.entity){doError("[Doesn't really exist]");} 
+        
         //get the token_id:
         TokenTable tok = (TokenTable)bec.entity;
         long token_id  = tok.getId();
+        RealNumberUtil.assertGreaterThanZeroNonNull(token_id);
         
         //use the token_id to fetch correct record from the trial table.
         TrialTable tri;
         BaseEntityContainer tri_con;
         tri_con = TrialTransUtil.getTrialUsingTokenID(token_id);
+        if(null==tri_con){doError("[tri_con is null]");}
         if(false==tri_con.exists){
             String err_msg = "[Token exists, but trial does not]";
             return JSONUtil.makeGenericErrorResponse(err_msg);//<--user error.
