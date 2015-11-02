@@ -243,7 +243,6 @@ public class DryDock {
         tri_knd.specs.add(LinkOrderVars.DEST_COLUMN,knd_dest_column);
         //KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
         
-       
         return barge;
     }//FUNC::END
     
