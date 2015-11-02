@@ -39,8 +39,8 @@ import utils.RealNumberUtil;
 /**
  * A controller that manages services mainly concerned with Trials.
  * Trials being the word for tests that the Ninja participates in.
- * @author jmadison
- */
+ * @author jmadison: Original date: Unknown;
+   @author jmadison: 2015.11.02(Nov2nd,Year2015. About to show Drew)*/
 @Path( ServletClassNames.TrialCTRL_MAPPING )
 public class TrialCTRL extends BaseCTRL {
     
