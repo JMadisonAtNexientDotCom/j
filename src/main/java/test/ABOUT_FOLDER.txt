@@ -1,0 +1,14 @@
+NOTE:
+This folder should really be named "app", not "test"
+However, refactoring to "app" totally destroyed my entire application.
+All pages were returning BLANK!!!
+
+I don't know why this is. I am glad I caught it the day I did the refactor.
+Also, I was stupid to have done such a big refactor and then NOT test to make
+sure everything was still up.
+
+I assumed that since the BUILD was not broken, that the actual site
+was working. This was not the case.
+
+This folder eventually needs a better name than "test".
+But be very careful as you attempt to refactor this folder.
