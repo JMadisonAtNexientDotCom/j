@@ -62,6 +62,8 @@ public class TrialCTRL extends BaseCTRL {
     public Response get_trial_challenge_guts_using_token_hash(
             @QueryParam(VarNameReg.TOKEN_HASH) String token_hash){
         
+        //NOTE/BUG: Logging-In first may cause test dispatch to not work??
+        
         //Make sure inside transaction state:
         Session ses = TransUtil.enterTransaction();
        
