@@ -19,6 +19,26 @@ import app.transactions.util.forNoClearTableOwner.riddleRhyme.rhymeRiddle.RRComm
 public class RhymeTransUtil {
     
     /**
+     * Like getRymeByID, but EXPECTS the record to exist. If record does
+     * not exist. That is a fatal error.
+     * @param rhyme_id :The id of the rhyme to find.
+     * @return :A valid RhymeTable [entity/record] from database. **/
+    public static RhymeTable getRhymeTableByID(long rhyme_id){
+        TransUtil.insideTransactionCheck();
+        
+        BaseEntityContainer bec = getRhymeByID(rhyme_id);
+        if(false == bec.exists){
+            doError("[Expecting RhymeTable of rhyme_id to exist]");
+        }//Error?
+        
+        if(null==bec.entity){doError("[Flaged to exist, yet null?]");}
+        
+        RhymeTable op = (RhymeTable)bec.entity;
+        return op;
+        
+    }//FUNC::END
+    
+    /**
      * Returns a RhymeTable entity with the given ID. 
      * These IDs should be unique!
      * @param rhymeID

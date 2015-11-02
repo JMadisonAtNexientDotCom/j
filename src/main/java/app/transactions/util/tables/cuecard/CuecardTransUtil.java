@@ -5,6 +5,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import app.MyError;
+import app.dbDataAbstractions.entities.bases.BaseEntity;
 import app.dbDataAbstractions.entities.composites.CueCard;
 import app.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import app.dbDataAbstractions.entities.tables.RhymeTable;
@@ -19,6 +20,26 @@ import app.transactions.util.tables.riddle.RiddleTransUtil;
  * @author jmadison
  */
 public class CuecardTransUtil {
+    
+    /**
+     * Finds a CuecardTable using the primaryKey/ID. Expects it to exist.
+     * @param id :ID of cuecard [record/entity] to fetch from database.
+     * @return :The cuecard [record/entity] within the database.
+     *          If not found, will throw an error. **/
+    public static CuecardTable getCuecardTableByID(long id){
+        TransUtil.insideTransactionCheck();
+        
+        List<BaseEntity> bel = TransUtil.getEntitiesUsingLong
+                               (CuecardTable.class, CuecardTable.ID_COLUMN, id);
+        
+        int len = bel.size();
+        if(len <= 0){doError("[No entities found! Expected one.]");}
+        if(len >  1){doError("[Only expected to find one entity.]");}
+        CuecardTable op = (CuecardTable)bel.get(0);
+        if(null==op){doError("[Entity found is somehow null.]");}
+        return op;
+        
+    }//FUNC::END
     
     /**
      * Makes a new cue-card entity. Assumes that riddle_id + ink_id 

@@ -244,6 +244,11 @@ public class TransUtil {
         return i().makeStubsWithUniquePrimaryKeys(    tableClass,     numStubs);
     }//WRAPPER::END
                          
+    public static <T extends PurseEntity> List<T> getPursesUsingGroupID
+                       (Class<? extends PurseEntity> purseClass, long group_id){
+        return i().getPursesUsingGroupID(            purseClass,      group_id); 
+    }//WRAPPER::END
+                         
     public static void join(List<BaseEntity> from, 
                             List<BaseEntity> into, 
                             String         column){

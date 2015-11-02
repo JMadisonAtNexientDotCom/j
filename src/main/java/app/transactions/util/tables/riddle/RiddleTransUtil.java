@@ -150,6 +150,20 @@ public class RiddleTransUtil {
         
     }//FUNC::END
     
+    /**
+     * Like getRiddleByID, but does not return a container wrapper.
+     * Rather, if the riddle you want does NOT exist, and error is thrown.
+     * @param riddleID :The primary key of the riddle you want.
+     * @return :A RiddleTable [entity/record] with that id **/
+    public static RiddleTable getRiddleTableByID(long riddleID){
+        BaseEntityContainer bec = getRiddleByID(riddleID);
+        if(false == bec.exists){
+            doError("[Asked for a riddle_id not present in database.]");
+        }//
+        
+        return (RiddleTable)bec.entity;
+    }//FUNC::END
+    
     /** Get riddle entity by ID, if not found, the container will reflect that.
      * @param riddleID :The ID of the riddle entity you want.
      * @return :A container that will contain the entity if one was found. **/

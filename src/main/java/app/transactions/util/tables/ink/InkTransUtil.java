@@ -11,6 +11,26 @@ import app.transactions.util.TransUtil;
  */
 public class InkTransUtil {
     
+    
+    /**
+     * Like "getExistingTableByGroupID" but using the primary key
+     * rather than the foreign group_id.
+     * @param id :The primary key of the InkTable [entity/record] you want.
+     * @return   :Returns the [record/enitity] with that primary key.
+     *            If does NOT exist, throws an error. **/
+    public static InkTable getInkTableUsingPrimaryKeyID(long id){
+        
+        List<BaseEntity> bel;
+        bel = TransUtil.getEntitiesUsingLong
+                                       (InkTable.class, InkTable.ID_COLUMN, id);
+        
+        InkTable op = extractTheResultFromTheListOfOneEntity(bel);
+        
+        if(null==op){doError("[Should not be null.K2K3N3L2]");}
+        return op;
+        
+    }//FUNC::END
+    
     /**
      * Gets the InkTable entity that has the foreign group_id referencing
      * a group of entries in the InkPurse.
@@ -25,6 +45,19 @@ public class InkTransUtil {
         bel = TransUtil.getEntitiesUsingLong
                             (InkTable.class, InkTable.INK_GI_COLUMN, inGroupID);
         
+        InkTable op = extractTheResultFromTheListOfOneEntity(bel);
+        
+        if(null == op){doError("[This should never happen.K2KN3H43ILK2]");}
+        return op;
+        
+    }//FUNC::END
+    
+    /**
+     * Extracts an entity from list, and does some error checking.
+     * @param bel :The "base entity list" containing the one entity we want.
+     * @return    :The one and only InkTable [record/entity] in list. **/
+    private static InkTable extractTheResultFromTheListOfOneEntity
+                                                         (List<BaseEntity> bel){
         InkTable op = null;
         int num_results = bel.size();
         if(num_results < 0){
@@ -37,9 +70,7 @@ public class InkTransUtil {
         }//
         
         if(null == op){doError("this should never happen.");}
-        
         return op;
-        
     }//FUNC::END
     
     /**-------------------------------------------------------------------------

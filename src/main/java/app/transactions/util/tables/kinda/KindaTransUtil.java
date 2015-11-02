@@ -10,6 +10,7 @@ import app.dbDataAbstractions.entities.bases.ChallengeGuts;
 import app.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import app.dbDataAbstractions.entities.tables.KindaTable;
 import app.transactions.util.TransUtil;
+import app.transactions.util.forNoClearTableOwner.ChallengeGutsReaderUtil;
 
 /**
  * 
@@ -66,8 +67,10 @@ public class KindaTransUtil {
         if(challenge_id <= 0){doError("invalid challenge id. Lazy fetch?");}
         
         
-        doError("Make the class below that is commented out");
-        //ChallengeGutsReaderUtil.findAndRead(kind_of_trial, challenge_id);
+        //doError("Make the class below that is commented out");
+        ChallengeGuts op;
+        op = ChallengeGutsReaderUtil.findAndRead(kind_of_trial, challenge_id);
+        return op;
         
         //STEP1: Get the correct challenge guts tableEntity:
         
@@ -76,9 +79,7 @@ public class KindaTransUtil {
         //       (Kind of like de-serializing. But not completely analagous.)
         
         
-        //Stubbing methods for now. Because I want to work on UI stuff.
-        doError("TODO: Make getChallengeGutsUsingKindaTable");
-        return new ChallengeGuts();
+        
         
     }//FUNC::END
     

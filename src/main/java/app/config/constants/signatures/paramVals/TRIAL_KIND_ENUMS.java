@@ -106,6 +106,15 @@ public class TRIAL_KIND_ENUMS {
     public final String DO_NOT_PERSIST = DO_NOT_PERSIST_;
     @UniqueInstanceValue
     public final String RIDDLE_TRIAL   = RIDDLE_TRIAL_; //<--Only supported trial type for now.
+    
+    public static void assertTrialKindIsValid(String kind_of_trial){
+        String k = kind_of_trial;
+        if(k.equals(RIDDLE_TRIAL_)){return;}
+        
+        String msg = "[Kind of trial found is not valid.]";
+        msg+="[kind_of_trial==[" + kind_of_trial + "]]";
+        doError(msg);
+    }//FUNC::END
   
     
     /**-------------------------------------------------------------------------

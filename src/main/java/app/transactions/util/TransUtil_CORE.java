@@ -16,6 +16,7 @@ import app.dbDataAbstractions.entities.EntityUtil;
 import app.dbDataAbstractions.entities.bases.BaseEntity;
 import app.dbDataAbstractions.entities.bases.PurseEntity;
 import app.dbDataAbstractions.entities.containers.BaseEntityContainer;
+import app.dbDataAbstractions.entities.tables.GroupTable;
 import app.dbDataAbstractions.entities.tables.TransTable;
 import app.globalState.SynchronizedConversationCounter;
 import app.globalState.SynchronizedGlobalSaveCounter;
@@ -1012,6 +1013,33 @@ public class TransUtil_CORE extends ThreadLocalUtilityBase {
         return stubs;
                                                 
     }//FUNC::END
+        
+    /**
+     * Used to get a group of records from a "purse" a purse being a special
+     * table that is used to GROUP entities.
+     * @param <T> :The specific type of Purse entity you want.
+     * @param purseClass :Reference to type <T>.
+     * @param group_id   :The groupID shared by all of the records you want.
+     * @return :Returns a list of PurseEntities that all belong to the
+     *          same group_id.                                               **/
+    public <T extends PurseEntity> List<T> getPursesUsingGroupID
+                       (Class<? extends PurseEntity> purseClass, long group_id){
+        TransUtil.insideTransactionCheck();
+        Criteria cri = makeGloballyFilteredCriteria(purseClass);  
+        cri.add(Restrictions.eq(PurseEntity.GROUP_ID_COLUMN, group_id));
+        List<T> op = cri.list();
+        if(op.size() <= 0){doError("[Groups should have at least one item.]");}
+        
+        //Check the checksum to make sure it has integrity:
+        long check_sum = GroupTable.getChecksumOfID(group_id);
+        if(check_sum != op.size()){
+            doError("[Checksum of group did not match #of records retrieved]");
+        }//
+        
+        //return the list:
+        return op;
+        
+    }//WRAPPER::END
          
     /**-------------------------------------------------------------------------
      * Performs a Join between two tables.

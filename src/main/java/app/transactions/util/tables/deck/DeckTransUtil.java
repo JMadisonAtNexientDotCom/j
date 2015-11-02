@@ -30,12 +30,85 @@ import app.transactions.util.tables.cuecard.CuecardTransUtil;
 import app.transactions.util.tables.group.GroupTransUtil;
 import utils.ListUtil;
 import utils.RandomSetUtil;
+import utils.RealNumberUtil;
 
 /**
  * A utility used for transactions involving the DeckTable entity.
  * @author jmadison :2015.10.19
  */
 public class DeckTransUtil {
+    
+    /**
+     * Uses a populated DeckTable that was fetched from database in order
+     * to find the list of Cuecards it holds.
+     * @param dt :The DeckTable reference.
+     * @return 
+     */
+    public static List<Long> getCuecardIDsUsingDeckTable(DeckTable dt){
+        TransUtil.insideTransactionCheck();
+        RealNumberUtil.assertGreaterThanZeroNonNull(dt.deck_gi);
+        RealNumberUtil.assertGreaterThanZeroNonNull(dt.getId());
+        
+        long deck_gi = dt.deck_gi;
+        return getCuecardIDsUsingGroupID(deck_gi);
+    }//FUNC::END
+    
+    /**
+     * 
+     * @param group_id :The group_id that all retrieved records will share.
+     * @return :A list of Cuecard ids.
+     */
+    public static List<Long> getCuecardIDsUsingGroupID(long group_id){
+        TransUtil.insideTransactionCheck();
+        List<DeckPurse> dp = getDeckPursesUsingGroupID(group_id);
+        
+        int len = dp.size();
+        long cuecard_id;
+        DeckPurse cur_purse;
+        List<Long> op = new ArrayList<Long>();
+        for(int i = 0; i < len; i++){
+            cur_purse = dp.get(i);
+            cuecard_id = cur_purse.cuecard_id;
+            op.add(i,cuecard_id);
+        }//next i.
+        
+        if(null==op){doError("Attempt to return null");}
+        return op;
+        
+    }//FUNC::END
+    
+    /**
+     * Gets all of the DeckPurse [Entity/Record](s) within DeckPurse using
+     * the group_id as a handle to fetch them.
+     * @param group_id :Handle used to fetch all DeckPurse(s) belonging to
+     *                  that group.
+     * @return :All DeckPurse records of that group_id.                      **/
+    public static List<DeckPurse> getDeckPursesUsingGroupID(long group_id){
+        TransUtil.insideTransactionCheck();
+        
+        List<DeckPurse> dp = TransUtil.getPursesUsingGroupID
+                                                    (DeckPurse.class, group_id);
+        if(null==dp){doError("Attempt to return null list of DeckPurse");}
+        return dp;
+    }//FUNC::END
+    
+    /**
+     * Get a DeckTable [Record/Entity] using [primary key / id]
+     * @param id :The [id/primary key] used to identify record.
+     * @return :The populated [entity/record] with that id. **/
+    public static DeckTable getDeckTableByID(long id){
+        TransUtil.insideTransactionCheck();
+        
+        List<BaseEntity> bel = TransUtil.getEntitiesUsingLong
+                                     (DeckTable.class, DeckTable.ID_COLUMN, id);
+        if(bel.size() != 1){
+            doError("[Should get exactly 1 entity from this call.]");
+        }//error?
+        
+        DeckTable op = (DeckTable)bel.get(0);
+        if(null==op){doError("trying to return null");}
+        return op;
+    }//FUNC::END
     
     /**
      * Makes a batch of DeckTable entities that correspond to persisted
@@ -45,6 +118,7 @@ public class DeckTransUtil {
      */
     public static List<DeckTable> generateAndPersistDecks
                                           (SpecialInstructionsStickyNote specs){
+        TransUtil.insideTransactionCheck();
                                               
         //Unpack the arguments that should be there:
         Class INT = int.class;
@@ -170,6 +244,7 @@ public class DeckTransUtil {
      * @return :Returns >=1 if found, returns (-1) if not found.
      */
     public static long getGroupID(List<Long> cuecard_ids){
+        TransUtil.insideTransactionCheck();
         
         //This check is too heavy to justify 
         //running ouside of debug mode:
