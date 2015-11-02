@@ -4,15 +4,15 @@ package frontEndBackEndIntegration;
 //Since it will be put into .JSP files.
 import frontEndBackEndIntegration.childComponents.ApiOutputTypesRegistry;
 import frontEndBackEndIntegration.childComponents.ApiParamValuesRegistry;
-import app.config.constants.apiDocs.MasterApiDoc;
-import app.config.constants.identifiers.VarNameReg;
+import test.config.constants.apiDocs.MasterApiDoc;
+import test.config.constants.identifiers.VarNameReg;
 import frontEndBackEndIntegration.childComponents.ServiceURLRegistry;
 import frontEndBackEndIntegration.childComponents.textFileCache.ScriptBlockNames;
 import frontEndBackEndIntegration.childComponents.textFileCache.TextFileCacheRegistry;
-import app.MyError;
-import app.config.alias.DispAlias;
-import app.config.constants.ServiceUrlsInitializer;
-import app.debug.GlobalErrorState;
+import test.MyError;
+import test.config.alias.DispAlias;
+import test.config.constants.ServiceUrlsInitializer;
+import test.debug.GlobalErrorState;
 
 
 

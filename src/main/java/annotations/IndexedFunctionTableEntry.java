@@ -1,6 +1,6 @@
 package annotations;
 
-import app.MyError;
+import test.MyError;
 
 /**
  * Represents an entry into our lookup table.

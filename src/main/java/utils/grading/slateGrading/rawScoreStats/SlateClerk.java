@@ -1,10 +1,10 @@
 package utils.grading.slateGrading.rawScoreStats;
 
 import primitives.Abacus;
-import app.MyError;
-import app.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
-import app.transactions.util.TransUtil;
-import app.transactions.util.forNoClearTableOwner.riddleRhyme.RiddleRhymeTransUtil;
+import test.MyError;
+import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
+import test.transactions.util.TransUtil;
+import test.transactions.util.forNoClearTableOwner.riddleRhyme.RiddleRhymeTransUtil;
 
 /**-----------------------------------------------------------------------------
  * The SlateClerk works for the AbacusJudge. SlateClerk is an accountant

@@ -2,7 +2,7 @@ package primitives;
 
 import java.util.ArrayList;
 import java.util.List;
-import app.MyError;
+import test.MyError;
 
 /**
  * Separate ID's into real+fake.

@@ -1,6 +1,6 @@
 package frontEndBackEndIntegration.childComponents;
 
-import app.config.constants.signatures.paramVals.TRIAL_KIND_ENUMS;
+import test.config.constants.signatures.paramVals.TRIAL_KIND_ENUMS;
 
 /**
  * A registry holding parameter ENUMS and other valid values that can

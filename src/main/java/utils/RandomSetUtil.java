@@ -3,8 +3,8 @@ package utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import app.MyError;
-import app.config.debug.DebugConfig;
+import test.MyError;
+import test.config.debug.DebugConfig;
 
 //-----------------------------------------------------------------------------+
 ////Basic premise: Subdivides the range of values to choose from               |

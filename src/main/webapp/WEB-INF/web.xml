@@ -3,7 +3,7 @@
     <!-- SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS -->
     <servlet>
         <servlet-name>theServletName</servlet-name>
-        <servlet-class>app.TestServlet</servlet-class>
+        <servlet-class>test.TestServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -26,7 +26,7 @@
     <servlet>
         <!-- We want this servlet loaded before all others to do config stuff. -->
         <servlet-name>theConfigServletName</servlet-name>
-        <servlet-class>app.ConfigServlet</servlet-class>
+        <servlet-class>test.ConfigServlet</servlet-class>
         <load-on-startup>0</load-on-startup>
     </servlet>
     <!-- CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC -->

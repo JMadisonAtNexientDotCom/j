@@ -1,7 +1,7 @@
 package frontEndBackEndIntegration.childComponents;
 
-import app.MyError;
-import app.config.constants.ServiceUrlsInitializer;
+import test.MyError;
+import test.config.constants.ServiceUrlsInitializer;
 
 /**
  * An instantiatable class holding fully resolved API endpoints that can

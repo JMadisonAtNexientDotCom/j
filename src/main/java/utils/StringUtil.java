@@ -1,6 +1,6 @@
 package utils;
 
-import app.MyError;
+import test.MyError;
 
 /**
  *
