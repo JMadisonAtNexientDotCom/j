@@ -70,6 +70,7 @@ public class KindaTransUtil {
         //doError("Make the class below that is commented out");
         ChallengeGuts op;
         op = ChallengeGutsReaderUtil.findAndRead(kind_of_trial, challenge_id);
+        if(null==op){doError("[challenge guts null]");}
         return op;
         
         //STEP1: Get the correct challenge guts tableEntity:
@@ -77,10 +78,6 @@ public class KindaTransUtil {
         //STEP2: read from database using entity.
         //       (read == inverse of persisting data)
         //       (Kind of like de-serializing. But not completely analagous.)
-        
-        
-        
-        
     }//FUNC::END
     
     /**
