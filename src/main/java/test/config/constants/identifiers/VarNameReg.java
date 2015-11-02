@@ -83,7 +83,16 @@ public class VarNameReg {
     //For grouping control:
     public static final String CHECKSUM  = "checksum"; //how many items are in group?
     public static final String GROUP_ID  = "group_id"; //references group_id directly from GROUP_TABLE
+    
+    //For stack control: (Basically groups that have a set order ingrained into them)
     public static final String LOCUS     = "locus";    //the unique position of a record belonging to a given group.
+    public static final String STACK_ID  = "stack_id";
+    
+    //For creating wildcard table, who's first use is to be used with twine_table
+    //to create ordered bundles of cuecards for our riddle cuecard decks.
+    public static final String WILDC_ID = "wildc_id"; //"id"=="identification#"
+    public static final String WILDC_SI = "wildc_si"; //"si"=="stack id"
+    public static final String WILDC_GI = "wildc_gi"; //"gi"=="group id"
     
     //For creating contents of riddle-trial:
     public static final String DECK_GI   = "deck_gi"; //deck group id, foriegn key.
