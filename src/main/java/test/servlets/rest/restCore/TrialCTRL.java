@@ -83,6 +83,8 @@ public class TrialCTRL extends BaseCTRL {
         RealNumberUtil.assertGreaterThanZeroNonNull(token_id);
         
         //use the token_id to fetch correct record from the trial table.
+        //Really only using this do make sure data has integrity:
+        //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
         TrialTable tri;
         BaseEntityContainer tri_con;
         tri_con = TrialTransUtil.getTrialUsingTokenID(token_id);
@@ -94,17 +96,21 @@ public class TrialCTRL extends BaseCTRL {
         tri = (TrialTable)tri_con.entity;
         long trial_id = tri.getId();
         RealNumberUtil.assertGreaterThanZeroNonNull(trial_id);
+        //TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
         
-        //use trial table to find correct kinda table:
+        //use token_id to find correct kinda table:
+        //KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
         KindaTable knd;
         BaseEntityContainer knd_con;
-        knd_con = KindaTransUtil.getKindaUsingTokenID(trial_id);
+        knd_con = KindaTransUtil.getKindaUsingTokenID(token_id);
         if(false==knd_con.exists){
             String err_msg = "[If trial exists, kinda should exist]";
             err_msg += "[trial_id==[" + trial_id + "]]";
+            err_msg += "[token_id==[" + token_id + "]]";
             doError(err_msg); //<--more serious error. Data integrity problem.
         }//
         knd = (KindaTable)knd_con.entity;
+        //KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
         
         //Now that we have the KindaTable, we need to use it to get the
         //guts we want:
