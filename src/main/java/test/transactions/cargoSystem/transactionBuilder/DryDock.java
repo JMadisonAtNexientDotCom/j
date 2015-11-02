@@ -237,7 +237,7 @@ public class DryDock {
         String tri_take_column = TrialTable.KIND_COLUMN;
         String knd_dest_column = KindaTable.KIND_COLUMN;
         tri_knd.jobType = JobTicketTypes.LINK_ORDER;
-        tri_knd.specs.add(LinkOrderVars.FROM_ORDER, dek_order);
+        tri_knd.specs.add(LinkOrderVars.FROM_ORDER, tri_order); //<--BUG_FIX.
         tri_knd.specs.add(LinkOrderVars.INTO_ORDER, knd_order);
         tri_knd.specs.add(LinkOrderVars.TAKE_COLUMN,tri_take_column);
         tri_knd.specs.add(LinkOrderVars.DEST_COLUMN,knd_dest_column);
