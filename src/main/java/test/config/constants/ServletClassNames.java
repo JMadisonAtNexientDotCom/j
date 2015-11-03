@@ -20,6 +20,9 @@ import test.servlets.rest.restCore.InkCTRL;
 import test.servlets.rest.restCore.KindaCTRL;
 import test.servlets.rest.restCore.QuarCTRL;
 import test.servlets.rest.restCore.SlateCTRL;
+import test.servlets.rest.restCore.StackCTRL;
+import test.servlets.rest.restCore.TwineCTRL;
+import test.servlets.rest.restCore.WildcCTRL;
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 /**##########################CLASS HEADER FILE##################################
 //WHAT THIS CLASS DOES:
@@ -54,6 +57,23 @@ import test.servlets.rest.restCore.SlateCTRL;
 public class ServletClassNames {
     
     //There must be a better way!
+    
+    //SWT == "stack,wild,twine" these controllers were added in order to test
+    //the tables that will give us the ability to dynamically generate
+    //[trial/tests] 5 [riddles/questions] at a time. ADDED:2015.11.02(Nov11,2nd)
+    //SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-//
+    //STACK SERVICE:
+    public static final String StackCTRL_CLASSNAME = "StackCTRL";
+    public static final String StackCTRL_MAPPING   = "StackCTRL/";
+    
+    //WILDC SERVICE:
+    public static final String WildcCTRL_CLASSNAME = "WildcCTRL";
+    public static final String WildcCTRL_MAPPING   = "WildcCTRL/";
+    
+    //TWINE SERVICE:
+    public static final String TwineCTRL_CLASSNAME = "TwineCTRL";
+    public static final String TwineCTRL_MAPPING   = "TwineCTRL/";
+    //SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-SWT-//
     
     //KINDA SERVICE: Joins tests+responses into graded package.
     public static final String KindaCTRL_CLASSNAME = "KindaCTRL";
@@ -253,6 +273,18 @@ public class ServletClassNames {
          *  to make sure they match! ----------------------------------------**/
         String clazName;
         
+        clazName =         StackCTRL.class.getSimpleName();
+        if(         vcm_cn(StackCTRL_CLASSNAME, clazName))
+        {   doMappingError(StackCTRL_CLASSNAME); }
+        
+        clazName =         WildcCTRL.class.getSimpleName();
+        if(         vcm_cn(WildcCTRL_CLASSNAME, clazName))
+        {   doMappingError(WildcCTRL_CLASSNAME); }
+        
+        clazName =         TwineCTRL.class.getSimpleName();
+        if(         vcm_cn(TwineCTRL_CLASSNAME, clazName))
+        {   doMappingError(TwineCTRL_CLASSNAME); }
+        
         clazName =         KindaCTRL.class.getSimpleName();
         if(         vcm_cn(KindaCTRL_CLASSNAME, clazName))
         {   doMappingError(KindaCTRL_CLASSNAME); }
@@ -320,6 +352,15 @@ public class ServletClassNames {
     }//FUNC::END
     
     private static void verifyCorrectMapping_MAPPING(){
+        
+        checkMapping(StackCTRL_CLASSNAME,
+                     StackCTRL_MAPPING);
+        
+        checkMapping(WildcCTRL_CLASSNAME,
+                     WildcCTRL_MAPPING);
+        
+        checkMapping(TwineCTRL_CLASSNAME,
+                     TwineCTRL_MAPPING);
         
         checkMapping(KindaCTRL_CLASSNAME,
                      KindaCTRL_MAPPING);
