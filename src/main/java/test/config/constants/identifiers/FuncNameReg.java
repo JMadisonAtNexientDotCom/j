@@ -22,6 +22,20 @@ public class FuncNameReg {
     //DEBUG:
     //public static final String DEBUGGER_STUB_FUNCTION="debugger_stub_function";
     
+    //WILDC,TWINE,STACK:
+    //WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//////
+    
+    //WILDC SERVICE:
+    public static final String MAKE_NEXT_WILDC = "make_next_wildc";
+    
+    //TWINE SERVICE:
+    public static final String MAKE_NEXT_TWINE = "make_next_twine";
+    
+    //STACK SERVICE:
+    public static final String MAKE_NEXT_STACK = "make_next_stack";
+    
+    //WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//////
+    
     //KINDA SERVICE:
     public static final String MAKE_NEXT_KINDA = "make_next_kinda";
     
