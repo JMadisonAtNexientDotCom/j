@@ -10,6 +10,18 @@ import test.config.constants.identifiers.utils.StringConstantFinderUtil;
  * @author jmadison :2015.09.30(Sept,30th,Year2015) **/
 public class TableNameReg {
     
+    //Tables that can own GENERIC wildcard groupings and "cast" them
+    //to a specific type. AKA: If the table at top of heirarchy is one
+    //of these tables, then it OWNS the WILDC_PURSE records and can
+    //cast their foreign_record_id to take from a specific table.
+    public static final String TWINE_TABLE    = "twine_table";
+    
+    //Tables for creating GENERIC wildcard groupings:
+    public static final String WILDC_TABLE    = "wildc_table";
+    public static final String WILDC_STACK    = "wildc_stack";
+    public static final String WILDC_PURSE    = "wildc_purse";
+    public static final String STACK_TABLE    = "stack_table";
+    
 //Tables who's job it is to store the contents of a riddle-trial.
 ////////////////////////////////////////////////////////////////////////////////
 // DECK_TABLE:                          +----------+                          //

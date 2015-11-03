@@ -2,7 +2,10 @@ package test.dbDataAbstractions.entities.tables;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Table;
+import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.bases.StackEntity;
 
@@ -17,7 +20,14 @@ import test.dbDataAbstractions.entities.bases.StackEntity;
  * NOTE: stack_id and locus_id inherited from StackEntity class.
  * @author jmadison:2015.11.02_0605PM (November,2nd,Year2015.6:05PM)
  */
+@Entity
+@Table(name =WildcStack.TABLE_NAME)
 public class WildcStack extends StackEntity{
+    
+    /** Name of table this entity refers to, for easy refactoring. **/
+    public static final String TABLE_NAME           = TableNameReg.WILDC_STACK;
+    /** Column name stored as string constant for easy refactoring. **/
+    public static final String ID_COLUMN            = VarNameReg.ID;
     
     //Values referencing columns used for making criteria searches:
     public static final String WILDC_GI_COLUMN = VarNameReg.WILDC_GI;

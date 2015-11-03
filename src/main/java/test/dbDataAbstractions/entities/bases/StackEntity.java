@@ -3,6 +3,7 @@ package test.dbDataAbstractions.entities.bases;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
+import javax.persistence.MappedSuperclass;
 import test.config.constants.identifiers.VarNameReg;
 
 
@@ -17,6 +18,7 @@ import test.config.constants.identifiers.VarNameReg;
  * 
  * @author jmadison:2015.11.02_0605PM (November,2nd,Year2015.6:05PM)
  */
+@MappedSuperclass
 public class StackEntity extends BaseEntity{
    
     //Values referencing columns used for making criteria searches:
