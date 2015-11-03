@@ -265,6 +265,13 @@ public class EntityColumnDebugUtil {
         if(type == Boolean.class){return;}
         if(type == String.class) {return;}
         
+        //Actually, I think stuff won't break with value-types...
+        //put in allowances for value types for now:
+        //I think the caviate is that value-types will not work if you
+        //implement getters and setters.
+        if(type == long.class){return;}
+        if(type == boolean.class){return;}
+        
         _hasErrors = true;
         String cName = _currentClassBeingExamined.getCanonicalName();
         _log += "[BAD FIELD TYPE ERROR: START]";
