@@ -147,7 +147,7 @@ public class ServiceUrlsInitializer {
         
         //Create fully-qualified api endpoints: //UUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
         
-        U.WILDC  = mkURL(ServletClassNames.WildcCTRL_MAPPING);
+        U.LOFT   = mkURL(ServletClassNames.LoftCTRL_MAPPING);
         U.TWINE  = mkURL(ServletClassNames.TwineCTRL_MAPPING);
         U.STACK  = mkURL(ServletClassNames.StackCTRL_MAPPING);
         
@@ -263,7 +263,7 @@ public class ServiceUrlsInitializer {
     private static void setAllVarsToErrorMessage(String extraMSG){
         String cname = ServiceUrlsInitializer.class.getCanonicalName();
         
-        U.WILDC = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
+        U.LOFT = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
         U.TWINE = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
         U.STACK = "INITIALIZATION_ERROR IN:" + cname + extraMSG;
         

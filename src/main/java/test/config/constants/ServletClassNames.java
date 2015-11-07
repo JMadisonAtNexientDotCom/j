@@ -22,7 +22,7 @@ import test.servlets.rest.restCore.QuarCTRL;
 import test.servlets.rest.restCore.SlateCTRL;
 import test.servlets.rest.restCore.StackCTRL;
 import test.servlets.rest.restCore.TwineCTRL;
-import test.servlets.rest.restCore.WildcCTRL;
+import test.servlets.rest.restCore.LoftCTRL;
 //345678901234567890123456789012345678901234567890123456789012345678901234567890
 /**##########################CLASS HEADER FILE##################################
 //WHAT THIS CLASS DOES:
@@ -67,8 +67,8 @@ public class ServletClassNames {
     public static final String StackCTRL_MAPPING   = "StackCTRL/";
     
     //WILDC SERVICE:
-    public static final String WildcCTRL_CLASSNAME = "WildcCTRL";
-    public static final String WildcCTRL_MAPPING   = "WildcCTRL/";
+    public static final String LoftCTRL_CLASSNAME = "LoftCTRL";
+    public static final String LoftCTRL_MAPPING   = "LoftCTRL/";
     
     //TWINE SERVICE:
     public static final String TwineCTRL_CLASSNAME = "TwineCTRL";
@@ -277,9 +277,9 @@ public class ServletClassNames {
         if(         vcm_cn(StackCTRL_CLASSNAME, clazName))
         {   doMappingError(StackCTRL_CLASSNAME); }
         
-        clazName =         WildcCTRL.class.getSimpleName();
-        if(         vcm_cn(WildcCTRL_CLASSNAME, clazName))
-        {   doMappingError(WildcCTRL_CLASSNAME); }
+        clazName =         LoftCTRL.class.getSimpleName();
+        if(         vcm_cn(LoftCTRL_CLASSNAME, clazName))
+        {   doMappingError(LoftCTRL_CLASSNAME); }
         
         clazName =         TwineCTRL.class.getSimpleName();
         if(         vcm_cn(TwineCTRL_CLASSNAME, clazName))
@@ -356,8 +356,8 @@ public class ServletClassNames {
         checkMapping(StackCTRL_CLASSNAME,
                      StackCTRL_MAPPING);
         
-        checkMapping(WildcCTRL_CLASSNAME,
-                     WildcCTRL_MAPPING);
+        checkMapping(LoftCTRL_CLASSNAME,
+                     LoftCTRL_MAPPING);
         
         checkMapping(TwineCTRL_CLASSNAME,
                      TwineCTRL_MAPPING);

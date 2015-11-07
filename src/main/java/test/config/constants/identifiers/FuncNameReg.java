@@ -26,7 +26,7 @@ public class FuncNameReg {
     //WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//WTS//////
     
     //WILDC SERVICE:
-    public static final String MAKE_NEXT_WILDC = "make_next_wildc";
+    public static final String MAKE_NEXT_LOFT = "make_next_loft";
     
     //TWINE SERVICE:
     public static final String MAKE_NEXT_TWINE = "make_next_twine";

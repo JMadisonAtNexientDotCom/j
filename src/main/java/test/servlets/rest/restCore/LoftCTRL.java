@@ -17,8 +17,8 @@ import utils.JSONUtil;
  *
  * @author jmadison :2015.11.02_0739PM(Nov11th,Year2015.Monday)
  */
-@Path(ServletClassNames.WildcCTRL_MAPPING) 
-public class WildcCTRL extends BaseCTRL{
+@Path(ServletClassNames.LoftCTRL_MAPPING) 
+public class LoftCTRL extends BaseCTRL{
     
     /**-------------------------------------------------------------------------
      * Used to test that table has been wired up to hibernate correctly.
@@ -30,8 +30,8 @@ public class WildcCTRL extends BaseCTRL{
      * @return : An unpopulated stub. EXCEPT FOR THE PRIMARY KEY. We set that.
      -------------------------------------------------------------------------*/  
     @GET
-    @Path(FuncNameReg.MAKE_NEXT_WILDC)
-    public Response make_next_wildc(){
+    @Path(FuncNameReg.MAKE_NEXT_LOFT)
+    public Response make_next_loft(){
         
          //ENTER transaction:
         Session ses = TransUtil.enterTransaction();

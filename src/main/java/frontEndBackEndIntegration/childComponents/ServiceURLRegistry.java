@@ -62,7 +62,7 @@ public class ServiceURLRegistry {
     //----SERVICE VARIABLE----------|--Path inited to "NOT_INITIALIZED" to ----|
     //----For HTTP REST CALLS-------|--Help hunt down mapping errors       ----|
     
-    public String WILDC       = "WILDC:ServiceUrl_NOT_INITIALIZED";
+    public String LOFT        = "LOFT :ServiceUrl_NOT_INITIALIZED";
     public String TWINE       = "TWINE:ServiceUrl_NOT_INITIALIZED";
     public String STACK       = "STACK:ServiceUrl_NOT_INITIALIZED";
     
