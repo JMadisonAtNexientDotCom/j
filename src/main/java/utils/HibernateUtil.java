@@ -33,7 +33,7 @@ import test.dbDataAbstractions.entities.tables.TrialTable;
 import test.dbDataAbstractions.entities.tables.TwineTable;
 import test.dbDataAbstractions.entities.tables.WildcPurse;
 import test.dbDataAbstractions.entities.tables.WildcStack;
-import test.dbDataAbstractions.entities.tables.WildcTable;
+import test.dbDataAbstractions.entities.tables.LoftTable;
 import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.CuecardTable;
 import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.DeckPurse;
 import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.DeckTable;
@@ -267,7 +267,7 @@ public class HibernateUtil {
         addAnnoEntity(mds, TwineTable .class); //<--ordered groups.
         
         //Core tables creating wildcard data:
-        addAnnoEntity(mds, WildcTable .class); //<--packages groups into single id.
+        addAnnoEntity(mds, LoftTable .class); //<--packages groups into single id.
         addAnnoEntity(mds, WildcStack .class); //<--ordered groups.
         addAnnoEntity(mds, WildcPurse .class); //<--un-ordered sub-groups.
         //WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW

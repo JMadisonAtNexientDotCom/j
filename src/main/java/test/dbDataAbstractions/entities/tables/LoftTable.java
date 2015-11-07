@@ -20,8 +20,8 @@ import test.dbDataAbstractions.entities.bases.BaseEntity;
  * @author jmadison:2015.11.02_0605PM (November,2nd,Year2015.6:05PM)
  */
 @Entity
-@Table(name =WildcTable.TABLE_NAME)
-public class WildcTable extends BaseEntity {
+@Table(name =LoftTable.TABLE_NAME)
+public class LoftTable extends BaseEntity {
     
      /** Name of table this entity refers to, for easy refactoring. **/
     public static final String TABLE_NAME           = TableNameReg.WILDC_TABLE;

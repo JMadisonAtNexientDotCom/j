@@ -7,9 +7,9 @@ import org.hibernate.Session;
 import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
 import test.dbDataAbstractions.entities.tables.KindaTable;
-import test.dbDataAbstractions.entities.tables.WildcTable;
+import test.dbDataAbstractions.entities.tables.LoftTable;
 import test.transactions.util.TransUtil;
-import test.transactions.util.tables.wildc.WildcTransUtil;
+import test.transactions.util.tables.wildc.LoftTU;
 import utils.JSONUtil;
 
 
@@ -37,7 +37,7 @@ public class WildcCTRL extends BaseCTRL{
         Session ses = TransUtil.enterTransaction();
 
         //Transaction logic:
-        WildcTable wc = WildcTransUtil.makeNextWildc();
+        LoftTable wc = LoftTU.makeNextLoft();
         ses.save(wc); //<--force primary key to generate.
 
         //EXIT transaction:
