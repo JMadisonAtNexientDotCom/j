@@ -10,14 +10,20 @@ import test.config.constants.identifiers.utils.StringConstantFinderUtil;
  * @author jmadison :2015.09.30(Sept,30th,Year2015) **/
 public class TableNameReg {
     
-    //Tables that can own GENERIC wildcard groupings and "cast" them
+    //Tables that can own GENERIC loft groupings and "cast" them
     //to a specific type. AKA: If the table at top of heirarchy is one
-    //of these tables, then it OWNS the WILDC_PURSE records and can
+    //of these tables, then it OWNS the STRAW_PURSE records and can
     //cast their foreign_record_id to take from a specific table.
     public static final String TWINE_TABLE    = "twine_table";
     
-    //Tables for creating GENERIC wildcard groupings:
-    public static final String WILDC_TABLE    = "wildc_table";
+    //LOFT ABSTRACTION:
+    //loft: A type of grouping involving an array of groups.
+    //      Each item in the array has a locus value to preserve it's order.
+    //      Each group-element within an array slot has un-ordered items.
+    //      AKA: The straw within a bale has no order information.
+    //      But the stacks of bails within a loft DO have an order.
+    //Tables for creating GENERIC loft groupings:
+    public static final String LOFT_TABLE     = "loft_table" ;
     public static final String BALE_STACK     = "bale_stack" ;
     public static final String STRAW_PURSE    = "straw_purse";
     public static final String STACK_TABLE    = "stack_table";

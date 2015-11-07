@@ -24,15 +24,15 @@ import test.dbDataAbstractions.entities.bases.BaseEntity;
 public class LoftTable extends BaseEntity {
     
      /** Name of table this entity refers to, for easy refactoring. **/
-    public static final String TABLE_NAME           = TableNameReg.WILDC_TABLE;
+    public static final String TABLE_NAME           = TableNameReg.LOFT_TABLE;
     /** Column name stored as string constant for easy refactoring. **/
     public static final String ID_COLUMN            = VarNameReg.ID;
     
     //Values referencing columns used for making criteria searches:
-    public static final String WILDC_SI_COLUMN = VarNameReg.WILDC_SI;
+    public static final String BALE_SI_COLUMN = VarNameReg.BALE_SI;
     
     @Basic(fetch=FetchType.EAGER) //<--attempt to make not null 
-    @Column(name = WILDC_SI_COLUMN)  //when getting it from database.
-    public long wildc_si; //<--change to value-type.
+    @Column(name = BALE_SI_COLUMN)  //when getting it from database.
+    public long bale_si; //<--change to value-type.
     
 }//CLASS::END

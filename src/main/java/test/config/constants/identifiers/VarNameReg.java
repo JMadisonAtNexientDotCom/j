@@ -88,10 +88,14 @@ public class VarNameReg {
     public static final String LOCUS     = "locus";    //the unique position of a record belonging to a given group.
     public static final String STACK_ID  = "stack_id";
     
+    //UPDATE:2015.11.07(Nov7th,Year2015.5:20PM.Saturday.)
+    //Originally known as "wildcard" table. Gave more descriptive analogy
+    //by calling the "loft" table. Where stacks of straw bales are collected.
+    //
     //For creating wildcard table, who's first use is to be used with twine_table
     //to create ordered bundles of cuecards for our riddle cuecard decks.
-    public static final String WILDC_ID = "wildc_id"; //"id"=="identification#"
-    public static final String WILDC_SI = "wildc_si"; //"si"=="stack id"
+    public static final String LOFT_ID  = "loft_id" ; //"id"=="identification#"
+    public static final String BALE_SI  = "bale_si" ; //"si"=="stack id"
     public static final String STRAW_GI = "straw_gi"; //"gi"=="group id"
     
     //For creating contents of riddle-trial:

@@ -66,7 +66,7 @@ public class ServletClassNames {
     public static final String StackCTRL_CLASSNAME = "StackCTRL";
     public static final String StackCTRL_MAPPING   = "StackCTRL/";
     
-    //WILDC SERVICE:
+    //LOFT SERVICE:
     public static final String LoftCTRL_CLASSNAME = "LoftCTRL";
     public static final String LoftCTRL_MAPPING   = "LoftCTRL/";
     
