@@ -3,9 +3,9 @@ package test.dbDataAbstractions.bundleTypes;
 import java.util.List;
 import primitives.Synopsis;
 import test.dbDataAbstractions.entities.bases.BundleEntityBase;
-import test.dbDataAbstractions.entities.composites.CueCard;
-import test.dbDataAbstractions.entities.composites.Deck;
-import test.dbDataAbstractions.entities.composites.Quar;
+import test.dbDataAbstractions.entities.tablePojos.CueCard;
+import test.dbDataAbstractions.entities.tablePojos.Deck;
+import test.dbDataAbstractions.entities.tablePojos.Quar;
 import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
 
 /**-------------------------HEADER START----------------------------------------

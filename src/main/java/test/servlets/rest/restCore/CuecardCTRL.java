@@ -10,7 +10,7 @@ import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.bases.CompositeEntityBase;
-import test.dbDataAbstractions.entities.composites.CueCard;
+import test.dbDataAbstractions.entities.tablePojos.CueCard;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forNoClearTableOwner.riddleRhyme.RiddleRhymeTransUtil;
 import test.transactions.util.tables.cuecard.CuecardPersistUtil;

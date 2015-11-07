@@ -1,6 +1,6 @@
 package test.debug.debugUtils.tempDataStore;
 
-import test.dbDataAbstractions.entities.composites.Quar;
+import test.dbDataAbstractions.entities.tablePojos.Quar;
 
 /**-----------------------------------------------------------------------------
  * A temporary class for developing HTTP POST service.

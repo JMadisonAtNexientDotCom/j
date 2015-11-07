@@ -1,7 +1,7 @@
 package test.transactions.util.tables.cuecard;
 
 import test.MyError;
-import test.dbDataAbstractions.entities.composites.CueCard;
+import test.dbDataAbstractions.entities.tablePojos.CueCard;
 import test.dbDataAbstractions.entities.tables.RhymeTable;
 import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.CuecardTable;
 import test.transactions.util.tables.ink.InkReadUtil;

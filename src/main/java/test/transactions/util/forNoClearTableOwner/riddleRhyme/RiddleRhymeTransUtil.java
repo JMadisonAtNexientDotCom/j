@@ -3,7 +3,7 @@ package test.transactions.util.forNoClearTableOwner.riddleRhyme;
 import java.util.ArrayList;
 import java.util.List;
 import test.MyError;
-import test.dbDataAbstractions.entities.composites.CueCard;
+import test.dbDataAbstractions.entities.tablePojos.CueCard;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.RhymeTable;
 import test.dbDataAbstractions.entities.tables.RiddleTable;

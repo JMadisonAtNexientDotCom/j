@@ -2,7 +2,7 @@ package test.transactions.util.tables.cuecard;
 
 import primitives.LongBool;
 import test.MyError;
-import test.dbDataAbstractions.entities.composites.CueCard;
+import test.dbDataAbstractions.entities.tablePojos.CueCard;
 import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.CuecardTable;
 import test.transactions.util.TransUtil;
 import test.transactions.util.tables.ink.InkPersistUtil;

@@ -1,6 +1,6 @@
 package test.transactions.util.forCompositeEntities;
 
-import test.dbDataAbstractions.entities.composites.CueCard;
+import test.dbDataAbstractions.entities.tablePojos.CueCard;
 import test.dbDataAbstractions.entities.tables.RiddleTable;
 import test.transactions.util.TransUtil;
 import test.transactions.util.forNoClearTableOwner.riddleRhyme.RiddleRhymeTransUtil;

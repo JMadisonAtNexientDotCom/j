@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import test.MyError;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
-import test.dbDataAbstractions.entities.composites.CueCard;
+import test.dbDataAbstractions.entities.tablePojos.CueCard;
 import test.dbDataAbstractions.entities.containers.BaseEntityContainer;
 import test.dbDataAbstractions.entities.tables.RhymeTable;
 import test.dbDataAbstractions.entities.tables.RiddleTable;

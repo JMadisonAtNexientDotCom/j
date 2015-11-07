@@ -1,8 +1,8 @@
 package test.transactions.util.tables.deck;
 
 import test.MyError;
-import test.dbDataAbstractions.entities.composites.CueCard;
-import test.dbDataAbstractions.entities.composites.Deck;
+import test.dbDataAbstractions.entities.tablePojos.CueCard;
+import test.dbDataAbstractions.entities.tablePojos.Deck;
 import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.DeckTable;
 import test.transactions.util.tables.cuecard.CuecardReadUtil;
 import java.util.ArrayList;

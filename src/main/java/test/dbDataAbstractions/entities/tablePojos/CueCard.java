@@ -1,4 +1,4 @@
-package test.dbDataAbstractions.entities.composites;
+package test.dbDataAbstractions.entities.tablePojos;
 
 import test.dbDataAbstractions.entities.bases.CompositeEntityBase;
 import java.util.ArrayList;

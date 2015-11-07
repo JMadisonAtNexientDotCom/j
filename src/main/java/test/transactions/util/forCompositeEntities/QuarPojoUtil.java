@@ -2,9 +2,9 @@ package test.transactions.util.forCompositeEntities;
 
 import test.MyError;
 import test.config.debug.DebugConfig;
-import test.dbDataAbstractions.entities.composites.CueCard;
-import test.dbDataAbstractions.entities.composites.Deck;
-import test.dbDataAbstractions.entities.composites.Quar;
+import test.dbDataAbstractions.entities.tablePojos.CueCard;
+import test.dbDataAbstractions.entities.tablePojos.Deck;
+import test.dbDataAbstractions.entities.tablePojos.Quar;
 import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
 import test.debug.debugUtils.lists.ListDebugUtil;
 import test.transactions.util.TransUtil;

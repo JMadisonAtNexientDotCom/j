@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import test.config.constants.ServletClassNames;
 import test.config.constants.identifiers.FuncNameReg;
 import test.config.constants.identifiers.VarNameReg;
-import test.dbDataAbstractions.entities.composites.Deck;
+import test.dbDataAbstractions.entities.tablePojos.Deck;
 import test.dbDataAbstractions.requestAndResponseTypes.PossibleErrorResponse;
 import test.transactions.util.TransUtil;
 import test.transactions.util.tables.deck.DeckPersistUtil;

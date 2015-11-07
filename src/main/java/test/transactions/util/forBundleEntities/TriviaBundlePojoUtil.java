@@ -3,7 +3,7 @@ package test.transactions.util.forBundleEntities;
 import primitives.Synopsis;
 import test.MyError;
 import test.dbDataAbstractions.bundleTypes.TriviaBundle;
-import test.dbDataAbstractions.entities.composites.CueCard;
+import test.dbDataAbstractions.entities.tablePojos.CueCard;
 import test.dbDataAbstractions.fracturedTypes.clientServerConversation.lectern.Slate;
 import test.transactions.util.tables.deck.DeckPojoUtil;
 import test.transactions.util.forCompositeEntities.QuarPojoUtil;
