@@ -92,7 +92,7 @@ public class VarNameReg {
     //to create ordered bundles of cuecards for our riddle cuecard decks.
     public static final String WILDC_ID = "wildc_id"; //"id"=="identification#"
     public static final String WILDC_SI = "wildc_si"; //"si"=="stack id"
-    public static final String WILDC_GI = "wildc_gi"; //"gi"=="group id"
+    public static final String STRAW_GI = "straw_gi"; //"gi"=="group id"
     
     //For creating contents of riddle-trial:
     public static final String DECK_GI   = "deck_gi"; //deck group id, foriegn key.

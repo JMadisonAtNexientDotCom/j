@@ -21,19 +21,19 @@ import test.dbDataAbstractions.entities.bases.StackEntity;
  * @author jmadison:2015.11.02_0605PM (November,2nd,Year2015.6:05PM)
  */
 @Entity
-@Table(name =WildcStack.TABLE_NAME)
-public class WildcStack extends StackEntity{
+@Table(name =BaleStack.TABLE_NAME)
+public class BaleStack extends StackEntity{
     
     /** Name of table this entity refers to, for easy refactoring. **/
-    public static final String TABLE_NAME           = TableNameReg.WILDC_STACK;
+    public static final String TABLE_NAME      = TableNameReg.BALE_STACK;
     /** Column name stored as string constant for easy refactoring. **/
-    public static final String ID_COLUMN            = VarNameReg.ID;
+    public static final String ID_COLUMN       = VarNameReg.ID;
     
     //Values referencing columns used for making criteria searches:
-    public static final String WILDC_GI_COLUMN = VarNameReg.WILDC_GI;
+    public static final String STRAW_GI_COLUMN = VarNameReg.STRAW_GI;
     
     @Basic(fetch=FetchType.EAGER) //<--attempt to make group_id not null 
-    @Column(name = WILDC_GI_COLUMN)  //when getting it from database.
-    public long wildc_gi; //<--change to value-type.
+    @Column(name = STRAW_GI_COLUMN)  //when getting it from database.
+    public long straw_gi; //<--change to value-type.
     
 }//CLASS::END

@@ -26,11 +26,11 @@ import test.dbDataAbstractions.entities.bases.PurseEntity;
  * @author jmadison:2015.11.02_0605PM (November,2nd,Year2015.6:05PM)
  */
 @Entity
-@Table(name =WildcPurse.TABLE_NAME)
-public class WildcPurse extends PurseEntity{
+@Table(name =StrawPurse.TABLE_NAME)
+public class StrawPurse extends PurseEntity{
     
     /** Name of table this entity refers to, for easy refactoring. **/
-    public static final String TABLE_NAME           = TableNameReg.WILDC_PURSE;
+    public static final String TABLE_NAME           = TableNameReg.STRAW_PURSE;
     /** Column name stored as string constant for easy refactoring. **/
     public static final String ID_COLUMN            = VarNameReg.ID;
     

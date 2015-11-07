@@ -18,8 +18,8 @@ public class TableNameReg {
     
     //Tables for creating GENERIC wildcard groupings:
     public static final String WILDC_TABLE    = "wildc_table";
-    public static final String WILDC_STACK    = "wildc_stack";
-    public static final String WILDC_PURSE    = "wildc_purse";
+    public static final String BALE_STACK     = "bale_stack" ;
+    public static final String STRAW_PURSE    = "straw_purse";
     public static final String STACK_TABLE    = "stack_table";
     
 //Tables who's job it is to store the contents of a riddle-trial.

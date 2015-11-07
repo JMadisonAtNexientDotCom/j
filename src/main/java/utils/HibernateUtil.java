@@ -31,8 +31,8 @@ import test.dbDataAbstractions.entities.tables.TokenTable;
 import test.dbDataAbstractions.entities.tables.TransTable;
 import test.dbDataAbstractions.entities.tables.TrialTable;
 import test.dbDataAbstractions.entities.tables.TwineTable;
-import test.dbDataAbstractions.entities.tables.WildcPurse;
-import test.dbDataAbstractions.entities.tables.WildcStack;
+import test.dbDataAbstractions.entities.tables.StrawPurse;
+import test.dbDataAbstractions.entities.tables.BaleStack;
 import test.dbDataAbstractions.entities.tables.LoftTable;
 import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.CuecardTable;
 import test.dbDataAbstractions.entities.tables.riddleTrialStore.questionStore.DeckPurse;
@@ -268,8 +268,8 @@ public class HibernateUtil {
         
         //Core tables creating wildcard data:
         addAnnoEntity(mds, LoftTable .class); //<--packages groups into single id.
-        addAnnoEntity(mds, WildcStack .class); //<--ordered groups.
-        addAnnoEntity(mds, WildcPurse .class); //<--un-ordered sub-groups.
+        addAnnoEntity(mds, BaleStack .class); //<--ordered groups.
+        addAnnoEntity(mds, StrawPurse .class); //<--un-ordered sub-groups.
         //WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
         
         //Tables for storing a riddle-trial: (RESPONSES)
