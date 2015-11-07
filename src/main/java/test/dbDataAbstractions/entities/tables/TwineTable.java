@@ -9,7 +9,6 @@ import test.config.constants.identifiers.TableNameReg;
 import test.config.constants.identifiers.VarNameReg;
 import test.dbDataAbstractions.entities.bases.BaseEntity;
 
-  
 ////////////////// LOFT ABSTRACTION DOCUMENTATION START ////////////////////////
 /*
 Diagram relevant enough to these tables to be included in the header file:
